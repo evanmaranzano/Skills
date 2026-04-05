@@ -1,5 +1,8 @@
 # 📄 docx-editor-cn
 
+> **Fork of** [Gostyan/docx-skill-4-cn-paper](https://github.com/Gostyan/docx-skill-4-cn-paper) (MIT License)<br>
+> 本版本在原项目基础上修复了若干安全问题，详见下方 `🔒 安全修复` 章节。
+
 <p align="center">
   <img src="https://img.shields.io/badge/Platform-Node.js-339933?style=flat-square&logo=node.js" alt="Node.js">
   <img src="https://img.shields.io/badge/Language-中文学术-red?style=flat-square" alt="中文">
@@ -312,6 +315,19 @@ new Paragraph({ style: 'MyCustomStyle', children: [new TextRun('内容')] })
         ├── validate.py     ← 文档验证
         └── soffice.py      ← LibreOffice 调用
 ```
+
+---
+
+## 🔒 安全修复
+
+本版本相对于原版进行了以下安全加固：
+
+| # | 风险等级 | 问题 | 修复内容 |
+|---|---------|------|---------|
+| 1 | 🔴 高危 | `soffice.py` 动态编译 C 代码并通过 `LD_PRELOAD` 注入系统调用 | 默认禁用，需环境变量 `ALLOW_LD_PRELOAD_SHIM=1` 显式开启 |
+| 2 | 🟡 中危 | `unpack.py` 解压 zip 时无路径穿越防护 | 新增 `_safe_extractall()` 检测绝对路径和 `../` 穿越 |
+| 3 | 🟡 中危 | `comment.py` 用户输入直接嵌入 XML 模板 | 新增 `_xml_escape()` 对用户文本进行 XML 转义 |
+| 4 | 🟢 低危 | 使用 `random` 生成 ID，非加密安全 | 改用 `secrets.randbelow()` 提供加密安全的随机 ID |
 
 ---
 
