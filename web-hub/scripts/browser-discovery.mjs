@@ -70,16 +70,51 @@ function readConfig() {
   return cfg;
 }
 
+async function probeBrowserOnPort(port) {
+  try {
+    const res = await fetch(`http://127.0.0.1:${port}/json/version`, { signal: AbortSignal.timeout(3000) });
+    const data = await res.json();
+    const ua = data['User-Agent'] || data.UserAgent || '';
+    const wsUrl = data.webSocketDebuggerUrl || '';
+    const wsPath = wsUrl ? new URL(wsUrl).pathname : null;
+    let id = 'unknown';
+    if (ua.includes('Chrome/') && !ua.includes('Edg/')) id = 'chrome';
+    else if (ua.includes('Edg/')) id = 'edge';
+    else if (ua.includes('Chromium/')) id = 'chromium';
+    return { id, port, wsPath };
+  } catch { return null; }
+}
+
 async function detectAll() {
   const result = [];
+  const detectedPorts = new Set();
   for (const browser of knownBrowsers()) {
     let content;
     try { content = fs.readFileSync(browser.devToolsPath, 'utf8'); }
-    catch { continue; }
+    catch {
+      // DevToolsActivePort 缺失：探测常见端口，找到后自动创建文件
+      for (const probePort of [9222, 9223, 9229, 9333]) {
+        if (detectedPorts.has(probePort)) continue;
+        if (!(await checkPort(probePort))) continue;
+        const probe = await probeBrowserOnPort(probePort);
+        if (probe && probe.id === browser.id) {
+          detectedPorts.add(probePort);
+          // 自动创建 DevToolsActivePort 文件
+          try {
+            const dir = path.dirname(browser.devToolsPath);
+            if (!fs.existsSync(dir)) continue;
+            fs.writeFileSync(browser.devToolsPath, `${probePort}\n${probe.wsPath || ''}\n`);
+          } catch {}
+          result.push({ ...browser, port: probePort, wsPath: probe.wsPath });
+        }
+      }
+      continue;
+    }
     const lines = content.trim().split(/\r?\n/).filter(Boolean);
     const port = parseInt(lines[0], 10);
     if (!(port > 0 && port < 65536)) continue;
     if (!(await checkPort(port))) continue;
+    detectedPorts.add(port);
     result.push({ ...browser, port, wsPath: lines[1] || null });
   }
   return result;
@@ -108,7 +143,7 @@ export async function selectBrowser(override = null) {
 }
 
 export async function findFallbackPort() {
-  for (const port of [9222, 9229, 9333]) {
+  for (const port of [9222, 9223, 9229, 9333]) {
     if (await checkPort(port)) {
       // Query /json/version to get real WebSocket URL (DevToolsActivePort may be stale)
       const wsPath = await getWsPathFromVersion(port);

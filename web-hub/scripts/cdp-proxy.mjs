@@ -309,11 +309,13 @@ const server = http.createServer(async (req, res) => {
       if (req.method !== 'POST') { res.statusCode = 400; res.end(JSON.stringify({ error: 'POST required' })); return; }
       const body = (await readBody(req)).trim();
       const targetUrl = body || 'about:blank';
-      const resp = await sendCDP('Target.createTarget', { url: targetUrl, background: true });
+      const resp = await sendCDP('Target.createTarget', { url: 'about:blank', background: true });
       const targetId = resp.result.targetId;
       managedTabs.set(targetId, { lastAccessed: Date.now() });
       if (targetUrl !== 'about:blank') {
-        try { const sid = await ensureSession(targetId); await waitForLoad(sid); } catch {}
+        const sid = await ensureSession(targetId);
+        await sendCDP('Page.navigate', { url: targetUrl }, sid);
+        await waitForLoad(sid);
       }
       res.end(JSON.stringify({ targetId }));
     }
@@ -336,8 +338,14 @@ const server = http.createServer(async (req, res) => {
 
     else if (pathname === '/back') {
       const sid = await ensureSession(q.target);
-      await sendCDP('Runtime.evaluate', { expression: 'history.back()' }, sid);
-      await waitForLoad(sid);
+      const history = await sendCDP('Page.getNavigationHistory', {}, sid);
+      const currentIndex = history.result?.currentIndex;
+      const entries = history.result?.entries || [];
+      const previousUrl = currentIndex > 0 ? entries[currentIndex - 1]?.url : null;
+      if (previousUrl) {
+        await sendCDP('Page.navigate', { url: previousUrl }, sid);
+        await waitForLoad(sid);
+      }
       res.end(JSON.stringify({ ok: true }));
     }
 
@@ -422,8 +430,15 @@ const server = http.createServer(async (req, res) => {
 
     else if (pathname === '/screenshot') {
       const sid = await ensureSession(q.target);
+      await sendCDP('Page.enable', {}, sid);
+      // 等待页面就绪（JS 导航可能导致 Page 域挂起）
+      await waitForLoad(sid, 5000);
+      // Chrome 143 may hang on screenshot after screenshot+navigate unless layout is forced first
+      await sendCDP('Runtime.evaluate', { expression: 'document.body ? document.body.offsetHeight : document.documentElement.offsetHeight', returnByValue: true }, sid);
       const format = q.format || 'png';
       const resp = await sendCDP('Page.captureScreenshot', { format, quality: format === 'jpeg' ? 80 : undefined }, sid);
+      // Reset Page domain after capture to avoid carrying screenshot state across navigations
+      await sendCDP('Page.disable', {}, sid);
       if (q.file) {
         const ALLOWED_EXTS = ['.png', '.jpeg', '.jpg', '.webp'];
         const ext = path.extname(q.file).toLowerCase();
