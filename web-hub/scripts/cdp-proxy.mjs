@@ -4,12 +4,23 @@
 // Node.js 22+（原生 WebSocket）
 
 import http from 'node:http';
+import crypto from 'node:crypto';
 import { URL } from 'node:url';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import net from 'node:net';
 import { selectBrowser, findFallbackPort } from './browser-discovery.mjs';
+
+// --- 鉴权 Token ---
+const AUTH_TOKEN = crypto.randomUUID();
+const TOKEN_FILE = path.join(os.tmpdir(), 'cdp-proxy-token');
+// mode 0o600 在 Windows 上被忽略（NTFS ACL），localhost 绑定已限制外部访问
+try { fs.writeFileSync(TOKEN_FILE, AUTH_TOKEN, { mode: 0o600 }); } catch {}
+console.log(`[CDP Proxy] Auth token written to: ${TOKEN_FILE}`);
+
+const SCREENSHOT_DIR = path.join(os.tmpdir(), 'cdp-screenshots');
+try { fs.mkdirSync(SCREENSHOT_DIR, { recursive: true }); } catch {}
 
 // --- 解析 --browser 参数 ---
 function parseBrowserArg() {
@@ -265,6 +276,17 @@ const server = http.createServer(async (req, res) => {
 
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
+  // 鉴权：/health 免鉴权，其余端点强制 Bearer token
+  if (pathname !== '/health') {
+    const authHeader = req.headers['authorization'] || '';
+    if (!authHeader.startsWith('Bearer ') || authHeader.slice(7) !== AUTH_TOKEN) {
+      res.statusCode = 401;
+      res.end(JSON.stringify({ error: 'Unauthorized. Provide Authorization: Bearer <token>' }));
+      console.error(`[CDP Proxy] 拒绝未鉴权请求: ${req.method} ${pathname} from ${req.socket.remoteAddress}`);
+      return;
+    }
+  }
+
   try {
     if (pathname === '/health') {
       const connected = ws && (ws.readyState === WS.OPEN || ws.readyState === 1);
@@ -403,8 +425,27 @@ const server = http.createServer(async (req, res) => {
       const format = q.format || 'png';
       const resp = await sendCDP('Page.captureScreenshot', { format, quality: format === 'jpeg' ? 80 : undefined }, sid);
       if (q.file) {
-        fs.writeFileSync(q.file, Buffer.from(resp.result.data, 'base64'));
-        res.end(JSON.stringify({ saved: q.file }));
+        const ALLOWED_EXTS = ['.png', '.jpeg', '.jpg', '.webp'];
+        const ext = path.extname(q.file).toLowerCase();
+        const basename = path.basename(q.file);
+        if (!ALLOWED_EXTS.includes(ext)) {
+          res.statusCode = 400;
+          res.end(JSON.stringify({ error: `不支持的扩展名 "${ext}"，允许: ${ALLOWED_EXTS.join(', ')}` }));
+          return;
+        }
+        const safePath = path.join(SCREENSHOT_DIR, basename);
+        if (safePath !== path.resolve(safePath) || !safePath.startsWith(SCREENSHOT_DIR)) {
+          res.statusCode = 400;
+          res.end(JSON.stringify({ error: '非法路径' }));
+          return;
+        }
+        if (fs.existsSync(safePath)) {
+          res.statusCode = 409;
+          res.end(JSON.stringify({ error: `文件已存在: ${safePath}` }));
+          return;
+        }
+        fs.writeFileSync(safePath, Buffer.from(resp.result.data, 'base64'));
+        res.end(JSON.stringify({ saved: safePath }));
       } else {
         res.setHeader('Content-Type', 'image/' + format);
         res.end(Buffer.from(resp.result.data, 'base64'));

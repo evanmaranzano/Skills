@@ -48,6 +48,18 @@ function httpGetJson(url, timeoutMs = 3000) {
     .catch(() => null);
 }
 
+function readProxyToken() {
+  try { return fs.readFileSync(path.join(os.tmpdir(), 'cdp-proxy-token'), 'utf8').trim(); } catch { return null; }
+}
+
+function httpGetJsonAuth(url, timeoutMs = 3000) {
+  const token = readProxyToken();
+  const headers = token ? { Authorization: `Bearer ${token}` } : {};
+  return fetch(url, { signal: AbortSignal.timeout(timeoutMs), headers })
+    .then(async (res) => { try { return JSON.parse(await res.text()); } catch { return null; } })
+    .catch(() => null);
+}
+
 function startProxyDetached(browserOverride) {
   const logFile = path.join(os.tmpdir(), 'cdp-proxy.log');
   const logFd = fs.openSync(logFile, 'a');
@@ -84,9 +96,9 @@ async function ensureProxy(expectedBrowserId, browserOverride) {
   await new Promise((r) => setTimeout(r, 2000));
 
   for (let i = 1; i <= 15; i++) {
-    const result = await httpGetJson(targetsUrl, 8000);
+    const result = await httpGetJsonAuth(targetsUrl, 8000);
     if (Array.isArray(result)) {
-      const newHealth = await httpGetJson(healthUrl);
+      const newHealth = await httpGetJsonAuth(healthUrl);
       const label = newHealth?.browser?.label || 'unknown';
       console.log(`proxy: ready (${label})`);
       return true;

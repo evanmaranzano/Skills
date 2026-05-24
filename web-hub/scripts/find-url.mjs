@@ -15,7 +15,7 @@ import os from 'node:os';
 import { execFileSync } from 'node:child_process';
 
 function parseArgs(argv) {
-  const a = { keywords: [], only: null, browser: null, limit: 20, since: null, sort: 'recent' };
+  const a = { keywords: [], only: null, browser: null, limit: 20, since: null, sort: 'recent', all: false, fullUrl: false };
   for (let i = 0; i < argv.length; i++) {
     const v = argv[i];
     if (v === '--only')         a.only    = argv[++i];
@@ -23,6 +23,8 @@ function parseArgs(argv) {
     else if (v === '--limit')   a.limit   = parseInt(argv[++i], 10);
     else if (v === '--since')   a.since   = parseSince(argv[++i]);
     else if (v === '--sort')    a.sort    = argv[++i];
+    else if (v === '--all')     a.all     = true;
+    else if (v === '--full-url') a.fullUrl = true;
     else if (v === '-h' || v === '--help') { printUsage(); process.exit(0); }
     else if (v.startsWith('--')) die(`未知参数: ${v}`);
     else a.keywords.push(v);
@@ -47,7 +49,7 @@ function parseSince(s) {
 }
 
 function die(msg) { console.error(msg); process.exit(1); }
-function printUsage() { console.error('node find-url.mjs [关键词...] [--only bookmarks|history] [--limit N] [--since 1d|7d] [--sort recent|visits] [--browser chrome|edge]'); }
+function printUsage() { console.error('node find-url.mjs [关键词...] [--only bookmarks|history] [--limit N] [--since 1d|7d] [--sort recent|visits] [--browser chrome|edge] [--all] [--full-url]\n  --limit 0 表示无限制'); }
 
 function knownBrowserDataDirs() {
   const home = os.homedir();
@@ -118,8 +120,8 @@ function searchHistory(profileDir, profileName, browserLabel, keywords, since, l
     fs.copyFileSync(src, tmp);
     const conds = ['last_visit_time > 0'];
     for (const kw of keywords) {
-      const esc = kw.toLowerCase().replace(/'/g, "''");
-      conds.push(`LOWER(title || ' ' || url) LIKE '%${esc}%'`);
+      const esc = kw.toLowerCase().replace(/'/g, "''").replace(/%/g, '\\%').replace(/_/g, '\\_');
+      conds.push(`LOWER(title || ' ' || url) LIKE '%${esc}%' ESCAPE '\\'`);
     }
     if (since) {
       const webkitUs = BigInt(since.getTime()) * 1000n + WEBKIT_EPOCH_DIFF_US;
@@ -148,6 +150,16 @@ function searchHistory(profileDir, profileName, browserLabel, keywords, since, l
 
 const clean = s => String(s ?? '').replaceAll('|', '│').trim();
 
+function sanitizeUrl(url, full) {
+  if (full) return url;
+  try {
+    const u = new URL(url);
+    u.hash = '';
+    u.search = '';
+    return u.toString();
+  } catch { return url; }
+}
+
 function originTag(item, showBrowser, showProfile) {
   if (showBrowser && showProfile) return '@' + clean(item.browser) + '-' + clean(item.profile);
   if (showBrowser) return '@' + clean(item.browser);
@@ -155,10 +167,10 @@ function originTag(item, showBrowser, showProfile) {
   return null;
 }
 
-function printBookmarks(items, showBrowser, showProfile) {
+function printBookmarks(items, showBrowser, showProfile, fullUrl) {
   console.log(`[书签] ${items.length} 条`);
   for (const b of items) {
-    const segs = [clean(b.name) || '(无标题)', clean(b.url)];
+    const segs = [clean(b.name) || '(无标题)', sanitizeUrl(clean(b.url), fullUrl)];
     if (b.folder) segs.push(clean(b.folder));
     const tag = originTag(b, showBrowser, showProfile);
     if (tag) segs.push(tag);
@@ -166,10 +178,10 @@ function printBookmarks(items, showBrowser, showProfile) {
   }
 }
 
-function printHistory(items, showBrowser, showProfile, sortLabel) {
+function printHistory(items, showBrowser, showProfile, sortLabel, fullUrl) {
   console.log(`[历史] ${items.length} 条（${sortLabel}）`);
   for (const h of items) {
-    const segs = [clean(h.title) || '(无标题)', clean(h.url), h.visit];
+    const segs = [clean(h.title) || '(无标题)', sanitizeUrl(clean(h.url), fullUrl), h.visit];
     if (h.visit_count > 1) segs.push(`visits=${h.visit_count}`);
     const tag = originTag(h, showBrowser, showProfile);
     if (tag) segs.push(tag);
@@ -190,6 +202,10 @@ if (!browsers.length) die('未找到任何浏览器（Chrome / Edge）的用户�
 
 const doBookmarks = args.only !== 'history';
 const doHistory   = args.only !== 'bookmarks';
+
+if (!args.keywords.length && doHistory && !args.all) {
+  die('无关键词搜索历史会暴露浏览记录，请添加关键词或使用 --all 确认（默认隐藏 URL query/hash）');
+}
 
 const bookmarks = [];
 const history = [];
@@ -217,10 +233,13 @@ const showBrowser = seenBrowsers.size > 1;
 const showProfile = seenProfiles.size > 1;
 
 const sortLabel = args.sort === 'visits' ? '按访问次数' : '按最近访问';
-if (doBookmarks) printBookmarks(bookmarksOut, showBrowser, showProfile);
+if (doBookmarks) printBookmarks(bookmarksOut, showBrowser, showProfile, args.fullUrl);
 if (doBookmarks && doHistory) console.log();
-if (doHistory)   printHistory(historyOut, showBrowser, showProfile, sortLabel);
+if (doHistory)   printHistory(historyOut, showBrowser, showProfile, sortLabel, args.fullUrl);
 
 if (!args.keywords.length && doBookmarks && !doHistory) {
   console.error('\n提示：书签无时间维度，无关键词查询无意义。加关键词或 --only history');
+}
+if (!args.fullUrl) {
+  console.error('\n提示：默认隐藏 URL query/hash，如需完整 URL 使用 --full-url');
 }

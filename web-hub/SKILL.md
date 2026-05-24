@@ -16,6 +16,8 @@ Run environment check before first CDP operation:
 node "${CLAUDE_SKILL_DIR}/scripts/check-deps.mjs"
 ```
 
+Note: This command creates `config.env` from template on first run (safe copy, no overwrite).
+
 Exit codes: `0` = proceed, `2` = ask user for browser preference (chrome/edge), `1` = follow error guidance.
 
 Before CDP browser automation on social platforms, warn user about automation detection risks.
@@ -73,6 +75,8 @@ Connects to your **daily browser** (Chrome/Edge) via CDP Proxy, carrying existin
 
 ### Proxy API (localhost:3456)
 
+All endpoints require `Authorization: Bearer <token>` (token printed to console on proxy startup, stored in `$TMPDIR/cdp-proxy-token`). `/health` is the only exception.
+
 | Endpoint | Method | Body | Description |
 |----------|--------|------|-------------|
 | `/health` | GET | — | Check proxy status |
@@ -87,7 +91,7 @@ Connects to your **daily browser** (Chrome/Edge) via CDP Proxy, carrying existin
 | `/clickAt?target=ID` | POST | CSS selector | Real mouse event (bypasses anti-automation) |
 | `/setFiles?target=ID` | POST | JSON `{selector, files}` | Upload files to input |
 | `/scroll?target=ID&direction=down` | GET | — | Scroll (down/up/top/bottom) |
-| `/screenshot?target=ID&file=path` | GET | — | Capture screenshot |
+| `/screenshot?target=ID` | GET | — | Capture screenshot (returns image binary). Add `&file=name.png` to save to `$TMPDIR/cdp-screenshots/` (image extensions only, no overwrite) |
 
 URLs go in POST body (not query string) to avoid truncation.
 
@@ -97,19 +101,22 @@ URLs go in POST body (not query string) to avoid truncation.
 # 1. Ensure proxy is running
 node "${CLAUDE_SKILL_DIR}/scripts/check-deps.mjs"
 
-# 2. Open page
-curl -X POST --data-raw 'https://example.com' http://localhost:3456/new
+# 2. Read token (printed to console, or read from file)
+TOKEN=$(cat "$TMPDIR/cdp-proxy-token")
+
+# 3. Open page
+curl -X POST -H "Authorization: Bearer $TOKEN" --data-raw 'https://example.com' http://localhost:3456/new
 # → {"targetId": "ABC123"}
 
-# 3. Extract content
-curl -X POST --data-raw 'document.title' http://localhost:3456/eval?target=ABC123
+# 4. Extract content
+curl -X POST -H "Authorization: Bearer $TOKEN" --data-raw 'document.title' http://localhost:3456/eval?target=ABC123
 # → {"value": "Example Domain"}
 
-# 4. Interact
-curl -X POST --data-raw 'a.link' http://localhost:3456/click?target=ABC123
+# 5. Interact
+curl -X POST -H "Authorization: Bearer $TOKEN" --data-raw 'a.link' http://localhost:3456/click?target=ABC123
 
-# 5. Cleanup
-curl http://localhost:3456/close?target=ABC123
+# 6. Cleanup
+curl -H "Authorization: Bearer $TOKEN" http://localhost:3456/close?target=ABC123
 ```
 
 ### Key Technical Facts
@@ -142,8 +149,13 @@ Try to get content first. Only prompt user to log in when content is confirmed i
 For pages you've visited before (internal systems, SSO backends, intranet):
 
 ```bash
-node "${CLAUDE_SKILL_DIR}/scripts/find-url.mjs [keywords] [--only bookmarks|history] [--limit N] [--since 1d|7d] [--browser edge]
+node "${CLAUDE_SKILL_DIR}/scripts/find-url.mjs [keywords] [--only bookmarks|history] [--limit N] [--since 1d|7d] [--browser edge] [--all] [--full-url]
 ```
+
+- `--all`: Bypass the keyword requirement for history search (still masks URL query/hash by default).
+- `--full-url`: Show full URLs including query parameters and hash fragments.
+
+Privacy: URL query/hash are hidden by default to avoid leaking tokens, SSO callbacks, or sensitive parameters. Use `--full-url` to reveal them.
 
 Use this **before** web search when the target might be in your local browser data.
 

@@ -92,22 +92,12 @@ export async function selectBrowser(override = null) {
   if (override) {
     const match = detected.find(b => b.id === override);
     if (match) return { kind: 'ok', browser: match, source: 'override', detected, configured, override };
-    // Fallback: check if any CDP port is open (Chrome with --remote-debugging-port)
-    const fallback = await findFallbackPort();
-    if (fallback) {
-      return { kind: 'ok', browser: { id: override, label: override, port: fallback.port, wsPath: fallback.wsPath }, source: 'override', detected, configured, override };
-    }
     return { kind: 'mismatch', source: 'override', detected, configured, override };
   }
 
   if (configured) {
     const match = detected.find(b => b.id === configured);
     if (match) return { kind: 'ok', browser: match, source: 'preference', detected, configured };
-    // Fallback: check if any CDP port is open
-    const fallback = await findFallbackPort();
-    if (fallback) {
-      return { kind: 'ok', browser: { id: configured, label: configured, port: fallback.port, wsPath: fallback.wsPath }, source: 'preference', detected, configured };
-    }
     return { kind: 'mismatch', source: 'preference', detected, configured };
   }
 
