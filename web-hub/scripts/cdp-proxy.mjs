@@ -5,12 +5,34 @@
 
 import http from 'node:http';
 import crypto from 'node:crypto';
-import { URL } from 'node:url';
+import { URL, fileURLToPath } from 'node:url';
 import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import net from 'node:net';
 import { selectBrowser, findFallbackPort } from './browser-discovery.mjs';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const CONFIG_PATH = path.join(ROOT, 'config.env');
+
+function readConfig() {
+  const cfg = {};
+  let content;
+  try { content = fs.readFileSync(CONFIG_PATH, 'utf8'); }
+  catch { return cfg; }
+  for (const line of content.split(/\r?\n/)) {
+    const t = line.trim();
+    if (!t || t.startsWith('#')) continue;
+    const i = t.indexOf('=');
+    if (i === -1) continue;
+    const k = t.slice(0, i).trim();
+    const v = t.slice(i + 1).trim();
+    if (k && v) cfg[k] = v;
+  }
+  return cfg;
+}
+
+const CONFIG = readConfig();
 
 // --- 鉴权 Token ---
 const AUTH_TOKEN = crypto.randomUUID();
@@ -33,13 +55,13 @@ function parseBrowserArg() {
 }
 const BROWSER_OVERRIDE = parseBrowserArg();
 
-const PORT = parseInt(process.env.CDP_PROXY_PORT || '3456');
+const PORT = parseInt(process.env.CDP_PROXY_PORT || CONFIG.CDP_PROXY_PORT || '3456');
 let ws = null;
 let cmdId = 0;
 const pending = new Map();
 const sessions = new Map();
 const managedTabs = new Map();
-const TAB_IDLE_TIMEOUT = parseInt(process.env.CDP_TAB_IDLE_TIMEOUT || '900000');
+const TAB_IDLE_TIMEOUT = parseInt(process.env.CDP_TAB_IDLE_TIMEOUT || CONFIG.CDP_TAB_IDLE_TIMEOUT || '900000');
 const CLEANUP_INTERVAL = 60000;
 
 // --- WebSocket 兼容层 ---

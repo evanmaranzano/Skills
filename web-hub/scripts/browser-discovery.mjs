@@ -15,6 +15,29 @@ import { fileURLToPath } from 'node:url';
 
 const SKILL_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const CONFIG_PATH = path.join(SKILL_ROOT, 'config.env');
+const DEFAULT_PROBE_PORTS = [9222, 9223, 9229, 9333];
+
+function parseExtraProbePorts() {
+  const raw = process.env.WEB_HUB_CDP_PORTS || process.env.CDP_BROWSER_PORT || '';
+  return raw.split(',')
+    .map(s => Number(s.trim()))
+    .filter(p => Number.isInteger(p) && p > 0 && p < 65536);
+}
+
+function probePorts() {
+  const seen = new Set();
+  const ports = [];
+  for (const port of DEFAULT_PROBE_PORTS) {
+    seen.add(port);
+    ports.push({ port, writeDevToolsFile: true });
+  }
+  for (const port of parseExtraProbePorts()) {
+    if (seen.has(port)) continue;
+    seen.add(port);
+    ports.push({ port, writeDevToolsFile: false });
+  }
+  return ports;
+}
 
 export function knownBrowsers() {
   const home = os.homedir();
@@ -89,33 +112,33 @@ async function detectAll() {
   const result = [];
   const detectedPorts = new Set();
   for (const browser of knownBrowsers()) {
-    let content;
+    let content = null;
     try { content = fs.readFileSync(browser.devToolsPath, 'utf8'); }
-    catch {
-      // DevToolsActivePort 缺失：探测常见端口，找到后自动创建文件
-      for (const probePort of [9222, 9223, 9229, 9333]) {
-        if (detectedPorts.has(probePort)) continue;
-        if (!(await checkPort(probePort))) continue;
-        const probe = await probeBrowserOnPort(probePort);
-        if (probe && probe.id === browser.id) {
-          detectedPorts.add(probePort);
-          // 自动创建 DevToolsActivePort 文件
-          try {
-            const dir = path.dirname(browser.devToolsPath);
-            if (!fs.existsSync(dir)) continue;
-            fs.writeFileSync(browser.devToolsPath, `${probePort}\n${probe.wsPath || ''}\n`);
-          } catch {}
-          result.push({ ...browser, port: probePort, wsPath: probe.wsPath });
-        }
+    catch {}
+
+    if (content) {
+      const lines = content.trim().split(/\r?\n/).filter(Boolean);
+      const port = parseInt(lines[0], 10);
+      if (port > 0 && port < 65536 && await checkPort(port)) {
+        detectedPorts.add(port);
+        result.push({ ...browser, port, wsPath: lines[1] || null });
       }
-      continue;
     }
-    const lines = content.trim().split(/\r?\n/).filter(Boolean);
-    const port = parseInt(lines[0], 10);
-    if (!(port > 0 && port < 65536)) continue;
-    if (!(await checkPort(port))) continue;
-    detectedPorts.add(port);
-    result.push({ ...browser, port, wsPath: lines[1] || null });
+
+    for (const { port: probePort, writeDevToolsFile } of probePorts()) {
+      if (detectedPorts.has(probePort)) continue;
+      if (!(await checkPort(probePort))) continue;
+      const probe = await probeBrowserOnPort(probePort);
+      if (!probe || probe.id !== browser.id) continue;
+      detectedPorts.add(probePort);
+      if (writeDevToolsFile) {
+        try {
+          const dir = path.dirname(browser.devToolsPath);
+          if (fs.existsSync(dir)) fs.writeFileSync(browser.devToolsPath, `${probePort}\n${probe.wsPath || ''}\n`);
+        } catch {}
+      }
+      result.push({ ...browser, port: probePort, wsPath: probe.wsPath });
+    }
   }
   return result;
 }
@@ -143,7 +166,7 @@ export async function selectBrowser(override = null) {
 }
 
 export async function findFallbackPort() {
-  for (const port of [9222, 9223, 9229, 9333]) {
+  for (const { port } of probePorts()) {
     if (await checkPort(port)) {
       // Query /json/version to get real WebSocket URL (DevToolsActivePort may be stale)
       const wsPath = await getWsPathFromVersion(port);

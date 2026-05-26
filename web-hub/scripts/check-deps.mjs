@@ -4,6 +4,7 @@
 // 用法：
 //   node check-deps.mjs                  默认行为：读 config.env 偏好
 //   node check-deps.mjs --browser edge   本次临时指定浏览器（不写 config.env）
+//   node check-deps.mjs --check-only     只检查环境/配置，不启动 CDP Proxy
 
 import { spawn } from 'node:child_process';
 import fs from 'node:fs';
@@ -14,15 +15,37 @@ import { selectBrowser, knownBrowsers, findFallbackPort } from './browser-discov
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PROXY_SCRIPT = path.join(ROOT, 'scripts', 'cdp-proxy.mjs');
-const PROXY_PORT = Number(process.env.CDP_PROXY_PORT || 3456);
 const CONFIG_PATH = path.join(ROOT, 'config.env');
 const CONFIG_TEMPLATE = path.join(ROOT, 'templates', 'config.env.template');
 
+function readConfig() {
+  const cfg = {};
+  let content;
+  try { content = fs.readFileSync(CONFIG_PATH, 'utf8'); }
+  catch { return cfg; }
+  for (const line of content.split(/\r?\n/)) {
+    const t = line.trim();
+    if (!t || t.startsWith('#')) continue;
+    const i = t.indexOf('=');
+    if (i === -1) continue;
+    const k = t.slice(0, i).trim();
+    const v = t.slice(i + 1).trim();
+    if (k && v) cfg[k] = v;
+  }
+  return cfg;
+}
+
+function getProxyPort() {
+  const cfg = readConfig();
+  return Number(process.env.CDP_PROXY_PORT || cfg.CDP_PROXY_PORT || 3456);
+}
+
 function parseArgs(argv) {
-  const opts = { browser: null };
+  const opts = { browser: null, checkOnly: false };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === '--browser' && argv[i + 1]) { opts.browser = argv[i + 1]; i++; }
     else if (argv[i].startsWith('--browser=')) { opts.browser = argv[i].slice('--browser='.length); }
+    else if (argv[i] === '--check-only') { opts.checkOnly = true; }
   }
   return opts;
 }
@@ -65,9 +88,16 @@ function startProxyDetached(browserOverride) {
   const logFd = fs.openSync(logFile, 'a');
   const args = [PROXY_SCRIPT];
   if (browserOverride) args.push('--browser', browserOverride);
+  const cfg = readConfig();
+  const env = {
+    ...process.env,
+    CDP_PROXY_PORT: process.env.CDP_PROXY_PORT || cfg.CDP_PROXY_PORT || '3456',
+    CDP_TAB_IDLE_TIMEOUT: process.env.CDP_TAB_IDLE_TIMEOUT || cfg.CDP_TAB_IDLE_TIMEOUT || '900000',
+  };
   const child = spawn(process.execPath, args, {
     detached: true,
     stdio: ['ignore', logFd, logFd],
+    env,
     ...(os.platform() === 'win32' ? { windowsHide: true } : {}),
   });
   child.unref();
@@ -75,6 +105,7 @@ function startProxyDetached(browserOverride) {
 }
 
 async function ensureProxy(expectedBrowserId, browserOverride) {
+  const PROXY_PORT = getProxyPort();
   const healthUrl = `http://127.0.0.1:${PROXY_PORT}/health`;
   const targetsUrl = `http://127.0.0.1:${PROXY_PORT}/targets`;
 
@@ -168,6 +199,11 @@ async function main() {
 
   const { proceed, exitCode, browserId } = await resolveAndReport(opts.browser);
   if (!proceed) process.exit(exitCode);
+
+  if (opts.checkOnly) {
+    console.log('proxy: skipped (--check-only)');
+    return;
+  }
 
   const proxyOk = await ensureProxy(browserId, opts.browser);
   if (!proxyOk) process.exit(1);

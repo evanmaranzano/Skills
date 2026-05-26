@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web Hub"
+  short_description: "Route web search, browsing, scraping, and CDP."
+  default_prompt: "Use $web-hub to research a web target, choose the right access path, and return sourced results."
