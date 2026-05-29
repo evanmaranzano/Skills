@@ -1,6 +1,6 @@
 # Skills
 
-个人 Claude Code Skills 合集。
+个人 AI Agent Skills 合集（兼容 Claude Code 与 Codex）。
 
 ## 包含 Skills
 
@@ -14,10 +14,12 @@
 ## 安装
 
 ```bash
-# 克隆到 Claude Code skill 目录
+# 克隆到 skill 目录
+# Claude Code: ~/.claude/skills/
+# Codex:       ~/.codex/skills/ 或 ~/.agents/skills/
 git clone https://github.com/evanmaranzano/Skills.git ~/.claude/skills/
 
-# 或单独安装某个 skill
+# 或单独安装某个 skill（将目标路径替换为你的宿主目录）
 cp -r web-hub ~/.claude/skills/
 cp -r activitywatch-daily-log ~/.claude/skills/
 cp -r wechat-hot-article ~/.claude/skills/
