@@ -131,7 +131,8 @@ def aggregate_day(day_text: str | None) -> int:
     elif has_afk_bucket:
         # 有 AFK bucket 但无非 AFK 窗口，用 AFK 反转
         active_seconds_source = "activity_fallback"
-        day_start = target_day.timestamp()
+        from datetime import time as _time
+        day_start = datetime.combine(target_day, _time.min).timestamp()
         day_end = day_start + 86400
         active_bounds = _invert_intervals(merged_afk, (day_start, day_end))
     else:

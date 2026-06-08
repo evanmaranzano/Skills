@@ -79,6 +79,7 @@ JSON 包含：
 - 严格遵循设计系统 prompt 中的 CSS 变量、布局、动画规范
 - 不编造没有数据支撑的活动
 - 未分类项用"可能"或"置信度较低"标注
+- 分类名称必须使用中文（AI 编程 / 论文/文档 / 资料检索 / 沟通 / 娱乐 / 系统杂项 / 开发工具 / 其他），禁止翻译为英文
 - 包含所有必需 section：今日总览、活动类别、AI 工具详情、时间线、产出判断、分心点、建议、数据可信度
 
 ### 4. 归档到知识库
@@ -157,6 +158,19 @@ python "C:/Users/Administrator/.claude/skills/activitywatch-daily-log/scripts/ru
 ```
 
 这会使用脚本内置的 `render_base_html` 生成基础版 HTML（无 LLM 增强）。
+
+## 批量补日志
+
+补多天日志时，分两阶段执行。详见 `docs/batch-backfill.md`。
+
+1. **阶段 1（串行/并行均可）**：对每个日期运行 `run_daily_log.py --agent-mode` 采集数据，生成 summary/timeline JSON
+2. **阶段 2（并行）**：对每个日期启动独立子代理生成 HTML + 归档 Obsidian
+
+两阶段分离可避免单个代理运行时间过长导致 socket 断连。
+
+## 经验与排障
+
+见 `docs/troubleshooting.md`，涵盖：分类名英文化、socket 断连、timeline 同步、缓存并发冲突等。
 
 ## 向后兼容
 
