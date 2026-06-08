@@ -1,6 +1,11 @@
 ---
 name: web-hub
 description: "Unified web access hub — smart routing across Brave/Tavily/WebFetch/CDP/Playwright/Scrapling. Use when the task involves searching, browsing, scraping, extracting data from the web, or interacting with websites."
+user-invocable: true
+allowed-tools: Bash, Read, Write, Agent, WebFetch, WebSearch
+metadata:
+  openclaw:
+    emoji: "🌐"
 ---
 
 # Web Hub — Unified Web Access
