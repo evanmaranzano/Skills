@@ -1,0 +1,49 @@
+api:
+  base_url: "https://api-slb.packyapi.com"
+  api_key: "${IMAGE_API_KEY}"
+  model: "gpt-image-2"
+  proxy: null
+
+  # Fallback API when primary fails
+  fallback_base_url: ""
+  fallback_api_key: ""
+  fallback_model: "gpt-image-2"
+
+input:
+  folder: ""
+  recursive: false
+  # filename: 姓名 职业.jpg or 姓名 性别 职业.jpg
+  allowed_extensions:
+    - ".jpg"
+    - ".jpeg"
+    - ".png"
+    - ".webp"
+  filename_separators:
+    - " "
+    - "_"
+    - "-"
+
+output:
+  folder: ""
+  format: "png"
+  # 3:4 portrait, around 2K height. Override only when the target API rejects this size.
+  size: "1536x2048"
+  quality: "high"
+  overwrite: false
+  suffix: "职业照"
+
+ppt:
+  filename: "kid-career-portraits.pptx"
+
+lark:
+  name: "儿童未来职业照"
+  folder_token: ""
+
+batch:
+  concurrency: 2
+  retry_times: 3
+  retry_backoff_seconds: 10
+  skip_existing: true
+
+prompt:
+  adult_age_range: "25-35"

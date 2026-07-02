@@ -1,0 +1,19 @@
+# User configuration with secrets
+config.yaml
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Output folders
+output/
+outputs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

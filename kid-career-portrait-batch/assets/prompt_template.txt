@@ -1,0 +1,15 @@
+Use the provided child photo as the identity reference.
+Create a photorealistic professional portrait of the same person as an adult, approximately {age} years old, working as a {career}.
+
+Preserve the person's core facial identity, facial structure, ethnicity, and natural recognizable features from the reference image, while aging them naturally into adulthood.
+
+The final image should look like a realistic high-quality career portrait, not a cartoon, not a fantasy illustration.
+{clothing}
+{scene}
+
+Important constraints:
+- The person must appear clearly adult.
+- Do not make the image sexualized.
+- Do not add text, name tags, logos, watermarks, or written words.
+- Do not change the person's identity into a celebrity.
+- Keep the composition natural, respectful, and aspirational.

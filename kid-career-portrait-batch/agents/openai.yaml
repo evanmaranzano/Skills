@@ -1,0 +1,3 @@
+display_name: "Kid Career Portrait Batch"
+short_description: "批量生成儿童未来职业照"
+default_prompt: "扫描以「姓名 职业」命名的儿童照片文件夹，调用 gpt-image-2 图像编辑接口批量生成这些孩子长大后的职业照"

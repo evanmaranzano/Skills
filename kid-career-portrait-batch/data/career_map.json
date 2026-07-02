@@ -1,0 +1,222 @@
+{
+  "厨师": {
+    "en": "chef",
+    "scene": "in a modern professional kitchen",
+    "clothing": "wearing a clean white chef uniform and toque"
+  },
+  "宇航员": {
+    "en": "astronaut",
+    "scene": "in a space agency training facility or spacecraft interior",
+    "clothing": "wearing a realistic white astronaut space suit"
+  },
+  "律师": {
+    "en": "lawyer",
+    "scene": "in a modern law office with bookshelves",
+    "clothing": "wearing a formal dark business suit"
+  },
+  "老师": {
+    "en": "teacher",
+    "scene": "in a bright modern classroom or educational environment",
+    "clothing": "wearing smart-casual professional clothing"
+  },
+  "消防员": {
+    "en": "firefighter",
+    "scene": "at a fire station with emergency response equipment",
+    "clothing": "wearing realistic firefighter protective gear"
+  },
+  "医生": {
+    "en": "doctor",
+    "scene": "in a modern hospital or clinic",
+    "clothing": "wearing a white medical coat over professional attire"
+  },
+  "护士": {
+    "en": "nurse",
+    "scene": "in a modern hospital ward",
+    "clothing": "wearing clean medical scrubs"
+  },
+  "警察": {
+    "en": "police officer",
+    "scene": "in front of a police station",
+    "clothing": "wearing a formal police uniform"
+  },
+  "科学家": {
+    "en": "scientist",
+    "scene": "in a research laboratory with scientific equipment",
+    "clothing": "wearing a white lab coat"
+  },
+  "工程师": {
+    "en": "engineer",
+    "scene": "in a modern engineering or tech office",
+    "clothing": "wearing smart business-casual attire"
+  },
+  "飞行员": {
+    "en": "pilot",
+    "scene": "in an aircraft cockpit or airport setting",
+    "clothing": "wearing a professional pilot uniform with epaulettes"
+  },
+  "画家": {
+    "en": "painter",
+    "scene": "in an art studio with canvases and easels",
+    "clothing": "wearing a casual artist smock with paint stains"
+  },
+  "音乐家": {
+    "en": "musician",
+    "scene": "on a concert stage or recording studio",
+    "clothing": "wearing elegant performance attire"
+  },
+  "运动员": {
+    "en": "athlete",
+    "scene": "in a professional sports stadium or arena",
+    "clothing": "wearing professional sports team uniform"
+  },
+  "程序员": {
+    "en": "software engineer",
+    "scene": "in a modern tech office with multiple monitors",
+    "clothing": "wearing casual-smart tech industry attire"
+  },
+  "建筑师": {
+    "en": "architect",
+    "scene": "in an architecture studio with blueprints and models",
+    "clothing": "wearing smart professional attire"
+  },
+  "军人": {
+    "en": "soldier",
+    "scene": "in a military setting",
+    "clothing": "wearing a formal military uniform"
+  },
+  "探险家": {
+    "en": "explorer",
+    "scene": "in a rugged outdoor wilderness setting",
+    "clothing": "wearing outdoor expedition gear"
+  },
+  "兽医": {
+    "en": "veterinarian",
+    "scene": "in a modern veterinary clinic",
+    "clothing": "wearing a white medical coat"
+  },
+  "牙医": {
+    "en": "dentist",
+    "scene": "in a modern dental clinic",
+    "clothing": "wearing white medical scrubs"
+  },
+  "记者": {
+    "en": "journalist",
+    "scene": "in a modern newsroom",
+    "clothing": "wearing professional business attire"
+  },
+  "作家": {
+    "en": "writer",
+    "scene": "in a cozy study surrounded by books",
+    "clothing": "wearing elegant casual attire"
+  },
+  "舞蹈家": {
+    "en": "dancer",
+    "scene": "in a dance studio with mirrors",
+    "clothing": "wearing elegant dance performance attire"
+  },
+  "演员": {
+    "en": "actor",
+    "scene": "on a film set or theater stage",
+    "clothing": "wearing stylish contemporary fashion"
+  },
+  "歌手": {
+    "en": "singer",
+    "scene": "on a concert stage with spotlight",
+    "clothing": "wearing stylish stage performance attire"
+  },
+  "摄影师": {
+    "en": "photographer",
+    "scene": "in a professional photography studio",
+    "clothing": "wearing casual-smart creative attire"
+  },
+  "设计师": {
+    "en": "designer",
+    "scene": "in a creative design studio",
+    "clothing": "wearing stylish modern creative attire"
+  },
+  "厨师长": {
+    "en": "head chef",
+    "scene": "in a high-end restaurant kitchen",
+    "clothing": "wearing an executive chef uniform"
+  },
+  "船长": {
+    "en": "ship captain",
+    "scene": "on a ship bridge overlooking the ocean",
+    "clothing": "wearing a formal navy captain uniform"
+  },
+  "赛车手": {
+    "en": "racing driver",
+    "scene": "next to a professional race car on a track",
+    "clothing": "wearing a professional racing suit"
+  },
+  "潜水员": {
+    "en": "diver",
+    "scene": "underwater in a coral reef environment",
+    "clothing": "wearing professional scuba diving gear"
+  },
+  "登山家": {
+    "en": "mountaineer",
+    "scene": "on a snowy mountain summit",
+    "clothing": "wearing professional mountaineering gear"
+  },
+  "魔术师": {
+    "en": "magician",
+    "scene": "on a stage with dramatic lighting",
+    "clothing": "wearing an elegant formal suit with cape"
+  },
+  "法官": {
+    "en": "judge",
+    "scene": "in a courtroom setting",
+    "clothing": "wearing a formal black judicial robe"
+  },
+  "外交官": {
+    "en": "diplomat",
+    "scene": "in an international conference setting",
+    "clothing": "wearing a formal diplomatic suit"
+  },
+  "导演": {
+    "en": "film director",
+    "scene": "on a movie set with camera equipment",
+    "clothing": "wearing casual director attire"
+  },
+  "企业家": {
+    "en": "entrepreneur",
+    "scene": "in a modern startup office",
+    "clothing": "wearing smart business-casual attire"
+  },
+  "消防队长": {
+    "en": "fire chief",
+    "scene": "at a fire station command center",
+    "clothing": "wearing formal fire department dress uniform"
+  },
+  "空姐": {
+    "en": "flight attendant",
+    "scene": "inside a modern airliner cabin",
+    "clothing": "wearing a professional airline uniform"
+  },
+  "乘务员": {
+    "en": "flight attendant",
+    "scene": "inside a modern airliner cabin",
+    "clothing": "wearing a professional airline uniform"
+  },
+  "面包师": {
+    "en": "baker",
+    "scene": "in a artisan bakery",
+    "clothing": "wearing a white baker apron and hat"
+  },
+  "花艺师": {
+    "en": "florist",
+    "scene": "in a flower shop surrounded by blooms",
+    "clothing": "wearing a casual professional apron"
+  },
+  "理发师": {
+    "en": "barber",
+    "scene": "in a modern barbershop",
+    "clothing": "wearing a professional barber apron"
+  },
+  "营养师": {
+    "en": "nutritionist",
+    "scene": "in a modern wellness clinic",
+    "clothing": "wearing professional smart-casual attire"
+  }
+}
