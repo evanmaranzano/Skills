@@ -71,9 +71,7 @@ no QR code, no UI screenshots.
 
 脚本路径：`C:/Users/Administrator/.agents/skills/game-poster/scripts/miaoda_generate.py`
 
-**先出预览，再出正式图**，因为每次调用都是真实付费请求：
-
-第一步，fast 模式快速验证方向（质量低、速度快、JPEG）：
+**默认用 fast 模式一次出图并交付**。实测数据（见交接文档）：fast 综合画质约 8.4/10，比 final 快约 4.7 倍（~45 秒 vs ~3-4 分钟），中文标题文字实测全对，绝大多数场景够用。每次调用都是真实付费请求，没必要默认烧两遍钱。
 
 ```bash
 python "C:/Users/Administrator/.agents/skills/game-poster/scripts/miaoda_generate.py" \
@@ -82,14 +80,7 @@ python "C:/Users/Administrator/.agents/skills/game-poster/scripts/miaoda_generat
   --output "<输出目录>" --no-open-output
 ```
 
-第二步，预览方向 OK 后用 final 模式出正式海报（质量中、PNG）。如果预览翻车（文字错、风格偏），先修 prompt 重跑 fast，不要直接烧 final 的钱：
-
-```bash
-python "C:/Users/Administrator/.agents/skills/game-poster/scripts/miaoda_generate.py" \
-  --prompt "<修正后的提示词>" \
-  --mode final --size 1024x1536 \
-  --output "<输出目录>" --no-open-output
-```
+**final 模式（medium 质量 + PNG）只在以下情况使用**：用户明确要求高质量/印刷用途，或 fast 成图在复杂材质、人物特写上明显翻车。final 单次预期 3-5 分钟，存在后端超时风险（见「常见问题」）。
 
 参数要点：
 
@@ -106,11 +97,20 @@ python "C:/Users/Administrator/.agents/skills/game-poster/scripts/miaoda_generat
 
 1. **用 Read 工具打开生成的图**，检查：标题文字是否准确（有无错别字/乱码）、风格是否贴合游戏、构图是否完整。
 2. 文字出错时，在 prompt 里加强调后重新生成：`The title text MUST be exactly "XXX" in Simplified Chinese, no typos, no garbled characters.` 不要尝试后期 PS 盖字。
-3. 告知用户图片路径，说明这是预览还是正式版，并问是否需要调整（换构图/换配色/改标语）。
+3. 告知用户图片路径和模式（fast 预览质量 / final 正式质量），并问是否需要调整（换构图/换配色/改标语/出 final 高清版）。
+
+## 安全与成本控制
+
+- 妙搭后端无需本机持有上游 API Key，也不要在任何地方写入或提及密钥。
+- 每个非 dry-run 任务都是真实付费调用。**不要盲目自动重试**：超时不代表上游没生成成功，无脑重试会产生重复费用。只有确认任务确已失败（后端返回 failed 或明确的网络错误）才重试一次；连续两次失败如实报告错误并停下。
+- 批量生成时并发保持 ≤5。
+- 交付时区分两件事：**图片生成成功**（接口层面）和**指令完全遵循**（标题文字、数量约束等语义层面）。后者必须经 Read 校验后才算数。
+- 妙搭公开端点和上游模型可用性是外部依赖；脚本输出已分别报告会话初始化、任务创建、后端生成、图片下载各阶段结果，失败时按阶段定位。
 
 ## 常见问题
 
-- **生成失败/超时**：脚本报错会直接打印原因（网络、后端失败、超时）。失败一次可重试；连续两次失败把错误信息如实告诉用户，不要假装成功。
+- **生成失败/超时**：脚本报错会直接打印原因（网络、后端失败、超时）。final 模式实测出现过等待 300 秒后超时、重试一次即成功（约 186 秒）的情况；fast 模式通常 40 秒左右。重试上限见「安全与成本控制」。
+- **fast 与 final 不是同构图高清化**：两种模式是模型两次独立演绎，构图、标题排版、配角元素可能明显不同。如果用户对 fast 成图的某个具体构图元素很满意（比如"就要这个小宇航员"），把它写进 final 的 prompt 里，否则 final 可能不保留。
 - **文字渲染偏差**：gpt-image-2 会按语义自主微调文字。对标题有强要求时务必用 `MUST be exactly` 强调措辞。
 - **不要在海报里放二维码**：模板已排除。需要二维码时后期用 image2-gen skill 的 `replace_qr.py` 替换真实二维码。
 
