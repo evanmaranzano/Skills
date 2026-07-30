@@ -38,34 +38,41 @@ description: "为 HTML 游戏生成宣传海报。当用户已完成一个 HTML/
 
 用下面的核心模板，把提取的要素填进占位符。**prompt 用英文写结构和风格指令，需要显示的中文文字原样嵌入**——gpt-image-2 可以直接渲染中文，但英文框架下的文字遵循度更稳。
 
-核心提示词模板：
+核心提示词模板（已针对 fast/low 质量模式优化，原则见下文）：
 
 ```
 Design a vertical promotional poster for an HTML web game.
 
 Game title: "{标题}" — the title text MUST be exactly this, do not change,
-rephrase, or translate it. Render it large and prominent, in Simplified Chinese.
+rephrase, or translate it. Render it large and prominent, in Simplified Chinese,
+{标题字体描述：颜色、发光/描边效果，尽量带色值}.
 
 Main visual: {从玩法/题材翻译出的画面描述，写一个最具代表性的瞬间：
-主角、核心场景、标志性元素。例如贪吃蛇写"一条霓虹光蛇穿过网格竞技场"，
+主角 + 核心冲突/场景。例如贪吃蛇写"一条霓虹光蛇穿过网格竞技场"，
 塔防写"一座发光的核心塔被成群的敌人围攻"}.
+The composition is bold and uncluttered: one dominant focal subject,
+strong silhouette, generous negative space, no scattered small elements.
 
 Style: {与游戏一致的美术风格，如 pixel art / flat vector / neon cyberpunk /
-hand-drawn cartoon / 3D low-poly}.
-Color scheme: {游戏主色调，尽量带色值或颜色名，如 deep purple + cyan neon}.
+hand-drawn cartoon / 3D low-poly}, rendered with rich detail, dramatic
+volumetric lighting, crisp edges, vibrant saturated colors, high contrast.
+Color scheme: {游戏主色调，尽量带色值或颜色名，如 deep purple + cyan neon},
+bold contrast between subject and background.
 Mood: {情绪氛围，如 energetic and playful / tense and epic / cozy and relaxing}.
 
 Layout: clear visual hierarchy — title at top or center, main visual as focal
-point, generous breathing room. Optional small subtitle: "{副标题/标语，可留空}".
-High quality game key art, sharp details, no watermarks, no logos,
-no QR code, no UI screenshots.
+point. Optional small subtitle: "{副标题/标语，可留空}".
+Professional game key art, poster-grade quality, sharp focus on the main
+subject, no watermarks, no logos, no QR code, no UI screenshots.
 ```
 
-写画面描述（Main visual）的三个要点：
+写提示词的五个要点（前三点决定内容，后两点专门补 fast 模式质感）：
 
 1. **写瞬间，不写清单**。挑一个最有辨识度的画面：主角 + 核心冲突/场景。堆砌 10 个元素只会让画面糊掉。
 2. **忠于游戏本身**。海报是游戏的门面，像素游戏就写 pixel art，不要擅自升级成 3D 写实。
-3. **给大方向，让模型发挥**。背景和装饰元素不需要过度指定，模型自主发挥的效果通常更好。
+3. **给大方向，让模型发挥**。背景和装饰元素不需要过度指定，模型自主发挥的效果通常更好（实测中它自行加的小宇航员、火把都很加分）。
+4. **构图上做减法（质感关键）**。`one dominant focal subject / strong silhouette / generous negative space` 这一句强制模型把预算花在一个大主体上。low 质量模式的短板是细节精度——主体越大越聚焦，短板越不显眼；细碎元素越多，越容易露怯。
+5. **光影和色彩上做加法（质感关键）**。`dramatic volumetric lighting / rich detail / vibrant saturated colors / high contrast` 这组词不改变画面内容，只提高渲染密度和对比度，让 fast 成图看起来不像"草图"。实测对比：没有这组词的火箭海报偏"素材感"，有这组词的迷宫海报光影层次明显更像正式 key art。
 
 ### 4. 生成
 
@@ -80,7 +87,7 @@ python "C:/Users/Administrator/.agents/skills/game-poster/scripts/miaoda_generat
   --output "<输出目录>" --no-open-output
 ```
 
-**final 模式（medium 质量 + PNG）只在以下情况使用**：用户明确要求高质量/印刷用途，或 fast 成图在复杂材质、人物特写上明显翻车。final 单次预期 3-5 分钟，存在后端超时风险（见「常见问题」）。
+**final 模式（medium 质量 + PNG）只在以下情况使用**：用户明确要求高质量/印刷用途，或 fast 成图在复杂材质、人物特写上明显翻车。final 单次预期 3-5 分钟，存在后端超时风险（见「常见问题」）。注意：在升 final 之前，先尝试用「构造提示词」第 4、5 点的质感词优化 prompt 重跑一次 fast——多数质感问题在 fast 档内就能解决，成本只有 final 的五分之一。
 
 参数要点：
 
