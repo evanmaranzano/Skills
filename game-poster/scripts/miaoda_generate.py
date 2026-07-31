@@ -11,7 +11,7 @@
     本机 -> https://b5g43k8ysv.aiforce.cloud -> 妙搭生图后端 -> 上游模型
 
 示例：
-    python miaoda_generate.py --prompt "..." --mode fast --size 1024x1792 --output ./poster
+    python miaoda_generate.py --prompt "..." --size 1024x1792 --output ./poster
     python miaoda_generate.py --prompt "图1" --prompt "图2" --concurrency 2
     python miaoda_generate.py --dry-run --prompt "..."
 
@@ -50,9 +50,6 @@ from typing import Any
 
 CONCURRENCY = 3
 
-# 默认使用快速模式（出预览）；正式海报用 --mode final。
-DEFAULT_MODE = "fast"
-
 GENERATION_TIMEOUT_SECONDS = 500
 POLL_INTERVAL_SECONDS = 2.0
 
@@ -77,29 +74,16 @@ def validate_size(value: str) -> str:
         raise SystemExit(f"--size 宽高比不能超过 3:1：{value!r}。")
     return value
 
-IMAGE_MODES = {
-    "fast": {
-        "model": "gpt-image-2",
-        "quality": "low",
-        "n": 1,
-        "output_format": "jpeg",
-        "output_compression": 80,
-        "background": "auto",
-        "moderation": "auto",
-        "stream": False,
-        "partial_images": 0,
-    },
-    "final": {
-        "model": "gpt-image-2",
-        "quality": "medium",
-        "n": 1,
-        "output_format": "png",
-        "output_compression": 90,
-        "background": "auto",
-        "moderation": "auto",
-        "stream": False,
-        "partial_images": 0,
-    },
+IMAGE_OPTIONS = {
+    "model": "gpt-image-2",
+    "quality": "low",
+    "n": 1,
+    "output_format": "jpeg",
+    "output_compression": 80,
+    "background": "auto",
+    "moderation": "auto",
+    "stream": False,
+    "partial_images": 0,
 }
 
 
@@ -487,19 +471,10 @@ def build_parser() -> argparse.ArgumentParser:
         help=f"并发数，默认 {CONCURRENCY}。",
     )
     parser.add_argument(
-        "--mode",
-        choices=sorted(IMAGE_MODES),
-        default=DEFAULT_MODE,
-        help=(
-            f"生成模式，默认 {DEFAULT_MODE}；"
-            "fast=low+JPEG（预览），final=medium+PNG（正式海报）。"
-        ),
-    )
-    parser.add_argument(
         "--size",
-        default="2048x1152",
+        default="2560x1440",
         help=(
-            "图片尺寸 宽x高，默认 2048x1152（原生 16:9 横版）；"
+            "图片尺寸 宽x高，默认 2560x1440（16:9 横版封面）；"
             "需为 16 的倍数，常用：1024x1024 方形、1024x1536 竖版、"
             "1536x1024 横版 3:2。"
         ),
@@ -549,7 +524,7 @@ def main() -> int:
     if args.timeout <= 0:
         raise SystemExit("--timeout 必须大于0。")
 
-    image_options = dict(IMAGE_MODES[args.mode])
+    image_options = dict(IMAGE_OPTIONS)
     image_options["size"] = validate_size(args.size)
 
     if args.tasks_json:
@@ -586,9 +561,9 @@ def main() -> int:
     print(f"路线：本机 -> {BASE_URL} -> 妙搭后端")
     print(f"模型：{image_options['model']}")
     print(
-        f"模式：{args.mode}（quality={image_options['quality']}，"
+        f"参数：quality={image_options['quality']}，"
         f"format={image_options['output_format']}，"
-        f"size={image_options['size']}）"
+        f"size={image_options['size']}"
     )
     print(f"任务数：{len(tasks)}")
     print(f"并发数：{min(args.concurrency, len(tasks))}")
@@ -660,7 +635,6 @@ def main() -> int:
         "testedAt": batch_started_at,
         "route": f"local -> {BASE_URL} -> Miaoda backend",
         "proxyEndpoint": GENERATE_URL,
-        "mode": args.mode,
         "model": image_options["model"],
         "requestOptions": image_options,
         "requestedConcurrency": args.concurrency,
