@@ -84,7 +84,7 @@ subject, no watermarks, no logos, no QR code, no UI screenshots.
 ```bash
 python "C:/Users/Administrator/.agents/skills/game-poster/scripts/miaoda_generate.py" \
   --prompt "<构造好的提示词>" \
-  --mode fast --size 1536x1024 \
+  --mode fast \
   --output "<输出目录>" --no-open-output
 ```
 
@@ -92,7 +92,7 @@ python "C:/Users/Administrator/.agents/skills/game-poster/scripts/miaoda_generat
 
 参数要点：
 
-- `--size`：横版 16:9 封面 `1536x1024`（默认选这个）；方形分享图 `1024x1024`；竖版海报 `1024x1536`。用户没指定就用横版。
+- `--size`：原生 16:9 横版封面 `2048x1152`（默认，不传即可）；方形分享图 `1024x1024`；竖版海报 `1024x1536`。尺寸已放开为任意 `宽x高`（16 的倍数、长边 ≤3840、比例 ≤3:1），脚本会本地校验。后端对自定义尺寸可能自动升采样——实测请求 2048x1152 返回 2560x1440，比例准确。
 - `--output`：默认保存到游戏文件同级的 `poster/` 目录，或用户指定的目录。
 - 多版本：用多个 `--prompt` 或 `--tasks-json` 批量生成，同一批保持同一套 Style/Color scheme 描述以维持风格一致。
 - `--dry-run`：只打印配置不发请求，调 prompt 时可先用它检查。

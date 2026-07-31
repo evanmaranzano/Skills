@@ -60,7 +60,22 @@ BASE_URL = "https://b5g43k8ysv.aiforce.cloud/app/app_17aahvuvvmm"
 GENERATE_URL = f"{BASE_URL}/api/studio/generate"
 PAGE_ROUTE = "/app/app_17aahvuvvmm"
 
-VALID_SIZES = ("1024x1024", "1024x1536", "1536x1024")
+def validate_size(value: str) -> str:
+    match = re.fullmatch(r"(\d{3,4})x(\d{3,4})", value)
+    if not match:
+        raise SystemExit(
+            f"--size 格式无效：{value!r}，应为 宽x高（如 1536x1024、1920x1080）。"
+        )
+    width, height = int(match.group(1)), int(match.group(2))
+    if width % 16 or height % 16:
+        raise SystemExit(f"--size 宽高必须是 16 的倍数：{value!r}。")
+    if max(width, height) > 3840:
+        raise SystemExit(f"--size 最长边不能超过 3840：{value!r}。")
+    if width * height < 655_360 or width * height > 8_294_400:
+        raise SystemExit(f"--size 总像素超出允许范围：{value!r}。")
+    if max(width, height) / min(width, height) > 3:
+        raise SystemExit(f"--size 宽高比不能超过 3:1：{value!r}。")
+    return value
 
 IMAGE_MODES = {
     "fast": {
@@ -482,11 +497,11 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--size",
-        choices=VALID_SIZES,
-        default="1536x1024",
+        default="2048x1152",
         help=(
-            "图片尺寸，默认 1536x1024；"
-            "竖版海报用 1024x1536，横版用 1536x1024。"
+            "图片尺寸 宽x高，默认 2048x1152（原生 16:9 横版）；"
+            "需为 16 的倍数，常用：1024x1024 方形、1024x1536 竖版、"
+            "1536x1024 横版 3:2。"
         ),
     )
     parser.add_argument(
@@ -535,7 +550,7 @@ def main() -> int:
         raise SystemExit("--timeout 必须大于0。")
 
     image_options = dict(IMAGE_MODES[args.mode])
-    image_options["size"] = args.size
+    image_options["size"] = validate_size(args.size)
 
     if args.tasks_json:
         raw_tasks = json.loads(
