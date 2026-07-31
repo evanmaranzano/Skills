@@ -483,9 +483,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--size",
         choices=VALID_SIZES,
-        default="1024x1024",
+        default="1536x1024",
         help=(
-            "图片尺寸，默认 1024x1024；"
+            "图片尺寸，默认 1536x1024；"
             "竖版海报用 1024x1536，横版用 1536x1024。"
         ),
     )

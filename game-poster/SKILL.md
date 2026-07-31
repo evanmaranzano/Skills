@@ -5,7 +5,7 @@ description: "为 HTML 游戏生成宣传海报。当用户已完成一个 HTML/
 
 # Game Poster
 
-为已完成的 HTML 游戏生成宣传海报。核心价值是**从游戏代码中提取视觉语言**，让海报和游戏气质一致，而不是凭空做一张通用海报。
+为已完成的 HTML 游戏生成宣传封面图（默认 16:9 横版）。核心价值是**从游戏代码中提取视觉语言**，让封面和游戏气质一致，而不是凭空做一张通用海报。
 
 生图走妙搭后端（gpt-image-2），由 `scripts/miaoda_generate.py` 封装，仅依赖 Python 标准库。
 
@@ -41,7 +41,7 @@ description: "为 HTML 游戏生成宣传海报。当用户已完成一个 HTML/
 核心提示词模板（已针对 fast/low 质量模式优化，原则见下文）：
 
 ```
-Design a vertical promotional poster for an HTML web game.
+Design a horizontal 16:9 landscape key art cover for an HTML web game.
 
 Game title: "{标题}" — the title text MUST be exactly this, do not change,
 rephrase, or translate it. Render it large and prominent, in Simplified Chinese,
@@ -60,8 +60,9 @@ Color scheme: {游戏主色调，尽量带色值或颜色名，如 deep purple +
 bold contrast between subject and background.
 Mood: {情绪氛围，如 energetic and playful / tense and epic / cozy and relaxing}.
 
-Layout: clear visual hierarchy — title at top or center, main visual as focal
-point. Optional small subtitle: "{副标题/标语，可留空}".
+Layout: clear visual hierarchy on a wide 16:9 canvas — title at top or
+left side, main visual as focal point occupying the center or right.
+Optional small subtitle: "{副标题/标语，可留空}".
 Professional game key art, poster-grade quality, sharp focus on the main
 subject, no watermarks, no logos, no QR code, no UI screenshots.
 ```
@@ -83,7 +84,7 @@ subject, no watermarks, no logos, no QR code, no UI screenshots.
 ```bash
 python "C:/Users/Administrator/.agents/skills/game-poster/scripts/miaoda_generate.py" \
   --prompt "<构造好的提示词>" \
-  --mode fast --size 1024x1536 \
+  --mode fast --size 1536x1024 \
   --output "<输出目录>" --no-open-output
 ```
 
@@ -91,7 +92,7 @@ python "C:/Users/Administrator/.agents/skills/game-poster/scripts/miaoda_generat
 
 参数要点：
 
-- `--size`：竖版海报 `1024x1536`（默认选这个）；方形分享图 `1024x1024`；横版横幅 `1536x1024`。用户没指定就用竖版。
+- `--size`：横版 16:9 封面 `1536x1024`（默认选这个）；方形分享图 `1024x1024`；竖版海报 `1024x1536`。用户没指定就用横版。
 - `--output`：默认保存到游戏文件同级的 `poster/` 目录，或用户指定的目录。
 - 多版本：用多个 `--prompt` 或 `--tasks-json` 批量生成，同一批保持同一套 Style/Color scheme 描述以维持风格一致。
 - `--dry-run`：只打印配置不发请求，调 prompt 时可先用它检查。
