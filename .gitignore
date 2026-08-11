@@ -1,4 +1,6 @@
 # Other skill directories (only web-hub is tracked in this repo)
+# server-audit 含明文服务器密码 (scripts/servers.conf), 永不可提交
+server-audit/
 academic-figure-prompt-pastel/
 agent-development/
 aihot/
@@ -65,3 +67,7 @@ xlsx/
 web-hub-backup-*/
 wechat-hot-article/
 wechat-hot-article.zip
+__pycache__/
+*.pyc
+**/.runtime/
+image2-gen/image2-gen.zip
