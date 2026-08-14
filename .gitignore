@@ -1,6 +1,7 @@
 # Other skill directories (only web-hub is tracked in this repo)
 # server-audit 含明文服务器密码 (scripts/servers.conf), 永不可提交
 server-audit/
+alibabacloud-sms-send-short-message/
 academic-figure-prompt-pastel/
 agent-development/
 aihot/
@@ -36,6 +37,7 @@ lark-im/
 lark-mail/
 lark-markdown/
 lark-minutes/
+lark-note/
 lark-okr/
 lark-openapi-explorer/
 lark-shared/
