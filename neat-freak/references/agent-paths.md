@@ -74,3 +74,10 @@ OpenCode 同时读取 Claude Code 和 Codex 的目录,所以同一个 skill 装�
 - **绝不允许两份独立维护**——两处真相必然分叉,分叉必然有一边烂。发现两份内容不一致的独立文件,按 SKILL.md 第二步的处置分级走:合并需要人工确认哪边是权威,列「待你拍板」
 - 若工作空间层级规则对同源机制另有声明,以工作空间规则为准
 - docs/ 和 README 是平台中立的,不需要分两份
+
+## 本机实际拓扑（Howie 的设备，2026-08-24 统一后）
+
+- **权威源只有一份**：`~/.agents/`（AGENTS.md + rules/ + memory/ + skills/）。
+- 各客户端不再各养一份：`~/.claude/skills`、`~/.codex/skills` 是软链；`~/.zcode`、`~/.dsh`、`~/.config/opencode` 以 junction 共享 rules/ 与 memory/，入口 AGENTS.md 均链接到 `~/.agents/AGENTS.md`。盘点时只读权威源，**别把 junction 目标当第二份内容重复审**。
+- **设备标识 = home 目录名**（如 `C:\Users\26566` = 公司 Windows；家里 Windows 是另一用户目录）。跨机器判断先看 home。
+- **ai-memory 层**：服务器 10.10.127.15:49374 承载会话自动捕获与 `local-memory/` 快照层，快照同步规程见 [local-memory-sync.md](local-memory-sync.md)。

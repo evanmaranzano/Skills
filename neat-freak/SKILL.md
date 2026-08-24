@@ -216,6 +216,13 @@ API 速查表、环境变量表、术语表是高频查询的结构化信息，*
 - [ ] AGENTS.md 与 CLAUDE.md 同源（软链完好，没有内容分叉的两份文件）
 - [ ] 规则文件里引用的路径 / 项目在现实中存在（死引用已清或已上报）
 
+**ai-memory 服务端治理（本机接入了 ai-memory 才做这组，未接入整组跳过）**：
+- [ ] 已运行或查看最新 `memory_lint` 报告并处置发现：真实问题已修复；已知误报（如 `_pending` 空标题类）标注为已知噪声并跟进根因
+- [ ] auto-improve 积压提案已清零：有效提案审批应用，无效提案拒绝
+- [ ] 已检查 forget-sweep 结果，确认 decay 在正常清理垃圾 episodic 页
+- [ ] 已校验 `local-memory/` 快照新鲜度：`~/.agents/memory/` 有更新即重新同步到 ai-memory（方向固定为本地 → ai-memory 单向）。页面格式 / 增量判定 / 验证规程见 [references/local-memory-sync.md](references/local-memory-sync.md)；确定性部分可用 `scripts/prepare_snapshot_sync.py` 生成待推送正文
+- [ ] 已抽查 MEMORY.md 索引与 ai-memory 页标题一致性，漂移已消除
+
 **完整性 / 反漏改（再查这组）**：
 - [ ] 第一步列出的每个文件，都判断了"不用改"或"已改"
 - [ ] 记忆索引（若有）里的每个链接指向存在的文件
