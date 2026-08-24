@@ -1,4 +1,4 @@
-# Other skill directories (only web-hub is tracked in this repo)
+# 本机已装但未纳入版本管理的 skill 目录（版本管理跟踪清单以 .git/info/sparse-checkout 为准）
 # server-audit 含明文服务器密码 (scripts/servers.conf), 永不可提交
 server-audit/
 alibabacloud-sms-send-short-message/

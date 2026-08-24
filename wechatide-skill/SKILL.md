@@ -1,6 +1,6 @@
 ---
 name: wechatide-skill
-version: 0.3.8
+version: 0.3.9
 description: >-
   微信开发者工具（wechatide）工作流根入口：小程序/小游戏的创建与导入、编译预览上传、
   登录与项目管理、页面自动化、调试取证、云开发，以及开发者工具的下载安装更新。
@@ -8,6 +8,21 @@ description: >-
   新建项目、预览上传、自动化点击、console/network、云函数/云数据库、下载安装开发者工具时也使用。
 metadata:
   short-description: 微信开发者工具 skill 包
+related-skills:
+  - name: tencentmap-miniprogram-skill
+    source: https://skillhub.cn/skills/tencentmap-miniprogram-skill
+    scope: 小程序前端地图组件与定位（map / marker / callout / polyline、wx.getLocation / chooseLocation / openLocation、门店标点、地图选点、定位权限）
+    triggers:
+      - map 组件 / marker / callout / polyline
+      - wx.getLocation / wx.chooseLocation / wx.openLocation
+      - 地图选点 / 门店标点 / 定位权限
+  - name: tencentmap-webservice-skill
+    source: https://skillhub.cn/skills/tencentmap-webservice-skill
+    scope: 腾讯位置服务后端 HTTP API（路线规划、POI 搜索、地理编码 / 逆地理编码、距离矩阵、IP 定位）
+    triggers:
+      - 路线规划 / POI 搜索 / 地理编码 / 逆地理编码
+      - 距离矩阵 / IP 定位
+      - 从 A 到 B 距离 / 附近搜索 / 经纬度转地址
 ---
 
 # wechatide-skill
@@ -88,7 +103,7 @@ wechatide -c <clientName> <toolName> [flags...] [--token <cliAccessToken>]
 | 点击、输入、滚动、页面断言、自动化脚本 | `skills/automator/SKILL.md` |
 | console / network / 截图取证 / 状态诊断 | `skills/debugger/SKILL.md` |
 | 云环境、云函数、云数据库、云存储 | `skills/cloudbase-operator/SKILL.md` |
-| 小程序地图组件 / 腾讯位置服务 API | `references/map-skill-index.md`（外部 skill） |
+| 小程序地图组件 / 腾讯位置服务 API | 外部 skill：`tencentmap-miniprogram-skill`（前端）/ `tencentmap-webservice-skill`（后端）——本包不处理，需触发主动下载；详见 [map-skill-index](references/map-skill-index.md) |
 
 选择原则：按**当前主目标**进一个 scene；不要跨 scene 混用原子工具。多目标时先完成 blocker，再移交。
 
@@ -132,4 +147,4 @@ wechatide -c <clientName> <toolName> [flags...] [--token <cliAccessToken>]
 - 工具注册表：`wechatide-tools/references/tools.yaml`（按需读单工具，勿整文件灌入）
 - `--project` 配置/appid 错误：`wechatide-tools/references/project-tool-error-guide.md`
 - 创建项目：`wechatide-tools/references/create-project-guide.md`
-- 地图外部 skill：`references/map-skill-index.md`
+- 地图外部 skill：`tencentmap-miniprogram-skill` / `tencentmap-webservice-skill`，索引见 `references/map-skill-index.md`
