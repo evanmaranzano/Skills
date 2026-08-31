@@ -1,0 +1,45 @@
+[
+  {
+    "beat": 1,
+    "from": 12,
+    "dur": 80,
+    "rate": "+8%",
+    "gap": 0.18,
+    "speaker": "X",
+    "visual_type": "h3",
+    "h3_prompt": "Cinematic wide shot of a dimly lit futuristic medical laboratory at night, a single person surrounded by glowing holographic biometric displays, cool blue and teal lighting, slow dolly-in, photorealistic, 16:9, 5 seconds, no text, no watermark",
+    "narration": "有个男人每年花两百万美元，只为了不死。",
+    "speaker_lines": [
+      {"spk": "X", "text": "有个男人每年花两百万美元，只为了不死。"}
+    ]
+  },
+  {
+    "beat": 2,
+    "from": 92,
+    "dur": 120,
+    "rate": "+12%",
+    "gap": 0.2,
+    "speaker": "Y",
+    "visual_type": "vector_stat",
+    "vector": {"title": "监测规模", "stats": ["30+ 医生", "70+ 生物标志物", "78 器官"]},
+    "narration": "他每月追踪七十多项生物标志物，三十多人的医疗团队盯着他一个人。",
+    "speaker_lines": [
+      {"spk": "Y", "text": "他每月追踪七十多项生物标志物，三十多人的医疗团队盯着他一个人。"}
+    ]
+  },
+  {
+    "beat": 3,
+    "from": 212,
+    "dur": 100,
+    "rate": "+15%",
+    "gap": 0.2,
+    "speaker": "both",
+    "visual_type": "h3",
+    "h3_prompt": "Overhead cinematic shot of a vibrant plant-based super veggie bowl with lentils, steamed broccoli, mushrooms and a golden drizzle of olive oil, soft window light, gentle steam, macro food photography, slow push-in, 16:9, 5 seconds, no text, no watermark",
+    "narration": "植物为主，最后一餐中午吃完。",
+    "speaker_lines": [
+      {"spk": "Y", "text": "植物为主，最后一餐中午吃完。"},
+      {"spk": "X", "text": "这吃饭窗口也太极端了吧？"}
+    ]
+  }
+]

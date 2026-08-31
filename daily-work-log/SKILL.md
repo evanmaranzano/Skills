@@ -1,5 +1,6 @@
 ---
 name: daily-work-log
+user-invocable: true
 description: >
   扫描 opencode / claudecode / kimicode 等所有 agent 的今日会话，汇总并提炼为当日工作条目，
   优化表达、增强工作量体现，写入飞书《工作日志》文档对应「X 月 Y 日」章节；今日落成的飞书

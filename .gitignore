@@ -71,5 +71,6 @@ wechat-hot-article/
 wechat-hot-article.zip
 __pycache__/
 *.pyc
+*.log.jsonl
 **/.runtime/
 image2-gen/image2-gen.zip

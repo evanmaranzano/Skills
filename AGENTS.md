@@ -1,12 +1,18 @@
 # Skills 仓库
 
-自建 Claude Code / Codex skills 集合。本仓库是全量 skill 源码的唯一源头；`~/.agents/skills/` 是同 remote（evanmaranzano/Skills）的 sparse-checkout 工作副本，跟踪清单以 `.git/info/sparse-checkout` 为准（当前 15 项：children-game-judges、game-poster、hv-analysis、image2-gen、khazix-writer、kimi-webbridge、lark-note、neat-freak、officecli、scrapling-official、storage-analyzer、wechatide-skill 等；其中 activitywatch-daily-log、last30days、web-hub 三项虽在清单里，但本地已无目录），`~/.claude/skills/` 与 `~/.codex/skills/` 是指向 `~/.agents/skills/` 的软链接。其余 skill（lark-* 多数、aihot、frontend-skill 等）在本机 `.agents` 副本中被 .gitignore 排除，不在本仓库跟踪。
+自建 Claude Code / Codex skills 集合。本仓库是全量 skill 源码的唯一源头；`~/.agents/skills/` 是同 remote（evanmaranzano/Skills）的 sparse-checkout 工作副本，跟踪清单以 `.git/info/sparse-checkout` 为准（当前 16 项：activitywatch-daily-log、children-game-judges、daily-work-log、game-poster、hv-analysis、image2-gen、khazix-writer、kimi-webbridge、last30days、neat-freak、officecli、scrapling-official、storage-analyzer、two-voice-explainer、web-hub、wechatide-skill；其中 activitywatch-daily-log、last30days、web-hub 三项当前目录缺失），`~/.claude/skills/` 与 `~/.codex/skills/` 是指向 `~/.agents/skills/` 的软链接。其余 skill（lark-* 多数、aihot、frontend-skill 等）在本机 `.agents` 副本中被 .gitignore 排除，不在本仓库跟踪。
 
 ## 管理约定
 
 - 新 skill 开发在本仓库进行；需要在本机启用时再到 `~/.agents/skills/` 执行 `git sparse-checkout add <name> && git pull`。
 - `~/.agents/skills/.gitignore` 里的排除清单是"本机已装但未纳入版本管理"的 skill，不等于本仓库内容。
 - SKILL.md frontmatter 必须加 `user-invocable: true` 才会被 Codex 发现为可用 skill。
+
+## daily-work-log / two-voice-explainer
+
+- `daily-work-log` 扫描多个 agent 的会话并整理到飞书《工作日志》；执行时依赖飞书 CLI/认证，具体流程以对应 `SKILL.md` 为准。
+- `two-voice-explainer` 已独立打包 SSH 助手、H3 批量脚本和 Remotion 完整参考工程，不依赖特定工作区；仅依赖本机 Python/edge-tts/ffmpeg 与 15 服务器通道。
+- H3 任务必须经 15 服务器的 Molispark 工作台 admin 通道，禁止直连 16:18081；凭据只运行时读取桌面「服务器信息整理」最新日期版，不写入仓库。
 
 ## children-game-judges（评分与颁奖视觉决策，2026-07-15 定稿）
 

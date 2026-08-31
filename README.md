@@ -8,6 +8,8 @@
 |-------|------|--------|
 | [web-hub](./web-hub/) | 统一联网能力中枢：Brave/Tavily/CDP/Playwright/Scrapling 智能路由 | "搜索"、"浏览"、"抓取"、"网页" |
 | [activitywatch-daily-log](./activitywatch-daily-log/) | ActivityWatch 每日活动日报：AFK 裁剪 + agent 内联分类 + 深色主题 HTML | "日报"、"活动报告"、"daily log" |
+| [daily-work-log](./daily-work-log/) | 汇总多个 agent 会话并写入飞书《工作日志》 | "今日工作"、"写工作日志"、"standup" |
+| [two-voice-explainer](./two-voice-explainer/) | 多代理调研 + 双人对谈稿 + H3 画面 + Remotion 合成讲解视频 | "讲解视频"、"科普视频"、"双人播客视频" |
 | [wechat-hot-article](./wechat-hot-article/) | 微信 24h 热文榜抓取 + 垂类评分 + 飞书文档发布 | "热文"、"微信文章"、"选题" |
 | [docx-paper-skill-zh](./docx-paper-skill-zh/) | 中文学术论文排版（课程论文/毕设/数模），Markdown 转 Word | "论文"、"docx"、"排版" |
 
