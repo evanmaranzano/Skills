@@ -3,6 +3,14 @@
 > 配套 `templates/index.tsx`。所有信息层（文字/数字/图表）都是矢量 React 组件，
 > H3 只当 full-bleed B-roll。确定性渲染是硬规则。
 
+## 相对帧铁律（最先读，黑屏根源）
+
+- `useCurrentFrame()` 只在**渲染树里位于 Sequence 内的真组件**中才返回相对帧。
+- ✅ 场景 = `<SceneShell>`（内部 SceneFade 子组件）；场景内延迟入场 = `Reveal`/`Tag`/`Stamp` 组件。
+- ❌ 在 SceneShell 的 children 里写 IIFE 调 useCurrentFrame（取到**全局帧** → 除第一景外全 opacity 0，全片黑）。
+- ❌ 内联样式写 `opacity: seg(0, 20, 40)`——第一个参数是帧号，写死 0 永远不显示。
+- 判别法：任何"随时间出现的视觉元素"必须是一个调用了 useCurrentFrame 的组件。
+
 ## 核心 API
 
 ```tsx
@@ -67,26 +75,38 @@ const x = interpolate(frame, [0, DURATION], [pad, W-pad]);
 ```tsx
 <AbsoluteFill>
   <H3Clip src="assets/video/h3_6.mp4" durationInFrames={480} dim={0.55} volume={0.15} />
-  {/* 矢量层 */}
-  <div style={{ position:'absolute', top:120, left:120 }}>
+  {/* 矢量层：延迟入场一律用 Reveal/Tag/Stamp 组件 */}
+  <Reveal delay={40} style={{ position: 'absolute', top: 120, left: 120 }}>
     <div style={{ color: INK, fontSize: 48 }}>2023 年轻血浆 → 叫停</div>
-  </div>
+  </Reveal>
 </AbsoluteFill>
 ```
 - H3 永远 full-bleed、cover、带运动（Ken Burns），上面叠暗层再叠矢量；
-- 文字距画面边缘 ≥120px，避开左下 SpeakerBadges 和底部字幕；
+- 文字距画面边缘 ≥120px，避开左下 SpeakerBadges 和底部字幕（底部 260px 是字幕区）；
 - 关键信息落定后 hold ≥1s（让人读完）。
 
+## H3 素材三条实战规则
+
+1. **底缘烙印文字**：prompt 写 no text 也不保险，H3 常在画面底缘生成淡色假字幕。
+   qa_check.py 会输出每条素材的底部条带图；有字的片段把该 H3Clip 的 `zoomFrom` 提到
+   ≥1.2（cover 已裁 ~1%，1.2 约再裁掉源底部 10%）。模板默认 1.15/1.22。
+2. **拉伸放慢**：5s 素材配 6s 窗口用 `playbackRate={0.8333}`（=5/6），平滑无跳帧，
+   H3 屏占还更高；OffthreadVideo 原生支持。
+3. **画幅**：1344×768（7:4）cover 进 1920×1080，上下各裁 ~9px；竖版须另立 profile。
+
 ## 音频
-- BGM：`volume={(f)=>BGM_ENVELOPE[f]}`，预计算 1f 分辨率数组；旁白段 duck 到 0.17。
-- H3 原生音轨：旁白段 `volume={0.15}`，纯画面段可保留当环境床。
+- BGM：`volume={(f)=>BGM_ENVELOPE[f]}`，预计算 1f 分辨率数组；铺底乘数按曲目响度标定
+  （目标床 -30dB mean，pick_bgm.py 会算），旁白段 duck 到铺底 ×0.4。
+- H3 原生音轨：旁白段 `volume={0.15}`，纯画面段可保留当环境床；通常直接 volume={0} 走 BGM。
 - SFX 钉帧：paper-slide（纸卡落定）、clock-tick（数字定格）、ui-notify（标注弹出）。
 - 所有 Audio 包在 `<Sequence from={} durationInFrames={}>`。
 
 ## 字体与防豆腐块
 - `@font-face` 从 `public/fonts/` 加载 NotoSansSC-VF.ttf / NotoSerifSC-VF.ttf（渲染机无 CJK 系统字体、无出网）。
 - `FontGate` 首帧前 `document.fonts.load` 所有字重，失败不阻塞（fallback，但抽帧会发现豆腐块）。
-- 混排拉丁数字+中文用 `FONT_MONO_CJK = '"DejaVu Sans Mono","Noto Sans SC",monospace'`。
+- 混排拉丁数字+中文用 `'"DejaVu Sans Mono","Noto Sans SC",monospace'`——
+  **链里必须有 CJK 兜底**；裸 `"DejaVu Sans Mono", Menlo, monospace` 遇中文必豆腐块。
+- **禁 emoji**：渲染机无彩色 emoji 字体（NotoColorEmoji 未装），一律汉字/CSS 图形。
 
 ## 确定性（硬规则）
 - ❌ `Date.now()`、`Math.random()`、`new Date()`、`Math.random`
@@ -94,10 +114,12 @@ const x = interpolate(frame, [0, DURATION], [pad, W-pad]);
 - 粒子/光斑位置用 `h(i)` 预生成数组，不随帧随机。
 
 ## 性能
-- 180s 片约 5400 帧，`--concurrency=6 --gl=angle`，约 15–20 分钟。
+- 112s 片 3350 帧，`--concurrency=6 --gl=angle`，约 9 分钟；探针 `--scale 0.5` 约 3-4 分钟。
 - 避免每帧重算大数组（用 useMemo 或模块级常量）；BGM_ENVELOPE 模块级 IIFE 预计算。
 - 字体加载用 delayRender/continueRender，别让首帧字体没到就渲染。
 
 ## 参考实现
-- `deliverables/index.tsx`（64s 片，10 种场景：H3+stat、终端动画、里程表、纸卡、H3 金粒等）
+- 工作区 `article-video/index.tsx`（111.7s 单人片，18 场景：H3+标签雨、揭示、路径链、
+  十二宫格、肠漏机制图、人体开火地图、清单描画、金句等，QA 帧齐全）
+- `templates/index.full_example.tsx`（64s 片，10 种场景：H3+stat、终端动画、里程表、纸卡、H3 金粒等）
 - `blueprint/RESEARCH_AND_PRODUCTION_PLAN.md`（180s 片的完整分镜与数据设计）

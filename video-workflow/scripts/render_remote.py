@@ -5,8 +5,10 @@
 依赖同目录的 `om_ssh.py`。用法：
   python render_remote.py --project <name> --composition <CompId> \
       --local-public ./public --local-index ./index.tsx \
-      [--duration-s 180] [--concurrency 6] [--gl angle] \
+      [--duration-s 180] [--concurrency 6] [--gl angle] [--scale 0.5] \
       [--clean-remote] [--wait] [--wait-timeout-s 1800] [--out ./final.mp4]
+
+--scale 0.5 = 探针渲染（960x540，速度快约 4-6 倍），用于终渲前的全场景 QA。
 
 从 skill 自带 scripts/om_ssh.py 导入 SSH 助手。
 远端布局：/opt/data/om-deploy/OpenMontage/
@@ -81,6 +83,8 @@ def main():
     ap.add_argument("--duration-s", type=int, default=64)
     ap.add_argument("--concurrency", type=int, default=6)
     ap.add_argument("--gl", default="angle", choices=["angle", "egl", "swiftshader"])
+    ap.add_argument("--scale", type=float, default=1.0,
+                    help="渲染缩放（0.5=探针 960x540 QA 用；1.0=正式 1080p）")
     ap.add_argument("--clean-remote", action="store_true",
                     help="删除该 project 的旧素材目录后再上传（仅清理已知 public 子目录）")
     ap.add_argument("--wait", action="store_true", help="轮询到完成并拉回")
@@ -98,6 +102,8 @@ def main():
         ap.error("duration-s 必须为正数")
     if args.concurrency <= 0:
         ap.error("concurrency 必须为正整数")
+    if not (0.1 <= args.scale <= 2.0):
+        ap.error("scale 取值 0.1~2.0（探针用 0.5）")
     if args.wait_timeout_s is not None and args.wait_timeout_s <= 0:
         ap.error("wait-timeout-s 必须为正整数")
     local_public = Path(args.local_public)
@@ -147,13 +153,14 @@ def main():
     upload_dir(lp / "fonts", f"{pub}/fonts", "*")
 
     print("=== 启动远程渲染（后台）===")
+    scale_flag = f" --scale={args.scale}" if args.scale != 1.0 else ""
     render_cmd = (
         f"cd {REMOTE_COMPOSER} && "
         f"setsid bash -c 'echo START_TS=$(date +%s); "
         f"/usr/bin/time -f \"WALL %e\" npx remotion render "
         f"projects/{args.project}/index.tsx {args.composition} {out} "
         f"--public-dir={pub} --browser-executable={CHROME} "
-        f"--concurrency={args.concurrency} --gl={args.gl} --crf=18 --timeout=60000; "
+        f"--concurrency={args.concurrency} --gl={args.gl} --crf=18 --timeout=60000{scale_flag}; "
         f"echo EXIT_CODE=$?' > {log} 2>&1 < /dev/null & echo LAUNCHED"
     )
     # setsid 后台命令可能让 SSH 通道短暂超时；超时时用远端日志确认是否已启动。

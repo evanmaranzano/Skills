@@ -12,7 +12,7 @@
 | 操作 | 方法+路径 | 说明 |
 |---|---|---|
 | 登录 | `POST /api/login` | JSON `{username, password}` → cookie `h3_session`（httponly，7 天）。**全程登录一次**：IP 10 分钟内 5 次失败 → 429 |
-| 提交 | `POST /api/tasks` | JSON `{prompt, duration(int 5–15), aspect_ratio, task_type(t2va\|fl2va), quality(turbo\|native), image_data?, seed?}` → `{id}` |
+| 提交 | `POST /api/tasks` | JSON `{prompt, duration(int 5–15), aspect_ratio, task_type(t2va\|fl2va), quality(vsa\|turbo_lora\|native\|turbo), image_data?, seed?}` → `{id}` |
 | 轮询 | `GET /api/tasks` | **无单任务端点**，返回列表（200 条窗口，单批 ≤200），按 id 过滤；状态 `queued→generating→done/failed` |
 | 取片 | `GET /api/tasks/{id}/video` | FileResponse mp4 |
 | 删除 | `DELETE /api/tasks/{id}` | 仅排队中可删（退额度）；视频保留 14 天 |
@@ -22,7 +22,18 @@
 - `prompt` ≤ 2000 字符
 - `duration` 整数 5–15 秒（**做不了 3s**；要短片段在 Remotion 里裁）
 - `aspect_ratio` ∈ {16:9, 9:16, 1:1, 4:3, 3:4}
-- `quality`：`turbo`=9 步 LoRA（快，批量用这个）；`native`=50 步（慢、质量略高）
+- `quality` 四档（2026-09 工作台升级后）与政策：
+
+  | UI 标签 | quality 值 | 步数/后端 | 文字渲染 | 实测耗时中位数 | 政策 |
+  |---|---|---|---|---|---|
+  | 速度 | `vsa` | 4 步，VSA ComfyUI 后端 | **几乎完全不可用** | — | **禁用** |
+  | 均衡 | `turbo_lora` | 9 步 LoRA，H3 引擎 | 中等，需检查 | 5s≈50s / 10s≈135s / 15s≈256s | 回退档 |
+  | 原生 | `native` | 50 步，H3 引擎 | **最好** | 5s≈266s / 7s≈473s / 15s≈1452s | **默认** |
+  | （旧别名） | `turbo` | select_backend 会把别名路由到 **vsa** | 同速度档 | — | **禁用** |
+
+  **政策：默认 native；太慢或排队过多才回退 turbo_lora，回退后必须检查文字渲染；vsa/turbo 禁用。**
+  h3_batch.py 已内置此政策（默认 native、显式拒绝 vsa/turbo、`--quality` 覆盖未显式指定的行）。
+  注意工作台网页 UI 的档位默认选中「速度」——网页手工出片也要手动切「原生」。
 - fl2va 需 `image_data`（data URI，≤12M 字符）
 - 输出 **1344×768**（16:9，短边 768 硬校验），h264+aac
 
@@ -46,7 +57,7 @@ H3_WORKBENCH_USER=admin H3_WORKBENCH_PASS=*** \
 ```json
 {"prompt": "英文电影感画面描述...", "task": "t2va", "duration": 5, "ar": "16:9", "out": "/opt/data/om-deploy/out/proj_h3_1.mp4"}
 ```
-字段：`prompt` / `task`(t2va|fl2va) / `duration`(5–15 整数) / `ar` / `out`(15 上绝对路径) / 可选 `quality`(默认 turbo) / `image`(fl2va 参考图路径) / `seed`。
+字段：`prompt` / `task`(t2va|fl2va) / `duration`(5–15 整数) / `ar` / `out`(15 上绝对路径) / 可选 `quality`(默认 **native**；可写 turbo_lora；写 vsa/turbo 会被拒绝) / `image`(fl2va 参考图路径) / `seed`。
 
 ## H3 prompt 写作要点
 
