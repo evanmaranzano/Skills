@@ -19,7 +19,7 @@ description: >
 
 路径用 `%USERPROFILE%` / `~/.agents`，不要写死 `26566` 或 `Administrator`。凭据只运行时读，不打印、不写入 skill / 记忆 / commit。
 
-用户没明确要求时 **不 commit / 不 push**。`agent-memory` 仓 09-14 已在 `13bc9bb` 分叉，禁止 `pull --ff-only`，先 merge，冲突按最新业务事实。
+用户没明确要求时 **不 commit / 不 push**。`agent-memory` 09-14 已 merge origin/main（`8eeebbc`）。禁止 `pull --ff-only`，分叉时先 merge，冲突按最新业务事实。
 
 ## 流程总览
 
