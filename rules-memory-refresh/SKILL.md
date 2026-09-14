@@ -90,6 +90,9 @@ ai-memory install-hooks --agent kimi-code --apply
 ai-memory install-hooks --agent pi --apply      # 重写 ~/.pi/agent/extensions/ai-memory-pi.ts
 ai-memory install-hooks --agent omp --apply     # 重写 ~/.omp/agent/extensions/ai-memory-omp.ts
 # open-code 如装有：--agent open-code --apply
+# codex 如装有：--agent codex --apply（首次接入需先从 release zip 手动提取 hooks/codex/ bundle 到
+#   %LOCALAPPDATA%\ai-memory\hooks\，否则报 "could not locate hooks directory"；装后 codex 首次启动
+#   会在 TUI 提示 'Hooks need review'，选 Trust all and continue）
 ```
 
 - **⚠️ zcode 永不走 install-hooks --apply**：官方模板只做「转发 payload」，无跨事件 session-id 状态维护（2.2.1 实测 `hook-state/` 目录不被官方路径创建），且会在已有 wrapper 旁追加重复 hook 造成双写（09-14 已清理，备份 `config.json.bak-pre-cleanup-20260914`）。zcode 用 `~/.zcode/hooks/ai-memory-zcode.ps1` 手动 pwsh wrapper（09-14 修正版：stop 不删状态文件、仅 SessionEnd 闭合、带 id 事件同步状态文件），详见 `reference_ai_memory_local.md` ZCode 节。
