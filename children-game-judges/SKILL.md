@@ -123,6 +123,10 @@ If a project folder contains a file named `cover.png` (or `cover.jpg` / `cover.j
 
 Covers are downscaled to at most 960 px wide and base64-encoded as JPEG, so `index.html` stays self-contained and works offline. Any aspect ratio works (the banner crops with `object-fit: cover`), but **16:9 landscape at roughly 1280×720** looks best. Projects without a cover simply render without one.
 
+## Background Music
+
+If `assets/award-music.mp3` exists inside this skill directory, it is base64-embedded into `index.html` as a looping `<audio>` element. A round gold play/pause button is fixed to the bottom-right corner: click it to start looping playback (or pause). Playback also starts automatically when the page loads; if the browser blocks autoplay, the first user interaction (clicking a card, pressing a key, or the button) starts it, and it loops forever after that. When the mp3 is missing the page is generated silently without music or button — no error, no placeholder.
+
 ## Event Logos
 
 If the following logo files exist, they are embedded in the top-left corner of the home page, horizontally aligned:

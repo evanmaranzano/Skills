@@ -70,6 +70,8 @@ LOGO_PATHS = [
 
 COVER_EXTENSIONS = (".png", ".jpg", ".jpeg", ".webp")
 
+MUSIC_PATH = Path(__file__).resolve().parent.parent / "assets" / "award-music.mp3"
+
 
 def find_cover(project_dir: Path) -> Path | None:
     """Return the project's cover image (cover.png/jpg/...) if one exists."""
@@ -96,6 +98,18 @@ def load_cover_data(path: Path, max_width: int = 960) -> str | None:
         return f"data:image/jpeg;base64,{b64}"
     except Exception as exc:
         print(f"Warning: could not load cover {path}: {exc}", file=sys.stderr)
+        return None
+
+
+def load_music_data() -> str | None:
+    """Return the award BGM as a base64 data URI, or None when the asset is missing."""
+    if not MUSIC_PATH.is_file():
+        return None
+    try:
+        b64 = base64.b64encode(MUSIC_PATH.read_bytes()).decode("ascii")
+        return f"data:audio/mpeg;base64,{b64}"
+    except Exception as exc:
+        print(f"Warning: could not load music {MUSIC_PATH}: {exc}", file=sys.stderr)
         return None
 
 
@@ -1044,6 +1058,33 @@ body {
   .cards-container { flex-direction: column; gap: 1rem; }
   .card-wrap { width: min(100%, 420px); height: clamp(420px, 70vh, 560px); }
 }
+
+.bgm-toggle {
+  position: fixed;
+  right: clamp(16px, 3vw, 36px);
+  bottom: clamp(16px, 3vh, 32px);
+  z-index: 50;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: 2px solid rgba(184, 134, 11, 0.55);
+  background: rgba(255, 252, 246, 0.92);
+  color: #B8860B;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(58, 51, 90, 0.18);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+.bgm-toggle:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(200, 144, 26, 0.35); }
+.bgm-toggle svg { width: 24px; height: 24px; }
+.bgm-toggle .icon-pause { display: none; }
+.bgm-toggle.playing .icon-pause { display: block; }
+.bgm-toggle.playing .icon-note { display: none; }
+.bgm-toggle.playing {
+  background: linear-gradient(135deg, #FFD66B, #E8A93C);
+  color: #5C4308;
+  border-color: rgba(184, 134, 11, 0.8);
+}
 """
 
 
@@ -1124,6 +1165,7 @@ SINGLE_TEMPLATE = r"""<!DOCTYPE html>
 </style>
 </head>
 <body>
+{{AUDIO_TAG}}
 <div id="home" class="stage active">
   {{SITE_LOGOS}}
   <header class="stage-header">
@@ -1360,6 +1402,35 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') hideDetail();
 });
 
+// Award BGM: try autoplay immediately; if the browser blocks it, start on the
+// first user interaction (e.g. the first card flip) and loop forever after.
+// The bottom-right button toggles play/pause manually.
+(function initBgm() {
+  const bgm = document.getElementById('bgm');
+  const btn = document.getElementById('bgmToggle');
+  if (!bgm || !btn) return;
+  const sync = () => btn.classList.toggle('playing', !bgm.paused);
+  bgm.addEventListener('play', sync);
+  bgm.addEventListener('pause', sync);
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (bgm.paused) {
+      bgm.play().catch(() => {});
+    } else {
+      bgm.pause();
+    }
+  });
+  const tryPlay = () => {
+    bgm.play().then(() => {
+      document.removeEventListener('pointerdown', tryPlay);
+      document.removeEventListener('keydown', tryPlay);
+    }).catch(() => {});
+  };
+  tryPlay();
+  document.addEventListener('pointerdown', tryPlay);
+  document.addEventListener('keydown', tryPlay);
+})();
+
 createSvgSprite();
 AWARDS.forEach((award, i) => cardsContainer.appendChild(createCard(award, i)));
 
@@ -1425,8 +1496,27 @@ def generate_html(
             "winners": winners,
         })
 
+    music_uri = load_music_data()
+    audio_tag = ""
+    if music_uri:
+        audio_tag = (
+            f'<audio id="bgm" loop preload="auto" src="{music_uri}"></audio>'
+            '<button id="bgmToggle" class="bgm-toggle" type="button"'
+            ' aria-label="播放或暂停背景音乐" title="播放 / 暂停背景音乐">'
+            '<svg class="icon-note" viewBox="0 0 24 24" fill="currentColor">'
+            '<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 '
+            '4-1.79 4-4V7h4V3h-6z"/>'
+            '</svg>'
+            '<svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor">'
+            '<rect x="6" y="4" width="4" height="16" rx="1"/>'
+            '<rect x="14" y="4" width="4" height="16" rx="1"/>'
+            '</svg>'
+            '</button>'
+        )
+
     html = SINGLE_TEMPLATE
     html = html.replace("{{COMMON_CSS}}", COMMON_CSS)
+    html = html.replace("{{AUDIO_TAG}}", audio_tag)
     html = html.replace("{{SITE_LOGOS}}", build_site_logos_html())
     html = html.replace("{{AWARD_DATA}}", json.dumps(award_data, ensure_ascii=False))
     html = html.replace("{{COMMON_BG_JS}}", COMMON_BG_JS)
