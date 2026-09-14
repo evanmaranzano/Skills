@@ -1,0 +1,66 @@
+{
+  "$comment": "Provider auth registry. Declarative only — this file NEVER contains credentials, only HOW to configure them. auth entries are tried in order: env = environment variable; oauth = delegated CLI login (guide only, no token is pulled by this skill); keyless = works without any credential.",
+  "providers": {
+    "exa": {
+      "label": "Exa",
+      "auth": [
+        { "type": "env", "var": "EXA_API_KEY", "signupUrl": "https://dashboard.exa.ai/api-keys", "note": "Free tier available; semantic search with own index." }
+      ]
+    },
+    "tavily": {
+      "label": "Tavily",
+      "auth": [
+        { "type": "env", "var": "TAVILY_API_KEY", "signupUrl": "https://app.tavily.com/home", "note": "Free tier ~1000 calls/month; agent-focused search API." }
+      ]
+    },
+    "brave": {
+      "label": "Brave Search",
+      "auth": [
+        { "type": "env", "var": "BRAVE_API_KEY", "signupUrl": "https://brave.com/search/api/", "note": "Free tier 2000 calls/month; classic web index." }
+      ]
+    },
+    "firecrawl": {
+      "label": "Firecrawl",
+      "auth": [
+        { "type": "env", "var": "FIRECRAWL_API_KEY", "signupUrl": "https://firecrawl.dev/", "note": "Self-hosted: also set FIRECRAWL_URL to your endpoint." }
+      ]
+    },
+    "jina": {
+      "label": "Jina Reader",
+      "auth": [
+        { "type": "env", "var": "JINA_API_KEY", "signupUrl": "https://jina.ai/reader/", "note": "s.jina.ai search endpoint; free tier with rate limits." }
+      ]
+    },
+    "xai": {
+      "label": "xAI (Grok)",
+      "auth": [
+        { "type": "env", "var": "XAI_API_KEY", "signupUrl": "https://console.x.ai/", "note": "xAI Responses API live search." },
+        { "type": "oauth", "guide": "SuperGrok/X Premium+ OAuth is a CLI-private flow (see harness tools like `omp /login xai-oauth`); this skill does not pull it. Use XAI_API_KEY for standalone use." }
+      ]
+    },
+    "gemini": {
+      "label": "Gemini grounding",
+      "auth": [
+        { "type": "env", "var": "GEMINI_API_KEY", "signupUrl": "https://aistudio.google.com/apikey", "note": "Google AI Studio key; grounding search via generativeLanguage API." }
+      ]
+    },
+    "openai": {
+      "label": "OpenAI web search",
+      "auth": [
+        { "type": "oauth", "guide": "ChatGPT OAuth is a CLI-private flow (e.g. `omp /login openai-codex`); this skill does not pull it. No standalone env key exists for the web_search tool." }
+      ]
+    },
+    "kimi": {
+      "label": "Kimi Code search",
+      "auth": [
+        { "type": "env", "var": "KIMI_SEARCH_API_KEY", "signupUrl": "https://platform.moonshot.ai/", "note": "Kimi Code Console search key — not the plain MOONSHOT_API_KEY." }
+      ]
+    },
+    "duckduckgo": {
+      "label": "DuckDuckGo",
+      "auth": [
+        { "type": "keyless", "note": "No credential needed; best-effort HTML scraping, may break on anti-bot changes or regional blocking (unreachable from some networks even via proxy). Zero-config fallback when reachable." }
+      ]
+    }
+  }
+}

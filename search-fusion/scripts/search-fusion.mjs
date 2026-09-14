@@ -59,6 +59,8 @@ export function parseArgs(argv) {
     benchmarkProfile: undefined,
     capabilities: undefined,
     depth: undefined,
+    doctor: false,
+    live: false,
     domain: undefined,
     freshness: undefined,
     input: undefined,
@@ -73,6 +75,7 @@ export function parseArgs(argv) {
     plan: false,
     pretty: false,
     providerCount: 3,
+    providers: undefined,
     recency: undefined,
     strictProviderPin: false,
     task: undefined,
@@ -83,12 +86,15 @@ export function parseArgs(argv) {
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
     if (arg === "--help" || arg === "-h") return { help: true };
+    if (arg === "--doctor") { options.doctor = true; continue; }
+    if (arg === "--live") { options.live = true; continue; }
     if (arg === "--pretty") { options.pretty = true; continue; }
     if (arg === "--plan") { options.plan = true; continue; }
     if (arg === "--next") { options.next = true; continue; }
     if (arg === "--strict-provider-pin") { options.strictProviderPin = true; continue; }
     if (arg === "--adapter") { options.adapter = argv[++index]; continue; }
     if (arg === "--capabilities") { options.capabilities = argv[++index]; continue; }
+    if (arg === "--providers") { options.providers = String(argv[++index]).split(",").map(item => item.trim()).filter(Boolean); continue; }
     if (arg === "--benchmark-profile") { options.benchmarkProfile = argv[++index]; continue; }
     if (arg === "--input" || arg === "--replay") { options.input = argv[++index]; continue; }
     if (arg === "--output") { options.output = argv[++index]; continue; }
@@ -118,8 +124,8 @@ export function parseArgs(argv) {
     queryParts.push(arg);
   }
   const query = queryParts.join(" ").trim();
-  if (!query) throw new Error("A search query is required");
-  if (!options.plan && !options.input && !options.adapter && !options.capabilities) throw new Error(NO_MODE_ERROR);
+  if (!query && !options.doctor) throw new Error("A search query is required");
+  if (!options.doctor && !options.plan && !options.input && !options.adapter && !options.capabilities) throw new Error(NO_MODE_ERROR);
   if (options.next && !options.input) throw new Error("--next requires --input <file>");
   if (options.recency && !["day", "week", "month", "year"].includes(options.recency)) throw new Error("--recency must be day, week, month, or year");
   for (const [name, allowed] of Object.entries(ENUM_OPTIONS)) {
@@ -175,7 +181,7 @@ function runManifest({ startedAt, asOf, options, attempts }) {
   return manifest;
 }
 
-async function loadAdapter(adapterName, capabilitiesPath) {
+async function loadAdapter(adapterName, capabilitiesPath, options) {
   if (capabilitiesPath) {
     const capabilities = JSON.parse(await readFile(capabilitiesPath, "utf8"));
     const normalized = normalizeCapabilities(capabilities);
@@ -189,6 +195,10 @@ async function loadAdapter(adapterName, capabilitiesPath) {
   if (adapterName === "omp" || adapterName === "omp-internal") {
     const module = await import("../adapters/omp-internal.mjs");
     return { adapter: module.createOmpInternalAdapter() };
+  }
+  if (adapterName === "direct") {
+    const module = await import("../adapters/direct.mjs");
+    return { adapter: module.createDirectAdapter({ providers: options?.providers }) };
   }
   if (adapterName === "host") {
     throw new Error("The host adapter requires an embedding harness; use --input or --capabilities");
@@ -453,7 +463,7 @@ export async function runSearchFusion(rawQuery, rawOptions = {}) {
   if (options.plan) {
     let capabilities = normalizeCapabilities({});
     if (options.adapter || options.capabilities) {
-      const { adapter, capabilities: explicit } = await loadAdapter(options.adapter, options.capabilities);
+      const { adapter, capabilities: explicit } = await loadAdapter(options.adapter, options.capabilities, options);
       capabilities = explicit ?? normalizeCapabilities(
         await withTimeout(Promise.resolve(adapter.capabilities()), Math.max(1_000, deadlineAt - Date.now())),
       );
@@ -523,7 +533,7 @@ export async function runSearchFusion(rawQuery, rawOptions = {}) {
       { ...statusFromCoverage(coverage, false), facets, queryVariants: facetQueries(facets), warnings, runManifest: manifest(attempts) });
   }
 
-  const { adapter, capabilities: explicitCapabilities } = await loadAdapter(options.adapter, options.capabilities);
+  const { adapter, capabilities: explicitCapabilities } = await loadAdapter(options.adapter, options.capabilities, options);
   const capabilities = explicitCapabilities ?? normalizeCapabilities(
     await withTimeout(Promise.resolve(adapter.capabilities()), Math.max(1_000, deadlineAt - Date.now())),
   );
@@ -553,6 +563,9 @@ export function usage() {
     "Options:",
     "  --adapter omp|host|<adapter>      Required unless --input, --capabilities or --plan is set",
     "  --capabilities <file>             Adapter capability JSON (for custom adapters)",
+    "  --adapter direct                  Standalone REST adapter (env-key providers + keyless duckduckgo)",
+    "  --providers a,b                   Restrict direct adapter to these providers",
+    "  --doctor                          First-run auth check: per-provider status + setup instructions",
     "  --input <file>                    Host-orchestrated search result JSON",
     "  --replay <file>                   Alias for --input",
     "  --plan                            Emit planned requests without executing",
@@ -583,6 +596,12 @@ export async function runCli(argv = process.argv.slice(2)) {
     const parsed = parseArgs(argv);
     if (parsed.help) {
       process.stdout.write(`${usage()}\n`);
+      return;
+    }
+    if (parsed.options.doctor) {
+      const auth = await import("../core/provider-auth.mjs");
+      const liveResults = parsed.options.live ? await auth.probeReadyProviders() : null;
+      process.stdout.write(`${auth.renderDoctorReport(undefined, liveResults)}\n`);
       return;
     }
     const output = await runSearchFusion(parsed.query, parsed.options);

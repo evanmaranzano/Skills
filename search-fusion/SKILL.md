@@ -114,6 +114,17 @@ node ~/.agents/skills/search-fusion/scripts/search-fusion.mjs \
 
 `omp` adapter 是当前兼容 OMP 的 adapter，不是核心依赖。其他 harness 应新增 adapter 或使用 host-orchestrated 模式。
 
+### 独立直连（无需任何 harness 集成）
+
+`--adapter direct` 直接 REST 调用搜索 provider API，凭据只来自环境变量（key 类）或 keyless 兜底（duckduckgo），skill 不存储任何凭据。新机器第一次使用先跑认证体检：
+
+```bash
+node ~/.agents/skills/search-fusion/scripts/search-fusion.mjs --doctor
+node ~/.agents/skills/search-fusion/scripts/search-fusion.mjs --adapter direct --top 8 --pretty "要调研的问题"
+```
+
+`--doctor` 输出每个 provider 的认证状态与精确配置教程（环境变量名、申请入口、PowerShell/shell 设置命令）。provider 选择由 role 匹配 + 跨 retrieval family 优先驱动（首发最多 4 个、默认总预算 9 次调用、覆盖达标提前停），不是按品牌硬编码。
+
 ## Provider roles
 
 策略层不按品牌硬编码 provider，而是按 role 选择：

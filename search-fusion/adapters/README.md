@@ -50,7 +50,23 @@ node scripts/search-fusion.mjs --capabilities my-capabilities.json --task compar
 
 capability 字段说明见 `schemas/capabilities.schema.json`；未提供的角色/排序字段由 `config/provider-defaults.json` 兜底。
 
-### 方式三：内置 OMP adapter（`--adapter omp`）
+### 方式三：内置 adapter
+
+**`--adapter direct`（独立直连，推荐用于无 harness 集成的场景）**
+
+直接以 REST 调用搜索 provider API，凭据只来自环境变量（`config/provider-auth.json` 声明每个 provider 的变量名与申请入口），skill 不存储任何 key，完全不依赖 harness 登录态：
+
+```bash
+node scripts/search-fusion.mjs --doctor        # 首次运行：逐 provider 认证体检 + 配置教程
+node scripts/search-fusion.mjs --adapter direct "要调研的问题"
+node scripts/search-fusion.mjs --adapter direct --providers exa,tavily "要调研的问题"
+```
+
+- key 类（env key 即用）：exa `EXA_API_KEY`、tavily `TAVILY_API_KEY`、brave `BRAVE_API_KEY`、firecrawl `FIRECRAWL_API_KEY`、jina `JINA_API_KEY`、xai `XAI_API_KEY`、gemini `GEMINI_API_KEY`、kimi `KIMI_SEARCH_API_KEY`；
+- keyless 兜底：duckduckgo 无需任何配置（best-effort，反爬敏感）；
+- OAuth 类 provider（ChatGPT/SuperGrok 等私有 CLI 流程）：`--doctor` 给出指引，本 skill 不代拉 token（各家 OAuth client 为其 CLI 私有资产，独立逆向实现有维护与合规风险）；有独立 env key 的（xai/gemini）优先走 key。
+
+**`--adapter omp`（OMP 兼容模式）**
 
 通过 OMP 的 `runSearchQuery()` 获取结构化结果。这是兼容性 adapter，不是核心依赖。capability 发现是**动态且 fail-open** 的：
 
@@ -67,6 +83,7 @@ provider 选择由角色匹配 + 跨 retrieval family 优先驱动，并受预�
 | Adapter | 用途 | 说明 |
 |---|---|---|
 | `host.mjs` | 通用 host-orchestrated 模式 | 由当前 harness/Agent 调用自己的搜索工具，再把结果交给 Fusion |
+| `direct.mjs` | 独立直连模式 | 环境变量 key 的 REST 直连 + keyless duckduckgo；`--doctor` 引导配置，新机器零 harness 依赖即可用 |
 | `omp-internal.mjs` | OMP 兼容模式 | 通过 OMP 当前可验证的 `runSearchQuery()` 获取结构化结果；它是兼容性 adapter，不是核心依赖 |
 
 ## ZCode（无专用 adapter，走方式一）

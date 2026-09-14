@@ -1,1 +1,1 @@
-export const SEARCH_FUSION_VERSION = "0.2.0";
+export const SEARCH_FUSION_VERSION = "0.3.0";
