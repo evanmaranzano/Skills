@@ -92,7 +92,7 @@ ai-memory install-hooks --agent omp --apply     # 重写 ~/.omp/agent/extensions
 # open-code 如装有：--agent open-code --apply
 ```
 
-- **⚠️ zcode 永不走 install-hooks**：它用 `~/.zcode/hooks/ai-memory-zcode.ps1` 手动 pwsh wrapper（session-id 状态文件 + PS5.1 坑），`install-hooks --agent zcode --apply` 会覆写坏。详见 `reference_ai_memory_local.md` 的 ZCode 修复节。
+- **⚠️ zcode 永不走 install-hooks --apply**：官方模板只做「转发 payload」，无跨事件 session-id 状态维护（2.2.1 实测 `hook-state/` 目录不被官方路径创建），且会在已有 wrapper 旁追加重复 hook 造成双写（09-14 已清理，备份 `config.json.bak-pre-cleanup-20260914`）。zcode 用 `~/.zcode/hooks/ai-memory-zcode.ps1` 手动 pwsh wrapper（09-14 修正版：stop 不删状态文件、仅 SessionEnd 闭合、带 id 事件同步状态文件），详见 `reference_ai_memory_local.md` ZCode 节。
 - **TS 扩展补丁（历史）**：≤2.1.0 生成的 omp/pi/opencode 扩展有 `TOKEN=null` + `fetchHandoff` 不校验 `response.ok` bug，需手动打补丁；**PR #625 已合并，≥2.2.1 生成模板自带修复，补丁已退役**。验证法：grep 扩展里的 `resolveToken` 应有 env→auth-token 文件回读、`fetchHandoff` 应有 `if (!response.ok) return undefined;`。
 - 刷完后 pi/omp 需重启才加载新扩展。
 
