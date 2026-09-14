@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Search Fusion Plan Output",
+  "type": "object",
+  "required": ["schemaVersion", "action", "query", "requests"],
+  "properties": {
+    "schemaVersion": { "type": "integer", "const": 1 },
+    "action": { "type": "string", "const": "plan" },
+    "query": { "type": "string" },
+    "task": { "type": "object" },
+    "capabilities": { "$ref": "./capabilities.schema.json" },
+    "facets": { "type": "array" },
+    "queryVariants": { "type": "array", "items": { "type": "string" } },
+    "providerAgnostic": { "type": "boolean" },
+    "requests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "query", "wave"],
+        "properties": {
+          "id": { "type": "string" },
+          "query": { "type": "string" },
+          "purpose": { "type": "string" },
+          "requiredRoles": { "type": "array", "items": { "type": "string" } },
+          "entities": { "type": "array", "items": { "type": "string" } },
+          "provider": { "type": ["string", "null"] },
+          "facetId": { "type": "string" },
+          "wave": { "type": "string", "enum": ["breadth", "facet", "fallback"] }
+        }
+      }
+    },
+    "budget": { "type": "object" },
+    "runManifest": { "type": "object" }
+  }
+}

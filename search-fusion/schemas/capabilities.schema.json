@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Search Fusion Capabilities",
+  "type": "object",
+  "required": ["harness", "level", "providerPin", "parallelSearch", "structuredSources", "fetch", "providers"],
+  "properties": {
+    "harness": { "type": "string" },
+    "level": { "type": "string", "enum": ["L0", "L1", "L2", "L3"] },
+    "providerPin": { "type": "boolean" },
+    "parallelSearch": { "type": "boolean" },
+    "structuredSources": { "type": "boolean" },
+    "fetch": { "type": "boolean" },
+    "providers": { "type": "array", "items": { "type": "string" } },
+    "autoOrder": { "type": "array", "items": { "type": "string" } },
+    "roles": {
+      "type": "object",
+      "additionalProperties": { "type": "array", "items": { "type": "string" } }
+    },
+    "rankSemantics": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "enum": ["ranked", "citation-order", "unknown"] }
+    },
+    "retrievalFamilies": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "metadata": { "type": "object" }
+  }
+}

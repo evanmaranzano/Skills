@@ -1,0 +1,1006 @@
+{
+  "schemaVersion": 1,
+  "mode": "adapter-orchestrated",
+  "query": "横评 Exa 和 Tavily 的最新搜索能力",
+  "task": {
+    "task": "comparison",
+    "freshness": "recent",
+    "domain": "coding",
+    "domainTags": [
+      "coding"
+    ],
+    "depth": "verify",
+    "language": "mixed-or-zh"
+  },
+  "capabilities": {
+    "harness": "omp",
+    "level": "L3",
+    "providerPin": true,
+    "parallelSearch": true,
+    "structuredSources": true,
+    "fetch": false,
+    "providers": [
+      "gemini",
+      "codex",
+      "xai",
+      "zai",
+      "exa",
+      "tinyfish",
+      "jina",
+      "tavily",
+      "firecrawl",
+      "brave",
+      "kimi",
+      "searxng",
+      "startpage",
+      "duckduckgo",
+      "ecosia",
+      "google",
+      "mojeek",
+      "public"
+    ],
+    "autoOrder": [
+      "exa",
+      "gemini",
+      "xai",
+      "firecrawl",
+      "tavily",
+      "tinyfish",
+      "zai",
+      "kimi",
+      "codex",
+      "public",
+      "jina",
+      "brave",
+      "searxng",
+      "startpage",
+      "duckduckgo",
+      "ecosia",
+      "google",
+      "mojeek"
+    ],
+    "roles": {
+      "gemini": [
+        "general",
+        "fresh"
+      ],
+      "codex": [
+        "general",
+        "developer",
+        "fresh"
+      ],
+      "xai": [
+        "fresh",
+        "social"
+      ],
+      "zai": [
+        "china",
+        "general"
+      ],
+      "exa": [
+        "semantic",
+        "developer",
+        "academic"
+      ],
+      "tinyfish": [
+        "general",
+        "fallback"
+      ],
+      "jina": [
+        "semantic",
+        "developer"
+      ],
+      "tavily": [
+        "general",
+        "fresh",
+        "semantic"
+      ],
+      "firecrawl": [
+        "developer",
+        "general"
+      ],
+      "brave": [
+        "general",
+        "fresh"
+      ],
+      "kimi": [
+        "china",
+        "general"
+      ],
+      "searxng": [
+        "public",
+        "general",
+        "fallback"
+      ],
+      "startpage": [
+        "public",
+        "general"
+      ],
+      "duckduckgo": [
+        "public",
+        "general",
+        "fallback"
+      ],
+      "ecosia": [
+        "public",
+        "general"
+      ],
+      "google": [
+        "public",
+        "general",
+        "fresh"
+      ],
+      "mojeek": [
+        "public",
+        "general"
+      ],
+      "public": [
+        "public",
+        "fallback",
+        "general"
+      ]
+    },
+    "rankSemantics": {
+      "gemini": "citation-order",
+      "codex": "citation-order",
+      "xai": "citation-order",
+      "zai": "citation-order",
+      "exa": "ranked",
+      "tinyfish": "ranked",
+      "jina": "unknown",
+      "tavily": "ranked",
+      "firecrawl": "ranked",
+      "brave": "ranked",
+      "kimi": "citation-order",
+      "searxng": "ranked",
+      "startpage": "ranked",
+      "duckduckgo": "ranked",
+      "ecosia": "ranked",
+      "google": "ranked",
+      "mojeek": "ranked",
+      "public": "ranked"
+    },
+    "retrievalFamilies": {
+      "gemini": "google",
+      "codex": "openai",
+      "xai": "xai",
+      "zai": "zai",
+      "exa": "exa",
+      "tinyfish": "tinyfish",
+      "jina": "jina",
+      "tavily": "tavily",
+      "firecrawl": "firecrawl",
+      "brave": "brave",
+      "kimi": "kimi",
+      "searxng": "metasearch",
+      "startpage": "google",
+      "duckduckgo": "duckduckgo",
+      "ecosia": "bing",
+      "google": "google",
+      "mojeek": "mojeek",
+      "public": "public"
+    },
+    "metadata": {
+      "adapter": "omp-internal",
+      "compatibility": true,
+      "availableProviders": [
+        "gemini",
+        "codex",
+        "xai",
+        "zai",
+        "exa",
+        "tinyfish",
+        "jina",
+        "tavily",
+        "firecrawl",
+        "brave",
+        "kimi",
+        "searxng",
+        "startpage",
+        "duckduckgo",
+        "ecosia",
+        "google",
+        "mojeek",
+        "public"
+      ],
+      "preferredOrder": [
+        "exa",
+        "gemini",
+        "xai",
+        "firecrawl",
+        "tavily",
+        "tinyfish",
+        "zai",
+        "kimi",
+        "codex",
+        "public"
+      ],
+      "excludedProviders": [
+        "perplexity",
+        "anthropic",
+        "kagi",
+        "parallel",
+        "synthetic"
+      ]
+    }
+  },
+  "attempts": [
+    {
+      "provider": "exa",
+      "requestedProvider": "exa",
+      "ok": true,
+      "sources": [
+        {
+          "title": "Exa vs Tavily: AI Search API Head-to-Head — Top AI Tracker",
+          "url": "https://topaitracker.com/comparisons/2026-08-08-exa-vs-tavily-ai-search-api-head-to-head/",
+          "snippet": "Here’s a concise comparison focused on the latest Exa vs Tavily search capabilities:\n\n- Overall verdict: Exa edges Tavily by five points across eight rounds, led by its neural/embeddings index, faster Instant mode, and specialized vertical indexes (people, company, code) plus a larger free tier. Tavily wins in framework distribution and a single-call search-plus-extract flow, plus flatter, more predictable billing.\n\n- Retrieval quality (complex queries): Exa dominates. In the WebWalker multi-hop",
+          "publishedDate": "2026-08-08T09:57:47.000Z",
+          "ageSeconds": 3218831,
+          "author": "Tested by Devon Mizrahi"
+        },
+        {
+          "title": "Exa Search vs Tavily vs Firecrawl vs SerpAPI：2026 年 Agent 搜索 API 怎么选 | SandBase Blog",
+          "url": "https://blog.sandbase.ai/zh-CN/exa-search-vs-tavily-firecrawl-serpapi-2026/",
+          "snippet": "以下是对“横评 Exa 和 Tavily 的最新搜索能力”的要点摘要，基于 SandBase 的对比文章要点：\n\n- Exa Search\n  - 核心能力：AI-native 语义搜索，按语义发现网页内容，而非仅关键词匹配。\n  - 输出形式：不仅返回链接，还提供正文、高亮（highlights）和摘要，便于直接用作上下文材料给代理（Agent）。\n  - 最适合的场景：需要快速获得高质量网页上下文、直接获取正文与摘要的任务，如公司调研、销售线索、市场地图、竞品发现等。\n  - 局限：不是完整浏览器自动化或大规模爬虫平台。\n\n- Tavily\n  - 核心能力：面向 AI 应用的综合搜索与研究工具箱，功能覆盖 search、extract、crawl、map、research 等。\n  - 输出形式：偏向支持 AI 工作流的组合能力，适合构建更完整的网络研究流程。\n  - 最适合的场景：需要一整套网页研究能力（搜索、抽取、爬取、映射、研究）的一体化解决方案。\n  - 局限：更偏 AI 工作流工具，而非纯粹的网页爬虫基础设施。\n\n对比要点（简要对照）：\n- Exa vs Tavily：",
+          "publishedDate": "2026-07-30T00:00:00.000Z",
+          "ageSeconds": 4032298
+        },
+        {
+          "title": "Tavily、Exa、Serper、API Pick 对比：给 LLM 用的网页搜索 API 怎么选？",
+          "url": "https://www.apipick.com/zh-CN/blog/tavily-exa-serper-vs-apipick",
+          "snippet": "- 目标结论：若你关心“最新搜索能力”且需要对比 Exa 与 Tavily 的实现差异，以下要点最相关。\n- 核心定位\n  - Tavily：托管式 RAG 端点，直接给模型一个“就绪答案”的摘要结果，方便快速将搜索接入到聊天助手场景，订阅 + credit 模式。返回为 ranked 摘要，可选内置的 LLM 回答。\n  - Exa：以神经/语义索引为核心，强调相似性发现和基于 embedding 的排序与检索，时效性可控性稍弱但在主题相似性检索上表现突出，适合需要语义扩展和全文/摘要筛选的场景，订阅 + credit 模式。\n- 返回结构对比\n  - Tavily：ranked 摘要 + 可选 LLM 答案（对话友好）、托管在 Tavily 的端点，适合直接给模型一个答案就绪的 blob。\n  - Exa：ranked URL + 可选 highlights / 全文，强调神经索引和语义层面的排序与发现。\n- 时效性与过滤\n  - 国家过滤：Tavily、Exa、API Pick 皆支持；Serper 需要额外配置。\n  - 日期过滤：Tavily、Exa、API Pick 均有日",
+          "publishedDate": "2026-05-02T00:00:00.000Z",
+          "ageSeconds": 11721898
+        },
+        {
+          "title": "You.com | Tavily vs Exa: AI Search APIs Compared (2026)",
+          "url": "https://you.com/resources/tavily-vs-exa",
+          "snippet": "简要摘要（针对“横评 Exa 和 Tavily 的最新搜索能力”）\n\n- 侧重点对比\n  - Tavily：面向需要代理驱动的搜索与提取工作流，强调“agent-optimized search and extraction”。提供可预测的月度订阅+信用池模式，APIs 简单（REST），支持内嵌 LLM 答案和 raw 内容选取，适合需要清晰预算和便捷整合的 RAG 流程。\n  - Exa：主打高准确率的神经检索，覆盖广泛垂直领域，按使用量付费，无订阅门槛。以对比基准显示在 FRAMES、Tip-of-Tongue、Seal0 等测试中的领先，并宣称低延迟（最快模式 p50 < 180ms），适合波动 workload 与追求检索精度的场景。\n\n- 核心功能与端点对比\n  - Web 搜索：双方均有 /search，但 Tavily 提供 depth 模式（basic/advanced/fast/ultra-fast），Exa 提供 standard 与 deep 搜索变体（deep-lite/deep/deep-reasoning）。\n  - 内容提取：Tavily 提 /extr",
+          "publishedDate": "2026-07-14T00:00:00.000Z",
+          "ageSeconds": 5414698
+        },
+        {
+          "title": "Exa vs Tavily: Web Search APIs for AI Agents (2026) — AgentsCamp",
+          "url": "https://agentscamp.com/guides/comparisons/exa-vs-tavily",
+          "snippet": "横评 Exa 与 Tavily 的最新搜索能力要点（面向 AI 代理/RAG 场景）\n\n- 适用场景对比\n  - Exa：基于神经嵌入的语义搜索，优点在于“意义层面的发现与相关源头的检索”，适合研究、找相似页面、需要高质量来源的检索任务，并提供可获取的全文内容（内容抓取/提取一步到位，强于纯关键词匹配的定位）。\n  - Tavily：面向代理与 RAG 的一体化搜索 API，一次请求即返回排序结果、提取后的可直接用于拼接到提示词中的内容，必要时可附带合成答案，极大减少 glue 代码量，适合端到端的代理循环（search → extract → 直接使用）。\n\n- 输出形式\n  - Exa：返回经过排序的链接 + 获取到的完整网页内容（可选以快速获取结构化笔记的提要）。对需要后续手动或程序化提取的源很友好。\n  - Tavily：返回排序结果 + 已提取的页面内容（可选的合成答案），可直接喂给大语言模型，无需额外提取步骤。\n\n- 关键差异点\n  - 检索核心：Exa 以语义嵌入为核心进行“意义对齐”的检索；Tavily 以代理/RAG 的工作流优化为核心，强调速成的一体化输出。\n  -",
+          "publishedDate": "2026-06-17T00:00:00.000Z",
+          "ageSeconds": 7747498,
+          "author": "AgentsCamp"
+        },
+        {
+          "title": "面向 AI Agent 的搜索与解析工具大比拼：Tavily、Exa 还是 Firecrawl？",
+          "url": "https://www.80aj.com/2026/06/20/ai-agent-tools-comparison/",
+          "snippet": "对比要点聚焦 Exa 与 Tavily 的最新搜索能力（面向 AI Agent 的应用场景）：\n\n- Exa：\n  - 不需要 API Key 即可通过 MCP 协议使用，提升上手与接入便利性。\n  - 在 Claude Code、Codex 等开发环境中被广泛作为持久工具使用，稳定性和可用性较高。\n  - 优势核心：免 Key 的稳定接入、MCP 兼容性强，适合需要快速集成的 Agent 工作流。\n\n- Tavily：\n  - 起初以注册赠送额度吸引用户，存在部分开发者对搜索质量的反馈与兼容性问题，特别是在特定客户端调用场景。\n  - 优势在于快速上手和免费额度体验，但长期使用需关注搜索质量和客户端兼容性的一致性。\n\n- 共同趋势与对比要点：\n  - 免费额度、搜索质量与兼容性是核心权衡点。\n  - 多模态数据支持与结构化输出能力（如将非结构化文档解析为 Agent 友好格式）逐渐成为关键竞争力，尽管 Firecrawl 在这方面展现出色潜力，但当前对 Exa 的依赖性与 MCP 协议的普及性仍使 Exa 在许多开发环境中更易被作为首选。\n  - MCP 协议在降低接入门槛、实现模块",
+          "publishedDate": "2026-06-19T16:02:06.000Z",
+          "ageSeconds": 7516972
+        },
+        {
+          "title": "Exa vs Tavily vs Brave Search API 给 Agent 选型 | 对比判断 | 菠萝 AI 笔记",
+          "url": "https://www.boluoblog.com/coding/exa-vs-tavily-vs-brave-search-api-2026-agent/",
+          "snippet": "以下是针对“横评 Exa 和 Tavily 的最新搜索能力”的要点摘要，聚焦对比结果与场景适配，便于快速决策。\n\n- 定位与核心能力\n  - Exa：语义/神经搜索，按相似度返回深度内容，适合学术与深度研究。需要后续自建处理以产出可用答案。\n  - Tavily：AI-native 搜索，专为对接大模型（LLM）设计，直接返回可用的 answer 字段并附源，适合直接驱动消费端或代理的对话场景。\n\n- 价格与成本结构（以 2026-05-20 时点为准）\n  - Exa：基础搜索 $0.005；高级（contents 全文） $0.025\n  - Tavily：基础搜索 $0.008；高级/answer $0.04\n  - Brave：基础搜索 $0.005；月前 2K 免费；高级含图等更高价\n  - 结论：Brave 最便宜，Tavily 成本最高但减少后续 LLM 抓取成本，Exa 性价比介于两者之间，取决于是否需要 contents 抓取。\n\n- 延迟与实时性\n  - Brave 最快（约 0.6s），Tavily 次之（约 0.9s），Exa 最慢（约 1.2s）。\n  - 实",
+          "publishedDate": "2026-05-11T00:00:00.000Z",
+          "ageSeconds": 10944298,
+          "author": "林桃   AI 工具评测主笔"
+        },
+        {
+          "title": "Exa vs Tavily: AI Search API Comparison 2026",
+          "url": "https://exa.ai/versus/tavily",
+          "snippet": "横评 Exa 和 Tavily 的最新搜索能力\n\n- 性能对比要点：\n  - 复杂查询与语义理解：Exa 在复杂检索、需要语义理解或多步推理的查询上表现更优，得分显著高于 Tavily（WebWalker 多跳检索、Fortune 100 企业评估等场景）。\n  - 基础查询/简单查找：Tavily 在基础、关键词驱动的检索上表现不错，但在需要推理和复杂检索时落后于 Exa。\n- 延迟与吞吐：\n  - Exa 的 p95 延迟约 1.4–1.7 秒（企业评估三项基准），Instant 版本通常亚秒级 (<200ms)，对长查询也保持低延迟。\n  - Tavily 的 p95 延迟约 3.8–4.5 秒，Ultra-fast 模式宣称 90ms，但实际典型查询约 210ms，较长输入约 420ms。\n- 功能与覆盖范围：\n  - Exa 提供完整的神经/语义搜索、企业级索引（1B+ 人物、公司索引、代码搜索、跨领域过滤与安全）以及对检索结果进行提炼以提升 RAG 效果（提取对答案最相关的段落、减少给 LLM 的 token 数量 50–75%）。\n  - Tavily 以关键词检索为主，",
+          "author": "Exa Labs"
+        },
+        {
+          "title": "人工智能- 搜索API 哪个好用？主流方案深度横评（2026）",
+          "url": "https://segmentfault.com/",
+          "snippet": "Summary:\n\nBased on the provided page (SegmentFault 思否), there is no direct content about “Exa” and “Tavily” or their latest search capabilities. The extracted highlights shown are about:\n\n- GPT-6’s end-to-end development skills and required programmer capabilities.\n- An issue about 微信指数 (WeChat Index) search disappearing on Sept 2, questioning whether it’s a WeChat Index bug or other原因.\n\nIf you are specifically looking for a 横评 (head-to-head review) of Exa vs. Tavily regarding their latest searc"
+        },
+        {
+          "title": "AI 搜索三巨头对比:Exa / Tavily / Parallel,2026 谁才是开发者的真·选择? - 祖普科技",
+          "url": "https://zuphp.com/4966.html",
+          "snippet": "横评：Exa 与 Tavily 最新搜索能力对比要点\n\n- 准度\n  - Exa：81%（在同类基准下突出，中文表现稳定）\n  - Tavily：71%（虽低于 Exa，但在特定场景如财经、新闻等有优势）\n\n- 延迟\n  - Exa p95：1.4–1.7s，适合需要快速返回的企业场景\n  - Tavily：3.8–4.5s（在通常全文检索与页面提取方面表现尚可，等效于中等速率需求）\n\n- 功能与场景侧重\n  - Exa：Search、Websets、People/Code 等大规模数据能力，适合中文 RAG、企业级应用、Zero-Data-Retention 合规需求\n  - Tavily：多档 Search、Extract（JS 渲染页面抓取）、Research、原生插件生态，适合金融/新闻时效性强、SPA/微信等页面抓取、企业集成场景\n\n- 价格与使用模式（对比在实际选型时具有参考价值）\n  - Exa：强调高规模数据与企业可定制限流\n  - Tavily：提供免费档、按需付费、不同档位组合，且有“1,000 req/min 限流”等约束，便于小型团队起步\n\n- 适合的对比结论\n",
+          "publishedDate": "2026-07-20T00:00:00.000Z",
+          "ageSeconds": 4896298
+        }
+      ],
+      "answer": "**Exa vs Tavily: AI Search API Head-to-Head — Top AI Tracker**: Here’s a concise comparison focused on the latest Exa vs Tavily search capabilities:\n\n- Overall verdict: Exa edges Tavily by five points across eight rounds, led by its neural/embeddings index, faster Instant mode, and specialized vertical indexes (people, company, code) plus a larger free tier. Tavily wins in framework distribution and a single-call search-plus-extract flow, plus flatter, more predictable billing.\n\n- Retrieval quality (complex queries): Exa dominates. In the WebWalker multi-hop benchmark, Exa scored 81% vs Tavily’s 71%. Exa’s semantic neural index excels at meaning-based matching and multi-step reasoning; Tavily’s keyword-based retrieval lags on semantic queries.\n\n- Latency: Exa shows a sub-150ms Instant mode with real-time suitability; p95 in Fortune 100 tests ranged ~1.4–1.7s for Exa vs ~3.8–4.5s for Tavily. Tavily advertises 90ms in ultra-fast mode but that applies to the simplest queries; typical queries are longer.\n\n- Endpoint coverage: Exa offers extensive, specialized indexes (Search with multiple modes, Contents, Answer, Agent, Websets, Monitors, plus dedicated people, company, and code indexes). Tavily provides Search, Extract, Map, Crawl, and Research, but lacks Exa’s targeted entity/indexed search capabilities.\n\n- When to pick which:\n  - Pick Exa for semantic discovery, research agents, and entity search over its own indexes (people, company, code). Best for complex, meaning-based, multi-hop queries.\n  - Pick Tavily for LangChain-first RAG stacks where you need clean, LLM-ready snippets in one call and a flat, predictable billing model (single-call search-plus-extract workflow).\n\nBottom line: If your use case requires deep semantic search, multi-hop reasoning, or entity-centric indexes, Exa is the stronger default. If your priority is streamlined single-call extraction, LangChain-friendly snippets, and straightforward billing, Tavily is the better fit.\n\n**Exa Search vs Tavily vs Firecrawl vs SerpAPI：2026 年 Agent 搜索 API 怎么选 | SandBase Blog**: 以下是对“横评 Exa 和 Tavily 的最新搜索能力”的要点摘要，基于 SandBase 的对比文章要点：\n\n- Exa Search\n  - 核心能力：AI-native 语义搜索，按语义发现网页内容，而非仅关键词匹配。\n  - 输出形式：不仅返回链接，还提供正文、高亮（highlights）和摘要，便于直接用作上下文材料给代理（Agent）。\n  - 最适合的场景：需要快速获得高质量网页上下文、直接获取正文与摘要的任务，如公司调研、销售线索、市场地图、竞品发现等。\n  - 局限：不是完整浏览器自动化或大规模爬虫平台。\n\n- Tavily\n  - 核心能力：面向 AI 应用的综合搜索与研究工具箱，功能覆盖 search、extract、crawl、map、research 等。\n  - 输出形式：偏向支持 AI 工作流的组合能力，适合构建更完整的网络研究流程。\n  - 最适合的场景：需要一整套网页研究能力（搜索、抽取、爬取、映射、研究）的一体化解决方案。\n  - 局限：更偏 AI 工作流工具，而非纯粹的网页爬虫基础设施。\n\n对比要点（简要对照）：\n- Exa vs Tavily：Exa 聚焦语义发现与直接获取上下文文本/摘要；Tavily 提供更完整的 AI 驱动工作流工具箱，覆盖多阶段任务。\n- Firecrawl 的定位：侧重网页抓取、深度抽取与结构化输出，适合在已知目标站点后进行数据处理，与 Exa/Tavily 的“搜索+研究”侧重点不同。\n- SerpAPI / Google Custom Search：偏向传统的结构化 SERP 数据与可编程搜索能力，适合需要稳定的搜索结果页数据的场景，不同于专注“生成可用上下文”的代理工作流工具。\n\n简要结论（按最新能力选型建议）：\n- 若你的任务是“根据语义找到相关内容并快速获得高质量网页上下文”，优先考虑 Exa Search。\n- 若你的任务是构建一个 AI 驅动的网页研究工作流，需同时涵盖搜索、抽取、爬取和研究， Tavily 是强有力的候选。\n- 若需要对特定网站的抓取与结构化提取，且你已有明确抓取目标，Firecrawl 提供更深的网页数据处理能力。\n- 如需要传统、成熟的 SERP 数据输出或对 Google 搜索的可编程访问，SerpAPI / Google Custom Search 更合适。\n\n需要我把以上要点整理成更紧凑的对比表，或按你的具体工作流（如销售线\n\n**Tavily、Exa、Serper、API Pick 对比：给 LLM 用的网页搜索 API 怎么选？**: - 目标结论：若你关心“最新搜索能力”且需要对比 Exa 与 Tavily 的实现差异，以下要点最相关。\n- 核心定位\n  - Tavily：托管式 RAG 端点，直接给模型一个“就绪答案”的摘要结果，方便快速将搜索接入到聊天助手场景，订阅 + credit 模式。返回为 ranked 摘要，可选内置的 LLM 回答。\n  - Exa：以神经/语义索引为核心，强调相似性发现和基于 embedding 的排序与检索，时效性可控性稍弱但在主题相似性检索上表现突出，适合需要语义扩展和全文/摘要筛选的场景，订阅 + credit 模式。\n- 返回结构对比\n  - Tavily：ranked 摘要 + 可选 LLM 答案（对话友好）、托管在 Tavily 的端点，适合直接给模型一个答案就绪的 blob。\n  - Exa：ranked URL + 可选 highlights / 全文，强调神经索引和语义层面的排序与发现。\n- 时效性与过滤\n  - 国家过滤：Tavily、Exa、API Pick 皆支持；Serper 需要额外配置。\n  - 日期过滤：Tavily、Exa、API Pick 均有日期过滤能力；Serper 具备相关过滤（如 qdr）。\n- 计费与成本\n  - Tavily：订阅 + 超出按 credit 计费，存在月费门槛。\n  - Exa：订阅 + 超出按 credit 计费，规模 larger 时需算清预算。\n  - API Pick：按量计费，Web Search 为每次调用 15 credits，$5/5,000 credits；HTTP 非 200 不扣费，单次成本对比 Tavily/Exa 更可预测，适合流量波动大场景。\n  - Serper：按查询次数计费，需注意可能的“只扣成功”与失败扣费差异。\n- 适用场景\n  - Tavily：托管的 RAG 端点、聊天助手直接输出答案场景，快速上线。\n  - Exa：需要语义/相似度发现，或对相似主题的扩展检索， embedding 派生的检索更优。\n  - Serper：需要原始 Google SERP、后续自建抽取管线时的“原始源头”场景。\n  - API Pick：需要预制好 JSON 摘要、HTTP 200 才计费、国家与日期等过滤，适合需要对接到 AI Agent 调用的轻量化、低月费替代方案。\n\n简要结论：若你要快速",
+      "citations": [],
+      "searchQueries": [],
+      "metadata": {
+        "requestId": "778c212bdaec4084ddb39ce154a7fca7"
+      },
+      "latencyMs": 10677,
+      "query": "横评 Exa 和 Tavily 的最新搜索能力",
+      "facetId": "base",
+      "wave": "breadth"
+    }
+  ],
+  "facets": [
+    {
+      "id": "base",
+      "query": "横评 Exa 和 Tavily 的最新搜索能力",
+      "purpose": "broad-recall",
+      "requiredRoles": [],
+      "required": true,
+      "entities": []
+    },
+    {
+      "id": "left",
+      "query": "Exa capabilities",
+      "purpose": "comparison-left",
+      "requiredRoles": [
+        "semantic"
+      ],
+      "required": true,
+      "entities": [
+        "Exa"
+      ]
+    },
+    {
+      "id": "right",
+      "query": "Tavily capabilities",
+      "purpose": "comparison-right",
+      "requiredRoles": [
+        "semantic"
+      ],
+      "required": true,
+      "entities": [
+        "Tavily"
+      ]
+    },
+    {
+      "id": "freshness",
+      "query": "横评 Exa 和 Tavily 的最新搜索能力 latest update",
+      "purpose": "freshness",
+      "requiredRoles": [
+        "fresh"
+      ],
+      "required": true,
+      "entities": []
+    }
+  ],
+  "queryVariants": [
+    "横评 Exa 和 Tavily 的最新搜索能力",
+    "Exa capabilities",
+    "Tavily capabilities",
+    "横评 Exa 和 Tavily 的最新搜索能力 latest update"
+  ],
+  "fused": [
+    {
+      "title": "Exa Search vs Tavily vs Firecrawl vs SerpAPI：2026 年 Agent 搜索 API 怎么选 | SandBase Blog",
+      "url": "https://blog.sandbase.ai/zh-CN/exa-search-vs-tavily-firecrawl-serpapi-2026",
+      "snippet": "以下是对“横评 Exa 和 Tavily 的最新搜索能力”的要点摘要，基于 SandBase 的对比文章要点：\n\n- Exa Search\n  - 核心能力：AI-native 语义搜索，按语义发现网页内容，而非仅关键词匹配。\n  - 输出形式：不仅返回链接，还提供正文、高亮（highlights）和摘要，便于直接用作上下文材料给代理（Agent）。\n  - 最适合的场景：需要快速获得高质量网页上下文、直接获取正文与摘要的任务，如公司调研、销售线索、市场地图、竞品发现等。\n  - 局限：不是完整浏览器自动化或大规模爬虫平台。\n\n- Tavily\n  - 核心能力：面向 AI 应用的综合搜索与研究工具箱，功能覆盖 search、extract、crawl、map、research 等。\n  - 输出形式：偏向支持 AI 工作流的组合能力，适合构建更完整的网络研究流程。\n  - 最适合的场景：需要一整套网页研究能力（搜索、抽取、爬取、映射、研究）的一体化解决方案。\n  - 局限：更偏 AI 工作流工具，而非纯粹的网页爬虫基础设施。\n\n对比要点（简要对照）：\n- Exa vs Tavily：",
+      "publishedDate": "2026-07-30T00:00:00.000Z",
+      "ageSeconds": 4032298,
+      "strictUrl": "https://blog.sandbase.ai/zh-CN/exa-search-vs-tavily-firecrawl-serpapi-2026/",
+      "looseUrl": "https://blog.sandbase.ai/zh-CN/exa-search-vs-tavily-firecrawl-serpapi-2026",
+      "citationUrl": "https://blog.sandbase.ai/zh-CN/exa-search-vs-tavily-firecrawl-serpapi-2026/",
+      "hostname": "blog.sandbase.ai",
+      "publishedAt": "2026-07-30T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016129032258064516,
+      "provenance": "unknown",
+      "rrfNormalized": 0.983871,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.812
+    },
+    {
+      "title": "You.com | Tavily vs Exa: AI Search APIs Compared (2026)",
+      "url": "https://you.com/resources/tavily-vs-exa",
+      "snippet": "简要摘要（针对“横评 Exa 和 Tavily 的最新搜索能力”）\n\n- 侧重点对比\n  - Tavily：面向需要代理驱动的搜索与提取工作流，强调“agent-optimized search and extraction”。提供可预测的月度订阅+信用池模式，APIs 简单（REST），支持内嵌 LLM 答案和 raw 内容选取，适合需要清晰预算和便捷整合的 RAG 流程。\n  - Exa：主打高准确率的神经检索，覆盖广泛垂直领域，按使用量付费，无订阅门槛。以对比基准显示在 FRAMES、Tip-of-Tongue、Seal0 等测试中的领先，并宣称低延迟（最快模式 p50 < 180ms），适合波动 workload 与追求检索精度的场景。\n\n- 核心功能与端点对比\n  - Web 搜索：双方均有 /search，但 Tavily 提供 depth 模式（basic/advanced/fast/ultra-fast），Exa 提供 standard 与 deep 搜索变体（deep-lite/deep/deep-reasoning）。\n  - 内容提取：Tavily 提 /extr",
+      "publishedDate": "2026-07-14T00:00:00.000Z",
+      "ageSeconds": 5414698,
+      "strictUrl": "https://you.com/resources/tavily-vs-exa",
+      "looseUrl": "https://you.com/resources/tavily-vs-exa",
+      "citationUrl": "https://you.com/resources/tavily-vs-exa",
+      "hostname": "you.com",
+      "publishedAt": "2026-07-14T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015625,
+      "provenance": "unknown",
+      "rrfNormalized": 0.953125,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.792938
+    },
+    {
+      "title": "Exa vs Tavily: Web Search APIs for AI Agents (2026) — AgentsCamp",
+      "url": "https://agentscamp.com/guides/comparisons/exa-vs-tavily",
+      "snippet": "横评 Exa 与 Tavily 的最新搜索能力要点（面向 AI 代理/RAG 场景）\n\n- 适用场景对比\n  - Exa：基于神经嵌入的语义搜索，优点在于“意义层面的发现与相关源头的检索”，适合研究、找相似页面、需要高质量来源的检索任务，并提供可获取的全文内容（内容抓取/提取一步到位，强于纯关键词匹配的定位）。\n  - Tavily：面向代理与 RAG 的一体化搜索 API，一次请求即返回排序结果、提取后的可直接用于拼接到提示词中的内容，必要时可附带合成答案，极大减少 glue 代码量，适合端到端的代理循环（search → extract → 直接使用）。\n\n- 输出形式\n  - Exa：返回经过排序的链接 + 获取到的完整网页内容（可选以快速获取结构化笔记的提要）。对需要后续手动或程序化提取的源很友好。\n  - Tavily：返回排序结果 + 已提取的页面内容（可选的合成答案），可直接喂给大语言模型，无需额外提取步骤。\n\n- 关键差异点\n  - 检索核心：Exa 以语义嵌入为核心进行“意义对齐”的检索；Tavily 以代理/RAG 的工作流优化为核心，强调速成的一体化输出。\n  -",
+      "publishedDate": "2026-06-17T00:00:00.000Z",
+      "ageSeconds": 7747498,
+      "author": "AgentsCamp",
+      "strictUrl": "https://agentscamp.com/guides/comparisons/exa-vs-tavily",
+      "looseUrl": "https://agentscamp.com/guides/comparisons/exa-vs-tavily",
+      "citationUrl": "https://agentscamp.com/guides/comparisons/exa-vs-tavily",
+      "hostname": "agentscamp.com",
+      "publishedAt": "2026-06-17T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015384615384615385,
+      "provenance": "unknown",
+      "rrfNormalized": 0.938462,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.9,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.777846
+    },
+    {
+      "title": "Exa vs Tavily: AI Search API Head-to-Head — Top AI Tracker",
+      "url": "https://topaitracker.com/comparisons/2026-08-08-exa-vs-tavily-ai-search-api-head-to-head",
+      "snippet": "Here’s a concise comparison focused on the latest Exa vs Tavily search capabilities:\n\n- Overall verdict: Exa edges Tavily by five points across eight rounds, led by its neural/embeddings index, faster Instant mode, and specialized vertical indexes (people, company, code) plus a larger free tier. Tavily wins in framework distribution and a single-call search-plus-extract flow, plus flatter, more predictable billing.\n\n- Retrieval quality (complex queries): Exa dominates. In the WebWalker multi-hop",
+      "publishedDate": "2026-08-08T09:57:47.000Z",
+      "ageSeconds": 3218831,
+      "author": "Tested by Devon Mizrahi",
+      "strictUrl": "https://topaitracker.com/comparisons/2026-08-08-exa-vs-tavily-ai-search-api-head-to-head/",
+      "looseUrl": "https://topaitracker.com/comparisons/2026-08-08-exa-vs-tavily-ai-search-api-head-to-head",
+      "citationUrl": "https://topaitracker.com/comparisons/2026-08-08-exa-vs-tavily-ai-search-api-head-to-head/",
+      "hostname": "topaitracker.com",
+      "publishedAt": "2026-08-08T09:57:47.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.01639344262295082,
+      "provenance": "unknown",
+      "rrfNormalized": 1,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.2,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.774
+    },
+    {
+      "title": "面向 AI Agent 的搜索与解析工具大比拼：Tavily、Exa 还是 Firecrawl？",
+      "url": "https://80aj.com/2026/06/20/ai-agent-tools-comparison",
+      "snippet": "对比要点聚焦 Exa 与 Tavily 的最新搜索能力（面向 AI Agent 的应用场景）：\n\n- Exa：\n  - 不需要 API Key 即可通过 MCP 协议使用，提升上手与接入便利性。\n  - 在 Claude Code、Codex 等开发环境中被广泛作为持久工具使用，稳定性和可用性较高。\n  - 优势核心：免 Key 的稳定接入、MCP 兼容性强，适合需要快速集成的 Agent 工作流。\n\n- Tavily：\n  - 起初以注册赠送额度吸引用户，存在部分开发者对搜索质量的反馈与兼容性问题，特别是在特定客户端调用场景。\n  - 优势在于快速上手和免费额度体验，但长期使用需关注搜索质量和客户端兼容性的一致性。\n\n- 共同趋势与对比要点：\n  - 免费额度、搜索质量与兼容性是核心权衡点。\n  - 多模态数据支持与结构化输出能力（如将非结构化文档解析为 Agent 友好格式）逐渐成为关键竞争力，尽管 Firecrawl 在这方面展现出色潜力，但当前对 Exa 的依赖性与 MCP 协议的普及性仍使 Exa 在许多开发环境中更易被作为首选。\n  - MCP 协议在降低接入门槛、实现模块",
+      "publishedDate": "2026-06-19T16:02:06.000Z",
+      "ageSeconds": 7516972,
+      "strictUrl": "https://www.80aj.com/2026/06/20/ai-agent-tools-comparison/",
+      "looseUrl": "https://80aj.com/2026/06/20/ai-agent-tools-comparison",
+      "citationUrl": "https://www.80aj.com/2026/06/20/ai-agent-tools-comparison/",
+      "hostname": "80aj.com",
+      "publishedAt": "2026-06-19T16:02:06.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015151515151515152,
+      "provenance": "unknown",
+      "rrfNormalized": 0.924242,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.9,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.76903
+    },
+    {
+      "title": "Tavily、Exa、Serper、API Pick 对比：给 LLM 用的网页搜索 API 怎么选？",
+      "url": "https://apipick.com/zh-CN/blog/tavily-exa-serper-vs-apipick",
+      "snippet": "- 目标结论：若你关心“最新搜索能力”且需要对比 Exa 与 Tavily 的实现差异，以下要点最相关。\n- 核心定位\n  - Tavily：托管式 RAG 端点，直接给模型一个“就绪答案”的摘要结果，方便快速将搜索接入到聊天助手场景，订阅 + credit 模式。返回为 ranked 摘要，可选内置的 LLM 回答。\n  - Exa：以神经/语义索引为核心，强调相似性发现和基于 embedding 的排序与检索，时效性可控性稍弱但在主题相似性检索上表现突出，适合需要语义扩展和全文/摘要筛选的场景，订阅 + credit 模式。\n- 返回结构对比\n  - Tavily：ranked 摘要 + 可选 LLM 答案（对话友好）、托管在 Tavily 的端点，适合直接给模型一个答案就绪的 blob。\n  - Exa：ranked URL + 可选 highlights / 全文，强调神经索引和语义层面的排序与发现。\n- 时效性与过滤\n  - 国家过滤：Tavily、Exa、API Pick 皆支持；Serper 需要额外配置。\n  - 日期过滤：Tavily、Exa、API Pick 均有日",
+      "publishedDate": "2026-05-02T00:00:00.000Z",
+      "ageSeconds": 11721898,
+      "strictUrl": "https://www.apipick.com/zh-CN/blog/tavily-exa-serper-vs-apipick",
+      "looseUrl": "https://apipick.com/zh-CN/blog/tavily-exa-serper-vs-apipick",
+      "citationUrl": "https://www.apipick.com/zh-CN/blog/tavily-exa-serper-vs-apipick",
+      "hostname": "apipick.com",
+      "publishedAt": "2026-05-02T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015873015873015872,
+      "provenance": "unknown",
+      "rrfNormalized": 0.968254,
+      "freshnessScore": 0.3,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.8,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.762317
+    },
+    {
+      "title": "Exa vs Tavily vs Brave Search API 给 Agent 选型 | 对比判断 | 菠萝 AI 笔记",
+      "url": "https://boluoblog.com/coding/exa-vs-tavily-vs-brave-search-api-2026-agent",
+      "snippet": "以下是针对“横评 Exa 和 Tavily 的最新搜索能力”的要点摘要，聚焦对比结果与场景适配，便于快速决策。\n\n- 定位与核心能力\n  - Exa：语义/神经搜索，按相似度返回深度内容，适合学术与深度研究。需要后续自建处理以产出可用答案。\n  - Tavily：AI-native 搜索，专为对接大模型（LLM）设计，直接返回可用的 answer 字段并附源，适合直接驱动消费端或代理的对话场景。\n\n- 价格与成本结构（以 2026-05-20 时点为准）\n  - Exa：基础搜索 $0.005；高级（contents 全文） $0.025\n  - Tavily：基础搜索 $0.008；高级/answer $0.04\n  - Brave：基础搜索 $0.005；月前 2K 免费；高级含图等更高价\n  - 结论：Brave 最便宜，Tavily 成本最高但减少后续 LLM 抓取成本，Exa 性价比介于两者之间，取决于是否需要 contents 抓取。\n\n- 延迟与实时性\n  - Brave 最快（约 0.6s），Tavily 次之（约 0.9s），Exa 最慢（约 1.2s）。\n  - 实",
+      "publishedDate": "2026-05-11T00:00:00.000Z",
+      "ageSeconds": 10944298,
+      "author": "林桃   AI 工具评测主笔",
+      "strictUrl": "https://www.boluoblog.com/coding/exa-vs-tavily-vs-brave-search-api-2026-agent/",
+      "looseUrl": "https://boluoblog.com/coding/exa-vs-tavily-vs-brave-search-api-2026-agent",
+      "citationUrl": "https://www.boluoblog.com/coding/exa-vs-tavily-vs-brave-search-api-2026-agent/",
+      "hostname": "boluoblog.com",
+      "publishedAt": "2026-05-11T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014925373134328358,
+      "provenance": "unknown",
+      "rrfNormalized": 0.910448,
+      "freshnessScore": 0.3,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.738478
+    },
+    {
+      "title": "AI 搜索三巨头对比:Exa / Tavily / Parallel,2026 谁才是开发者的真·选择? - 祖普科技",
+      "url": "https://zuphp.com/4966.html",
+      "snippet": "横评：Exa 与 Tavily 最新搜索能力对比要点\n\n- 准度\n  - Exa：81%（在同类基准下突出，中文表现稳定）\n  - Tavily：71%（虽低于 Exa，但在特定场景如财经、新闻等有优势）\n\n- 延迟\n  - Exa p95：1.4–1.7s，适合需要快速返回的企业场景\n  - Tavily：3.8–4.5s（在通常全文检索与页面提取方面表现尚可，等效于中等速率需求）\n\n- 功能与场景侧重\n  - Exa：Search、Websets、People/Code 等大规模数据能力，适合中文 RAG、企业级应用、Zero-Data-Retention 合规需求\n  - Tavily：多档 Search、Extract（JS 渲染页面抓取）、Research、原生插件生态，适合金融/新闻时效性强、SPA/微信等页面抓取、企业集成场景\n\n- 价格与使用模式（对比在实际选型时具有参考价值）\n  - Exa：强调高规模数据与企业可定制限流\n  - Tavily：提供免费档、按需付费、不同档位组合，且有“1,000 req/min 限流”等约束，便于小型团队起步\n\n- 适合的对比结论\n",
+      "publishedDate": "2026-07-20T00:00:00.000Z",
+      "ageSeconds": 4896298,
+      "strictUrl": "https://zuphp.com/4966.html",
+      "looseUrl": "https://zuphp.com/4966.html",
+      "citationUrl": "https://zuphp.com/4966.html",
+      "hostname": "zuphp.com",
+      "publishedAt": "2026-07-20T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014285714285714285,
+      "provenance": "unknown",
+      "rrfNormalized": 0.871429,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.8,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.730286
+    },
+    {
+      "title": "Exa vs Tavily: AI Search API Comparison 2026",
+      "url": "https://exa.ai/versus/tavily",
+      "snippet": "横评 Exa 和 Tavily 的最新搜索能力\n\n- 性能对比要点：\n  - 复杂查询与语义理解：Exa 在复杂检索、需要语义理解或多步推理的查询上表现更优，得分显著高于 Tavily（WebWalker 多跳检索、Fortune 100 企业评估等场景）。\n  - 基础查询/简单查找：Tavily 在基础、关键词驱动的检索上表现不错，但在需要推理和复杂检索时落后于 Exa。\n- 延迟与吞吐：\n  - Exa 的 p95 延迟约 1.4–1.7 秒（企业评估三项基准），Instant 版本通常亚秒级 (<200ms)，对长查询也保持低延迟。\n  - Tavily 的 p95 延迟约 3.8–4.5 秒，Ultra-fast 模式宣称 90ms，但实际典型查询约 210ms，较长输入约 420ms。\n- 功能与覆盖范围：\n  - Exa 提供完整的神经/语义搜索、企业级索引（1B+ 人物、公司索引、代码搜索、跨领域过滤与安全）以及对检索结果进行提炼以提升 RAG 效果（提取对答案最相关的段落、减少给 LLM 的 token 数量 50–75%）。\n  - Tavily 以关键词检索为主，",
+      "author": "Exa Labs",
+      "strictUrl": "https://exa.ai/versus/tavily",
+      "looseUrl": "https://exa.ai/versus/tavily",
+      "citationUrl": "https://exa.ai/versus/tavily",
+      "hostname": "exa.ai",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014705882352941176,
+      "provenance": "unknown",
+      "rrfNormalized": 0.897059,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.716176
+    },
+    {
+      "title": "人工智能- 搜索API 哪个好用？主流方案深度横评（2026）",
+      "url": "https://segmentfault.com/",
+      "snippet": "Summary:\n\nBased on the provided page (SegmentFault 思否), there is no direct content about “Exa” and “Tavily” or their latest search capabilities. The extracted highlights shown are about:\n\n- GPT-6’s end-to-end development skills and required programmer capabilities.\n- An issue about 微信指数 (WeChat Index) search disappearing on Sept 2, questioning whether it’s a WeChat Index bug or other原因.\n\nIf you are specifically looking for a 横评 (head-to-head review) of Exa vs. Tavily regarding their latest searc",
+      "strictUrl": "https://segmentfault.com/",
+      "looseUrl": "https://segmentfault.com/",
+      "citationUrl": "https://segmentfault.com/",
+      "hostname": "segmentfault.com",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014492753623188406,
+      "provenance": "unknown",
+      "rrfNormalized": 0.884058,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.4,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.672116
+    }
+  ],
+  "results": [
+    {
+      "title": "Exa Search vs Tavily vs Firecrawl vs SerpAPI：2026 年 Agent 搜索 API 怎么选 | SandBase Blog",
+      "url": "https://blog.sandbase.ai/zh-CN/exa-search-vs-tavily-firecrawl-serpapi-2026",
+      "snippet": "以下是对“横评 Exa 和 Tavily 的最新搜索能力”的要点摘要，基于 SandBase 的对比文章要点：\n\n- Exa Search\n  - 核心能力：AI-native 语义搜索，按语义发现网页内容，而非仅关键词匹配。\n  - 输出形式：不仅返回链接，还提供正文、高亮（highlights）和摘要，便于直接用作上下文材料给代理（Agent）。\n  - 最适合的场景：需要快速获得高质量网页上下文、直接获取正文与摘要的任务，如公司调研、销售线索、市场地图、竞品发现等。\n  - 局限：不是完整浏览器自动化或大规模爬虫平台。\n\n- Tavily\n  - 核心能力：面向 AI 应用的综合搜索与研究工具箱，功能覆盖 search、extract、crawl、map、research 等。\n  - 输出形式：偏向支持 AI 工作流的组合能力，适合构建更完整的网络研究流程。\n  - 最适合的场景：需要一整套网页研究能力（搜索、抽取、爬取、映射、研究）的一体化解决方案。\n  - 局限：更偏 AI 工作流工具，而非纯粹的网页爬虫基础设施。\n\n对比要点（简要对照）：\n- Exa vs Tavily：",
+      "publishedDate": "2026-07-30T00:00:00.000Z",
+      "ageSeconds": 4032298,
+      "strictUrl": "https://blog.sandbase.ai/zh-CN/exa-search-vs-tavily-firecrawl-serpapi-2026/",
+      "looseUrl": "https://blog.sandbase.ai/zh-CN/exa-search-vs-tavily-firecrawl-serpapi-2026",
+      "citationUrl": "https://blog.sandbase.ai/zh-CN/exa-search-vs-tavily-firecrawl-serpapi-2026/",
+      "hostname": "blog.sandbase.ai",
+      "publishedAt": "2026-07-30T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016129032258064516,
+      "provenance": "unknown",
+      "rrfNormalized": 0.983871,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.812
+    },
+    {
+      "title": "You.com | Tavily vs Exa: AI Search APIs Compared (2026)",
+      "url": "https://you.com/resources/tavily-vs-exa",
+      "snippet": "简要摘要（针对“横评 Exa 和 Tavily 的最新搜索能力”）\n\n- 侧重点对比\n  - Tavily：面向需要代理驱动的搜索与提取工作流，强调“agent-optimized search and extraction”。提供可预测的月度订阅+信用池模式，APIs 简单（REST），支持内嵌 LLM 答案和 raw 内容选取，适合需要清晰预算和便捷整合的 RAG 流程。\n  - Exa：主打高准确率的神经检索，覆盖广泛垂直领域，按使用量付费，无订阅门槛。以对比基准显示在 FRAMES、Tip-of-Tongue、Seal0 等测试中的领先，并宣称低延迟（最快模式 p50 < 180ms），适合波动 workload 与追求检索精度的场景。\n\n- 核心功能与端点对比\n  - Web 搜索：双方均有 /search，但 Tavily 提供 depth 模式（basic/advanced/fast/ultra-fast），Exa 提供 standard 与 deep 搜索变体（deep-lite/deep/deep-reasoning）。\n  - 内容提取：Tavily 提 /extr",
+      "publishedDate": "2026-07-14T00:00:00.000Z",
+      "ageSeconds": 5414698,
+      "strictUrl": "https://you.com/resources/tavily-vs-exa",
+      "looseUrl": "https://you.com/resources/tavily-vs-exa",
+      "citationUrl": "https://you.com/resources/tavily-vs-exa",
+      "hostname": "you.com",
+      "publishedAt": "2026-07-14T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015625,
+      "provenance": "unknown",
+      "rrfNormalized": 0.953125,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.792938
+    },
+    {
+      "title": "Exa vs Tavily: Web Search APIs for AI Agents (2026) — AgentsCamp",
+      "url": "https://agentscamp.com/guides/comparisons/exa-vs-tavily",
+      "snippet": "横评 Exa 与 Tavily 的最新搜索能力要点（面向 AI 代理/RAG 场景）\n\n- 适用场景对比\n  - Exa：基于神经嵌入的语义搜索，优点在于“意义层面的发现与相关源头的检索”，适合研究、找相似页面、需要高质量来源的检索任务，并提供可获取的全文内容（内容抓取/提取一步到位，强于纯关键词匹配的定位）。\n  - Tavily：面向代理与 RAG 的一体化搜索 API，一次请求即返回排序结果、提取后的可直接用于拼接到提示词中的内容，必要时可附带合成答案，极大减少 glue 代码量，适合端到端的代理循环（search → extract → 直接使用）。\n\n- 输出形式\n  - Exa：返回经过排序的链接 + 获取到的完整网页内容（可选以快速获取结构化笔记的提要）。对需要后续手动或程序化提取的源很友好。\n  - Tavily：返回排序结果 + 已提取的页面内容（可选的合成答案），可直接喂给大语言模型，无需额外提取步骤。\n\n- 关键差异点\n  - 检索核心：Exa 以语义嵌入为核心进行“意义对齐”的检索；Tavily 以代理/RAG 的工作流优化为核心，强调速成的一体化输出。\n  -",
+      "publishedDate": "2026-06-17T00:00:00.000Z",
+      "ageSeconds": 7747498,
+      "author": "AgentsCamp",
+      "strictUrl": "https://agentscamp.com/guides/comparisons/exa-vs-tavily",
+      "looseUrl": "https://agentscamp.com/guides/comparisons/exa-vs-tavily",
+      "citationUrl": "https://agentscamp.com/guides/comparisons/exa-vs-tavily",
+      "hostname": "agentscamp.com",
+      "publishedAt": "2026-06-17T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015384615384615385,
+      "provenance": "unknown",
+      "rrfNormalized": 0.938462,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.9,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.777846
+    },
+    {
+      "title": "Exa vs Tavily: AI Search API Head-to-Head — Top AI Tracker",
+      "url": "https://topaitracker.com/comparisons/2026-08-08-exa-vs-tavily-ai-search-api-head-to-head",
+      "snippet": "Here’s a concise comparison focused on the latest Exa vs Tavily search capabilities:\n\n- Overall verdict: Exa edges Tavily by five points across eight rounds, led by its neural/embeddings index, faster Instant mode, and specialized vertical indexes (people, company, code) plus a larger free tier. Tavily wins in framework distribution and a single-call search-plus-extract flow, plus flatter, more predictable billing.\n\n- Retrieval quality (complex queries): Exa dominates. In the WebWalker multi-hop",
+      "publishedDate": "2026-08-08T09:57:47.000Z",
+      "ageSeconds": 3218831,
+      "author": "Tested by Devon Mizrahi",
+      "strictUrl": "https://topaitracker.com/comparisons/2026-08-08-exa-vs-tavily-ai-search-api-head-to-head/",
+      "looseUrl": "https://topaitracker.com/comparisons/2026-08-08-exa-vs-tavily-ai-search-api-head-to-head",
+      "citationUrl": "https://topaitracker.com/comparisons/2026-08-08-exa-vs-tavily-ai-search-api-head-to-head/",
+      "hostname": "topaitracker.com",
+      "publishedAt": "2026-08-08T09:57:47.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.01639344262295082,
+      "provenance": "unknown",
+      "rrfNormalized": 1,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.2,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.774
+    },
+    {
+      "title": "面向 AI Agent 的搜索与解析工具大比拼：Tavily、Exa 还是 Firecrawl？",
+      "url": "https://80aj.com/2026/06/20/ai-agent-tools-comparison",
+      "snippet": "对比要点聚焦 Exa 与 Tavily 的最新搜索能力（面向 AI Agent 的应用场景）：\n\n- Exa：\n  - 不需要 API Key 即可通过 MCP 协议使用，提升上手与接入便利性。\n  - 在 Claude Code、Codex 等开发环境中被广泛作为持久工具使用，稳定性和可用性较高。\n  - 优势核心：免 Key 的稳定接入、MCP 兼容性强，适合需要快速集成的 Agent 工作流。\n\n- Tavily：\n  - 起初以注册赠送额度吸引用户，存在部分开发者对搜索质量的反馈与兼容性问题，特别是在特定客户端调用场景。\n  - 优势在于快速上手和免费额度体验，但长期使用需关注搜索质量和客户端兼容性的一致性。\n\n- 共同趋势与对比要点：\n  - 免费额度、搜索质量与兼容性是核心权衡点。\n  - 多模态数据支持与结构化输出能力（如将非结构化文档解析为 Agent 友好格式）逐渐成为关键竞争力，尽管 Firecrawl 在这方面展现出色潜力，但当前对 Exa 的依赖性与 MCP 协议的普及性仍使 Exa 在许多开发环境中更易被作为首选。\n  - MCP 协议在降低接入门槛、实现模块",
+      "publishedDate": "2026-06-19T16:02:06.000Z",
+      "ageSeconds": 7516972,
+      "strictUrl": "https://www.80aj.com/2026/06/20/ai-agent-tools-comparison/",
+      "looseUrl": "https://80aj.com/2026/06/20/ai-agent-tools-comparison",
+      "citationUrl": "https://www.80aj.com/2026/06/20/ai-agent-tools-comparison/",
+      "hostname": "80aj.com",
+      "publishedAt": "2026-06-19T16:02:06.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015151515151515152,
+      "provenance": "unknown",
+      "rrfNormalized": 0.924242,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.9,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.76903
+    },
+    {
+      "title": "Tavily、Exa、Serper、API Pick 对比：给 LLM 用的网页搜索 API 怎么选？",
+      "url": "https://apipick.com/zh-CN/blog/tavily-exa-serper-vs-apipick",
+      "snippet": "- 目标结论：若你关心“最新搜索能力”且需要对比 Exa 与 Tavily 的实现差异，以下要点最相关。\n- 核心定位\n  - Tavily：托管式 RAG 端点，直接给模型一个“就绪答案”的摘要结果，方便快速将搜索接入到聊天助手场景，订阅 + credit 模式。返回为 ranked 摘要，可选内置的 LLM 回答。\n  - Exa：以神经/语义索引为核心，强调相似性发现和基于 embedding 的排序与检索，时效性可控性稍弱但在主题相似性检索上表现突出，适合需要语义扩展和全文/摘要筛选的场景，订阅 + credit 模式。\n- 返回结构对比\n  - Tavily：ranked 摘要 + 可选 LLM 答案（对话友好）、托管在 Tavily 的端点，适合直接给模型一个答案就绪的 blob。\n  - Exa：ranked URL + 可选 highlights / 全文，强调神经索引和语义层面的排序与发现。\n- 时效性与过滤\n  - 国家过滤：Tavily、Exa、API Pick 皆支持；Serper 需要额外配置。\n  - 日期过滤：Tavily、Exa、API Pick 均有日",
+      "publishedDate": "2026-05-02T00:00:00.000Z",
+      "ageSeconds": 11721898,
+      "strictUrl": "https://www.apipick.com/zh-CN/blog/tavily-exa-serper-vs-apipick",
+      "looseUrl": "https://apipick.com/zh-CN/blog/tavily-exa-serper-vs-apipick",
+      "citationUrl": "https://www.apipick.com/zh-CN/blog/tavily-exa-serper-vs-apipick",
+      "hostname": "apipick.com",
+      "publishedAt": "2026-05-02T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015873015873015872,
+      "provenance": "unknown",
+      "rrfNormalized": 0.968254,
+      "freshnessScore": 0.3,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.8,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.762317
+    },
+    {
+      "title": "Exa vs Tavily vs Brave Search API 给 Agent 选型 | 对比判断 | 菠萝 AI 笔记",
+      "url": "https://boluoblog.com/coding/exa-vs-tavily-vs-brave-search-api-2026-agent",
+      "snippet": "以下是针对“横评 Exa 和 Tavily 的最新搜索能力”的要点摘要，聚焦对比结果与场景适配，便于快速决策。\n\n- 定位与核心能力\n  - Exa：语义/神经搜索，按相似度返回深度内容，适合学术与深度研究。需要后续自建处理以产出可用答案。\n  - Tavily：AI-native 搜索，专为对接大模型（LLM）设计，直接返回可用的 answer 字段并附源，适合直接驱动消费端或代理的对话场景。\n\n- 价格与成本结构（以 2026-05-20 时点为准）\n  - Exa：基础搜索 $0.005；高级（contents 全文） $0.025\n  - Tavily：基础搜索 $0.008；高级/answer $0.04\n  - Brave：基础搜索 $0.005；月前 2K 免费；高级含图等更高价\n  - 结论：Brave 最便宜，Tavily 成本最高但减少后续 LLM 抓取成本，Exa 性价比介于两者之间，取决于是否需要 contents 抓取。\n\n- 延迟与实时性\n  - Brave 最快（约 0.6s），Tavily 次之（约 0.9s），Exa 最慢（约 1.2s）。\n  - 实",
+      "publishedDate": "2026-05-11T00:00:00.000Z",
+      "ageSeconds": 10944298,
+      "author": "林桃   AI 工具评测主笔",
+      "strictUrl": "https://www.boluoblog.com/coding/exa-vs-tavily-vs-brave-search-api-2026-agent/",
+      "looseUrl": "https://boluoblog.com/coding/exa-vs-tavily-vs-brave-search-api-2026-agent",
+      "citationUrl": "https://www.boluoblog.com/coding/exa-vs-tavily-vs-brave-search-api-2026-agent/",
+      "hostname": "boluoblog.com",
+      "publishedAt": "2026-05-11T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014925373134328358,
+      "provenance": "unknown",
+      "rrfNormalized": 0.910448,
+      "freshnessScore": 0.3,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.738478
+    },
+    {
+      "title": "AI 搜索三巨头对比:Exa / Tavily / Parallel,2026 谁才是开发者的真·选择? - 祖普科技",
+      "url": "https://zuphp.com/4966.html",
+      "snippet": "横评：Exa 与 Tavily 最新搜索能力对比要点\n\n- 准度\n  - Exa：81%（在同类基准下突出，中文表现稳定）\n  - Tavily：71%（虽低于 Exa，但在特定场景如财经、新闻等有优势）\n\n- 延迟\n  - Exa p95：1.4–1.7s，适合需要快速返回的企业场景\n  - Tavily：3.8–4.5s（在通常全文检索与页面提取方面表现尚可，等效于中等速率需求）\n\n- 功能与场景侧重\n  - Exa：Search、Websets、People/Code 等大规模数据能力，适合中文 RAG、企业级应用、Zero-Data-Retention 合规需求\n  - Tavily：多档 Search、Extract（JS 渲染页面抓取）、Research、原生插件生态，适合金融/新闻时效性强、SPA/微信等页面抓取、企业集成场景\n\n- 价格与使用模式（对比在实际选型时具有参考价值）\n  - Exa：强调高规模数据与企业可定制限流\n  - Tavily：提供免费档、按需付费、不同档位组合，且有“1,000 req/min 限流”等约束，便于小型团队起步\n\n- 适合的对比结论\n",
+      "publishedDate": "2026-07-20T00:00:00.000Z",
+      "ageSeconds": 4896298,
+      "strictUrl": "https://zuphp.com/4966.html",
+      "looseUrl": "https://zuphp.com/4966.html",
+      "citationUrl": "https://zuphp.com/4966.html",
+      "hostname": "zuphp.com",
+      "publishedAt": "2026-07-20T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014285714285714285,
+      "provenance": "unknown",
+      "rrfNormalized": 0.871429,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.8,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.730286
+    }
+  ],
+  "coverage": {
+    "retrieval": {
+      "uniqueCanonicalUrls": 10,
+      "totalSources": 10,
+      "offTopicSources": 0,
+      "uniqueDomains": 10,
+      "uniqueFamilies": 1,
+      "primarySources": 0,
+      "successfulAttempts": 1,
+      "successfulProviders": 1,
+      "policy": {
+        "minUniqueCanonicalUrls": 6,
+        "minUniqueDomains": 3,
+        "minPrimarySources": 0
+      },
+      "sufficient": true
+    },
+    "evidence": {
+      "requiredFacets": [
+        {
+          "id": "entity:Exa",
+          "kind": "entity",
+          "entity": "Exa",
+          "status": "covered"
+        },
+        {
+          "id": "entity:Tavily",
+          "kind": "entity",
+          "entity": "Tavily",
+          "status": "covered"
+        },
+        {
+          "id": "freshness",
+          "kind": "freshness",
+          "windowDays": 90,
+          "status": "covered"
+        }
+      ],
+      "offTopicSources": 0,
+      "sufficient": true,
+      "gaps": []
+    },
+    "gaps": [],
+    "sufficient": true,
+    "delivery": {
+      "sufficient": true,
+      "gaps": []
+    }
+  },
+  "budget": {
+    "wallClockMs": 150000,
+    "perCallTimeoutMs": 45000,
+    "maxInitialProviders": 1,
+    "maxProviders": 1,
+    "maxSubqueries": 3,
+    "maxSearchCalls": 9,
+    "maxFallbackCalls": 0,
+    "maxFetches": 0
+  },
+  "status": "complete",
+  "stopReason": "coverage-satisfied",
+  "providers": {
+    "selected": [
+      "exa"
+    ],
+    "used": [
+      "exa"
+    ],
+    "failures": [],
+    "empty": [],
+    "autoOrder": [
+      "exa",
+      "gemini",
+      "xai",
+      "firecrawl",
+      "tavily",
+      "tinyfish",
+      "zai",
+      "kimi",
+      "codex",
+      "public",
+      "jina",
+      "brave",
+      "searxng",
+      "startpage",
+      "duckduckgo",
+      "ecosia",
+      "google",
+      "mojeek"
+    ]
+  },
+  "citations": [
+    "[1] Exa Search vs Tavily vs Firecrawl vs SerpAPI：2026 年 Agent 搜索 API 怎么选 | SandBase Blog — https://blog.sandbase.ai/zh-CN/exa-search-vs-tavily-firecrawl-serpapi-2026/",
+    "[2] You.com | Tavily vs Exa: AI Search APIs Compared (2026) — https://you.com/resources/tavily-vs-exa",
+    "[3] Exa vs Tavily: Web Search APIs for AI Agents (2026) — AgentsCamp — https://agentscamp.com/guides/comparisons/exa-vs-tavily",
+    "[4] Exa vs Tavily: AI Search API Head-to-Head — Top AI Tracker — https://topaitracker.com/comparisons/2026-08-08-exa-vs-tavily-ai-search-api-head-to-head/",
+    "[5] 面向 AI Agent 的搜索与解析工具大比拼：Tavily、Exa 还是 Firecrawl？ — https://www.80aj.com/2026/06/20/ai-agent-tools-comparison/",
+    "[6] Tavily、Exa、Serper、API Pick 对比：给 LLM 用的网页搜索 API 怎么选？ — https://www.apipick.com/zh-CN/blog/tavily-exa-serper-vs-apipick",
+    "[7] Exa vs Tavily vs Brave Search API 给 Agent 选型 | 对比判断 | 菠萝 AI 笔记 — https://www.boluoblog.com/coding/exa-vs-tavily-vs-brave-search-api-2026-agent/",
+    "[8] AI 搜索三巨头对比:Exa / Tavily / Parallel,2026 谁才是开发者的真·选择? - 祖普科技 — https://zuphp.com/4966.html"
+  ],
+  "providerAnswers": [
+    {
+      "provider": "exa",
+      "answer": "**Exa vs Tavily: AI Search API Head-to-Head — Top AI Tracker**: Here’s a concise comparison focused on the latest Exa vs Tavily search capabilities:\n\n- Overall verdict: Exa edges Tavily by five points across eight rounds, led by its neural/embeddings index, faster Instant mode, and specialized vertical indexes (people, company, code) plus a larger free tier. Tavily wins in framework distribution and a single-call search-plus-extract flow, plus flatter, more predictable billing.\n\n- Retrieval quality (complex queries): Exa dominates. In the WebWalker multi-hop benchmark, Exa scored 81% vs Tavily’s 71%. Exa’s semantic neural index excels at meaning-based matching and multi-step reasoning; Tavily’s keyword-based retrieval lags on semantic queries.\n\n- Latency: Exa shows a sub-150ms Instant mode with real-time suitability; p95 in Fortune 100 tests ranged ~1.4–1.7s for Exa vs ~3.8–4.5s for Tavily. Tavily advertises 90ms in ultra-fast mode but that applies to the simplest queries; typical queries are longer.\n\n- Endpoint coverage: Exa offers extensive, specialized indexes (Search with multiple modes, Contents, Answer, Agent, Websets, Monitors, plus dedicated people, company, and code indexes). Tavily provides Search, Extract, Map, Crawl, and Research, but lacks Exa’s targeted entity/indexed search capabilities.\n\n- When to pick which:\n  - Pick Exa for semantic discovery, research agents, and entity search over its own indexes (people, company, code). Best for complex, meaning-based, multi-hop queries.\n  - Pick Tavily for LangChain-first RAG stacks where you need clean, LLM-ready snippets in one call and a flat, predictable billing model (single-call search-plus-extract workflow).\n\nBottom line: If your use case requires deep semantic search, multi-hop reasoning, or entity-centric indexes, Exa is the stronger default. If your priority is streamlined single-call extraction, LangChain-friendly snippets, and straightforward billing, Tavily is the better fit.\n\n**Exa Search vs Tavily vs Firecrawl vs SerpAPI：2026 年 Agent 搜索 API 怎么选 | SandBase Blog**: 以下是对“横评 Exa 和 Tavily 的最新搜索能力”的要点摘要，基于 SandBase 的对比文章要点：\n\n- Exa Search\n  - 核心能力：AI-native 语义搜索，按语义发现网页内容，而非仅关键词匹配。\n  - 输出形式：不仅返回链接，还提供正文、高亮（highlights）和摘要，便于直接用作上下文材料给代理（Agent）。\n  - 最适合的场景：需要快速获得高质量网页上下文、直接获取正文与摘要的任务，如公司调研、销售线索、市场地图、竞品发现等。\n  - 局限：不是完整浏览器自动化或大规模爬虫平台。\n\n- Tavily\n  - 核心能力：面向 AI 应用的综合搜索与研究工具箱，功能覆盖 search、extract、crawl、map、research 等。\n  - 输出形式：偏向支持 AI 工作流的组合能力，适合构建更完整的网络研究流程。\n  - 最适合的场景：需要一整套网页研究能力（搜索、抽取、爬取、映射、研究）的一体化解决方案。\n  - 局限：更偏 AI 工作流工具，而非纯粹的网页爬虫基础设施。\n\n对比要点（简要对照）：\n- Exa vs Tavily：Exa 聚焦语义发现与直接获取上下文文本/摘要；Tavily 提供更完整的 AI 驱动工作流工具箱，覆盖多阶段任务。\n- Firecrawl 的定位：侧重网页抓取、深度抽取与结构化输出，适合在已知目标站点后进行数据处理，与 Exa/Tavily 的“搜索+研究”侧重点不同。\n- SerpAPI / Google Custom Search：偏向传统的结构化 SERP 数据与可编程搜索能力，适合需要稳定的搜索结果页数据的场景，不同于专注“生成可用上下文”的代理工作流工具。\n\n简要结论（按最新能力选型建议）：\n- 若你的任务是“根据语义找到相关内容并快速获得高质量网页上下文”，优先考虑 Exa Search。\n- 若你的任务是构建一个 AI 驅动的网页研究工作流，需同时涵盖搜索、抽取、爬取和研究， Tavily 是强有力的候选。\n- 若需要对特定网站的抓取与结构化提取，且你已有明确抓取目标，Firecrawl 提供更深的网页数据处理能力。\n- 如需要传统、成熟的 SERP 数据输出或对 Google 搜索的可编程访问，SerpAPI / Google Custom Search 更合适。\n\n需要我把以上要点整理成更紧凑的对比表，或按你的具体工作流（如销售线\n\n**Tavily、Exa、Serper、API Pick 对比：给 LLM 用的网页搜索 API 怎么选？**: - 目标结论：若你关心“最新搜索能力”且需要对比 Exa 与 Tavily 的实现差异，以下要点最相关。\n- 核心定位\n  - Tavily：托管式 RAG 端点，直接给模型一个“就绪答案”的摘要结果，方便快速将搜索接入到聊天助手场景，订阅 + credit 模式。返回为 ranked 摘要，可选内置的 LLM 回答。\n  - Exa：以神经/语义索引为核心，强调相似性发现和基于 embedding 的排序与检索，时效性可控性稍弱但在主题相似性检索上表现突出，适合需要语义扩展和全文/摘要筛选的场景，订阅 + credit 模式。\n- 返回结构对比\n  - Tavily：ranked 摘要 + 可选 LLM 答案（对话友好）、托管在 Tavily 的端点，适合直接给模型一个答案就绪的 blob。\n  - Exa：ranked URL + 可选 highlights / 全文，强调神经索引和语义层面的排序与发现。\n- 时效性与过滤\n  - 国家过滤：Tavily、Exa、API Pick 皆支持；Serper 需要额外配置。\n  - 日期过滤：Tavily、Exa、API Pick 均有日期过滤能力；Serper 具备相关过滤（如 qdr）。\n- 计费与成本\n  - Tavily：订阅 + 超出按 credit 计费，存在月费门槛。\n  - Exa：订阅 + 超出按 credit 计费，规模 larger 时需算清预算。\n  - API Pick：按量计费，Web Search 为每次调用 15 credits，$5/5,000 credits；HTTP 非 200 不扣费，单次成本对比 Tavily/Exa 更可预测，适合流量波动大场景。\n  - Serper：按查询次数计费，需注意可能的“只扣成功”与失败扣费差异。\n- 适用场景\n  - Tavily：托管的 RAG 端点、聊天助手直接输出答案场景，快速上线。\n  - Exa：需要语义/相似度发现，或对相似主题的扩展检索， embedding 派生的检索更优。\n  - Serper：需要原始 Google SERP、后续自建抽取管线时的“原始源头”场景。\n  - API Pick：需要预制好 JSON 摘要、HTTP 200 才计费、国家与日期等过滤，适合需要对接到 AI Agent 调用的轻量化、低月费替代方案。\n\n简要结论：若你要快速"
+    }
+  ],
+  "observability": {
+    "elapsedMs": 10691,
+    "providerLatencyMs": {
+      "exa::横评 Exa 和 Tavily 的最新搜索能力": 10677
+    }
+  }
+}

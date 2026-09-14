@@ -1,0 +1,55 @@
+{
+  "scores": {
+    "primary_standard": 1.0,
+    "primary_paper": 0.95,
+    "primary_code": 0.95,
+    "code": 0.7,
+    "primary_official": 0.9,
+    "official_docs": 0.75,
+    "independent_benchmark": 0.85,
+    "news_reporting": 0.65,
+    "community": 0.6,
+    "aggregator": 0.45,
+    "unknown": 0.4
+  },
+  "hostSuffixes": {
+    "primary_standard": ["w3.org", "ietf.org", "rfc-editor.org", "iso.org"],
+    "primary_paper": ["arxiv.org", "aclanthology.org", "papers.nips.cc"],
+    "code": ["github.com", "gitlab.com", "bitbucket.org"],
+    "primary_official": [
+      "openai.com",
+      "anthropic.com",
+      "ai.google.dev",
+      "cloud.google.com",
+      "developer.mozilla.org",
+      "learn.microsoft.com",
+      "nodejs.org",
+      "react.dev",
+      "vuejs.org",
+      "go.dev",
+      "typescriptlang.org",
+      "kubernetes.io",
+      "python.org",
+      "docs.python.org",
+      "docs.rs",
+      "doc.rust-lang.org",
+      "developer.apple.com",
+      "developer.android.com",
+      "docs.aws.amazon.com"
+    ],
+    "community": [
+      "stackoverflow.com",
+      "stackexchange.com",
+      "news.ycombinator.com",
+      "reddit.com",
+      "lobste.rs",
+      "zhihu.com",
+      "juejin.cn"
+    ],
+    "news_reporting": ["techcrunch.com", "arstechnica.com", "theverge.com", "36kr.com", "sspai.com"],
+    "aggregator": ["medium.com", "dev.to", "freecodecamp.org", "baeldung.com"]
+  },
+  "urlHints": {
+    "independent_benchmark": ["benchmark", "evals", "leaderboard"]
+  }
+}

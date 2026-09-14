@@ -1,0 +1,1214 @@
+{
+  "schemaVersion": 1,
+  "mode": "adapter-orchestrated",
+  "query": "Mojeek 搜索引擎的索引规模",
+  "task": {
+    "task": "exploratory",
+    "freshness": "evergreen",
+    "domain": "general",
+    "domainTags": [],
+    "depth": "verify",
+    "language": "mixed-or-zh"
+  },
+  "capabilities": {
+    "harness": "omp",
+    "level": "L3",
+    "providerPin": true,
+    "parallelSearch": true,
+    "structuredSources": true,
+    "fetch": false,
+    "providers": [
+      "gemini",
+      "codex",
+      "xai",
+      "zai",
+      "exa",
+      "tinyfish",
+      "jina",
+      "tavily",
+      "firecrawl",
+      "brave",
+      "kimi",
+      "searxng",
+      "startpage",
+      "duckduckgo",
+      "ecosia",
+      "google",
+      "mojeek",
+      "public"
+    ],
+    "autoOrder": [
+      "exa",
+      "gemini",
+      "xai",
+      "firecrawl",
+      "tavily",
+      "tinyfish",
+      "zai",
+      "kimi",
+      "codex",
+      "public",
+      "jina",
+      "brave",
+      "searxng",
+      "startpage",
+      "duckduckgo",
+      "ecosia",
+      "google",
+      "mojeek"
+    ],
+    "roles": {
+      "gemini": [
+        "general",
+        "fresh"
+      ],
+      "codex": [
+        "general",
+        "developer",
+        "fresh"
+      ],
+      "xai": [
+        "fresh",
+        "social"
+      ],
+      "zai": [
+        "china",
+        "general"
+      ],
+      "exa": [
+        "semantic",
+        "developer",
+        "academic"
+      ],
+      "tinyfish": [
+        "general",
+        "fallback"
+      ],
+      "jina": [
+        "semantic",
+        "developer"
+      ],
+      "tavily": [
+        "general",
+        "fresh",
+        "semantic"
+      ],
+      "firecrawl": [
+        "developer",
+        "general"
+      ],
+      "brave": [
+        "general",
+        "fresh"
+      ],
+      "kimi": [
+        "china",
+        "general"
+      ],
+      "searxng": [
+        "public",
+        "general",
+        "fallback"
+      ],
+      "startpage": [
+        "public",
+        "general"
+      ],
+      "duckduckgo": [
+        "public",
+        "general",
+        "fallback"
+      ],
+      "ecosia": [
+        "public",
+        "general"
+      ],
+      "google": [
+        "public",
+        "general",
+        "fresh"
+      ],
+      "mojeek": [
+        "public",
+        "general"
+      ],
+      "public": [
+        "public",
+        "fallback",
+        "general"
+      ]
+    },
+    "rankSemantics": {
+      "gemini": "citation-order",
+      "codex": "citation-order",
+      "xai": "citation-order",
+      "zai": "citation-order",
+      "exa": "ranked",
+      "tinyfish": "ranked",
+      "jina": "unknown",
+      "tavily": "ranked",
+      "firecrawl": "ranked",
+      "brave": "ranked",
+      "kimi": "citation-order",
+      "searxng": "ranked",
+      "startpage": "ranked",
+      "duckduckgo": "ranked",
+      "ecosia": "ranked",
+      "google": "ranked",
+      "mojeek": "ranked",
+      "public": "ranked"
+    },
+    "retrievalFamilies": {
+      "gemini": "google",
+      "codex": "openai",
+      "xai": "xai",
+      "zai": "zai",
+      "exa": "exa",
+      "tinyfish": "tinyfish",
+      "jina": "jina",
+      "tavily": "tavily",
+      "firecrawl": "firecrawl",
+      "brave": "brave",
+      "kimi": "kimi",
+      "searxng": "metasearch",
+      "startpage": "google",
+      "duckduckgo": "duckduckgo",
+      "ecosia": "bing",
+      "google": "google",
+      "mojeek": "mojeek",
+      "public": "public"
+    },
+    "metadata": {
+      "adapter": "omp-internal",
+      "compatibility": true,
+      "availableProviders": [
+        "gemini",
+        "codex",
+        "xai",
+        "zai",
+        "exa",
+        "tinyfish",
+        "jina",
+        "tavily",
+        "firecrawl",
+        "brave",
+        "kimi",
+        "searxng",
+        "startpage",
+        "duckduckgo",
+        "ecosia",
+        "google",
+        "mojeek",
+        "public"
+      ],
+      "preferredOrder": [
+        "exa",
+        "gemini",
+        "xai",
+        "firecrawl",
+        "tavily",
+        "tinyfish",
+        "zai",
+        "kimi",
+        "codex",
+        "public"
+      ],
+      "excludedProviders": [
+        "perplexity",
+        "anthropic",
+        "kagi",
+        "parallel",
+        "synthetic"
+      ]
+    }
+  },
+  "attempts": [
+    {
+      "provider": "gemini",
+      "requestedProvider": "gemini",
+      "ok": true,
+      "sources": [
+        {
+          "title": "searchengines.net",
+          "url": "https://www.searchengines.net/mojeek/"
+        },
+        {
+          "title": "wikipedia.org",
+          "url": "https://en.wikipedia.org/wiki/Mojeek"
+        },
+        {
+          "title": "europeanpurpose.com",
+          "url": "https://europeanpurpose.com/tool/mojeek"
+        },
+        {
+          "title": "mojeek.com",
+          "url": "https://www.mojeek.com/about/"
+        },
+        {
+          "title": "mojeek.com",
+          "url": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562"
+        },
+        {
+          "title": "mojeek.com",
+          "url": "https://www.mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html"
+        },
+        {
+          "title": "privacyguides.net",
+          "url": "https://discuss.privacyguides.net/t/mojeek/12101"
+        }
+      ],
+      "answer": "作为一个主打隐私保护、完全独立且不依赖 Google 或 Bing 等第三方搜索结果的英国搜索引擎，**Mojeek** 拥有并运营着自己的网页爬虫（MojeekBot）以及独立的搜索索引。\n\n截至目前，Mojeek 的索引规模约为 **90多亿（9+ billion）网页**。\n\n### 索引规模发展历程与数据：\n* **当前规模**：索引量已超过 **92亿** 个网页。\n* **爬取与更新频率**：其爬虫每日爬取和重新爬取的新老网页总数约为 3700 万左右，平均每天净增约 270 万个新网页。\n* **近年里程碑**：\n  * **2025年**：突破 90 亿网页大关。\n  * **2024年**：突破 80 亿网页大关。\n  * **2023年**：突破 70 亿网页大关。\n  * **2022年**：先后突破 50 亿和 60 亿网页大关。\n  * **2021年**：达到 40 亿网页。\n  * **2015年**：首次突破 10 亿网页。\n\n### 索引特点：\n虽然 Mojeek 的 90 多亿网页规模相比于 Google、Bing 等巨头动辄数千亿的体量相对较小，但在“独立搜索引擎”中，它是一个非常重要的自主索引库（与 Brave Search 等少数几个完全独立运行的搜索引擎类似）。其索引主要集中在英文及部分欧洲语言网页上。",
+      "citations": [
+        "https://www.searchengines.net/mojeek/",
+        "https://en.wikipedia.org/wiki/Mojeek",
+        "https://europeanpurpose.com/tool/mojeek",
+        "https://www.mojeek.com/about/",
+        "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+        "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+        "https://www.mojeek.com/about/",
+        "https://www.mojeek.com/about/",
+        "https://www.mojeek.com/about/",
+        "https://www.mojeek.com/about/",
+        "https://www.mojeek.com/about/",
+        "https://www.mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+        "https://europeanpurpose.com/tool/mojeek",
+        "https://discuss.privacyguides.net/t/mojeek/12101",
+        "https://discuss.privacyguides.net/t/mojeek/12101"
+      ],
+      "searchQueries": [
+        "Mojeek 搜索引擎 索引规模",
+        "Mojeek search index size number of pages 2025 2026"
+      ],
+      "metadata": {
+        "model": "gemini-2.5-flash",
+        "usage": {
+          "inputTokens": 258,
+          "outputTokens": 461,
+          "totalTokens": 719
+        }
+      },
+      "latencyMs": 6702,
+      "query": "Mojeek 搜索引擎的索引规模",
+      "facetId": "base",
+      "wave": "breadth"
+    },
+    {
+      "provider": "gemini",
+      "requestedProvider": "gemini",
+      "ok": true,
+      "sources": [
+        {
+          "title": "wikipedia.org",
+          "url": "https://en.wikipedia.org/wiki/Mojeek"
+        },
+        {
+          "title": "europeanpurpose.com",
+          "url": "https://europeanpurpose.com/tool/mojeek"
+        },
+        {
+          "title": "searchengines.net",
+          "url": "https://www.searchengines.net/mojeek/"
+        },
+        {
+          "title": "mojeek.com",
+          "url": "https://www.mojeek.com/about/"
+        },
+        {
+          "title": "mojeek.com",
+          "url": "https://www.mojeek.com/about/technology.html"
+        },
+        {
+          "title": "mojeek.com",
+          "url": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562"
+        },
+        {
+          "title": "privacyguides.net",
+          "url": "https://discuss.privacyguides.net/t/mojeek/12101"
+        },
+        {
+          "title": "privacytools.io",
+          "url": "https://privacytools.io/app/mojeek"
+        }
+      ],
+      "answer": "**Mojeek** 是少数几个**完全不依赖 Google 或 Bing 等主流大厂 API**、坚持自建网络爬虫（MojeekBot）和独立索引库的欧洲（英国）搜索引擎。在绝大多数标榜“隐私保护”的替代搜索引擎（如 DuckDuckGo、Ecosia、Startpage 等）选择直接购买微软或谷歌搜索结果的背景下，Mojeek 的独立性显得尤为特殊。\n\n关于 Mojeek 搜索引擎的**索引规模（Index Size）与技术概览**，核心要点如下：\n\n### 1. 索引规模与增长轨迹\nMojeek 的网页索引规模一直在稳步增长。根据官方及社区公开的数据：\n* **当前规模**：其索引量已**超过 90 亿（9+ billion）网页**。\n* **发展历程（部分里程碑）**：\n  * **2015年**：突破 10 亿网页（当时英国本土唯一的独立百亿级体量代表之一）。\n  * **2020年**：超过 30 亿网页。\n  * **2021年**：突破 40 亿网页。\n  * **2022年**：突破 50 亿至 60 亿网页。\n  * **2023年**：突破 70 亿网页。\n  * **2024年**：突破 80 亿网页。\n  * **2025年**：正式突破 **90 亿网页**大关。\n\n### 2. 爬取与更新能力\n* **每日抓取量**：Mojeek 的爬虫系统（MojeekBot）平均每天对新页面和已有页面进行总计约 **3,700 万**次的抓取与重新抓取。\n* **净增量**：在日常优化和抓取过程中，每日净新增到索引中的有效网页大约在 **270 万**左右（根据服务器维护和架构调整会有所波动）。\n\n### 3. 索引的语言与内容侧重点\n* **语种分布**：Mojeek 的索引主要以**英语**网页为主。同时，它也索引了一定数量的法语、德语、西班牙语等其他欧洲语种页面，但对于亚洲语言（如中文、日语等）的支持和收录相对非常有限。\n* **技术架构**：Mojeek 的搜索引擎技术完全由创始人 Marc Smith 及其团队从零开始用 C 语言等底层语言编写，拥有独立的排名算法。\n* **服务器与环保**：其服务器基础设施并不依赖主流的云厂商（如 AWS、Google Cloud、Azure），而是托管在英国本土的一个绿色数据中心内。\n\n### 4. 索引规模的优劣势分析\n* **优势（真正独立）**：由于拥有独立的索引，Mojeek 不会受到大厂算法“过滤气泡（Filter Bubble）”或审查的影响，能够提供与 Google/Bing 截然不同的搜索结果视角。此外，它坚持不追踪用户、不进行行为分析。\n* **劣势（体量差距）**：尽管 90 亿网页的规模对于独立引擎而言相当可观，但相比于 Google 或 Bing 动辄数千亿级别的网页索引，Mojeek 的体量仍然较小。因此，在面对非常冷门、深层、或是非英语的技术查询时，可能会出现搜索结果不如大厂全面或“MISS（未命中）”的情况。",
+      "citations": [
+        "https://en.wikipedia.org/wiki/Mojeek",
+        "https://europeanpurpose.com/tool/mojeek",
+        "https://www.searchengines.net/mojeek/",
+        "https://europeanpurpose.com/tool/mojeek",
+        "https://www.mojeek.com/about/",
+        "https://www.mojeek.com/about/technology.html",
+        "https://www.mojeek.com/about/",
+        "https://www.mojeek.com/about/",
+        "https://www.mojeek.com/about/",
+        "https://www.mojeek.com/about/",
+        "https://www.mojeek.com/about/",
+        "https://www.mojeek.com/about/",
+        "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+        "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+        "https://discuss.privacyguides.net/t/mojeek/12101",
+        "https://discuss.privacyguides.net/t/mojeek/12101",
+        "https://discuss.privacyguides.net/t/mojeek/12101",
+        "https://en.wikipedia.org/wiki/Mojeek",
+        "https://www.mojeek.com/about/technology.html",
+        "https://discuss.privacyguides.net/t/mojeek/12101",
+        "https://en.wikipedia.org/wiki/Mojeek",
+        "https://www.searchengines.net/mojeek/",
+        "https://europeanpurpose.com/tool/mojeek",
+        "https://europeanpurpose.com/tool/mojeek",
+        "https://www.searchengines.net/mojeek/",
+        "https://en.wikipedia.org/wiki/Mojeek",
+        "https://www.mojeek.com/about/",
+        "https://privacytools.io/app/mojeek",
+        "https://privacytools.io/app/mojeek",
+        "https://discuss.privacyguides.net/t/mojeek/12101"
+      ],
+      "searchQueries": [
+        "Mojeek search index size number of pages 2025 2026"
+      ],
+      "metadata": {
+        "model": "gemini-2.5-flash",
+        "usage": {
+          "inputTokens": 259,
+          "outputTokens": 958,
+          "totalTokens": 1217
+        }
+      },
+      "latencyMs": 7284,
+      "query": "Mojeek 搜索引擎的索引规模 overview",
+      "facetId": "overview",
+      "wave": "facet"
+    },
+    {
+      "provider": "gemini",
+      "requestedProvider": "gemini",
+      "ok": true,
+      "sources": [
+        {
+          "title": "searchengines.net",
+          "url": "https://www.searchengines.net/mojeek/"
+        },
+        {
+          "title": "mojeek.com",
+          "url": "https://blog.mojeek.com/2024/06/search-engine-myths.html"
+        },
+        {
+          "title": "privacytools.io",
+          "url": "https://privacytools.io/app/mojeek"
+        },
+        {
+          "title": "privacyguides.net",
+          "url": "https://discuss.privacyguides.net/t/mojeek/12101"
+        },
+        {
+          "title": "mojeek.com",
+          "url": "https://community.mojeek.com/t/whats-the-thing-holding-back-mojeek-the-most/2114"
+        },
+        {
+          "title": "makeuseof.com",
+          "url": "https://www.makeuseof.com/mojeek-truly-independent-search-engine-shouldnt-exist-but-it-does-and-its-great/"
+        },
+        {
+          "title": "igorslab.de",
+          "url": "https://www.igorslab.de/en/a-comparison-of-new-search-engines-mojeek-and-kagi-as-alternatives-to-google/"
+        },
+        {
+          "title": "mojeek.com",
+          "url": "https://blog.mojeek.com/2020/12/frequently-asked-questions-about-mojeek-search-engines-technology-stack.html"
+        },
+        {
+          "title": "mojeek.com",
+          "url": "https://community.mojeek.com/t/the-linux-experiment-mentions-mojeek-google-search-sucks-ai-is-everywhere-what-should-you-use/2345"
+        }
+      ],
+      "answer": "**Mojeek** 是极少数坚持**完全独立自建索引**（Independent Crawler-based Index）的欧洲/英国搜索引擎，它不依赖谷歌（Google）或微软必应（Bing）的搜索结果 API 喂养。\n\n然而，这种对独立性的坚持也直接带来了其在**索引规模（Index Size）**上的局限性，并引发了用户和业界的诸多讨论与批评。以下是对 Mojeek 搜索引擎索引规模的局限性及其相关批评的深度分析：\n\n---\n\n### 一、 核心局限性：索引规模的绝对差距\n\n1. **数量级悬殊**\n   * **数据对比**：谷歌的索引量通常被认为在**数千亿（Hundreds of Billions）**级别；而 Mojeek 自身的网页索引量在 **数十亿（如约 90 亿或更多）** 的量级。\n   * 两者之间存在 **1 到 2 个数量级（数十倍甚至上百倍）** 的差距。即使与同样拥有独立索引的 Brave Search 相比，Mojeek 在资源的扩张速度上也面临资金和硬件基建的掣肘。\n\n2. **多语言支持薄弱**\n   * 由于爬虫抓取和本地化处理能力受限，Mojeek 的索引高度偏向**英文网页**。虽然它也索引部分德语、法语、西班牙语等欧洲语言，但对于亚洲语言（如日语、中文、韩语等）的支持度非常低，甚至无法有效检索。\n\n3. **长尾与垂直内容缺失**\n   * 许多垂直类、小众的网站或深层动态页面（Deep Pages）由于缺乏足够的外部链接或未被爬虫及时发现，常常无法被 Mojeek 收录。\n\n---\n\n### 二、 针对 Mojeek 索引规模的常见批评\n\n外界对 Mojeek 索引及其实际表现的批评主要集中在以下几个方面：\n\n#### 1. “日常好用，深度/冷门失效”（Search Quality & Niche Query Failure）\n* **批评点**：许多用户在尝试将 Mojeek 作为主力搜索引擎时发现，虽然它在处理通用、高频词汇的检索时表现尚可，但一旦涉及**编程代码问题（Programming Queries）、专业技术文档、地方性小众资讯或复杂的长尾查询**，就会经常出现“搜不到”或“结果贫乏”的情况。\n* **用户体验后果**：用户往往无法完全摆脱对大厂搜索引擎的依赖，最终不得不把 Mojeek 当成辅助工具，在遇到困难的搜索时“回滚”到 Google 或 Bing。\n\n#### 2. 字面匹配（Lexical Search）与索引精度的局限\n* **批评点**：Mojeek 采用的是传统的**纯字面关键词匹配（Lexical Search）**，而非复杂的语义搜索（Semantic Search）或大模型意图猜测。当索引规模较小时，这种“死板”的字面检索机制被进一步放大——如果网页中没有完全包含用户的关键词，或者其索引库里根本没有收录该页面，用户就无法像在使用 Google/Perplexity 那样得到智能推导或同义词拓展的结果。\n\n#### 3. 爬虫规模与资源瓶颈的长期担忧\n* **批评点**：在互联网呈爆炸式增长的今天（尤其是伴随着大量由 AI 生成的垃圾内容和动态网页），维护一个独立且干净的索引需要消耗巨额的服务器基础设施、电力和带宽成本。批评者和部分开源社区（如 Privacy Guides 讨论区）指出，Mojeek 仅凭一家英国小企业独立支撑，其硬件投入和资本积累很难在短期内追赶互联网膨胀的速度。这让人对其长期能否维持一个“具有实用竞争力”的索引产生担忧。\n\n---\n\n### 三、 Mojeek 官方的辩护与独到价值\n\n对于上述关于索引规模的批评，Mojeek 官方和支持者通常会给出以下回应：\n\n* **拒绝“大而无当”的垃圾信息（Spam & AI Slop）**：Mojeek 认为，谷歌等大厂虽然索引规模庞大，但其中充斥着大量的 SEO 优化垃圾、广告农场以及同质化的 AI 生成内容。Mojeek 致力于建立一个更干净、更聚焦于“真实人类网页”的精选索引。\n* **真正的隐私与技术独立**：市面上绝大多数自称“隐私搜索引擎”的替代品（如 DuckDuckGo、Startpage、Ecosia 等）本质上都只是 Bing 或 Google 的“套壳”或代理（Metasearch），受制于大厂的 API 政策与价格。而 Mojeek 是为数不多**每一行代码、每一个服务器、每一个网页索引都完全自主掌控**的叛逆者。\n\n### 总结\nMojeek 的索引规模局限是其追求**完全去中心化与独立性**所付出的必然代价。从客观体验上讲，它确实无法在广度和深度上与 Google 匹敌；但从打破科技巨头垄断、维护互联网多元化和网络主权的角度来看，它在有限的索引规模下所展现出的自立能力，依然赢得了极高的极客声誉与行业尊重。",
+      "citations": [
+        "https://www.searchengines.net/mojeek/",
+        "https://blog.mojeek.com/2024/06/search-engine-myths.html",
+        "https://privacytools.io/app/mojeek",
+        "https://www.searchengines.net/mojeek/",
+        "https://www.searchengines.net/mojeek/",
+        "https://www.searchengines.net/mojeek/",
+        "https://discuss.privacyguides.net/t/mojeek/12101",
+        "https://discuss.privacyguides.net/t/mojeek/12101",
+        "https://community.mojeek.com/t/whats-the-thing-holding-back-mojeek-the-most/2114",
+        "https://privacytools.io/app/mojeek",
+        "https://privacytools.io/app/mojeek",
+        "https://discuss.privacyguides.net/t/mojeek/12101",
+        "https://community.mojeek.com/t/whats-the-thing-holding-back-mojeek-the-most/2114",
+        "https://privacytools.io/app/mojeek",
+        "https://discuss.privacyguides.net/t/mojeek/12101",
+        "https://discuss.privacyguides.net/t/mojeek/12101",
+        "https://www.makeuseof.com/mojeek-truly-independent-search-engine-shouldnt-exist-but-it-does-and-its-great/",
+        "https://community.mojeek.com/t/whats-the-thing-holding-back-mojeek-the-most/2114",
+        "https://www.igorslab.de/en/a-comparison-of-new-search-engines-mojeek-and-kagi-as-alternatives-to-google/",
+        "https://www.searchengines.net/mojeek/",
+        "https://www.searchengines.net/mojeek/",
+        "https://blog.mojeek.com/2020/12/frequently-asked-questions-about-mojeek-search-engines-technology-stack.html",
+        "https://www.searchengines.net/mojeek/",
+        "https://community.mojeek.com/t/the-linux-experiment-mentions-mojeek-google-search-sucks-ai-is-everywhere-what-should-you-use/2345",
+        "https://www.igorslab.de/en/a-comparison-of-new-search-engines-mojeek-and-kagi-as-alternatives-to-google/",
+        "https://privacytools.io/app/mojeek",
+        "https://www.igorslab.de/en/a-comparison-of-new-search-engines-mojeek-and-kagi-as-alternatives-to-google/",
+        "https://privacytools.io/app/mojeek"
+      ],
+      "searchQueries": [
+        "Mojeek index size comparison Google Bing",
+        "Mojeek search engine index size limitations criticism"
+      ],
+      "metadata": {
+        "model": "gemini-2.5-flash",
+        "usage": {
+          "inputTokens": 260,
+          "outputTokens": 1323,
+          "totalTokens": 1583
+        }
+      },
+      "latencyMs": 9567,
+      "query": "Mojeek 搜索引擎的索引规模 limitations criticism",
+      "facetId": "criticism",
+      "wave": "facet"
+    }
+  ],
+  "facets": [
+    {
+      "id": "base",
+      "query": "Mojeek 搜索引擎的索引规模",
+      "purpose": "broad-recall",
+      "requiredRoles": [],
+      "required": true,
+      "entities": []
+    },
+    {
+      "id": "overview",
+      "query": "Mojeek 搜索引擎的索引规模 overview",
+      "purpose": "broad-recall",
+      "requiredRoles": [
+        "general"
+      ],
+      "required": false,
+      "entities": []
+    },
+    {
+      "id": "criticism",
+      "query": "Mojeek 搜索引擎的索引规模 limitations criticism",
+      "purpose": "counterpoint",
+      "requiredRoles": [
+        "general"
+      ],
+      "required": false,
+      "entities": []
+    }
+  ],
+  "queryVariants": [
+    "Mojeek 搜索引擎的索引规模",
+    "Mojeek 搜索引擎的索引规模 overview",
+    "Mojeek 搜索引擎的索引规模 limitations criticism"
+  ],
+  "fused": [
+    {
+      "title": "mojeek.com",
+      "url": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+      "strictUrl": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+      "looseUrl": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+      "citationUrl": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+      "hostname": "community.mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015868852459016394,
+      "provenance": "community",
+      "rrfNormalized": 0.968,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.6,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.78566
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://community.mojeek.com/t/whats-the-thing-holding-back-mojeek-the-most/2114",
+      "strictUrl": "https://community.mojeek.com/t/whats-the-thing-holding-back-mojeek-the-most/2114",
+      "looseUrl": "https://community.mojeek.com/t/whats-the-thing-holding-back-mojeek-the-most/2114",
+      "citationUrl": "https://community.mojeek.com/t/whats-the-thing-holding-back-mojeek-the-most/2114",
+      "hostname": "community.mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015868852459016394,
+      "provenance": "community",
+      "rrfNormalized": 0.968,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.6,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.78566
+    },
+    {
+      "title": "privacyguides.net",
+      "url": "https://discuss.privacyguides.net/t/mojeek/12101",
+      "strictUrl": "https://discuss.privacyguides.net/t/mojeek/12101",
+      "looseUrl": "https://discuss.privacyguides.net/t/mojeek/12101",
+      "citationUrl": "https://discuss.privacyguides.net/t/mojeek/12101",
+      "hostname": "discuss.privacyguides.net",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015996827075621365,
+      "provenance": "community",
+      "rrfNormalized": 0.975806,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.6,
+      "relevanceScore": 0,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.783
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://community.mojeek.com/t/the-linux-experiment-mentions-mojeek-google-search-sucks-ai-is-everywhere-what-should-you-use/2345",
+      "strictUrl": "https://community.mojeek.com/t/the-linux-experiment-mentions-mojeek-google-search-sucks-ai-is-everywhere-what-should-you-use/2345",
+      "looseUrl": "https://community.mojeek.com/t/the-linux-experiment-mentions-mojeek-google-search-sucks-ai-is-everywhere-what-should-you-use/2345",
+      "citationUrl": "https://community.mojeek.com/t/the-linux-experiment-mentions-mojeek-google-search-sucks-ai-is-everywhere-what-should-you-use/2345",
+      "hostname": "community.mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.01537679501842674,
+      "provenance": "community",
+      "rrfNormalized": 0.937984,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.6,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.76705
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://blog.mojeek.com/2024/06/search-engine-myths.html",
+      "strictUrl": "https://blog.mojeek.com/2024/06/search-engine-myths.html",
+      "looseUrl": "https://blog.mojeek.com/2024/06/search-engine-myths.html",
+      "citationUrl": "https://blog.mojeek.com/2024/06/search-engine-myths.html",
+      "hostname": "blog.mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016259070142434832,
+      "provenance": "unknown",
+      "rrfNormalized": 0.991803,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.764418
+    },
+    {
+      "title": "wikipedia.org",
+      "url": "https://en.wikipedia.org/wiki/Mojeek",
+      "strictUrl": "https://en.wikipedia.org/wiki/Mojeek",
+      "looseUrl": "https://en.wikipedia.org/wiki/Mojeek",
+      "citationUrl": "https://en.wikipedia.org/wiki/Mojeek",
+      "hostname": "en.wikipedia.org",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.01639344262295082,
+      "provenance": "unknown",
+      "rrfNormalized": 1,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.762
+    },
+    {
+      "title": "searchengines.net",
+      "url": "https://searchengines.net/mojeek",
+      "strictUrl": "https://www.searchengines.net/mojeek/",
+      "looseUrl": "https://searchengines.net/mojeek",
+      "citationUrl": "https://www.searchengines.net/mojeek/",
+      "hostname": "searchengines.net",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.01639344262295082,
+      "provenance": "unknown",
+      "rrfNormalized": 1,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.762
+    },
+    {
+      "title": "europeanpurpose.com",
+      "url": "https://europeanpurpose.com/tool/mojeek",
+      "strictUrl": "https://europeanpurpose.com/tool/mojeek",
+      "looseUrl": "https://europeanpurpose.com/tool/mojeek",
+      "citationUrl": "https://europeanpurpose.com/tool/mojeek",
+      "hostname": "europeanpurpose.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016259070142434832,
+      "provenance": "unknown",
+      "rrfNormalized": 0.991803,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.756918
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://mojeek.com/about",
+      "strictUrl": "https://www.mojeek.com/about/",
+      "looseUrl": "https://mojeek.com/about",
+      "citationUrl": "https://www.mojeek.com/about/",
+      "hostname": "mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015996827075621365,
+      "provenance": "unknown",
+      "rrfNormalized": 0.975806,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.7545
+    },
+    {
+      "title": "privacytools.io",
+      "url": "https://privacytools.io/app/mojeek",
+      "strictUrl": "https://privacytools.io/app/mojeek",
+      "looseUrl": "https://privacytools.io/app/mojeek",
+      "citationUrl": "https://privacytools.io/app/mojeek",
+      "hostname": "privacytools.io",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016126882580301215,
+      "provenance": "unknown",
+      "rrfNormalized": 0.98374,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.751919
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://mojeek.com/about/technology.html",
+      "strictUrl": "https://www.mojeek.com/about/technology.html",
+      "looseUrl": "https://mojeek.com/about/technology.html",
+      "citationUrl": "https://www.mojeek.com/about/technology.html",
+      "hostname": "mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015868852459016394,
+      "provenance": "unknown",
+      "rrfNormalized": 0.968,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.74966
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+      "strictUrl": "https://www.mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+      "looseUrl": "https://mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+      "citationUrl": "https://www.mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+      "hostname": "mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015742909185532138,
+      "provenance": "unknown",
+      "rrfNormalized": 0.960317,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.744897
+    },
+    {
+      "title": "makeuseof.com",
+      "url": "https://makeuseof.com/mojeek-truly-independent-search-engine-shouldnt-exist-but-it-does-and-its-great",
+      "strictUrl": "https://www.makeuseof.com/mojeek-truly-independent-search-engine-shouldnt-exist-but-it-does-and-its-great/",
+      "looseUrl": "https://makeuseof.com/mojeek-truly-independent-search-engine-shouldnt-exist-but-it-does-and-its-great",
+      "citationUrl": "https://www.makeuseof.com/mojeek-truly-independent-search-engine-shouldnt-exist-but-it-does-and-its-great/",
+      "hostname": "makeuseof.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015742909185532138,
+      "provenance": "unknown",
+      "rrfNormalized": 0.960317,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.737397
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://blog.mojeek.com/2020/12/frequently-asked-questions-about-mojeek-search-engines-technology-stack.html",
+      "strictUrl": "https://blog.mojeek.com/2020/12/frequently-asked-questions-about-mojeek-search-engines-technology-stack.html",
+      "looseUrl": "https://blog.mojeek.com/2020/12/frequently-asked-questions-about-mojeek-search-engines-technology-stack.html",
+      "citationUrl": "https://blog.mojeek.com/2020/12/frequently-asked-questions-about-mojeek-search-engines-technology-stack.html",
+      "hostname": "blog.mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015496926229508198,
+      "provenance": "unknown",
+      "rrfNormalized": 0.945313,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.735594
+    },
+    {
+      "title": "igorslab.de",
+      "url": "https://igorslab.de/en/a-comparison-of-new-search-engines-mojeek-and-kagi-as-alternatives-to-google",
+      "strictUrl": "https://www.igorslab.de/en/a-comparison-of-new-search-engines-mojeek-and-kagi-as-alternatives-to-google/",
+      "looseUrl": "https://igorslab.de/en/a-comparison-of-new-search-engines-mojeek-and-kagi-as-alternatives-to-google",
+      "citationUrl": "https://www.igorslab.de/en/a-comparison-of-new-search-engines-mojeek-and-kagi-as-alternatives-to-google/",
+      "hostname": "igorslab.de",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015618949270685429,
+      "provenance": "unknown",
+      "rrfNormalized": 0.952756,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.732709
+    }
+  ],
+  "results": [
+    {
+      "title": "mojeek.com",
+      "url": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+      "strictUrl": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+      "looseUrl": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+      "citationUrl": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+      "hostname": "community.mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015868852459016394,
+      "provenance": "community",
+      "rrfNormalized": 0.968,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.6,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.78566
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://community.mojeek.com/t/whats-the-thing-holding-back-mojeek-the-most/2114",
+      "strictUrl": "https://community.mojeek.com/t/whats-the-thing-holding-back-mojeek-the-most/2114",
+      "looseUrl": "https://community.mojeek.com/t/whats-the-thing-holding-back-mojeek-the-most/2114",
+      "citationUrl": "https://community.mojeek.com/t/whats-the-thing-holding-back-mojeek-the-most/2114",
+      "hostname": "community.mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015868852459016394,
+      "provenance": "community",
+      "rrfNormalized": 0.968,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.6,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.78566
+    },
+    {
+      "title": "privacyguides.net",
+      "url": "https://discuss.privacyguides.net/t/mojeek/12101",
+      "strictUrl": "https://discuss.privacyguides.net/t/mojeek/12101",
+      "looseUrl": "https://discuss.privacyguides.net/t/mojeek/12101",
+      "citationUrl": "https://discuss.privacyguides.net/t/mojeek/12101",
+      "hostname": "discuss.privacyguides.net",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015996827075621365,
+      "provenance": "community",
+      "rrfNormalized": 0.975806,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.6,
+      "relevanceScore": 0,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.783
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://blog.mojeek.com/2024/06/search-engine-myths.html",
+      "strictUrl": "https://blog.mojeek.com/2024/06/search-engine-myths.html",
+      "looseUrl": "https://blog.mojeek.com/2024/06/search-engine-myths.html",
+      "citationUrl": "https://blog.mojeek.com/2024/06/search-engine-myths.html",
+      "hostname": "blog.mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016259070142434832,
+      "provenance": "unknown",
+      "rrfNormalized": 0.991803,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.764418
+    },
+    {
+      "title": "wikipedia.org",
+      "url": "https://en.wikipedia.org/wiki/Mojeek",
+      "strictUrl": "https://en.wikipedia.org/wiki/Mojeek",
+      "looseUrl": "https://en.wikipedia.org/wiki/Mojeek",
+      "citationUrl": "https://en.wikipedia.org/wiki/Mojeek",
+      "hostname": "en.wikipedia.org",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.01639344262295082,
+      "provenance": "unknown",
+      "rrfNormalized": 1,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.762
+    },
+    {
+      "title": "searchengines.net",
+      "url": "https://searchengines.net/mojeek",
+      "strictUrl": "https://www.searchengines.net/mojeek/",
+      "looseUrl": "https://searchengines.net/mojeek",
+      "citationUrl": "https://www.searchengines.net/mojeek/",
+      "hostname": "searchengines.net",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.01639344262295082,
+      "provenance": "unknown",
+      "rrfNormalized": 1,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.762
+    },
+    {
+      "title": "europeanpurpose.com",
+      "url": "https://europeanpurpose.com/tool/mojeek",
+      "strictUrl": "https://europeanpurpose.com/tool/mojeek",
+      "looseUrl": "https://europeanpurpose.com/tool/mojeek",
+      "citationUrl": "https://europeanpurpose.com/tool/mojeek",
+      "hostname": "europeanpurpose.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016259070142434832,
+      "provenance": "unknown",
+      "rrfNormalized": 0.991803,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.756918
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://mojeek.com/about",
+      "strictUrl": "https://www.mojeek.com/about/",
+      "looseUrl": "https://mojeek.com/about",
+      "citationUrl": "https://www.mojeek.com/about/",
+      "hostname": "mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015996827075621365,
+      "provenance": "unknown",
+      "rrfNormalized": 0.975806,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.7545
+    }
+  ],
+  "coverage": {
+    "retrieval": {
+      "uniqueCanonicalUrls": 8,
+      "totalSources": 15,
+      "offTopicSources": 7,
+      "uniqueDomains": 3,
+      "uniqueFamilies": 1,
+      "primarySources": 0,
+      "successfulAttempts": 3,
+      "successfulProviders": 1,
+      "policy": {
+        "minUniqueCanonicalUrls": 6,
+        "minUniqueDomains": 2,
+        "minPrimarySources": 0
+      },
+      "sufficient": true
+    },
+    "evidence": {
+      "requiredFacets": [],
+      "offTopicSources": 7,
+      "sufficient": true,
+      "gaps": []
+    },
+    "gaps": [],
+    "sufficient": true,
+    "delivery": {
+      "sufficient": true,
+      "gaps": []
+    }
+  },
+  "budget": {
+    "wallClockMs": 150000,
+    "perCallTimeoutMs": 45000,
+    "maxInitialProviders": 1,
+    "maxProviders": 1,
+    "maxSubqueries": 3,
+    "maxSearchCalls": 9,
+    "maxFallbackCalls": 0,
+    "maxFetches": 0
+  },
+  "status": "complete",
+  "stopReason": "coverage-satisfied",
+  "providers": {
+    "selected": [
+      "gemini"
+    ],
+    "used": [
+      "gemini"
+    ],
+    "failures": [],
+    "empty": [],
+    "autoOrder": [
+      "exa",
+      "gemini",
+      "xai",
+      "firecrawl",
+      "tavily",
+      "tinyfish",
+      "zai",
+      "kimi",
+      "codex",
+      "public",
+      "jina",
+      "brave",
+      "searxng",
+      "startpage",
+      "duckduckgo",
+      "ecosia",
+      "google",
+      "mojeek"
+    ]
+  },
+  "citations": [
+    "[1] mojeek.com — https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+    "[2] mojeek.com — https://community.mojeek.com/t/whats-the-thing-holding-back-mojeek-the-most/2114",
+    "[3] privacyguides.net — https://discuss.privacyguides.net/t/mojeek/12101",
+    "[4] mojeek.com — https://blog.mojeek.com/2024/06/search-engine-myths.html",
+    "[5] wikipedia.org — https://en.wikipedia.org/wiki/Mojeek",
+    "[6] searchengines.net — https://www.searchengines.net/mojeek/",
+    "[7] europeanpurpose.com — https://europeanpurpose.com/tool/mojeek",
+    "[8] mojeek.com — https://www.mojeek.com/about/"
+  ],
+  "providerAnswers": [
+    {
+      "provider": "gemini",
+      "answer": "作为一个主打隐私保护、完全独立且不依赖 Google 或 Bing 等第三方搜索结果的英国搜索引擎，**Mojeek** 拥有并运营着自己的网页爬虫（MojeekBot）以及独立的搜索索引。\n\n截至目前，Mojeek 的索引规模约为 **90多亿（9+ billion）网页**。\n\n### 索引规模发展历程与数据：\n* **当前规模**：索引量已超过 **92亿** 个网页。\n* **爬取与更新频率**：其爬虫每日爬取和重新爬取的新老网页总数约为 3700 万左右，平均每天净增约 270 万个新网页。\n* **近年里程碑**：\n  * **2025年**：突破 90 亿网页大关。\n  * **2024年**：突破 80 亿网页大关。\n  * **2023年**：突破 70 亿网页大关。\n  * **2022年**：先后突破 50 亿和 60 亿网页大关。\n  * **2021年**：达到 40 亿网页。\n  * **2015年**：首次突破 10 亿网页。\n\n### 索引特点：\n虽然 Mojeek 的 90 多亿网页规模相比于 Google、Bing 等巨头动辄数千亿的体量相对较小，但在“独立搜索引擎”中，它是一个非常重要的自主索引库（与 Brave Search 等少数几个完全独立运行的搜索引擎类似）。其索引主要集中在英文及部分欧洲语言网页上。"
+    },
+    {
+      "provider": "gemini",
+      "answer": "**Mojeek** 是少数几个**完全不依赖 Google 或 Bing 等主流大厂 API**、坚持自建网络爬虫（MojeekBot）和独立索引库的欧洲（英国）搜索引擎。在绝大多数标榜“隐私保护”的替代搜索引擎（如 DuckDuckGo、Ecosia、Startpage 等）选择直接购买微软或谷歌搜索结果的背景下，Mojeek 的独立性显得尤为特殊。\n\n关于 Mojeek 搜索引擎的**索引规模（Index Size）与技术概览**，核心要点如下：\n\n### 1. 索引规模与增长轨迹\nMojeek 的网页索引规模一直在稳步增长。根据官方及社区公开的数据：\n* **当前规模**：其索引量已**超过 90 亿（9+ billion）网页**。\n* **发展历程（部分里程碑）**：\n  * **2015年**：突破 10 亿网页（当时英国本土唯一的独立百亿级体量代表之一）。\n  * **2020年**：超过 30 亿网页。\n  * **2021年**：突破 40 亿网页。\n  * **2022年**：突破 50 亿至 60 亿网页。\n  * **2023年**：突破 70 亿网页。\n  * **2024年**：突破 80 亿网页。\n  * **2025年**：正式突破 **90 亿网页**大关。\n\n### 2. 爬取与更新能力\n* **每日抓取量**：Mojeek 的爬虫系统（MojeekBot）平均每天对新页面和已有页面进行总计约 **3,700 万**次的抓取与重新抓取。\n* **净增量**：在日常优化和抓取过程中，每日净新增到索引中的有效网页大约在 **270 万**左右（根据服务器维护和架构调整会有所波动）。\n\n### 3. 索引的语言与内容侧重点\n* **语种分布**：Mojeek 的索引主要以**英语**网页为主。同时，它也索引了一定数量的法语、德语、西班牙语等其他欧洲语种页面，但对于亚洲语言（如中文、日语等）的支持和收录相对非常有限。\n* **技术架构**：Mojeek 的搜索引擎技术完全由创始人 Marc Smith 及其团队从零开始用 C 语言等底层语言编写，拥有独立的排名算法。\n* **服务器与环保**：其服务器基础设施并不依赖主流的云厂商（如 AWS、Google Cloud、Azure），而是托管在英国本土的一个绿色数据中心内。\n\n### 4. 索引规模的优劣势分析\n* **优势（真正独立）**：由于拥有独立的索引，Mojeek 不会受到大厂算法“过滤气泡（Filter Bubble）”或审查的影响，能够提供与 Google/Bing 截然不同的搜索结果视角。此外，它坚持不追踪用户、不进行行为分析。\n* **劣势（体量差距）**：尽管 90 亿网页的规模对于独立引擎而言相当可观，但相比于 Google 或 Bing 动辄数千亿级别的网页索引，Mojeek 的体量仍然较小。因此，在面对非常冷门、深层、或是非英语的技术查询时，可能会出现搜索结果不如大厂全面或“MISS（未命中）”的情况。"
+    },
+    {
+      "provider": "gemini",
+      "answer": "**Mojeek** 是极少数坚持**完全独立自建索引**（Independent Crawler-based Index）的欧洲/英国搜索引擎，它不依赖谷歌（Google）或微软必应（Bing）的搜索结果 API 喂养。\n\n然而，这种对独立性的坚持也直接带来了其在**索引规模（Index Size）**上的局限性，并引发了用户和业界的诸多讨论与批评。以下是对 Mojeek 搜索引擎索引规模的局限性及其相关批评的深度分析：\n\n---\n\n### 一、 核心局限性：索引规模的绝对差距\n\n1. **数量级悬殊**\n   * **数据对比**：谷歌的索引量通常被认为在**数千亿（Hundreds of Billions）**级别；而 Mojeek 自身的网页索引量在 **数十亿（如约 90 亿或更多）** 的量级。\n   * 两者之间存在 **1 到 2 个数量级（数十倍甚至上百倍）** 的差距。即使与同样拥有独立索引的 Brave Search 相比，Mojeek 在资源的扩张速度上也面临资金和硬件基建的掣肘。\n\n2. **多语言支持薄弱**\n   * 由于爬虫抓取和本地化处理能力受限，Mojeek 的索引高度偏向**英文网页**。虽然它也索引部分德语、法语、西班牙语等欧洲语言，但对于亚洲语言（如日语、中文、韩语等）的支持度非常低，甚至无法有效检索。\n\n3. **长尾与垂直内容缺失**\n   * 许多垂直类、小众的网站或深层动态页面（Deep Pages）由于缺乏足够的外部链接或未被爬虫及时发现，常常无法被 Mojeek 收录。\n\n---\n\n### 二、 针对 Mojeek 索引规模的常见批评\n\n外界对 Mojeek 索引及其实际表现的批评主要集中在以下几个方面：\n\n#### 1. “日常好用，深度/冷门失效”（Search Quality & Niche Query Failure）\n* **批评点**：许多用户在尝试将 Mojeek 作为主力搜索引擎时发现，虽然它在处理通用、高频词汇的检索时表现尚可，但一旦涉及**编程代码问题（Programming Queries）、专业技术文档、地方性小众资讯或复杂的长尾查询**，就会经常出现“搜不到”或“结果贫乏”的情况。\n* **用户体验后果**：用户往往无法完全摆脱对大厂搜索引擎的依赖，最终不得不把 Mojeek 当成辅助工具，在遇到困难的搜索时“回滚”到 Google 或 Bing。\n\n#### 2. 字面匹配（Lexical Search）与索引精度的局限\n* **批评点**：Mojeek 采用的是传统的**纯字面关键词匹配（Lexical Search）**，而非复杂的语义搜索（Semantic Search）或大模型意图猜测。当索引规模较小时，这种“死板”的字面检索机制被进一步放大——如果网页中没有完全包含用户的关键词，或者其索引库里根本没有收录该页面，用户就无法像在使用 Google/Perplexity 那样得到智能推导或同义词拓展的结果。\n\n#### 3. 爬虫规模与资源瓶颈的长期担忧\n* **批评点**：在互联网呈爆炸式增长的今天（尤其是伴随着大量由 AI 生成的垃圾内容和动态网页），维护一个独立且干净的索引需要消耗巨额的服务器基础设施、电力和带宽成本。批评者和部分开源社区（如 Privacy Guides 讨论区）指出，Mojeek 仅凭一家英国小企业独立支撑，其硬件投入和资本积累很难在短期内追赶互联网膨胀的速度。这让人对其长期能否维持一个“具有实用竞争力”的索引产生担忧。\n\n---\n\n### 三、 Mojeek 官方的辩护与独到价值\n\n对于上述关于索引规模的批评，Mojeek 官方和支持者通常会给出以下回应：\n\n* **拒绝“大而无当”的垃圾信息（Spam & AI Slop）**：Mojeek 认为，谷歌等大厂虽然索引规模庞大，但其中充斥着大量的 SEO 优化垃圾、广告农场以及同质化的 AI 生成内容。Mojeek 致力于建立一个更干净、更聚焦于“真实人类网页”的精选索引。\n* **真正的隐私与技术独立**：市面上绝大多数自称“隐私搜索引擎”的替代品（如 DuckDuckGo、Startpage、Ecosia 等）本质上都只是 Bing 或 Google 的“套壳”或代理（Metasearch），受制于大厂的 API 政策与价格。而 Mojeek 是为数不多**每一行代码、每一个服务器、每一个网页索引都完全自主掌控**的叛逆者。\n\n### 总结\nMojeek 的索引规模局限是其追求**完全去中心化与独立性**所付出的必然代价。从客观体验上讲，它确实无法在广度和深度上与 Google 匹敌；但从打破科技巨头垄断、维护互联网多元化和网络主权的角度来看，它在有限的索引规模下所展现出的自立能力，依然赢得了极高的极客声誉与行业尊重。"
+    }
+  ],
+  "observability": {
+    "elapsedMs": 16272,
+    "providerLatencyMs": {
+      "gemini::Mojeek 搜索引擎的索引规模": 6702,
+      "gemini::Mojeek 搜索引擎的索引规模 overview": 7284,
+      "gemini::Mojeek 搜索引擎的索引规模 limitations criticism": 9567
+    }
+  }
+}

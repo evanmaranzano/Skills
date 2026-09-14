@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Search Fusion Attempt",
+  "type": "object",
+  "required": ["provider", "sources"],
+  "properties": {
+    "provider": { "type": "string" },
+    "ok": { "type": "boolean" },
+    "query": { "type": "string" },
+    "facetId": { "type": "string" },
+    "wave": { "type": "string", "enum": ["breadth", "facet", "fallback"] },
+    "error": { "type": "string" },
+    "errorType": { "type": "string" },
+    "latencyMs": { "type": ["number", "null"] },
+    "answer": { "type": "string" },
+    "citations": { "type": "array", "items": { "type": "string" } },
+    "searchQueries": { "type": "array", "items": { "type": "string" } },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["url"],
+        "properties": {
+          "url": { "type": "string" },
+          "title": { "type": "string" },
+          "snippet": { "type": "string" },
+          "publishedAt": { "type": "string" },
+          "ageSeconds": { "type": "number" },
+          "author": { "type": "string" }
+        }
+      }
+    },
+    "metadata": { "type": "object" }
+  }
+}

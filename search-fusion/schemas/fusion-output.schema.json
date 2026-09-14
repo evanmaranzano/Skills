@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Search Fusion Output Envelope",
+  "type": "object",
+  "required": ["schemaVersion", "mode", "query", "results"],
+  "properties": {
+    "schemaVersion": { "type": "integer", "const": 1 },
+    "mode": { "type": "string", "enum": ["host-orchestrated", "adapter-orchestrated"] },
+    "query": { "type": "string" },
+    "task": { "type": "object" },
+    "budget": { "type": "object" },
+    "fusionMode": { "type": "string" },
+    "capabilities": { "$ref": "./capabilities.schema.json" },
+    "facets": { "type": "array" },
+    "queryVariants": { "type": "array", "items": { "type": "string" } },
+    "attempts": {
+      "type": "array",
+      "items": { "$ref": "./search-result.schema.json" }
+    },
+    "providers": { "type": "object" },
+    "coverage": { "type": "object" },
+    "resultCount": { "type": "integer" },
+    "results": { "type": "array" },
+    "citations": { "type": "array", "items": { "type": "string" } },
+    "providerAnswers": { "type": "array" },
+    "observability": { "type": "object" }
+  }
+}

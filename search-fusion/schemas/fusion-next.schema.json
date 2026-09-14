@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Search Fusion Next Output",
+  "type": "object",
+  "required": ["schemaVersion", "action", "query", "status", "stopReason", "requests"],
+  "properties": {
+    "schemaVersion": { "type": "integer", "const": 1 },
+    "action": { "type": "string", "const": "next" },
+    "query": { "type": "string" },
+    "task": { "type": "object" },
+    "coverage": { "type": "object" },
+    "status": { "type": "string", "enum": ["complete", "partial"] },
+    "stopReason": { "type": "string", "enum": ["coverage-satisfied", "budget-exhausted", "deadline"] },
+    "requests": { "type": "array" },
+    "gaps": { "type": "array", "items": { "type": "string" } },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "runManifest": { "type": "object" }
+  }
+}

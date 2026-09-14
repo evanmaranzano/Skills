@@ -1,0 +1,1569 @@
+{
+  "schemaVersion": 1,
+  "mode": "adapter-orchestrated",
+  "query": "Mojeek 搜索引擎的索引规模",
+  "task": {
+    "task": "exploratory",
+    "freshness": "evergreen",
+    "domain": "general",
+    "domainTags": [],
+    "depth": "quick",
+    "language": "mixed-or-zh"
+  },
+  "capabilities": {
+    "harness": "omp",
+    "level": "L3",
+    "providerPin": true,
+    "parallelSearch": true,
+    "structuredSources": true,
+    "fetch": false,
+    "providers": [
+      "gemini",
+      "codex",
+      "xai",
+      "zai",
+      "exa",
+      "tinyfish",
+      "jina",
+      "tavily",
+      "firecrawl",
+      "brave",
+      "kimi",
+      "searxng",
+      "startpage",
+      "duckduckgo",
+      "ecosia",
+      "google",
+      "mojeek",
+      "public"
+    ],
+    "autoOrder": [
+      "exa",
+      "gemini",
+      "xai",
+      "firecrawl",
+      "tavily",
+      "tinyfish",
+      "zai",
+      "kimi",
+      "codex",
+      "public",
+      "jina",
+      "brave",
+      "searxng",
+      "startpage",
+      "duckduckgo",
+      "ecosia",
+      "google",
+      "mojeek"
+    ],
+    "roles": {
+      "gemini": [
+        "general",
+        "fresh"
+      ],
+      "codex": [
+        "general",
+        "developer",
+        "fresh"
+      ],
+      "xai": [
+        "fresh",
+        "social"
+      ],
+      "zai": [
+        "china",
+        "general"
+      ],
+      "exa": [
+        "semantic",
+        "developer",
+        "academic"
+      ],
+      "tinyfish": [
+        "general",
+        "fallback"
+      ],
+      "jina": [
+        "semantic",
+        "developer"
+      ],
+      "tavily": [
+        "general",
+        "fresh",
+        "semantic"
+      ],
+      "firecrawl": [
+        "developer",
+        "general"
+      ],
+      "brave": [
+        "general",
+        "fresh"
+      ],
+      "kimi": [
+        "china",
+        "general"
+      ],
+      "searxng": [
+        "public",
+        "general",
+        "fallback"
+      ],
+      "startpage": [
+        "public",
+        "general"
+      ],
+      "duckduckgo": [
+        "public",
+        "general",
+        "fallback"
+      ],
+      "ecosia": [
+        "public",
+        "general"
+      ],
+      "google": [
+        "public",
+        "general",
+        "fresh"
+      ],
+      "mojeek": [
+        "public",
+        "general"
+      ],
+      "public": [
+        "public",
+        "fallback",
+        "general"
+      ]
+    },
+    "rankSemantics": {
+      "gemini": "citation-order",
+      "codex": "citation-order",
+      "xai": "citation-order",
+      "zai": "citation-order",
+      "exa": "ranked",
+      "tinyfish": "ranked",
+      "jina": "unknown",
+      "tavily": "ranked",
+      "firecrawl": "ranked",
+      "brave": "ranked",
+      "kimi": "citation-order",
+      "searxng": "ranked",
+      "startpage": "ranked",
+      "duckduckgo": "ranked",
+      "ecosia": "ranked",
+      "google": "ranked",
+      "mojeek": "ranked",
+      "public": "ranked"
+    },
+    "retrievalFamilies": {
+      "gemini": "google",
+      "codex": "openai",
+      "xai": "xai",
+      "zai": "zai",
+      "exa": "exa",
+      "tinyfish": "tinyfish",
+      "jina": "jina",
+      "tavily": "tavily",
+      "firecrawl": "firecrawl",
+      "brave": "brave",
+      "kimi": "kimi",
+      "searxng": "metasearch",
+      "startpage": "google",
+      "duckduckgo": "duckduckgo",
+      "ecosia": "bing",
+      "google": "google",
+      "mojeek": "mojeek",
+      "public": "public"
+    },
+    "metadata": {
+      "adapter": "omp-internal",
+      "compatibility": true,
+      "availableProviders": [
+        "gemini",
+        "codex",
+        "xai",
+        "zai",
+        "exa",
+        "tinyfish",
+        "jina",
+        "tavily",
+        "firecrawl",
+        "brave",
+        "kimi",
+        "searxng",
+        "startpage",
+        "duckduckgo",
+        "ecosia",
+        "google",
+        "mojeek",
+        "public"
+      ],
+      "preferredOrder": [
+        "exa",
+        "gemini",
+        "xai",
+        "firecrawl",
+        "tavily",
+        "tinyfish",
+        "zai",
+        "kimi",
+        "codex",
+        "public"
+      ],
+      "excludedProviders": [
+        "perplexity",
+        "anthropic",
+        "kagi",
+        "parallel",
+        "synthetic"
+      ]
+    }
+  },
+  "attempts": [
+    {
+      "provider": "gemini",
+      "requestedProvider": "gemini",
+      "ok": true,
+      "sources": [
+        {
+          "title": "mojeek.com",
+          "url": "https://blog.mojeek.com/2026/05/the-switch-to-alternative-search-engine.html"
+        },
+        {
+          "title": "wikipedia.org",
+          "url": "https://en.wikipedia.org/wiki/Mojeek"
+        },
+        {
+          "title": "mojeek.com",
+          "url": "https://www.mojeek.com/about/"
+        },
+        {
+          "title": "mojeek.com",
+          "url": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562"
+        },
+        {
+          "title": "mojeek.com",
+          "url": "https://www.mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html"
+        },
+        {
+          "title": "mojeek.com",
+          "url": "https://blog.mojeek.com/2021/06/four-billion-pages.html"
+        },
+        {
+          "title": "searchengines.net",
+          "url": "https://www.searchengines.net/mojeek/"
+        },
+        {
+          "title": "europeanpurpose.com",
+          "url": "https://europeanpurpose.com/tool/mojeek"
+        },
+        {
+          "title": "serp.fast",
+          "url": "https://serp.fast/tools/mojeek"
+        }
+      ],
+      "answer": "**Mojeek** 是少数几个不依赖 Google、Bing 或其他主流大厂索引、完全依靠自身网络爬虫（MojeekBot）从零构建独立网页索引的欧洲搜索引擎（总部位于英国）。\n\n### 1. 索引规模数据\n* **当前规模**：Mojeek 的索引规模已突破 **90 亿（9 billion）网页**。\n* **爬取与增长速度**：根据官方公开的信息，其爬虫系统每天会抓取和重新抓取数千万个页面（例如日均抓取约 3,700 万个页面），并以每天新增数百万个页面的速度持续扩充。\n\n### 2. 发展里程碑\nMojeek 的索引规模在过去几年中稳步增长：\n* **2015年11月**：突破 **10亿** 网页\n* **2019年5月**：超过 **23亿** 网页\n* **2021年6月**：达到 **40亿** 网页\n* **2022年10月**：突破 **60亿** 网页\n* **2024年**：突破 **80亿** 网页\n* **2025年**：突破 **90亿** 网页\n\n### 3. 与主流搜索引擎的对比\n* **体量差距**：虽然 90 亿的网页规模对于一个独立搜索引擎而言是一项重大成就，但与行业巨头相比仍有明显差距。例如，Google 的索引规模高达数千亿级别。\n* **优势与局限**：由于 Mojeek 拥有完全独立的爬虫和基础设施，它能提供真正不受科技巨头算法左右且无用户追踪的搜索结果。但在面对一些冷门、长尾（long-tail）查询时，其 90 亿体量的索引有时会出现覆盖面不足、结果不如 Google 或 Bing 丰富的情况。",
+      "citations": [
+        "https://blog.mojeek.com/2026/05/the-switch-to-alternative-search-engine.html",
+        "https://en.wikipedia.org/wiki/Mojeek",
+        "https://www.mojeek.com/about/",
+        "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+        "https://www.mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+        "https://en.wikipedia.org/wiki/Mojeek",
+        "https://blog.mojeek.com/2021/06/four-billion-pages.html",
+        "https://en.wikipedia.org/wiki/Mojeek",
+        "https://www.mojeek.com/about/",
+        "https://www.mojeek.com/about/",
+        "https://www.searchengines.net/mojeek/",
+        "https://www.searchengines.net/mojeek/",
+        "https://en.wikipedia.org/wiki/Mojeek",
+        "https://europeanpurpose.com/tool/mojeek",
+        "https://serp.fast/tools/mojeek"
+      ],
+      "searchQueries": [
+        "how many pages in Mojeek index",
+        "Mojeek search engine index size 2025 2026",
+        "Mojeek 搜索引擎 索引规模"
+      ],
+      "metadata": {
+        "model": "gemini-2.5-flash",
+        "usage": {
+          "inputTokens": 258,
+          "outputTokens": 526,
+          "totalTokens": 784
+        }
+      },
+      "latencyMs": 5480,
+      "query": "Mojeek 搜索引擎的索引规模",
+      "facetId": "base",
+      "wave": "breadth"
+    },
+    {
+      "provider": "exa",
+      "requestedProvider": "exa",
+      "ok": true,
+      "sources": [
+        {
+          "title": "mojeek",
+          "url": "https://linkedin.com/company/mojeek",
+          "snippet": "Mojeek 是一家独立搜索引擎，成立于 2004 年，总部在英国，分布在英国与希腊。核心卖点是无追踪隐私政策、快速且相关的搜索结果，以及独立、公正的检索体验。公开信息显示其规模相对较小：约 3 名员工，年收入约 150 万美元。网站全球月访问量约 97.6 万，全球排名约 43,566，跳出率 32%，每次访问平均 5 页、时长约 160 秒。关于索引规模的具体数字并未在公开资料中给出。Mojeek 注重隐私、透明度与可持续性，并以自研索引来提供结果。若需要更精确的“Mojeek 索引规模”数值，建议参考其官方白皮书、开发者博客或联系公司获取最新披露信息。",
+          "publishedDate": "2026-06-24T00:00:00.000Z",
+          "ageSeconds": 7142732
+        },
+        {
+          "title": "Quel moteur de recherche sans IA par défaut - LinuxFr.org",
+          "url": "https://linuxfr.org/forums/general-cherche-logiciel/posts/quel-moteur-de-recherche-sans-ia-par-defaut",
+          "snippet": "Summary:\n- The page is a French forum discussion about privacy-friendly search engines and the use of non-IA by default. It mentions several engines (DuckDuckGo with noAI variant, Mojeek, Lilo, Qwant, etc.) and opinions on their indexing and performance. The user’s query asks specifically for the index size of the Mojeek search engine. The provided content references Mojeek as an option and notes user experiences with its search precision, but it does not provide any concrete figure for Mojeek’s",
+          "publishedDate": "2026-09-03T13:44:35.000Z",
+          "ageSeconds": 958857,
+          "author": "liberforce"
+        },
+        {
+          "title": "ojje",
+          "url": "https://linkedin.com/company/ojje",
+          "snippet": "Summary:\nThe page describes Ojje, a Boulder, Colorado-based book publishing and streaming reading library for K-12. Key points: 4 employees (small company, 1-10), founded 2023, offers a streaming library with 15 levels of English/Spanish stories, Science of Reading decodables, and teacher-created content. Built-in accessibility features include dyslexia-friendly font support and features for read-aloud, ELL, and SLL learners. Content includes 600 fiction/nonfiction titles across multiple subject",
+          "publishedDate": "2026-06-20T00:00:00.000Z",
+          "ageSeconds": 7488332
+        },
+        {
+          "title": "DeepSeek突然扩招 150 人，AI 越强公司怎么还越需要人？|工程师|agent|deepseek_网易订阅",
+          "url": "https://www.163.com/dy/article/L6AG5P3L0511CSAO.html?clickfrom=w_dy",
+          "snippet": "Summary:\n- The article discusses DeepSeek significantly expanding its workforce by about 150 roles, focusing on backend development and Agent elasticity (DSec) platforms, with no AI research roles in this round.\n- The expansion aims to manage rising complexity from larger data volumes, machine work, containers, training/evaluation tasks, Agent environments, and higher user/request traffic. This necessitates upgrading or rebuilding backend systems, data/ML infrastructure, and large-scale API/data",
+          "publishedDate": "2026-09-08T06:37:47.000Z",
+          "ageSeconds": 552465,
+          "author": "网易"
+        },
+        {
+          "title": "dooet",
+          "url": "https://linkedin.com/company/dooet",
+          "snippet": "Dooet 是一个面向移动内容的发现与搜索引擎，能够抓取任意网站（不限于应用商店），提取并索引信息，识别字段如平台、类型、大小、版本、开发者/发行商与类别等。目前已对超过5000个网站的超2600万条产品信息进行索引，支持多语言网站信息识别，目标是帮助用户更快找到应用、游戏、铃声、壁纸、动画、视频、主题等移动内容。索引系统持续增长，强调提升检索效率与用户体验。",
+          "publishedDate": "2026-06-29T00:00:00.000Z",
+          "ageSeconds": 6710732
+        },
+        {
+          "title": "DeepSeek一口气扩招150人！0个AI研究岗|agent|deepseek|方向|研究岗|高吞吐量内核_手机网易网",
+          "url": "https://m.163.com/dy/article/L6ALNCS10511DSSR.html",
+          "snippet": "Summary:\n- The article reports that DeepSeek is rapidly expanding by hiring 150 more headcount, with the new roles concentrated in two senior backend tracks: Server-side development and Agent elasticity compute engineering (2–10 years experience).\n- The expansion is driven by increasing complexity from larger scale, and aims to support six strategic directions: platform/agent framework components, infrastructure, DeepSeek API, online services, data engineering, and user-service value chain.\n- Ke",
+          "publishedDate": "2026-09-08T08:14:48.000Z",
+          "ageSeconds": 546644
+        },
+        {
+          "title": "majhe moje",
+          "url": "https://linkedin.com/company/majhemoje",
+          "snippet": "Summary:\n- Majhe Moje is a Mumbai-based, privately held Retail Apparel and Fashion company founded in 2025, specializing in culturally relevant socks that blend internet humor and subcultures into high-quality knitwear.\n- Key facts: 4 employees (1 founder: Naval Agarwal), HQ in Mumbai, India; aims to become a global brand. Website: majhemoje.in; Instagram: @majhemoje; LinkedIn presence with ~180 followers.\n- Business focus: sock brand with bold storytelling, targeting fashion/apparel enthusiasts",
+          "publishedDate": "2026-06-25T00:00:00.000Z",
+          "ageSeconds": 7056332
+        },
+        {
+          "title": "curlie.org",
+          "url": "https://linkedin.com/company/curlie-directory",
+          "snippet": "Mojeek 搜索引擎的索引规模相关信息在 Curlie.org 的页面中未直接提及。Curlie 是一个人类编辑的网站目录（前身为 DMOZ），自1998年创建，公开展示其目录规模信息包括：截至 2023 年底，Curlie 的索引涵盖约 2,967,726 个网站，分布在 1,031,583 个类别，支持 92 种语言，由 92,209 名志愿编辑维护。若要了解 Mojeek 的具体索引规模，建议直接查阅 Mojeek 官方公布的索引数、站点覆盖范围及最新的技术规格。",
+          "publishedDate": "2026-06-26T00:00:00.000Z",
+          "ageSeconds": 6969932
+        },
+        {
+          "title": "mojoe",
+          "url": "https://linkedin.com/company/joinmojoe",
+          "snippet": "Mojeek 是一个独立搜索引擎，主打自有索引而非依赖其他大厂搜索结果。公开信息显示 Mojeek 的官网及相关页面通常不会披露其具体的索引规模（抓取量、索引条目数等），也缺乏权威的公开数字对外确认。因此，基于可获得的数据，无法给出 Mojeek 的准确“索引规模”数字（如索引条目数或每日新增条目数）。\n\n如果你需要进一步信息，可以考虑以下途径：\n- 直接查看 Mojeek 官方博客或技术白皮书，寻找关于索引体系、抓取策略、覆盖范围的公开描述。\n- 查阅行业分析报告或技术媒体对 Mojeek 的访谈，了解其索引规模的描述性信息。\n- 联系 Mojeek 官方支持获取最新的技术规格或公开披露的数据。",
+          "publishedDate": "2026-02-23T00:00:00.000Z",
+          "ageSeconds": 17597132
+        },
+        {
+          "title": "pageindex",
+          "url": "https://linkedin.com/company/vectify-ai",
+          "snippet": "Summary:\n- The PageIndex system from Vectify AI is a tree-based, vector-enabled search/indexing solution designed for large-scale document corpora. It emphasizes scalable, explainable retrieval and proximity to human-like reading. \n- Key capabilities highlighted:\n  - Scales to millions of documents and supports an enterprise-wide corpus via a PageIndex File System (file-level tree layer).\n  - Fast indexing and lower query costs (e.g., PageIndex Flash claims 1,000 pages indexed for under $1 and u",
+          "publishedDate": "2026-06-27T00:00:00.000Z",
+          "ageSeconds": 6883532
+        }
+      ],
+      "answer": "**mojeek**: Mojeek 是一家独立搜索引擎，成立于 2004 年，总部在英国，分布在英国与希腊。核心卖点是无追踪隐私政策、快速且相关的搜索结果，以及独立、公正的检索体验。公开信息显示其规模相对较小：约 3 名员工，年收入约 150 万美元。网站全球月访问量约 97.6 万，全球排名约 43,566，跳出率 32%，每次访问平均 5 页、时长约 160 秒。关于索引规模的具体数字并未在公开资料中给出。Mojeek 注重隐私、透明度与可持续性，并以自研索引来提供结果。若需要更精确的“Mojeek 索引规模”数值，建议参考其官方白皮书、开发者博客或联系公司获取最新披露信息。\n\n**Quel moteur de recherche sans IA par défaut - LinuxFr.org**: Summary:\n- The page is a French forum discussion about privacy-friendly search engines and the use of non-IA by default. It mentions several engines (DuckDuckGo with noAI variant, Mojeek, Lilo, Qwant, etc.) and opinions on their indexing and performance. The user’s query asks specifically for the index size of the Mojeek search engine. The provided content references Mojeek as an option and notes user experiences with its search precision, but it does not provide any concrete figure for Mojeek’s index size. Therefore, the page does not contain the requested numeric detail.\n\nIf you want the Mojeek index size, I can search for the latest official statements or technical reports (Mojeek’s blog, press releases, or developer docs) and summarize the current figure.\n\n**ojje**: Summary:\nThe page describes Ojje, a Boulder, Colorado-based book publishing and streaming reading library for K-12. Key points: 4 employees (small company, 1-10), founded 2023, offers a streaming library with 15 levels of English/Spanish stories, Science of Reading decodables, and teacher-created content. Built-in accessibility features include dyslexia-friendly font support and features for read-aloud, ELL, and SLL learners. Content includes 600 fiction/nonfiction titles across multiple subjects, with a claimed library size of over 80,000 books and 3,600 audiobooks (note: the numbers may reflect catalog/tiers or misalignment in the highlights). Focuses on whole-class reading, supporting diverse learning styles, and aims to advance all learners in K-12 curricula.",
+      "citations": [],
+      "searchQueries": [],
+      "metadata": {
+        "requestId": "a91211184a45b1ab1a1f0bf280136fa0"
+      },
+      "latencyMs": 5252,
+      "query": "Mojeek 搜索引擎的索引规模",
+      "facetId": "base",
+      "wave": "breadth"
+    },
+    {
+      "provider": "xai",
+      "requestedProvider": "xai",
+      "ok": true,
+      "sources": [
+        {
+          "title": "1",
+          "url": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+          "snippet": "**Mojeek 的索引规模约为 90 亿以上网页（约 9.23 亿页，截至 2025 年 10 月的最新社区官方回复）。**[[1]](https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562)[[1]](https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562)\n\n### 最新数据\n- *"
+        },
+        {
+          "title": "2",
+          "url": "https://www.mojeek.com/about/technology.html",
+          "snippet": "-of-indexed-website-web-pages/2562)\n- Mojeek 官网技术/历史页面明确列出：**2025 年通过 90 亿页里程碑**；**2024 年通过 80 亿页**。[[2]](https://www.mojeek.com/about/technology.html)[[2]](https://www.mojeek.com/about/technology.html)\n- 2024 年 6 月博客提到“超过 80 亿页”。[[3]](https://blog.mo"
+        },
+        {
+          "title": "3",
+          "url": "https://blog.mojeek.com/2024/06/search-engine-myths.html",
+          "snippet": "bout/technology.html)[[2]](https://www.mojeek.com/about/technology.html)\n- 2024 年 6 月博客提到“超过 80 亿页”。[[3]](https://blog.mojeek.com/2024/06/search-engine-myths.html)\n- 较新的第三方评测（如 2026 年的 serp.fast）仍描述为约 **9B page index**。[[4]](https://serp.fast/tools/mojeek)\n\n索引持续增"
+        },
+        {
+          "title": "4",
+          "url": "https://serp.fast/tools/mojeek",
+          "snippet": "mojeek.com/2024/06/search-engine-myths.html)\n- 较新的第三方评测（如 2026 年的 serp.fast）仍描述为约 **9B page index**。[[4]](https://serp.fast/tools/mojeek)\n\n索引持续增长，但官方不再像早期那样频繁发布精确里程碑公告。9.23 亿是目前可查到的最精确公开数字。\n\n### 历史增长时间线（官方博客与公告）\n- 2015 年：超过 10 亿页（英国首个达到此"
+        },
+        {
+          "title": "5",
+          "url": "https://blog.mojeek.com/2022/03/five-billion-pages.html",
+          "snippet": "2 年 2/3 月：50 亿页\n- 2022 年 10 月：60 亿页\n- 2023 年（约 8 月）：70 亿页\n- 2024 年：80 亿页\n- 2025 年：90 亿页（并达到约 9.23 亿）[[5]](https://blog.mojeek.com/2022/03/five-billion-pages.html)[[6]](https://blog.mojeek.com/2023/08/mojeek-updates.html)[[7]](https://blog.mojeek.com/2022/10/moje"
+        },
+        {
+          "title": "6",
+          "url": "https://blog.mojeek.com/2023/08/mojeek-updates.html",
+          "snippet": "24 年：80 亿页\n- 2025 年：90 亿页（并达到约 9.23 亿）[[5]](https://blog.mojeek.com/2022/03/five-billion-pages.html)[[6]](https://blog.mojeek.com/2023/08/mojeek-updates.html)[[7]](https://blog.mojeek.com/2022/10/mojeek-now-six-billion-pages.html)\n\nMojeek 完全使用自研爬虫（MojeekBot）"
+        },
+        {
+          "title": "7",
+          "url": "https://blog.mojeek.com/2022/10/mojeek-now-six-billion-pages.html",
+          "snippet": "ojeek.com/2022/03/five-billion-pages.html)[[6]](https://blog.mojeek.com/2023/08/mojeek-updates.html)[[7]](https://blog.mojeek.com/2022/10/mojeek-now-six-billion-pages.html)\n\nMojeek 完全使用自研爬虫（MojeekBot）和独立索引，不依赖 Google 或 Bing，是少数真正独立的大型网页索引之一（隐私优先、无用户追踪）。其规模远小于 Google（估计数百亿"
+        },
+        {
+          "title": "8",
+          "url": "https://medium.seznam.cz/clanek/radek-bodnar-jak-britsky-mojeek-dvacet-let-vzdoruje-google-i-umele-inteligenci-247615",
+          "snippet": "估计数百亿到上千亿级）或 Brave Search（报道称 350–400 亿+），但在独立、无追踪搜索引擎中属于最大或前列。[[4]](https://serp.fast/tools/mojeek)[[8]](https://medium.seznam.cz/clanek/radek-bodnar-jak-britsky-mojeek-dvacet-let-vzdoruje-google-i-umele-inteligenci-247615)\n\n规模直接影响长尾/冷门查询的覆盖率，Mojeek 自身也承认索引越大结果质量越好，并持续扩展。更多细节可查看 Mojeek 博客 或 [官方"
+        },
+        {
+          "title": "https://greycoder.com/mojeek-a-web-search-thats-private-and-independently-indexed/",
+          "url": "https://greycoder.com/mojeek-a-web-search-thats-private-and-independently-indexed/"
+        },
+        {
+          "title": "https://blog.mojeek.com/2020/12/frequently-asked-questions-about-mojeek-search-engines-technology-stack.html",
+          "url": "https://blog.mojeek.com/2020/12/frequently-asked-questions-about-mojeek-search-engines-technology-stack.html"
+        }
+      ],
+      "answer": "**Mojeek 的索引规模约为 90 亿以上网页（约 9.23 亿页，截至 2025 年 10 月的最新社区官方回复）。**[[1]](https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562)[[1]](https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562)\n\n### 最新数据\n- **2025 年 10 月 8 日**：Mojeek 官方社区 Discourse 中回复称索引为 **9.23 billion pages**（92.3 亿页）。当时总爬取量（新爬 + 重爬）约每天 3700 万页，净新增约每天 270 万页（因系统改进暂时低于此前的 500–600 万页/天）。[[1]](https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562)[[1]](https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562)\n- Mojeek 官网技术/历史页面明确列出：**2025 年通过 90 亿页里程碑**；**2024 年通过 80 亿页**。[[2]](https://www.mojeek.com/about/technology.html)[[2]](https://www.mojeek.com/about/technology.html)\n- 2024 年 6 月博客提到“超过 80 亿页”。[[3]](https://blog.mojeek.com/2024/06/search-engine-myths.html)\n- 较新的第三方评测（如 2026 年的 serp.fast）仍描述为约 **9B page index**。[[4]](https://serp.fast/tools/mojeek)\n\n索引持续增长，但官方不再像早期那样频繁发布精确里程碑公告。9.23 亿是目前可查到的最精确公开数字。\n\n### 历史增长时间线（官方博客与公告）\n- 2015 年：超过 10 亿页（英国首个达到此规模的搜索引擎）\n- 2016 年 12 月：1.5 亿页\n- 2018 年 6 月：20 亿页\n- 2020 年 4 月：30 亿页\n- 2021 年 6 月：40 亿页\n- 2022 年 2/3 月：50 亿页\n- 2022 年 10 月：60 亿页\n- 2023 年（约 8 月）：70 亿页\n- 2024 年：80 亿页\n- 2025 年：90 亿页（并达到约 9.23 亿）[[5]](https://blog.mojeek.com/2022/03/five-billion-pages.html)[[6]](https://blog.mojeek.com/2023/08/mojeek-updates.html)[[7]](https://blog.mojeek.com/2022/10/mojeek-now-six-billion-pages.html)\n\nMojeek 完全使用自研爬虫（MojeekBot）和独立索引，不依赖 Google 或 Bing，是少数真正独立的大型网页索引之一（隐私优先、无用户追踪）。其规模远小于 Google（估计数百亿到上千亿级）或 Brave Search（报道称 350–400 亿+），但在独立、无追踪搜索引擎中属于最大或前列。[[4]](https://serp.fast/tools/mojeek)[[8]](https://medium.seznam.cz/clanek/radek-bodnar-jak-britsky-mojeek-dvacet-let-vzdoruje-google-i-umele-inteligenci-247615)\n\n规模直接影响长尾/冷门查询的覆盖率，Mojeek 自身也承认索引越大结果质量越好，并持续扩展。更多细节可查看 [Mojeek 博客](https://blog.mojeek.com/) 或 [官方技术页面](https://www.mojeek.com/about/technology.html) 以及社区论坛。",
+      "citations": [
+        "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+        "https://www.mojeek.com/about/technology.html",
+        "https://blog.mojeek.com/2024/06/search-engine-myths.html",
+        "https://serp.fast/tools/mojeek",
+        "https://blog.mojeek.com/2022/03/five-billion-pages.html",
+        "https://blog.mojeek.com/2023/08/mojeek-updates.html",
+        "https://blog.mojeek.com/2022/10/mojeek-now-six-billion-pages.html",
+        "https://medium.seznam.cz/clanek/radek-bodnar-jak-britsky-mojeek-dvacet-let-vzdoruje-google-i-umele-inteligenci-247615",
+        "https://greycoder.com/mojeek-a-web-search-thats-private-and-independently-indexed/",
+        "https://blog.mojeek.com/2020/12/frequently-asked-questions-about-mojeek-search-engines-technology-stack.html"
+      ],
+      "searchQueries": [],
+      "metadata": {
+        "model": "grok-4.5",
+        "authMode": "api_key",
+        "requestId": "2251158e-286b-95ec-af82-8a82379ef433",
+        "usage": {
+          "inputTokens": 47013,
+          "outputTokens": 1251,
+          "totalTokens": 48264
+        }
+      },
+      "latencyMs": 40883,
+      "query": "Mojeek 搜索引擎的索引规模",
+      "facetId": "base",
+      "wave": "breadth"
+    }
+  ],
+  "facets": [
+    {
+      "id": "base",
+      "query": "Mojeek 搜索引擎的索引规模",
+      "purpose": "broad-recall",
+      "requiredRoles": [],
+      "required": true,
+      "entities": []
+    }
+  ],
+  "queryVariants": [
+    "Mojeek 搜索引擎的索引规模"
+  ],
+  "fused": [
+    {
+      "title": "mojeek.com",
+      "url": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+      "strictUrl": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+      "looseUrl": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+      "citationUrl": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+      "hostname": "community.mojeek.com",
+      "snippet": "**Mojeek 的索引规模约为 90 亿以上网页（约 9.23 亿页，截至 2025 年 10 月的最新社区官方回复）。**[[1]](https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562)[[1]](https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562)\n\n### 最新数据\n- *",
+      "providers": [
+        "gemini",
+        "xai"
+      ],
+      "families": [
+        "google",
+        "xai"
+      ],
+      "providerSupport": 2,
+      "familySupport": 2,
+      "rrf": 0.032390269698572186,
+      "provenance": "community",
+      "rrfNormalized": 1,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.6,
+      "relevanceScore": 0.625,
+      "providerSupportRatio": 0.6667,
+      "familySupportRatio": 0.6667,
+      "score": 0.8355
+    },
+    {
+      "title": "serp.fast",
+      "url": "https://serp.fast/tools/mojeek",
+      "strictUrl": "https://serp.fast/tools/mojeek",
+      "looseUrl": "https://serp.fast/tools/mojeek",
+      "citationUrl": "https://serp.fast/tools/mojeek",
+      "hostname": "serp.fast",
+      "snippet": "mojeek.com/2024/06/search-engine-myths.html)\n- 较新的第三方评测（如 2026 年的 serp.fast）仍描述为约 **9B page index**。[[4]](https://serp.fast/tools/mojeek)\n\n索引持续增长，但官方不再像早期那样频繁发布精确里程碑公告。9.23 亿是目前可查到的最精确公开数字。\n\n### 历史增长时间线（官方博客与公告）\n- 2015 年：超过 10 亿页（英国首个达到此",
+      "providers": [
+        "gemini",
+        "xai"
+      ],
+      "families": [
+        "google",
+        "xai"
+      ],
+      "providerSupport": 2,
+      "familySupport": 2,
+      "rrf": 0.031373622094048106,
+      "provenance": "unknown",
+      "rrfNormalized": 0.968613,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.25,
+      "providerSupportRatio": 0.6667,
+      "familySupportRatio": 0.6667,
+      "score": 0.75754
+    },
+    {
+      "title": "mojeek",
+      "url": "https://linkedin.com/company/mojeek",
+      "snippet": "Mojeek 是一家独立搜索引擎，成立于 2004 年，总部在英国，分布在英国与希腊。核心卖点是无追踪隐私政策、快速且相关的搜索结果，以及独立、公正的检索体验。公开信息显示其规模相对较小：约 3 名员工，年收入约 150 万美元。网站全球月访问量约 97.6 万，全球排名约 43,566，跳出率 32%，每次访问平均 5 页、时长约 160 秒。关于索引规模的具体数字并未在公开资料中给出。Mojeek 注重隐私、透明度与可持续性，并以自研索引来提供结果。若需要更精确的“Mojeek 索引规模”数值，建议参考其官方白皮书、开发者博客或联系公司获取最新披露信息。",
+      "publishedDate": "2026-06-24T00:00:00.000Z",
+      "ageSeconds": 7142732,
+      "strictUrl": "https://linkedin.com/company/mojeek",
+      "looseUrl": "https://linkedin.com/company/mojeek",
+      "citationUrl": "https://linkedin.com/company/mojeek",
+      "hostname": "linkedin.com",
+      "publishedAt": "2026-06-24T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.01639344262295082,
+      "provenance": "unknown",
+      "rrfNormalized": 0.506122,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.75,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.500796
+    },
+    {
+      "title": "DeepSeek突然扩招 150 人，AI 越强公司怎么还越需要人？|工程师|agent|deepseek_网易订阅",
+      "url": "https://163.com/dy/article/L6AG5P3L0511CSAO.html?clickfrom=w_dy",
+      "snippet": "Summary:\n- The article discusses DeepSeek significantly expanding its workforce by about 150 roles, focusing on backend development and Agent elasticity (DSec) platforms, with no AI research roles in this round.\n- The expansion aims to manage rising complexity from larger data volumes, machine work, containers, training/evaluation tasks, Agent environments, and higher user/request traffic. This necessitates upgrading or rebuilding backend systems, data/ML infrastructure, and large-scale API/data",
+      "publishedDate": "2026-09-08T06:37:47.000Z",
+      "ageSeconds": 552465,
+      "author": "网易",
+      "strictUrl": "https://www.163.com/dy/article/L6AG5P3L0511CSAO.html?clickfrom=w_dy",
+      "looseUrl": "https://163.com/dy/article/L6AG5P3L0511CSAO.html?clickfrom=w_dy",
+      "citationUrl": "https://www.163.com/dy/article/L6AG5P3L0511CSAO.html?clickfrom=w_dy",
+      "hostname": "163.com",
+      "publishedAt": "2026-09-08T06:37:47.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015625,
+      "provenance": "unknown",
+      "rrfNormalized": 0.482398,
+      "freshnessScore": 0.9,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.497087
+    },
+    {
+      "title": "DeepSeek一口气扩招150人！0个AI研究岗|agent|deepseek|方向|研究岗|高吞吐量内核_手机网易网",
+      "url": "https://m.163.com/dy/article/L6ALNCS10511DSSR.html",
+      "snippet": "Summary:\n- The article reports that DeepSeek is rapidly expanding by hiring 150 more headcount, with the new roles concentrated in two senior backend tracks: Server-side development and Agent elasticity compute engineering (2–10 years experience).\n- The expansion is driven by increasing complexity from larger scale, and aims to support six strategic directions: platform/agent framework components, infrastructure, DeepSeek API, online services, data engineering, and user-service value chain.\n- Ke",
+      "publishedDate": "2026-09-08T08:14:48.000Z",
+      "ageSeconds": 546644,
+      "strictUrl": "https://m.163.com/dy/article/L6ALNCS10511DSSR.html",
+      "looseUrl": "https://m.163.com/dy/article/L6ALNCS10511DSSR.html",
+      "citationUrl": "https://m.163.com/dy/article/L6ALNCS10511DSSR.html",
+      "hostname": "m.163.com",
+      "publishedAt": "2026-09-08T08:14:48.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015151515151515152,
+      "provenance": "unknown",
+      "rrfNormalized": 0.46778,
+      "freshnessScore": 0.9,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.488024
+    },
+    {
+      "title": "Quel moteur de recherche sans IA par défaut - LinuxFr.org",
+      "url": "https://linuxfr.org/forums/general-cherche-logiciel/posts/quel-moteur-de-recherche-sans-ia-par-defaut",
+      "snippet": "Summary:\n- The page is a French forum discussion about privacy-friendly search engines and the use of non-IA by default. It mentions several engines (DuckDuckGo with noAI variant, Mojeek, Lilo, Qwant, etc.) and opinions on their indexing and performance. The user’s query asks specifically for the index size of the Mojeek search engine. The provided content references Mojeek as an option and notes user experiences with its search precision, but it does not provide any concrete figure for Mojeek’s",
+      "publishedDate": "2026-09-03T13:44:35.000Z",
+      "ageSeconds": 958857,
+      "author": "liberforce",
+      "strictUrl": "https://linuxfr.org/forums/general-cherche-logiciel/posts/quel-moteur-de-recherche-sans-ia-par-defaut",
+      "looseUrl": "https://linuxfr.org/forums/general-cherche-logiciel/posts/quel-moteur-de-recherche-sans-ia-par-defaut",
+      "citationUrl": "https://linuxfr.org/forums/general-cherche-logiciel/posts/quel-moteur-de-recherche-sans-ia-par-defaut",
+      "hostname": "linuxfr.org",
+      "publishedAt": "2026-09-03T13:44:35.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016129032258064516,
+      "provenance": "unknown",
+      "rrfNormalized": 0.497959,
+      "freshnessScore": 0.7,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.486235
+    },
+    {
+      "title": "curlie.org",
+      "url": "https://linkedin.com/company/curlie-directory",
+      "snippet": "Mojeek 搜索引擎的索引规模相关信息在 Curlie.org 的页面中未直接提及。Curlie 是一个人类编辑的网站目录（前身为 DMOZ），自1998年创建，公开展示其目录规模信息包括：截至 2023 年底，Curlie 的索引涵盖约 2,967,726 个网站，分布在 1,031,583 个类别，支持 92 种语言，由 92,209 名志愿编辑维护。若要了解 Mojeek 的具体索引规模，建议直接查阅 Mojeek 官方公布的索引数、站点覆盖范围及最新的技术规格。",
+      "publishedDate": "2026-06-26T00:00:00.000Z",
+      "ageSeconds": 6969932,
+      "strictUrl": "https://linkedin.com/company/curlie-directory",
+      "looseUrl": "https://linkedin.com/company/curlie-directory",
+      "citationUrl": "https://linkedin.com/company/curlie-directory",
+      "hostname": "linkedin.com",
+      "publishedAt": "2026-06-26T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014705882352941176,
+      "provenance": "unknown",
+      "rrfNormalized": 0.454022,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.483493
+    },
+    {
+      "title": "8",
+      "url": "https://medium.seznam.cz/clanek/radek-bodnar-jak-britsky-mojeek-dvacet-let-vzdoruje-google-i-umele-inteligenci-247615",
+      "snippet": "估计数百亿到上千亿级）或 Brave Search（报道称 350–400 亿+），但在独立、无追踪搜索引擎中属于最大或前列。[[4]](https://serp.fast/tools/mojeek)[[8]](https://medium.seznam.cz/clanek/radek-bodnar-jak-britsky-mojeek-dvacet-let-vzdoruje-google-i-umele-inteligenci-247615)\n\n规模直接影响长尾/冷门查询的覆盖率，Mojeek 自身也承认索引越大结果质量越好，并持续扩展。更多细节可查看 Mojeek 博客 或 [官方",
+      "strictUrl": "https://medium.seznam.cz/clanek/radek-bodnar-jak-britsky-mojeek-dvacet-let-vzdoruje-google-i-umele-inteligenci-247615",
+      "looseUrl": "https://medium.seznam.cz/clanek/radek-bodnar-jak-britsky-mojeek-dvacet-let-vzdoruje-google-i-umele-inteligenci-247615",
+      "citationUrl": "https://medium.seznam.cz/clanek/radek-bodnar-jak-britsky-mojeek-dvacet-let-vzdoruje-google-i-umele-inteligenci-247615",
+      "hostname": "medium.seznam.cz",
+      "providers": [
+        "xai"
+      ],
+      "families": [
+        "xai"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015496926229508198,
+      "provenance": "unknown",
+      "rrfNormalized": 0.478444,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.625,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.476135
+    },
+    {
+      "title": "3",
+      "url": "https://blog.mojeek.com/2024/06/search-engine-myths.html",
+      "snippet": "bout/technology.html)[[2]](https://www.mojeek.com/about/technology.html)\n- 2024 年 6 月博客提到“超过 80 亿页”。[[3]](https://blog.mojeek.com/2024/06/search-engine-myths.html)\n- 较新的第三方评测（如 2026 年的 serp.fast）仍描述为约 **9B page index**。[[4]](https://serp.fast/tools/mojeek)\n\n索引持续增",
+      "strictUrl": "https://blog.mojeek.com/2024/06/search-engine-myths.html",
+      "looseUrl": "https://blog.mojeek.com/2024/06/search-engine-myths.html",
+      "citationUrl": "https://blog.mojeek.com/2024/06/search-engine-myths.html",
+      "hostname": "blog.mojeek.com",
+      "providers": [
+        "xai"
+      ],
+      "families": [
+        "xai"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016126882580301215,
+      "provenance": "unknown",
+      "rrfNormalized": 0.497893,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.25,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.465694
+    },
+    {
+      "title": "7",
+      "url": "https://blog.mojeek.com/2022/10/mojeek-now-six-billion-pages.html",
+      "snippet": "ojeek.com/2022/03/five-billion-pages.html)[[6]](https://blog.mojeek.com/2023/08/mojeek-updates.html)[[7]](https://blog.mojeek.com/2022/10/mojeek-now-six-billion-pages.html)\n\nMojeek 完全使用自研爬虫（MojeekBot）和独立索引，不依赖 Google 或 Bing，是少数真正独立的大型网页索引之一（隐私优先、无用户追踪）。其规模远小于 Google（估计数百亿",
+      "strictUrl": "https://blog.mojeek.com/2022/10/mojeek-now-six-billion-pages.html",
+      "looseUrl": "https://blog.mojeek.com/2022/10/mojeek-now-six-billion-pages.html",
+      "citationUrl": "https://blog.mojeek.com/2022/10/mojeek-now-six-billion-pages.html",
+      "hostname": "blog.mojeek.com",
+      "providers": [
+        "xai"
+      ],
+      "families": [
+        "xai"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015618949270685429,
+      "provenance": "unknown",
+      "rrfNormalized": 0.482211,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.375,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.463471
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://blog.mojeek.com/2026/05/the-switch-to-alternative-search-engine.html",
+      "strictUrl": "https://blog.mojeek.com/2026/05/the-switch-to-alternative-search-engine.html",
+      "looseUrl": "https://blog.mojeek.com/2026/05/the-switch-to-alternative-search-engine.html",
+      "citationUrl": "https://blog.mojeek.com/2026/05/the-switch-to-alternative-search-engine.html",
+      "hostname": "blog.mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.01639344262295082,
+      "provenance": "unknown",
+      "rrfNormalized": 0.506122,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.463296
+    },
+    {
+      "title": "2",
+      "url": "https://mojeek.com/about/technology.html",
+      "snippet": "-of-indexed-website-web-pages/2562)\n- Mojeek 官网技术/历史页面明确列出：**2025 年通过 90 亿页里程碑**；**2024 年通过 80 亿页**。[[2]](https://www.mojeek.com/about/technology.html)[[2]](https://www.mojeek.com/about/technology.html)\n- 2024 年 6 月博客提到“超过 80 亿页”。[[3]](https://blog.mo",
+      "strictUrl": "https://www.mojeek.com/about/technology.html",
+      "looseUrl": "https://mojeek.com/about/technology.html",
+      "citationUrl": "https://www.mojeek.com/about/technology.html",
+      "hostname": "mojeek.com",
+      "providers": [
+        "xai"
+      ],
+      "families": [
+        "xai"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016259070142434832,
+      "provenance": "unknown",
+      "rrfNormalized": 0.501974,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.460724
+    },
+    {
+      "title": "dooet",
+      "url": "https://linkedin.com/company/dooet",
+      "snippet": "Dooet 是一个面向移动内容的发现与搜索引擎，能够抓取任意网站（不限于应用商店），提取并索引信息，识别字段如平台、类型、大小、版本、开发者/发行商与类别等。目前已对超过5000个网站的超2600万条产品信息进行索引，支持多语言网站信息识别，目标是帮助用户更快找到应用、游戏、铃声、壁纸、动画、视频、主题等移动内容。索引系统持续增长，强调提升检索效率与用户体验。",
+      "publishedDate": "2026-06-29T00:00:00.000Z",
+      "ageSeconds": 6710732,
+      "strictUrl": "https://linkedin.com/company/dooet",
+      "looseUrl": "https://linkedin.com/company/dooet",
+      "citationUrl": "https://linkedin.com/company/dooet",
+      "hostname": "linkedin.com",
+      "publishedAt": "2026-06-29T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015384615384615385,
+      "provenance": "unknown",
+      "rrfNormalized": 0.474976,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.375,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.458985
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://mojeek.com/about",
+      "strictUrl": "https://www.mojeek.com/about/",
+      "looseUrl": "https://mojeek.com/about",
+      "citationUrl": "https://www.mojeek.com/about/",
+      "hostname": "mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016126882580301215,
+      "provenance": "unknown",
+      "rrfNormalized": 0.497893,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.458194
+    },
+    {
+      "title": "5",
+      "url": "https://blog.mojeek.com/2022/03/five-billion-pages.html",
+      "snippet": "2 年 2/3 月：50 亿页\n- 2022 年 10 月：60 亿页\n- 2023 年（约 8 月）：70 亿页\n- 2024 年：80 亿页\n- 2025 年：90 亿页（并达到约 9.23 亿）[[5]](https://blog.mojeek.com/2022/03/five-billion-pages.html)[[6]](https://blog.mojeek.com/2023/08/mojeek-updates.html)[[7]](https://blog.mojeek.com/2022/10/moje",
+      "strictUrl": "https://blog.mojeek.com/2022/03/five-billion-pages.html",
+      "looseUrl": "https://blog.mojeek.com/2022/03/five-billion-pages.html",
+      "citationUrl": "https://blog.mojeek.com/2022/03/five-billion-pages.html",
+      "hostname": "blog.mojeek.com",
+      "providers": [
+        "xai"
+      ],
+      "families": [
+        "xai"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015868852459016394,
+      "provenance": "unknown",
+      "rrfNormalized": 0.489927,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.453254
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+      "strictUrl": "https://www.mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+      "looseUrl": "https://mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+      "citationUrl": "https://www.mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+      "hostname": "mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015868852459016394,
+      "provenance": "unknown",
+      "rrfNormalized": 0.489927,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.453254
+    },
+    {
+      "title": "wikipedia.org",
+      "url": "https://en.wikipedia.org/wiki/Mojeek",
+      "strictUrl": "https://en.wikipedia.org/wiki/Mojeek",
+      "looseUrl": "https://en.wikipedia.org/wiki/Mojeek",
+      "citationUrl": "https://en.wikipedia.org/wiki/Mojeek",
+      "hostname": "en.wikipedia.org",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016259070142434832,
+      "provenance": "unknown",
+      "rrfNormalized": 0.501974,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.453224
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://blog.mojeek.com/2021/06/four-billion-pages.html",
+      "strictUrl": "https://blog.mojeek.com/2021/06/four-billion-pages.html",
+      "looseUrl": "https://blog.mojeek.com/2021/06/four-billion-pages.html",
+      "citationUrl": "https://blog.mojeek.com/2021/06/four-billion-pages.html",
+      "hostname": "blog.mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015742909185532138,
+      "provenance": "unknown",
+      "rrfNormalized": 0.486038,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.450844
+    },
+    {
+      "title": "6",
+      "url": "https://blog.mojeek.com/2023/08/mojeek-updates.html",
+      "snippet": "24 年：80 亿页\n- 2025 年：90 亿页（并达到约 9.23 亿）[[5]](https://blog.mojeek.com/2022/03/five-billion-pages.html)[[6]](https://blog.mojeek.com/2023/08/mojeek-updates.html)[[7]](https://blog.mojeek.com/2022/10/mojeek-now-six-billion-pages.html)\n\nMojeek 完全使用自研爬虫（MojeekBot）",
+      "strictUrl": "https://blog.mojeek.com/2023/08/mojeek-updates.html",
+      "looseUrl": "https://blog.mojeek.com/2023/08/mojeek-updates.html",
+      "citationUrl": "https://blog.mojeek.com/2023/08/mojeek-updates.html",
+      "hostname": "blog.mojeek.com",
+      "providers": [
+        "xai"
+      ],
+      "families": [
+        "xai"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015742909185532138,
+      "provenance": "unknown",
+      "rrfNormalized": 0.486038,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.450844
+    },
+    {
+      "title": "ojje",
+      "url": "https://linkedin.com/company/ojje",
+      "snippet": "Summary:\nThe page describes Ojje, a Boulder, Colorado-based book publishing and streaming reading library for K-12. Key points: 4 employees (small company, 1-10), founded 2023, offers a streaming library with 15 levels of English/Spanish stories, Science of Reading decodables, and teacher-created content. Built-in accessibility features include dyslexia-friendly font support and features for read-aloud, ELL, and SLL learners. Content includes 600 fiction/nonfiction titles across multiple subject",
+      "publishedDate": "2026-06-20T00:00:00.000Z",
+      "ageSeconds": 7488332,
+      "strictUrl": "https://linkedin.com/company/ojje",
+      "looseUrl": "https://linkedin.com/company/ojje",
+      "citationUrl": "https://linkedin.com/company/ojje",
+      "hostname": "linkedin.com",
+      "publishedAt": "2026-06-20T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015873015873015872,
+      "provenance": "unknown",
+      "rrfNormalized": 0.490055,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.445834
+    },
+    {
+      "title": "mojoe",
+      "url": "https://linkedin.com/company/joinmojoe",
+      "snippet": "Mojeek 是一个独立搜索引擎，主打自有索引而非依赖其他大厂搜索结果。公开信息显示 Mojeek 的官网及相关页面通常不会披露其具体的索引规模（抓取量、索引条目数等），也缺乏权威的公开数字对外确认。因此，基于可获得的数据，无法给出 Mojeek 的准确“索引规模”数字（如索引条目数或每日新增条目数）。\n\n如果你需要进一步信息，可以考虑以下途径：\n- 直接查看 Mojeek 官方博客或技术白皮书，寻找关于索引体系、抓取策略、覆盖范围的公开描述。\n- 查阅行业分析报告或技术媒体对 Mojeek 的访谈，了解其索引规模的描述性信息。\n- 联系 Mojeek 官方支持获取最新的技术规格或公开披露的数据。",
+      "publishedDate": "2026-02-23T00:00:00.000Z",
+      "ageSeconds": 17597132,
+      "strictUrl": "https://linkedin.com/company/joinmojoe",
+      "looseUrl": "https://linkedin.com/company/joinmojoe",
+      "citationUrl": "https://linkedin.com/company/joinmojoe",
+      "hostname": "linkedin.com",
+      "publishedAt": "2026-02-23T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014492753623188406,
+      "provenance": "unknown",
+      "rrfNormalized": 0.447442,
+      "freshnessScore": 0.3,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.875,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.443914
+    },
+    {
+      "title": "https://greycoder.com/mojeek-a-web-search-thats-private-and-independently-indexed/",
+      "url": "https://greycoder.com/mojeek-a-web-search-thats-private-and-independently-indexed",
+      "snippet": "",
+      "strictUrl": "https://greycoder.com/mojeek-a-web-search-thats-private-and-independently-indexed/",
+      "looseUrl": "https://greycoder.com/mojeek-a-web-search-thats-private-and-independently-indexed",
+      "citationUrl": "https://greycoder.com/mojeek-a-web-search-thats-private-and-independently-indexed/",
+      "hostname": "greycoder.com",
+      "providers": [
+        "xai"
+      ],
+      "families": [
+        "xai"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.01537679501842674,
+      "provenance": "unknown",
+      "rrfNormalized": 0.474735,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.443836
+    },
+    {
+      "title": "https://blog.mojeek.com/2020/12/frequently-asked-questions-about-mojeek-search-engines-technology-stack.html",
+      "url": "https://blog.mojeek.com/2020/12/frequently-asked-questions-about-mojeek-search-engines-technology-stack.html",
+      "snippet": "",
+      "strictUrl": "https://blog.mojeek.com/2020/12/frequently-asked-questions-about-mojeek-search-engines-technology-stack.html",
+      "looseUrl": "https://blog.mojeek.com/2020/12/frequently-asked-questions-about-mojeek-search-engines-technology-stack.html",
+      "citationUrl": "https://blog.mojeek.com/2020/12/frequently-asked-questions-about-mojeek-search-engines-technology-stack.html",
+      "hostname": "blog.mojeek.com",
+      "providers": [
+        "xai"
+      ],
+      "families": [
+        "xai"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015258511979823457,
+      "provenance": "unknown",
+      "rrfNormalized": 0.471083,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.441572
+    },
+    {
+      "title": "searchengines.net",
+      "url": "https://searchengines.net/mojeek",
+      "strictUrl": "https://www.searchengines.net/mojeek/",
+      "looseUrl": "https://searchengines.net/mojeek",
+      "citationUrl": "https://www.searchengines.net/mojeek/",
+      "hostname": "searchengines.net",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015618949270685429,
+      "provenance": "unknown",
+      "rrfNormalized": 0.482211,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.440971
+    },
+    {
+      "title": "europeanpurpose.com",
+      "url": "https://europeanpurpose.com/tool/mojeek",
+      "strictUrl": "https://europeanpurpose.com/tool/mojeek",
+      "looseUrl": "https://europeanpurpose.com/tool/mojeek",
+      "citationUrl": "https://europeanpurpose.com/tool/mojeek",
+      "hostname": "europeanpurpose.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015496926229508198,
+      "provenance": "unknown",
+      "rrfNormalized": 0.478444,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.438635
+    },
+    {
+      "title": "majhe moje",
+      "url": "https://linkedin.com/company/majhemoje",
+      "snippet": "Summary:\n- Majhe Moje is a Mumbai-based, privately held Retail Apparel and Fashion company founded in 2025, specializing in culturally relevant socks that blend internet humor and subcultures into high-quality knitwear.\n- Key facts: 4 employees (1 founder: Naval Agarwal), HQ in Mumbai, India; aims to become a global brand. Website: majhemoje.in; Instagram: @majhemoje; LinkedIn presence with ~180 followers.\n- Business focus: sock brand with bold storytelling, targeting fashion/apparel enthusiasts",
+      "publishedDate": "2026-06-25T00:00:00.000Z",
+      "ageSeconds": 7056332,
+      "strictUrl": "https://linkedin.com/company/majhemoje",
+      "looseUrl": "https://linkedin.com/company/majhemoje",
+      "citationUrl": "https://linkedin.com/company/majhemoje",
+      "hostname": "linkedin.com",
+      "publishedAt": "2026-06-25T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014925373134328358,
+      "provenance": "unknown",
+      "rrfNormalized": 0.460798,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.427695
+    },
+    {
+      "title": "pageindex",
+      "url": "https://linkedin.com/company/vectify-ai",
+      "snippet": "Summary:\n- The PageIndex system from Vectify AI is a tree-based, vector-enabled search/indexing solution designed for large-scale document corpora. It emphasizes scalable, explainable retrieval and proximity to human-like reading. \n- Key capabilities highlighted:\n  - Scales to millions of documents and supports an enterprise-wide corpus via a PageIndex File System (file-level tree layer).\n  - Fast indexing and lower query costs (e.g., PageIndex Flash claims 1,000 pages indexed for under $1 and u",
+      "publishedDate": "2026-06-27T00:00:00.000Z",
+      "ageSeconds": 6883532,
+      "strictUrl": "https://linkedin.com/company/vectify-ai",
+      "looseUrl": "https://linkedin.com/company/vectify-ai",
+      "citationUrl": "https://linkedin.com/company/vectify-ai",
+      "hostname": "linkedin.com",
+      "publishedAt": "2026-06-27T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014285714285714285,
+      "provenance": "unknown",
+      "rrfNormalized": 0.44105,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.415451
+    }
+  ],
+  "results": [
+    {
+      "title": "mojeek.com",
+      "url": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+      "strictUrl": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+      "looseUrl": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+      "citationUrl": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+      "hostname": "community.mojeek.com",
+      "snippet": "**Mojeek 的索引规模约为 90 亿以上网页（约 9.23 亿页，截至 2025 年 10 月的最新社区官方回复）。**[[1]](https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562)[[1]](https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562)\n\n### 最新数据\n- *",
+      "providers": [
+        "gemini",
+        "xai"
+      ],
+      "families": [
+        "google",
+        "xai"
+      ],
+      "providerSupport": 2,
+      "familySupport": 2,
+      "rrf": 0.032390269698572186,
+      "provenance": "community",
+      "rrfNormalized": 1,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.6,
+      "relevanceScore": 0.625,
+      "providerSupportRatio": 0.6667,
+      "familySupportRatio": 0.6667,
+      "score": 0.8355
+    },
+    {
+      "title": "serp.fast",
+      "url": "https://serp.fast/tools/mojeek",
+      "strictUrl": "https://serp.fast/tools/mojeek",
+      "looseUrl": "https://serp.fast/tools/mojeek",
+      "citationUrl": "https://serp.fast/tools/mojeek",
+      "hostname": "serp.fast",
+      "snippet": "mojeek.com/2024/06/search-engine-myths.html)\n- 较新的第三方评测（如 2026 年的 serp.fast）仍描述为约 **9B page index**。[[4]](https://serp.fast/tools/mojeek)\n\n索引持续增长，但官方不再像早期那样频繁发布精确里程碑公告。9.23 亿是目前可查到的最精确公开数字。\n\n### 历史增长时间线（官方博客与公告）\n- 2015 年：超过 10 亿页（英国首个达到此",
+      "providers": [
+        "gemini",
+        "xai"
+      ],
+      "families": [
+        "google",
+        "xai"
+      ],
+      "providerSupport": 2,
+      "familySupport": 2,
+      "rrf": 0.031373622094048106,
+      "provenance": "unknown",
+      "rrfNormalized": 0.968613,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.25,
+      "providerSupportRatio": 0.6667,
+      "familySupportRatio": 0.6667,
+      "score": 0.75754
+    },
+    {
+      "title": "mojeek",
+      "url": "https://linkedin.com/company/mojeek",
+      "snippet": "Mojeek 是一家独立搜索引擎，成立于 2004 年，总部在英国，分布在英国与希腊。核心卖点是无追踪隐私政策、快速且相关的搜索结果，以及独立、公正的检索体验。公开信息显示其规模相对较小：约 3 名员工，年收入约 150 万美元。网站全球月访问量约 97.6 万，全球排名约 43,566，跳出率 32%，每次访问平均 5 页、时长约 160 秒。关于索引规模的具体数字并未在公开资料中给出。Mojeek 注重隐私、透明度与可持续性，并以自研索引来提供结果。若需要更精确的“Mojeek 索引规模”数值，建议参考其官方白皮书、开发者博客或联系公司获取最新披露信息。",
+      "publishedDate": "2026-06-24T00:00:00.000Z",
+      "ageSeconds": 7142732,
+      "strictUrl": "https://linkedin.com/company/mojeek",
+      "looseUrl": "https://linkedin.com/company/mojeek",
+      "citationUrl": "https://linkedin.com/company/mojeek",
+      "hostname": "linkedin.com",
+      "publishedAt": "2026-06-24T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.01639344262295082,
+      "provenance": "unknown",
+      "rrfNormalized": 0.506122,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.75,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.500796
+    },
+    {
+      "title": "DeepSeek突然扩招 150 人，AI 越强公司怎么还越需要人？|工程师|agent|deepseek_网易订阅",
+      "url": "https://163.com/dy/article/L6AG5P3L0511CSAO.html?clickfrom=w_dy",
+      "snippet": "Summary:\n- The article discusses DeepSeek significantly expanding its workforce by about 150 roles, focusing on backend development and Agent elasticity (DSec) platforms, with no AI research roles in this round.\n- The expansion aims to manage rising complexity from larger data volumes, machine work, containers, training/evaluation tasks, Agent environments, and higher user/request traffic. This necessitates upgrading or rebuilding backend systems, data/ML infrastructure, and large-scale API/data",
+      "publishedDate": "2026-09-08T06:37:47.000Z",
+      "ageSeconds": 552465,
+      "author": "网易",
+      "strictUrl": "https://www.163.com/dy/article/L6AG5P3L0511CSAO.html?clickfrom=w_dy",
+      "looseUrl": "https://163.com/dy/article/L6AG5P3L0511CSAO.html?clickfrom=w_dy",
+      "citationUrl": "https://www.163.com/dy/article/L6AG5P3L0511CSAO.html?clickfrom=w_dy",
+      "hostname": "163.com",
+      "publishedAt": "2026-09-08T06:37:47.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015625,
+      "provenance": "unknown",
+      "rrfNormalized": 0.482398,
+      "freshnessScore": 0.9,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.497087
+    },
+    {
+      "title": "DeepSeek一口气扩招150人！0个AI研究岗|agent|deepseek|方向|研究岗|高吞吐量内核_手机网易网",
+      "url": "https://m.163.com/dy/article/L6ALNCS10511DSSR.html",
+      "snippet": "Summary:\n- The article reports that DeepSeek is rapidly expanding by hiring 150 more headcount, with the new roles concentrated in two senior backend tracks: Server-side development and Agent elasticity compute engineering (2–10 years experience).\n- The expansion is driven by increasing complexity from larger scale, and aims to support six strategic directions: platform/agent framework components, infrastructure, DeepSeek API, online services, data engineering, and user-service value chain.\n- Ke",
+      "publishedDate": "2026-09-08T08:14:48.000Z",
+      "ageSeconds": 546644,
+      "strictUrl": "https://m.163.com/dy/article/L6ALNCS10511DSSR.html",
+      "looseUrl": "https://m.163.com/dy/article/L6ALNCS10511DSSR.html",
+      "citationUrl": "https://m.163.com/dy/article/L6ALNCS10511DSSR.html",
+      "hostname": "m.163.com",
+      "publishedAt": "2026-09-08T08:14:48.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015151515151515152,
+      "provenance": "unknown",
+      "rrfNormalized": 0.46778,
+      "freshnessScore": 0.9,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.488024
+    },
+    {
+      "title": "Quel moteur de recherche sans IA par défaut - LinuxFr.org",
+      "url": "https://linuxfr.org/forums/general-cherche-logiciel/posts/quel-moteur-de-recherche-sans-ia-par-defaut",
+      "snippet": "Summary:\n- The page is a French forum discussion about privacy-friendly search engines and the use of non-IA by default. It mentions several engines (DuckDuckGo with noAI variant, Mojeek, Lilo, Qwant, etc.) and opinions on their indexing and performance. The user’s query asks specifically for the index size of the Mojeek search engine. The provided content references Mojeek as an option and notes user experiences with its search precision, but it does not provide any concrete figure for Mojeek’s",
+      "publishedDate": "2026-09-03T13:44:35.000Z",
+      "ageSeconds": 958857,
+      "author": "liberforce",
+      "strictUrl": "https://linuxfr.org/forums/general-cherche-logiciel/posts/quel-moteur-de-recherche-sans-ia-par-defaut",
+      "looseUrl": "https://linuxfr.org/forums/general-cherche-logiciel/posts/quel-moteur-de-recherche-sans-ia-par-defaut",
+      "citationUrl": "https://linuxfr.org/forums/general-cherche-logiciel/posts/quel-moteur-de-recherche-sans-ia-par-defaut",
+      "hostname": "linuxfr.org",
+      "publishedAt": "2026-09-03T13:44:35.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016129032258064516,
+      "provenance": "unknown",
+      "rrfNormalized": 0.497959,
+      "freshnessScore": 0.7,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.486235
+    },
+    {
+      "title": "curlie.org",
+      "url": "https://linkedin.com/company/curlie-directory",
+      "snippet": "Mojeek 搜索引擎的索引规模相关信息在 Curlie.org 的页面中未直接提及。Curlie 是一个人类编辑的网站目录（前身为 DMOZ），自1998年创建，公开展示其目录规模信息包括：截至 2023 年底，Curlie 的索引涵盖约 2,967,726 个网站，分布在 1,031,583 个类别，支持 92 种语言，由 92,209 名志愿编辑维护。若要了解 Mojeek 的具体索引规模，建议直接查阅 Mojeek 官方公布的索引数、站点覆盖范围及最新的技术规格。",
+      "publishedDate": "2026-06-26T00:00:00.000Z",
+      "ageSeconds": 6969932,
+      "strictUrl": "https://linkedin.com/company/curlie-directory",
+      "looseUrl": "https://linkedin.com/company/curlie-directory",
+      "citationUrl": "https://linkedin.com/company/curlie-directory",
+      "hostname": "linkedin.com",
+      "publishedAt": "2026-06-26T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014705882352941176,
+      "provenance": "unknown",
+      "rrfNormalized": 0.454022,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.483493
+    },
+    {
+      "title": "8",
+      "url": "https://medium.seznam.cz/clanek/radek-bodnar-jak-britsky-mojeek-dvacet-let-vzdoruje-google-i-umele-inteligenci-247615",
+      "snippet": "估计数百亿到上千亿级）或 Brave Search（报道称 350–400 亿+），但在独立、无追踪搜索引擎中属于最大或前列。[[4]](https://serp.fast/tools/mojeek)[[8]](https://medium.seznam.cz/clanek/radek-bodnar-jak-britsky-mojeek-dvacet-let-vzdoruje-google-i-umele-inteligenci-247615)\n\n规模直接影响长尾/冷门查询的覆盖率，Mojeek 自身也承认索引越大结果质量越好，并持续扩展。更多细节可查看 Mojeek 博客 或 [官方",
+      "strictUrl": "https://medium.seznam.cz/clanek/radek-bodnar-jak-britsky-mojeek-dvacet-let-vzdoruje-google-i-umele-inteligenci-247615",
+      "looseUrl": "https://medium.seznam.cz/clanek/radek-bodnar-jak-britsky-mojeek-dvacet-let-vzdoruje-google-i-umele-inteligenci-247615",
+      "citationUrl": "https://medium.seznam.cz/clanek/radek-bodnar-jak-britsky-mojeek-dvacet-let-vzdoruje-google-i-umele-inteligenci-247615",
+      "hostname": "medium.seznam.cz",
+      "providers": [
+        "xai"
+      ],
+      "families": [
+        "xai"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015496926229508198,
+      "provenance": "unknown",
+      "rrfNormalized": 0.478444,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.625,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.476135
+    }
+  ],
+  "coverage": {
+    "retrieval": {
+      "uniqueCanonicalUrls": 19,
+      "totalSources": 27,
+      "offTopicSources": 8,
+      "uniqueDomains": 8,
+      "uniqueFamilies": 3,
+      "primarySources": 0,
+      "successfulAttempts": 3,
+      "successfulProviders": 3,
+      "policy": {
+        "minUniqueCanonicalUrls": 6,
+        "minUniqueDomains": 2,
+        "minPrimarySources": 0
+      },
+      "sufficient": true
+    },
+    "evidence": {
+      "requiredFacets": [],
+      "offTopicSources": 8,
+      "sufficient": true,
+      "gaps": []
+    },
+    "gaps": [],
+    "sufficient": true,
+    "delivery": {
+      "sufficient": true,
+      "gaps": []
+    }
+  },
+  "budget": {
+    "wallClockMs": 150000,
+    "perCallTimeoutMs": 45000,
+    "maxInitialProviders": 3,
+    "maxProviders": 5,
+    "maxSubqueries": 3,
+    "maxSearchCalls": 9,
+    "maxFallbackCalls": 2,
+    "maxFetches": 0
+  },
+  "status": "complete",
+  "stopReason": "coverage-satisfied",
+  "providers": {
+    "selected": [
+      "gemini",
+      "exa",
+      "xai"
+    ],
+    "used": [
+      "gemini",
+      "exa",
+      "xai"
+    ],
+    "failures": [],
+    "empty": [],
+    "autoOrder": [
+      "exa",
+      "gemini",
+      "xai",
+      "firecrawl",
+      "tavily",
+      "tinyfish",
+      "zai",
+      "kimi",
+      "codex",
+      "public",
+      "jina",
+      "brave",
+      "searxng",
+      "startpage",
+      "duckduckgo",
+      "ecosia",
+      "google",
+      "mojeek"
+    ]
+  },
+  "citations": [
+    "[1] mojeek.com — https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+    "[2] serp.fast — https://serp.fast/tools/mojeek",
+    "[3] mojeek — https://linkedin.com/company/mojeek",
+    "[4] DeepSeek突然扩招 150 人，AI 越强公司怎么还越需要人？|工程师|agent|deepseek_网易订阅 — https://www.163.com/dy/article/L6AG5P3L0511CSAO.html?clickfrom=w_dy",
+    "[5] DeepSeek一口气扩招150人！0个AI研究岗|agent|deepseek|方向|研究岗|高吞吐量内核_手机网易网 — https://m.163.com/dy/article/L6ALNCS10511DSSR.html",
+    "[6] Quel moteur de recherche sans IA par défaut - LinuxFr.org — https://linuxfr.org/forums/general-cherche-logiciel/posts/quel-moteur-de-recherche-sans-ia-par-defaut",
+    "[7] curlie.org — https://linkedin.com/company/curlie-directory",
+    "[8] 8 — https://medium.seznam.cz/clanek/radek-bodnar-jak-britsky-mojeek-dvacet-let-vzdoruje-google-i-umele-inteligenci-247615"
+  ],
+  "providerAnswers": [
+    {
+      "provider": "gemini",
+      "answer": "**Mojeek** 是少数几个不依赖 Google、Bing 或其他主流大厂索引、完全依靠自身网络爬虫（MojeekBot）从零构建独立网页索引的欧洲搜索引擎（总部位于英国）。\n\n### 1. 索引规模数据\n* **当前规模**：Mojeek 的索引规模已突破 **90 亿（9 billion）网页**。\n* **爬取与增长速度**：根据官方公开的信息，其爬虫系统每天会抓取和重新抓取数千万个页面（例如日均抓取约 3,700 万个页面），并以每天新增数百万个页面的速度持续扩充。\n\n### 2. 发展里程碑\nMojeek 的索引规模在过去几年中稳步增长：\n* **2015年11月**：突破 **10亿** 网页\n* **2019年5月**：超过 **23亿** 网页\n* **2021年6月**：达到 **40亿** 网页\n* **2022年10月**：突破 **60亿** 网页\n* **2024年**：突破 **80亿** 网页\n* **2025年**：突破 **90亿** 网页\n\n### 3. 与主流搜索引擎的对比\n* **体量差距**：虽然 90 亿的网页规模对于一个独立搜索引擎而言是一项重大成就，但与行业巨头相比仍有明显差距。例如，Google 的索引规模高达数千亿级别。\n* **优势与局限**：由于 Mojeek 拥有完全独立的爬虫和基础设施，它能提供真正不受科技巨头算法左右且无用户追踪的搜索结果。但在面对一些冷门、长尾（long-tail）查询时，其 90 亿体量的索引有时会出现覆盖面不足、结果不如 Google 或 Bing 丰富的情况。"
+    },
+    {
+      "provider": "exa",
+      "answer": "**mojeek**: Mojeek 是一家独立搜索引擎，成立于 2004 年，总部在英国，分布在英国与希腊。核心卖点是无追踪隐私政策、快速且相关的搜索结果，以及独立、公正的检索体验。公开信息显示其规模相对较小：约 3 名员工，年收入约 150 万美元。网站全球月访问量约 97.6 万，全球排名约 43,566，跳出率 32%，每次访问平均 5 页、时长约 160 秒。关于索引规模的具体数字并未在公开资料中给出。Mojeek 注重隐私、透明度与可持续性，并以自研索引来提供结果。若需要更精确的“Mojeek 索引规模”数值，建议参考其官方白皮书、开发者博客或联系公司获取最新披露信息。\n\n**Quel moteur de recherche sans IA par défaut - LinuxFr.org**: Summary:\n- The page is a French forum discussion about privacy-friendly search engines and the use of non-IA by default. It mentions several engines (DuckDuckGo with noAI variant, Mojeek, Lilo, Qwant, etc.) and opinions on their indexing and performance. The user’s query asks specifically for the index size of the Mojeek search engine. The provided content references Mojeek as an option and notes user experiences with its search precision, but it does not provide any concrete figure for Mojeek’s index size. Therefore, the page does not contain the requested numeric detail.\n\nIf you want the Mojeek index size, I can search for the latest official statements or technical reports (Mojeek’s blog, press releases, or developer docs) and summarize the current figure.\n\n**ojje**: Summary:\nThe page describes Ojje, a Boulder, Colorado-based book publishing and streaming reading library for K-12. Key points: 4 employees (small company, 1-10), founded 2023, offers a streaming library with 15 levels of English/Spanish stories, Science of Reading decodables, and teacher-created content. Built-in accessibility features include dyslexia-friendly font support and features for read-aloud, ELL, and SLL learners. Content includes 600 fiction/nonfiction titles across multiple subjects, with a claimed library size of over 80,000 books and 3,600 audiobooks (note: the numbers may reflect catalog/tiers or misalignment in the highlights). Focuses on whole-class reading, supporting diverse learning styles, and aims to advance all learners in K-12 curricula."
+    },
+    {
+      "provider": "xai",
+      "answer": "**Mojeek 的索引规模约为 90 亿以上网页（约 9.23 亿页，截至 2025 年 10 月的最新社区官方回复）。**[[1]](https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562)[[1]](https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562)\n\n### 最新数据\n- **2025 年 10 月 8 日**：Mojeek 官方社区 Discourse 中回复称索引为 **9.23 billion pages**（92.3 亿页）。当时总爬取量（新爬 + 重爬）约每天 3700 万页，净新增约每天 270 万页（因系统改进暂时低于此前的 500–600 万页/天）。[[1]](https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562)[[1]](https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562)\n- Mojeek 官网技术/历史页面明确列出：**2025 年通过 90 亿页里程碑**；**2024 年通过 80 亿页**。[[2]](https://www.mojeek.com/about/technology.html)[[2]](https://www.mojeek.com/about/technology.html)\n- 2024 年 6 月博客提到“超过 80 亿页”。[[3]](https://blog.mojeek.com/2024/06/search-engine-myths.html)\n- 较新的第三方评测（如 2026 年的 serp.fast）仍描述为约 **9B page index**。[[4]](https://serp.fast/tools/mojeek)\n\n索引持续增长，但官方不再像早期那样频繁发布精确里程碑公告。9.23 亿是目前可查到的最精确公开数字。\n\n### 历史增长时间线（官方博客与公告）\n- 2015 年：超过 10 亿页（英国首个达到此规模的搜索引擎）\n- 2016 年 12 月：1.5 亿页\n- 2018 年 6 月：20 亿页\n- 2020 年 4 月：30 亿页\n- 2021 年 6 月：40 亿页\n- 2022 年 2/3 月：50 亿页\n- 2022 年 10 月：60 亿页\n- 2023 年（约 8 月）：70 亿页\n- 2024 年：80 亿页\n- 2025 年：90 亿页（并达到约 9.23 亿）[[5]](https://blog.mojeek.com/2022/03/five-billion-pages.html)[[6]](https://blog.mojeek.com/2023/08/mojeek-updates.html)[[7]](https://blog.mojeek.com/2022/10/mojeek-now-six-billion-pages.html)\n\nMojeek 完全使用自研爬虫（MojeekBot）和独立索引，不依赖 Google 或 Bing，是少数真正独立的大型网页索引之一（隐私优先、无用户追踪）。其规模远小于 Google（估计数百亿到上千亿级）或 Brave Search（报道称 350–400 亿+），但在独立、无追踪搜索引擎中属于最大或前列。[[4]](https://serp.fast/tools/mojeek)[[8]](https://medium.seznam.cz/clanek/radek-bodnar-jak-britsky-mojeek-dvacet-let-vzdoruje-google-i-umele-inteligenci-247615)\n\n规模直接影响长尾/冷门查询的覆盖率，Mojeek 自身也承认索引越大结果质量越好，并持续扩展。更多细节可查看 [Mojeek 博客](https://blog.mojeek.com/) 或 [官方技术页面](https://www.mojeek.com/about/technology.html) 以及社区论坛。"
+    }
+  ],
+  "observability": {
+    "elapsedMs": 40886,
+    "providerLatencyMs": {
+      "gemini::Mojeek 搜索引擎的索引规模": 5480,
+      "exa::Mojeek 搜索引擎的索引规模": 5252,
+      "xai::Mojeek 搜索引擎的索引规模": 40883
+    }
+  }
+}

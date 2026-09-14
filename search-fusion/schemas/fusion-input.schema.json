@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Search Fusion Input Envelope",
+  "type": "object",
+  "required": ["schemaVersion", "query", "attempts"],
+  "properties": {
+    "schemaVersion": { "type": "integer", "minimum": 1 },
+    "query": { "type": "string", "minLength": 1 },
+    "retrievedAt": { "type": "string", "format": "date-time" },
+    "capabilities": { "$ref": "./capabilities.schema.json" },
+    "attempts": {
+      "type": "array",
+      "items": { "$ref": "./search-result.schema.json" }
+    },
+    "results": {
+      "type": "array",
+      "items": { "$ref": "./search-result.schema.json" },
+      "description": "Deprecated alias for attempts; accepted at runtime but not canonical"
+    }
+  }
+}

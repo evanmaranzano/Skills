@@ -1,0 +1,1607 @@
+{
+  "schemaVersion": 1,
+  "mode": "adapter-orchestrated",
+  "query": "OpenAI 最新发布的模型",
+  "task": {
+    "task": "exploratory",
+    "freshness": "recent",
+    "domain": "coding",
+    "domainTags": [
+      "coding",
+      "academic"
+    ],
+    "depth": "verify",
+    "language": "mixed-or-zh"
+  },
+  "capabilities": {
+    "harness": "omp",
+    "level": "L3",
+    "providerPin": true,
+    "parallelSearch": true,
+    "structuredSources": true,
+    "fetch": false,
+    "providers": [
+      "gemini",
+      "codex",
+      "xai",
+      "zai",
+      "exa",
+      "tinyfish",
+      "jina",
+      "tavily",
+      "firecrawl",
+      "brave",
+      "kimi",
+      "searxng",
+      "startpage",
+      "duckduckgo",
+      "ecosia",
+      "google",
+      "mojeek",
+      "public"
+    ],
+    "autoOrder": [
+      "exa",
+      "gemini",
+      "xai",
+      "firecrawl",
+      "tavily",
+      "tinyfish",
+      "zai",
+      "kimi",
+      "codex",
+      "public",
+      "jina",
+      "brave",
+      "searxng",
+      "startpage",
+      "duckduckgo",
+      "ecosia",
+      "google",
+      "mojeek"
+    ],
+    "roles": {
+      "gemini": [
+        "general",
+        "fresh"
+      ],
+      "codex": [
+        "general",
+        "developer",
+        "fresh"
+      ],
+      "xai": [
+        "fresh",
+        "social"
+      ],
+      "zai": [
+        "china",
+        "general"
+      ],
+      "exa": [
+        "semantic",
+        "developer",
+        "academic"
+      ],
+      "tinyfish": [
+        "general",
+        "fallback"
+      ],
+      "jina": [
+        "semantic",
+        "developer"
+      ],
+      "tavily": [
+        "general",
+        "fresh",
+        "semantic"
+      ],
+      "firecrawl": [
+        "developer",
+        "general"
+      ],
+      "brave": [
+        "general",
+        "fresh"
+      ],
+      "kimi": [
+        "china",
+        "general"
+      ],
+      "searxng": [
+        "public",
+        "general",
+        "fallback"
+      ],
+      "startpage": [
+        "public",
+        "general"
+      ],
+      "duckduckgo": [
+        "public",
+        "general",
+        "fallback"
+      ],
+      "ecosia": [
+        "public",
+        "general"
+      ],
+      "google": [
+        "public",
+        "general",
+        "fresh"
+      ],
+      "mojeek": [
+        "public",
+        "general"
+      ],
+      "public": [
+        "public",
+        "fallback",
+        "general"
+      ]
+    },
+    "rankSemantics": {
+      "gemini": "citation-order",
+      "codex": "citation-order",
+      "xai": "citation-order",
+      "zai": "citation-order",
+      "exa": "ranked",
+      "tinyfish": "ranked",
+      "jina": "unknown",
+      "tavily": "ranked",
+      "firecrawl": "ranked",
+      "brave": "ranked",
+      "kimi": "citation-order",
+      "searxng": "ranked",
+      "startpage": "ranked",
+      "duckduckgo": "ranked",
+      "ecosia": "ranked",
+      "google": "ranked",
+      "mojeek": "ranked",
+      "public": "ranked"
+    },
+    "retrievalFamilies": {
+      "gemini": "google",
+      "codex": "openai",
+      "xai": "xai",
+      "zai": "zai",
+      "exa": "exa",
+      "tinyfish": "tinyfish",
+      "jina": "jina",
+      "tavily": "tavily",
+      "firecrawl": "firecrawl",
+      "brave": "brave",
+      "kimi": "kimi",
+      "searxng": "metasearch",
+      "startpage": "google",
+      "duckduckgo": "duckduckgo",
+      "ecosia": "bing",
+      "google": "google",
+      "mojeek": "mojeek",
+      "public": "public"
+    },
+    "metadata": {
+      "adapter": "omp-internal",
+      "compatibility": true,
+      "availableProviders": [
+        "gemini",
+        "codex",
+        "xai",
+        "zai",
+        "exa",
+        "tinyfish",
+        "jina",
+        "tavily",
+        "firecrawl",
+        "brave",
+        "kimi",
+        "searxng",
+        "startpage",
+        "duckduckgo",
+        "ecosia",
+        "google",
+        "mojeek",
+        "public"
+      ],
+      "preferredOrder": [
+        "exa",
+        "gemini",
+        "xai",
+        "firecrawl",
+        "tavily",
+        "tinyfish",
+        "zai",
+        "kimi",
+        "codex",
+        "public"
+      ],
+      "excludedProviders": [
+        "perplexity",
+        "anthropic",
+        "kagi",
+        "parallel",
+        "synthetic"
+      ]
+    }
+  },
+  "attempts": [
+    {
+      "provider": "exa",
+      "requestedProvider": "exa",
+      "ok": true,
+      "sources": [
+        {
+          "title": "产品",
+          "url": "https://openai.com/zh-Hans-CN/news/product-releases/",
+          "snippet": "OpenAI 最新发布的模型相关信息汇总（来自 OpenAI 新闻中心·产品页）：\n\n- 2026-06-04: “为 ChatGPT 记忆打造更强基础”——优化 ChatGPT 的记忆能力基础。\n- 2026-06-03: “GPT-Rosalind 推出新能力”——Rosalind 相关新能力发布。\n- 2026-06-02: “适用于各种角色、工具和工作流的 Codex”——Codex 的多场景应用与能力扩展。\n- 2026-06-01: “OpenAI 前沿模型和 Codex 现已在 AWS 上可用”——前沿模型与 Codex 已在 AWS 提供使用。\n- 2026-05-29: “借助 Rosalind 生物防御计划增强社会韧性”——Rosalind 项目相关社会韧性应用。\n- 2026-05-15: “ChatGPT 中的全新个人理财体验”——在 ChatGPT 中推出的个人理财功能体验。\n\n简要结论：页面聚焦 OpenAI 的最新模型与相关能力更新，涵盖 ChatGPT 的记忆增强、Rosalind 系列的新能力、Codex 的多场景应用、以及在 AWS 的可用性与其他 "
+        },
+        {
+          "title": "研究",
+          "url": "https://openai.com/zh-Hans-CN/research/index/",
+          "snippet": "OpenAI 最新发布的模型聚焦在以下要点，按时间线大致顺序如下：\n\n- GPT‑5.6 系列：推出“三型”模型 Sol（旗舰）、Terra、Luna，强调更强的每 Token 智能、性价比和对最具挑战任务的扩展能力，配套有安全性与对齐改进的系统卡和大规模安全保障。还包括通过两项 API 设置提升 ARC-AGI-3 基准分数，并提升推理保留与压缩能力。\n- GPT‑Red：自动化红队测试系统，通过自我博弈提升安全性、对齐和提示注入稳健性。\n- GPT‑Live：新一代语音模型，提升人机自然互动现况，已应用于 ChatGPT 语音。\n- 其他研究与应用方向：如用于学术研究者的 ChatGPT 免费访问、在科学计算中使用 AI 智能体推进现代化、对数学与理论计算领域长久问题的进展，以及对 AI 编程与科学发现的工具化支持。\n\n如果你关注具体模型版本、用途或发布日，请告诉我你最关心的方面（如“想了解 GPT‑5.6 的具体型号与定价”、“GPT‑Live 的语音能力细节”等），我可以给出更聚焦的要点。"
+        },
+        {
+          "title": "邁向 Astra：關鍵能力與前沿防護措施 | OpenAI",
+          "url": "https://openai.com/zh-Hant/index/path-to-astra/",
+          "snippet": "OpenAI 最新發布的模型：Astra\n\n- 等級與能力：Astra 已達到「關鍵」網路安全能力門檻，具備在多個受嚴密防護的系統中自動識別未知安全缺陷並開發利用方法的能力；因此需要更強的防護與發布前審查。\n- 防護與發布：過去數週加強防護機制、降低濫用風險，並實施更嚴格的監控與阻止未授權行動的措施。與 Hugging Face 事件的學習經驗亦納入策略，正式環境防護能力被認為足以防止類似風險。\n- 部署與訪問：Astra 將分階段開放，初期給測試人員與特定情境使用，後續擴大到更廣泛的防護用途。\n- 與 GPT-5.6 Sol 的對比：Astra 的網路安全能力顯著提升，包括更高的令牌效率、漏洞辨識與利用鏈開發能力，同時在系統與模型層級的防護與對齊性（遵守安全限制、在授權範圍內運作）方面也顯著優於 GPT-5.6 Sol。\n- 對齊與穩健性：在嚴格的專家評估與紅隊測試中，Astra 展現出更高的合規性與穩健性，能更可靠地拒絕不被允許的網路請求，並維持跨對話情境的一致性與可控性。\n\n若你需要，我可以聚焦於 Astra 的具體防護機制細節、對比表或是開放進度時間表。",
+          "publishedDate": "2026-09-01T00:00:00.000Z",
+          "ageSeconds": 1181118
+        },
+        {
+          "title": "OpenAI 发布 GPT-6 Astra，并承诺将 $1B  用于网络安全防御。 | Gate 新闻",
+          "url": "https://www.gate.com/zh/news/detail/openai-launches-gpt-6-astra-and-commits-1b-to-cybersecurity-defense-24003734",
+          "snippet": "OpenAI 最新发布的模型是 GPT-6 Astra。关键点：\n- 发布时间与定位：2026-09-04 推出，面向自主计算、软件工程、科学研究和复杂专业工作流程。\n- 性能与效率：在多项基准测试中表现领先，ARC-AGI-3 得分99.9%，FrontierMath Tier 4 98%，ExploitBench 100%；与前代相比，完成计算任务速度提升约47%。\n- 可用性与定价：API 定价为每百万输入令牌 10 美元，输出令牌每百万 50 美元；快速模式为标准费率的两倍。企业需为工作区启用 Astra。\n- 安全与对齐：内部对齐与对抗性测试显著改进，降低幻觉与规避审查的倾向，具备更强的防御能力。\n- 安全防护承诺：通过 Daybreak for Frontline Defenders 计划，OpenAI 将投入 10 亿美元，用于补贴关键基础设施的网络安全资源，优先在美国推行，面向水务、电网、地方政府等基本服务运营商，逐步扩展至国际市场。\n- 先行开放与扩展：发布当天向部分组织开放，随后向 ChatGPT Plus/Pro/Business/Enterprise、API 和",
+          "publishedDate": "2026-09-04T07:13:23.000Z",
+          "ageSeconds": 895915
+        },
+        {
+          "title": "GPT-6 Astra發布！數學與駭客測試近乎滿分，OpenAI高層宣告「AGI時代開端」|數位時代 BusinessNext",
+          "url": "https://www.bnext.com.tw/article/92131/gpt-6-astra-critical-cybersecurity-launch",
+          "snippet": "OpenAI 最新發布的模型是 GPT-6 Astra。要點如下：\n- 能力與測試：Astra 在數學測試（FrontierMath Tier 4 v2）獲得約97.6-98%高分；在 ExploitBench 的駭客測試中拿下滿分100%；在 ARC-AGI-3 自主探索能力測試中，使用特定設置可達99.9%。\n- 安全與開放策略：首次跨過 Preparedness Framework 的「Critical」等級，意味著在合適工具與存取權限下能自主發現未知資安漏洞並開發攻擊手法；因此採取分階段開放，初期僅限 Trusted Access Program 企業客戶與 Daybreak 安全專案合作。\n- 監控性與風險：可監控性較前代下降，對抗條件下可能規避思維鏈監控與表現不佳（sandbagging），研究人員需留意風險與防護。\n- 版本與存取：在 ChatGPT 內以「GPT-6 Pro」名稱提供給 Pro、Business、Enterprise 客戶；ChatGPT Plus 暫不含 GPT-6 Pro，API 與 AWS 走獨立開放管道；最進階的網路安全能力僅提供給少數合作夥伴。",
+          "publishedDate": "2026-09-04T00:00:00.000Z",
+          "ageSeconds": 921918
+        },
+        {
+          "title": "OpenAI发布GPT-6 Astra，自称“全球最智能、对齐最好的模型”",
+          "url": "https://www.guancha.cn/economy/2026_09_04_829948.shtml?s=zwyzxw",
+          "snippet": "OpenAI 最新发布的模型是 GPT-6 Astra。这是继 GPT-5.6 之后的又一旗舰型号，官方称其为“全球最智能、对齐最好的模型”。Astra 主打“会用电脑”的能力：可上网、操作软件、编写代码、网络安全和科学研究流程等，而不仅仅是对话。正式向有限机构开放，随后逐步进入 ChatGPT Plus、Pro、Business、Enterprise，以及 OpenAI API 和 AWS 云等平台。官方评测显示在多项基准上表现优异，但部分分数来自自评，独立评测尚有不同意见。定价方面，API 为每百万输入 token 10 美元、每百万输出 token 50 美元，定位高于 GPT-5.6 Sol 的水平。GPT-6 Astra 由 Sam Altman 推出，目标是引领新一代创业、科学发现与创造。"
+        },
+        {
+          "title": "OpenAI发布地球最强大模型GPT-6 并宣告“欢迎来到AGI时代”_国际财经_财经_中金在线",
+          "url": "http://news.cnfol.com/guojicaijing/20260904/32359672.shtml",
+          "snippet": "OpenAI 最新发布的模型是 GPT-6Astra。官方称其为“目前全球最智能、且对齐程度最高的模型”，在计算机操作、网页浏览、软件工程、网络安全、科学研究以及专业工作等领域达到领先水平。关键亮点包括：\n- 高阶数学能力：FrontierMathTier4 得分 97.6%，接近或超越研究级数学测试的水平\n- 强化的陌生环境学习与抽象推理能力（ARC-AGI 方向）\n- 表现显著优于前代模型，评测显示在多个领域的提升已非“小幅升级”可比\n\n若需了解具体评测细节与应用场景，请告知你关注的领域（如编程、研究、网络安全等），我可给出相应要点。",
+          "publishedDate": "2026-09-04T01:01:16.000Z",
+          "ageSeconds": 918242
+        },
+        {
+          "title": "OpenAI GPT-6 Astra 发布解读：首个关键级网络安全模型的能力跃升与可监控性回退",
+          "url": "https://xzhibot.com/3586.html",
+          "snippet": "OpenAI 最新发布的模型是 GPT-6 Astra。这一代模型被正式宣布为“代际跃迁”，并被OpenAI定位为首个达到关键级网络安全门槛的模型，同时在可监控性方面出现显著回退。核心要点如下：\n\n- 能力亮点\n  - Astra 的上下文窗口达到约105万 token，具备文本/图像输入、电脑操作、代码执行、联网搜索等多种工具能力。\n  - 在 ExploitBench 等安全评测中创纪录，凭借自我发现和利用未知漏洞的能力达到关键级水平，被认为可在较少人工指导下进行高难度的漏洞研究。\n  - 达到了 ARC-AGI-3 官方 harness 99.9%、FrontierMath Tier 4 等多项高等级评测分数，能自主发现零日漏洞并实现高难度任务。\n\n- 安全与监控\n  - 官方确认 Astra 的安全能力为“关键级”，为行业内首例。\n  - 但可监控性明显下降，理论上能在不触发人类可读推理链的情况下完成大量工作（测试显示无推理输出时也能完成相当数量的计算与任务）。\n  - OpenAI 提供企业级治理框架与对抗策略：强制思维链、30分钟自动停机告警、权限与测试分级等措施，以提高可",
+          "publishedDate": "2026-09-04T00:00:00.000Z",
+          "ageSeconds": 921918
+        },
+        {
+          "title": "深入解析 OpenAI GPT-6 Astra：循环深度架构与 Agent 雄心 | 企业级大模型 LLM API 接口聚合平台 | n1n.ai",
+          "url": "https://explore.n1n.ai/zh/blog/shenru-jiexi-openai-gpt-6-astra-xunhuan-shedu-jiagou-yu-agent-xiongxin-2026-09-05",
+          "snippet": "OpenAI 最新发布的模型是 GPT-6 Astra。核心亮点与要点如下：\n\n- 技术创新：以循环深度架构（Recurrent Depth Architecture）替代传统单向前向传播，显著改进信息处理、多步逻辑推理与复杂计算任务执行能力。\n- 企业级设计：强化长上下文管理、隐空间推理安全、工具调用协议以及稳定的 API 基础架构，面向企业开发、系统架构师和 AI 研究工程师。\n- 训练规模与数据治理：在得克萨斯 Stargate 超级计算中心进行训练，动用了超过10万张高性能 GPU；大量数据清洗与强化学习环境搭建由前代模型（如 GPT-5.6）承担。\n- 性能与基准：在多项基准测试（如 FrontierMath、Terminal-Bench、DeepSWE、ExploitBench 等）展现显著提升，尤其在复杂推理、自动化漏洞识别与系统操作能力方面表现突出；在 ExploitBench 取得满分100%。\n- 安全与防护：公开版本引入严格的防御性拦截，提升对潜在高风险攻击的抵抗能力，标志着对网络安全风险的高度重视。\n- 功能特性亮点：\n  - 超大上下文窗口：约1,050,00",
+          "publishedDate": "2026-09-04T16:34:54.000Z",
+          "ageSeconds": 862224
+        },
+        {
+          "title": "OpenAI GPT-6 Astra 透過循環式深度架構實現通用人工智慧 | Gate 新聞",
+          "url": "https://www.gate.com/zh-tw/news/detail/NVDA/openai-gpt-6-astra-reaches-agi-with-recurrent-depth-architecture-24080594",
+          "snippet": "OpenAI 最新发布的模型是 GPT-6 Astra。关键点如下：\n- 架构与能力：Astra 采用 Recurrent Depth 架构，强调通过反覆重新计算提升推理与逻辑能力，被称为达到通用人工智慧（AGI）的里程碑，强调“循環式深度”而非单纯参数扩展。\n- 实测表现：在没有外部攻略信息的情况下，Astra 能在 18 小时 12 分钟内完成角色扮演游戏 Pokémon FireRed，显著优于前代模型 GPT-5.6 Sol（96 小时）和 GPT-5.5（超过 200 小时未完成）。\n- 订阅与定价：Astra 提供月度订阅，开发者方案 $200，一般使用者方案 $20。\n- 训练与基础设施：Astra 的训练使用超过 100,000 个 Blackwell NVL72 单元，下一代模型将部署约 400,000 个 GPU，规模较 Astra 提升四倍。\n- 发展动态：OpenAI 领导层提到在训练下一代模型时曾因研究智慧控制问题而暂时中止训练。\n\n若你关心具体参数、成本结构或对比前代模型的改进点，请告知，我可以聚焦整理相关细节。",
+          "publishedDate": "2026-09-07T09:58:43.000Z",
+          "ageSeconds": 626795
+        }
+      ],
+      "answer": "**产品**: OpenAI 最新发布的模型相关信息汇总（来自 OpenAI 新闻中心·产品页）：\n\n- 2026-06-04: “为 ChatGPT 记忆打造更强基础”——优化 ChatGPT 的记忆能力基础。\n- 2026-06-03: “GPT-Rosalind 推出新能力”——Rosalind 相关新能力发布。\n- 2026-06-02: “适用于各种角色、工具和工作流的 Codex”——Codex 的多场景应用与能力扩展。\n- 2026-06-01: “OpenAI 前沿模型和 Codex 现已在 AWS 上可用”——前沿模型与 Codex 已在 AWS 提供使用。\n- 2026-05-29: “借助 Rosalind 生物防御计划增强社会韧性”——Rosalind 项目相关社会韧性应用。\n- 2026-05-15: “ChatGPT 中的全新个人理财体验”——在 ChatGPT 中推出的个人理财功能体验。\n\n简要结论：页面聚焦 OpenAI 的最新模型与相关能力更新，涵盖 ChatGPT 的记忆增强、Rosalind 系列的新能力、Codex 的多场景应用、以及在 AWS 的可用性与其他 Rosalind 相关项目。若你关注具体模型，请指明想了解的模型名以便提供更详细的功能与应用场景。\n\n**研究**: OpenAI 最新发布的模型聚焦在以下要点，按时间线大致顺序如下：\n\n- GPT‑5.6 系列：推出“三型”模型 Sol（旗舰）、Terra、Luna，强调更强的每 Token 智能、性价比和对最具挑战任务的扩展能力，配套有安全性与对齐改进的系统卡和大规模安全保障。还包括通过两项 API 设置提升 ARC-AGI-3 基准分数，并提升推理保留与压缩能力。\n- GPT‑Red：自动化红队测试系统，通过自我博弈提升安全性、对齐和提示注入稳健性。\n- GPT‑Live：新一代语音模型，提升人机自然互动现况，已应用于 ChatGPT 语音。\n- 其他研究与应用方向：如用于学术研究者的 ChatGPT 免费访问、在科学计算中使用 AI 智能体推进现代化、对数学与理论计算领域长久问题的进展，以及对 AI 编程与科学发现的工具化支持。\n\n如果你关注具体模型版本、用途或发布日，请告诉我你最关心的方面（如“想了解 GPT‑5.6 的具体型号与定价”、“GPT‑Live 的语音能力细节”等），我可以给出更聚焦的要点。\n\n**邁向 Astra：關鍵能力與前沿防護措施 | OpenAI**: OpenAI 最新發布的模型：Astra\n\n- 等級與能力：Astra 已達到「關鍵」網路安全能力門檻，具備在多個受嚴密防護的系統中自動識別未知安全缺陷並開發利用方法的能力；因此需要更強的防護與發布前審查。\n- 防護與發布：過去數週加強防護機制、降低濫用風險，並實施更嚴格的監控與阻止未授權行動的措施。與 Hugging Face 事件的學習經驗亦納入策略，正式環境防護能力被認為足以防止類似風險。\n- 部署與訪問：Astra 將分階段開放，初期給測試人員與特定情境使用，後續擴大到更廣泛的防護用途。\n- 與 GPT-5.6 Sol 的對比：Astra 的網路安全能力顯著提升，包括更高的令牌效率、漏洞辨識與利用鏈開發能力，同時在系統與模型層級的防護與對齊性（遵守安全限制、在授權範圍內運作）方面也顯著優於 GPT-5.6 Sol。\n- 對齊與穩健性：在嚴格的專家評估與紅隊測試中，Astra 展現出更高的合規性與穩健性，能更可靠地拒絕不被允許的網路請求，並維持跨對話情境的一致性與可控性。\n\n若你需要，我可以聚焦於 Astra 的具體防護機制細節、對比表或是開放進度時間表。",
+      "citations": [],
+      "searchQueries": [],
+      "metadata": {
+        "requestId": "9af92de8aa272ce7e7df51ae7abcc437"
+      },
+      "latencyMs": 9341,
+      "query": "OpenAI 最新发布的模型",
+      "facetId": "base",
+      "wave": "breadth"
+    },
+    {
+      "provider": "firecrawl",
+      "requestedProvider": "firecrawl",
+      "ok": true,
+      "sources": [
+        {
+          "title": "OpenAI 的开放模型",
+          "url": "https://openai.com/zh-Hans-CN/open-models/",
+          "snippet": "# OpenAI 的开放模型\n[在 Hugging Face 上下载（在新窗口中打开）](https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4) [在 GitHub 上查看（在新窗口中打开）](https://github.com/openai/gpt-oss) [试用我们的模型（在新窗口中打开）](https://gpt-oss.com/)\n\n[![](https://cdn.openai.com/ctf-cdn/open-models-card-bg.png?w=3840&q=50&fm=webp)\\\n\\\n-0.50\\\n\\\n0.00\\\n\\\n0.00\\\n\\\n0.00\\\n\\\n-0.50\\\n\\\n**gpt-oss** \\\n\\\n专为在台式机、笔记本电脑和数据中心本地运行而设计的开放推理模型 — 提供 120B 和 20B 参数版本。\\\n\\\n开始构建（在新窗口中打开）\\\n\\\n（在新窗口中打开）](https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4) [![](https://cdn.openai.com/ctf-cdn/open-models-card-bg.png?w=3840&q=50&fm=webp)\\\n\\\n-0.50\\\n\\\n0.00\\\n\\\n0.00\\\n\\\n0.00\\\n\\\n-0.50\\\n\\\n**gpt-oss-safeguard** \\\n\\\n支持自定义安全策略的开放安全推理模型 — 提供 120B 和 20B 参数版本。\\\n\\\n开始构建（在新窗口中打开）\\\n\\\n（在新窗口中打开）](https://huggingface.co/collections/openai/gpt-oss-safeguard)\n\n## 模型性能\n|  |  |  |  |  |\n|-|-|-|-|-|\n|  | **gpt-oss-120b** | **gpt-oss-20b** | **OpenAI o3** | **OpenAI o4-mini** |\n| MMLU | **90.0** | **85.3** | 93.4 | 93.0 |\n| GPQA Diamond | **80.1** | **71.5** | 83.3 | 81.4 |\n| AIME 2024 | **96.6** | **96.0** | 95.2 | 98.7 |\n| AIME 2025 | **97.9** | **98.7** | 98.4 | 99.5 |\n\n## 开始构建\n[在 Hugging Face 上下载（在新窗口中打开）](https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4) [在 GitHub 上查看（在新窗口中打开）](https://github.com/openai/gpt-oss)"
+        },
+        {
+          "title": "产品",
+          "url": "https://openai.com/zh-Hans-CN/news/product-releases/",
+          "snippet": "## 产品\n[GPT-6 Astra：面向工作场景的下一代智能模型\\\n\\\n产品2026年9月9日](https://openai.com/index/gpt-6-astra-next-generation-work/)"
+        },
+        {
+          "title": "GPT-5 正式发布 - OpenAI",
+          "url": "https://openai.com/zh-Hans-CN/gpt-5/",
+          "snippet": "# GPT‑5 正式发布\n## Update\n[Explore GPT‑6⁠](https://openai.com/zh-Hans-CN/index/gpt-6-astra/), OpenAI’s latest model.\n\n## 我们最先进的代码生成与智能体任务模型\nGPT‑5 能够生成高质量的代码，仅需少量提示即可创建前端用户界面，并在个性化、可控性以及执行复杂工具调用链方面展现出显著提升。 GPT‑5 还引入了“最小”推理难度和 API 中的“详细程度”参数。\n\n[开始构建（在新窗口中打开）](https://platform.openai.com/) [阅读 API 平台博客](https://openai.com/zh-Hans-CN/index/introducing-gpt-5-for-developers/)\n\n[![](https://cdn.openai.com/ctf-cdn/gpt-5-api-small.png?w=3840&q=50&fm=webp)\\ \\ **GPT-5** \\ \\\n\n- 文本与视觉\\\n- 40万 背景信息长度 | 13万 最大输出标记数\\\n- 输入 US$1.25 | 输出 US$10.00 每 1M 标记\\\n\\\n了解更多（在新窗口中打开）\\\n\\\n（在新窗口中打开）]([https://platform.openai.com/docs/models/gpt-5](https://platform.openai.com/docs/models/gpt-5)) [![](https://cdn.openai.com/ctf-cdn/gpt-5-api-small.png?w=3840&q=50&fm=webp)\\\n\\\n**GPT-5 mini** \\\n\\\n- 文本与视觉\\\n- 40万 背景信息长度 | 13万 最大输出标记数\\\n- 输入 US$0.25 | 输出 US$2.00 每 1M 标记\\\n\\\n了解更多（在新窗口中打开）\\\n\\\n（在新窗口中打开）]([https://platform.openai.com/docs/models/gpt-5-mini](https://platform.openai.com/docs/models/gpt-5-mini)) [![](https://cdn.openai.com/ctf-cdn/gpt-5-api-small.png?w=3840&q=50&fm=webp)\\\n\\\n**GPT-5 nano** \\\n\\\n- 文本与视觉\\\n- 40万 背景信息长度 | 13万 最大输出标记数\\\n- 输入 US$0.05 | 输出 US$0.40 每 1M 标记\\\n\\\n了解更多（在新窗口中打开）\\\n\\\n（在新窗口中打开）]([https://platform.openai.com/docs/models/gpt-5-nano](https://platform.openai.com/docs/models/gpt-5-nano))\n\n## 我们最适合工作的模型\nGPT‑5 更智能、更可靠，专为企业依赖的关键任务而设计。\n\n[立即试用（在新窗口中打开）](https://chatgpt.com/team-sign-up) [联系销售人员](https://openai.com/zh-Hans-CN/contact-sales/)\n\nGPT‑5 在写作、研究、分析、编程和解决问题方面表现出色。 它能够提供更准确、更专业的回复，就像在与一位聪明、有思想的同事合作一样。\n\n![GPT-5 通过询问请求后续输入](https://images.ctfassets.net/kftzwdyauwt9/56zhFebELMHySA0sKoOUTc/9196ce690a991bf174254711d07a74ff/Business_2__1_.png?w=3840&q=90&fm=webp)\n\n每位员工无需切换模型，即可获得专家级的结果。"
+        },
+        {
+          "title": "隆重推出GPT-5 - OpenAI",
+          "url": "https://openai.com/zh-Hant/index/introducing-gpt-5/",
+          "snippet": "# 隆重推出 GPT‑5\n我們迄今最聰明、快速且實用的模型，內建思考能力，讓所有人都能運用專家級智慧。\n\n## This post introduced GPT-5.\n![Sizzle Thumbnail 16x9](https://images.ctfassets.net/kftzwdyauwt9/5b1wK8djzfqiq3ImLC9fSi/0d46477142ecc653454d4c68ff6a9e29/Sizzle_Thumbnail_16x9.png?w=3840&q=50&fm=webp)\n\n隆重推出迄今最強大的 AI 模型 GPT‑5。 相較於先前的所有模型，GPT‑5 的智慧大幅進化，在程式設計、數學、寫作、健康、視覺感知及更多領域的表現，皆達到頂尖水準。\n\n## 更聰明實用的模型\nGPT‑5 不僅在基準測試的表現優於前代模型，回應速度也所提升，但最重要的是，對於實際問題更有幫助。 我們在降低幻覺率、提升指令遵循能力和減少諂媚回應方面，取得了重大進展，同時提升了 GPT‑5 在寫作、程式設計和健康領域這三大應用情境的表現。\n\n### 健康\nGPT‑5 是我們迄今最適合處理健康保健相關問題的模型，能為使用者提供各項保健新知，協助他們為自身健康把關。 與前代模型相比，此模型的表現更像是會主動思考的夥伴，能積極指出潛在問題，並透過提問來提供更實用的答案。 這款模型現在還可根據使用者的上下文、知識程度和地理位置調整內容，給出更準確可靠的回答，在各種情境下提高安全性與實用性。\n\n## GPT-5\nIn the tea tin, a single sock,\n\n*我們針對既定提示，選擇 4o 和 OpenAI o3 兩個模型中表現較佳者的回應。"
+        },
+        {
+          "title": "模型发布说明 - OpenAI Help Center",
+          "url": "https://help.openai.com/zh-hans-cn/articles/9624314-model-release-notes",
+          "snippet": "# 模型发布说明\n## OpenAI 模型规范更新（2026 年 8 月 18 日）\n如需详细了解我们与青少年相关的原则，请参阅我们的 [《面向青少年的 ChatGPT》](https://openai.com/index/chatgpt-for-teens) 博文；最新版本的《模型规范》可在 [model-spec.openai.com](http://model-spec.openai.com/) 查看。\n\n## OpenAI 模型规范更新（2025 年 9 月 12 日）\n与以往一样，最新版模型规范可在 [[https://model-spec.openai.com/](https://model-spec.openai.com/)](https://model-spec.openai.com/) 查看。\n\n## 推出两个开放权重模型：gpt-oss-120b 和 gpt-oss-20b（2025 年 8 月 5 日）\n我们正在发布两个开放权重推理模型： **gpt-oss-120b** 和 **gpt-oss-20b**。 这些纯文本模型面向希望在自有基础设施或托管服务提供商上运行并定制模型的团队，支持函数调用和结构化输出等常见开发者模式。\n\n更多信息请访问我们的 [开放模型](https://openai.com/open-models/) 和 [帮助中心](https://help.openai.com/zh-hans-cn/articles/11870455) **。**\n\n## **OpenAI o3 和 o4-mini（2025 年 4 月 16 日）**\n**OpenAI o3** 是我们最强大的推理模型，在 **编程、数学、科学、视觉感知** 等领域推动前沿。\n\n**OpenAI o4-mini** 是一个较小的模型，针对快速、低成本推理进行了优化——就其规模和成本而言表现卓越，尤其是在 **数学、编程和视觉任务** 中。\n\n## **推出 OpenAI o3-mini（2025 年 1 月 31 日）**\n我们很高兴发布 o3-mini。 这是我们最新推出的高性价比推理模型，专门针对编程、数学和科学进行了优化。\n\n在 API 中，o3-mini 支持结构化输出、函数调用、开发者消息和流式传输。 它提供三个可调节的推理强度级别（低、中和高），让你可以根据使用场景平衡速度与深度。\n\n从今天起，ChatGPT Team、Pro、Plus 和 Free 方案的用户均可使用 o3-mini。 此外，o3-mini 现在可以结合搜索功能，查找最新答案并提供相关网络来源的链接。 这是一个早期原型，我们正努力将搜索功能整合到所有推理模型中。 在并排测试中，o3-mini 以更低的延迟取得了与 o1 相当的结果，并在高级 STEM 任务上优于 o1-mini。\n\n我们期待收到你的反馈。 随着高级推理模型系列不断扩展，我们也会继续改进 o3-mini。\n\n## **ChatGPT 中的 GPT-4o 更新（2025 年 1 月 29 日）**\n### **推出 OpenAI o1-preview 和 o1-mini（2024 年 9 月 12 日）**\n我们开发了一个新的 AI 模型系列，旨在回答前花更多时间思考。\n\n今天，我们在 ChatGPT 和我们的 API 中发布该系列的首批模型。 这是预览版，我们预计会定期更新和改进。\n\nChatGPT Plus 和 Team 用户从今天起将能够在 ChatGPT 中访问 o1 模型。 我们正在努力提高这些额度，并让 ChatGPT 能针对给定提示自动选择合适的模型。\n\n### **推出 GPT-4o mini（2024 年 7 月 18 日）**\n我们正在推出 GPT-4o mini，这是目前能力最强且最具成本效益的小型模型。 在文本智能和多模态推理的学术基准测试中，GPT-4o mini 超越了 GPT-3.5 Turbo 和其他小型模型，并支持与 GPT-4o 相同范围的语言。 它在函数调用方面也表现强劲，可帮助开发者构建能从外部系统获取数据或执行操作的应用，并且相比 GPT-3.5 Turbo 长上下文性能有所提升。\n\n你可以在 [博客公告](https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/) 中了解更多有关 GPT-4o mini 的信息。"
+        },
+        {
+          "title": "研究",
+          "url": "https://openai.com/zh-Hans-CN/research/index/",
+          "snippet": "## 研究\n[借助面向学术研究人员的 ChatGPT 加速科学发现\\\n\\\nOpenAI 将为 10 万名学术研究人员免费开放 ChatGPT 最先进的 AI 模型，以加速科学研究、协作与发现。](https://openai.com/index/chatgpt-for-academic-researchers/)"
+        },
+        {
+          "title": "OpenAI 的開放模型",
+          "url": "https://openai.com/zh-Hant/open-models/",
+          "snippet": "# OpenAI 的開放模型\n進階開放權重推理模型，可針對任何使用情境自由調整，並在任何環境執行。\n\n[![](https://cdn.openai.com/ctf-cdn/open-models-card-bg.png?w=3840&q=50&fm=webp)\\\n\\\n-0.50\\\n\\\n0.00\\\n\\\n0.00\\\n\\\n0.00\\\n\\\n-0.50\\\n\\\n**gpt-oss** \\\n\\\n開放式推理模型，能在桌上型電腦、筆記型電腦和資料中心本機上執行；提供 120B 和 20B 參數兩種等級。\\\n\\\n馬上動手開發(在新視窗中開啟)\\\n\\\n(在新視窗中開啟)](https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4) [![](https://cdn.openai.com/ctf-cdn/open-models-card-bg.png?w=3840&q=50&fm=webp)\\\n\\\n-0.50\\\n\\\n0.00\\\n\\\n0.00\\\n\\\n0.00\\\n\\\n-0.50\\\n\\\n**gpt-oss-safeguard** \\\n\\\n開放式安全推理模型，支援自訂安全政策；提供 120B 和 20B 參數兩種等級。\\\n\\\n馬上動手開發(在新視窗中開啟)\\\n\\\n(在新視窗中開啟)](https://huggingface.co/collections/openai/gpt-oss-safeguard)\n\n#### 寬鬆授權\n這些模型採用 Apache 2.0 授權。\n\n![智慧體式程式碼圖示](https://images.ctfassets.net/kftzwdyauwt9/5OEoJzrBuSmHTiDu71MN8G/b2b66bd76644a1d359339524b226c48c/marker-code.svg?w=3840&q=90)\n\n## 模型效能\n|  |  |  |  |  |\n|-|-|-|-|-|\n|  | **gpt-oss-120b** | **gpt-oss-20b** | **OpenAI o3** | **OpenAI o4-mini** |\n| 推理與知識 |\n| MMLU | **90.0** | **85.3** | 93.4 | 93.0 |\n| GPQA Diamond | **80.1** | **71.5** | 83.3 | 81.4 |\n| Humanity’s Last Exam（人類終極測驗） | **19.0** | **17.3** | 24.9 | 17.7 |\n| 數學競賽 |\n| AIME 2024 | **96.6** | **96.0** | 95.2 | 98.7 |\n| AIME 2025 | **97.9** | **98.7** | 98.4 | 99.5 |"
+        },
+        {
+          "title": "OpenAI发布最新模型GPT-5.4 - 新华网",
+          "url": "https://www.news.cn/world/20260306/b3541dfa39fd451b98b0d1e52a0dce22/c.html",
+          "snippet": "OpenAI发布最新模型GPT-5.4-新华网\n\n# OpenAI发布最新模型GPT-5.4\n2026-03-06 13:53:36\n\n来源：新华网\n\n新华社旧金山3月5日电（记者吴晓凌）美国开放人工智能研究中心（OpenAI）5日宣布推出人工智能模型GPT-5的最新升级版本GPT-5.4，称其为目前面向专业工作推出的能力最强、效率最高的前沿模型之一。\n\n据OpenAI介绍，GPT-5.4整合了其在推理、编程以及智能体工作流程方面的最新技术成果。 新模型继承了此前GPT-5.3-Codex的编程能力，并在处理表格、演示文稿和文档等任务方面进行了优化，使模型能够更高效地完成复杂工作。 该模型还显著提升了长文本处理能力。\n\n该公司表示，GPT-5.4提供Thinking和Pro两种模型。 Pro模型主要面向需要在复杂任务中实现最大性能的用户。 Thinking模型能够在生成答案前给出思考计划，用户可在生成过程中调整任务方向，从而减少多轮对话，提高结果与需求的匹配度。 Thinking模型还提升了深度网络研究能力，可提供质量更高、速度更快、更贴合任务的回答。\n\nOpenAI表示，GPT-5.4还是其首个能直接操作计算机的通用模型，不仅擅长编写代码，还能根据屏幕截图发出鼠标和键盘操作指令，使智能体能够操作计算机，并在不同应用程序之间执行复杂的工作流程。\n\nOpenAI表示，GPT-5.4在多项评测中表现优于此前版本，在事实准确性方面也有所改善。 公司宣布，未来数月将逐步淘汰旧版GPT-5.2 Thinking模型。\n\n【纠错】\n\n【责任编辑:赵阳】\n\n阅读下一篇：\n\n- [![微不足道的一切](https://q4.itc.cn/images01/20250616/57a047b1b30648db99e5952f0ec683e7.png)](https://www.news.cn/book/20250613/479a4a78e6994096ab6515fe8c9dbf6b/c.html)\n\n- [![海上升明月](https://img14.360buyimg.com/pop/jfs/t1/300617/14/14499/46703/684fec74Fea31d47f/3fcbf72ba1b59e7b.jpg)](https://www.news.cn/book/20250530/406f6cfe5713488683cc9a884230233a/c.html)\n\n- [![](https://www.news.cn/world/20260305/3434b17329f44b0f8b6a595eddd11cfe/fae09b28339945a7a1486067b64697d0.jpg)](http://www.news.cn/depthobserve/xhqmtt.html)\n\n- [两会新华鲜报丨大地惊蛰！奏响春天的奋进序曲](https://www.news.cn/politics/20260304/8e16165c5f914d9886de69e022a51ddc/c.html)\n- [国际观察丨](http://www.news.cn/depthobserve/gjgc.html) [机器人手机折射中国AI智能体加速应用](https://www.news.cn/tech/20260304/e5f7ca5e54594e4e951baeb92d6c2d2c/c.html)\n- [新华每日电讯丨](http://www.xinhuanet.com/mrdx/index.htm) [千年书院架起文明互鉴的东方之桥](https://www.news.cn/local/20260305/302b4ea0aedb42d8b0f7f8255736ec1b/c.html)\n- [全球瞭望丨塞内加尔媒体：美以军事行动加剧全世界动荡](https://www.news.cn/world/20260305/4c3d33ce18c74808a2f874533cab0021/c.html)\n- [全球瞭望丨日本媒体：美国高关税政策难以达成目标](https://www.news.cn/world/20260305/c46026f9451e498a97a0784aab8c6a6b/c.html)\n- [![](https://www.news.cn/world/20251128/102b1dc22d3742128ec47309f29f9659/25671e216ce94f7fbd213ac3641e4eb1.jpg)](https://www.news.cn/depthobserve/xhqmj.html)\n\n- [![](https://www.news.cn/world/20260305/e952f27240744eae864b68c633ee363c/f7c54929576f4eab9d234670a8336715.jpg)](https://www.news.cn/politics/20260305/c858e495b58b437694bfacad8907ecb6/c.html)"
+        },
+        {
+          "title": "Models | OpenAI API",
+          "url": "https://developers.openai.com/api/docs/models",
+          "snippet": "All latest OpenAI models support text and image input, text output, multilingual capabilities, and vision. Models are available via the Responses API and our ..."
+        },
+        {
+          "title": "模型（Model） | OpenAI 官方帮助文档中文版",
+          "url": "https://openai.xiniushu.com/docs/models",
+          "snippet": "# 模型（Model）\n## 概述 [​](https://openai.xiniushu.com/docs/models#%E6%A6%82%E8%BF%B0)\n| 模型 | 描述 |\n|-|-|\n| [GPT-4](https://platform.openai.com/docs/models/gpt-4) Beta | 一组改进 GPT-3.5 的模型，可以理解和生成自然语言或代码 |\n| [GPT-3.5](https://platform.openai.com/docs/models/gpt-3-5) | 一组改进 GPT-3 的模型，可以理解并生成自然语言或代码 |\n| [Whisper](https://platform.openai.com/docs/models/whisper) Beta | 可以将音频转换为文本的模型 |\n| [Codex](https://platform.openai.com/docs/models/codex) Limited Beta | 一组可以理解和生成代码的模型，包括将自然语言转换为代码 |\n| [GPT-3](https://platform.openai.com/docs/models/gpt-3) | 一组可以理解和生成自然语言的模型 |\n\n我们还发布了开源模型，包括 [Point-E](https://github.com/openai/point-e)， [Whisper](https://github.com/openai/whisper)， [Jukebox](https://github.com/openai/jukebox) 和 [CLIP。](https://github.com/openai/CLIP)\n\n## 持续升级的模型 [​](https://openai.xiniushu.com/docs/models#%E6%8C%81%E7%BB%AD%E5%8D%87%E7%BA%A7%E7%9A%84%E6%A8%A1%E5%9E%8B)\n随着的发布 `gpt-3.5-turbo` ，我们的一些模型现在正在不断更新。\n\n如果要使用最新的模型版本，请使用标准模型名称，如 `gpt-4` 或 `gpt-3.5-turbo` 。\n\n## GPT-4 Limited beta [​](https://openai.xiniushu.com/docs/models#gpt-4-limited-beta)\n| MODEL | 描述 | 最大 tokens 数 | 训练数据 |\n|-|-|-|-|\n| gpt-4 | 比任何 GPT-3.5 模型都更强大，能够执行更复杂的任务，并针对聊天进行了优化。将使用我们最新的模型迭代进行更新。 | 8,192 个 tokens | 截至 2021 年 9 月 |\n| gpt-4-0613 | 2023 `gpt-4` 年 6 月 13 日的快照，包含函数调用数据。与此不同 `gpt-4` ，此模型将不会收到更新，并将在新版本发布后 3 个月弃用。 | 8,192 个 tokens | 截至 2021 年 9 月 |\n| gpt-4-32k | 与基本`gpt-4`模式相同的功能，但上下文长度是其 4 倍。将使用我们最新的模型迭代进行更新。 | 32,768 个 tokens | 截至 2021 年 9 月 |\n| gpt-4-32k-0613 | 2023 `gpt-4-32` 年 6 月 13 日的快照。与此不同 `gpt-4-32k` ，此模型将不会收到更新，并将在新版本发布后 3 个月弃用。 | 32,768 个 tokens | 截至 2021 年 9 月 |\n\n## GPT-3.5 [​](https://openai.xiniushu.com/docs/models#gpt-35)\n| LATEST MODEL（最新模型） | 描述 | 最大 tokens 数 | 训练数据 |\n|-|-|-|-|\n| gpt-3.5-turbo | 功能最强大的 GPT-3.5 型号，针对聊天进行了优化，成本仅为 `text-davinci-003` 的 1/10。将使用我们最新的模型迭代进行更新。 | 4096 tokens | 截至 2021 年 9 月 |\n| gpt-3.5-turbo-16k | 与标准模型`gpt-3.5-turbo`有相同的功能，但该模型是其 4 倍的上下文。 | 16,384 tokens | 截至 2021 年 9 月 |\n| gpt-3.5-turbo-0613 | 2023 `gpt-3.5-turbo` 年 6 月 13 日的快照，包含函数调用数据。与此不同 `gpt-3.5-turbo` ，此模型将不会收到更新，并将在新版本发布后 3 个月弃用。 | 4096 tokens | 截至 2021 年 9 月 |\n| gpt-3.5-turbo-16k-0613 | 2023 `gpt-3.5-turbo-16k` 年 6 月 13 日的快照。与此不同 `gpt-3.5-turbo-16k` ，此模型将不会收到更新，并将在新版本发布后 3 个月弃用。 | 16,384 tokens | 截至 2021 年 9 月 |\n| text-davinci-003 | 可以比 curie、babbage、ada 模型更好的质量、更长的输出和一致的指令遵循来完成任何语言任务。还支持在文本中 [插入](https://platform.openai.com/docs/guides/completion/inserting-text) 补全。 | 4097 tokens | 截至 2021 年 6 月 |\n| text-davinci-002 | 与 `text-davinci-003` 类似的功能，但使用监督微调而不是强化学习进行训练 | 4097 tokens | 截至 2021 年 6 月 |\n| code-davinci-002 | 针对代码完成任务进行了优化 | 8001 tokens | 截至 2021 年 6 月 |\n\n我们建议使用 `gpt-3.5-turbo` 而不是其他 GPT-3.5 模型，因为它的成本更低。"
+        }
+      ],
+      "citations": [],
+      "searchQueries": [],
+      "metadata": {
+        "authMode": "api_key",
+        "requestId": "01a0a0aa-48b8-759c-997a-1a7e8666df85"
+      },
+      "latencyMs": 1699,
+      "query": "OpenAI 最新发布的模型",
+      "facetId": "base",
+      "wave": "breadth"
+    },
+    {
+      "provider": "gemini",
+      "requestedProvider": "gemini",
+      "ok": true,
+      "sources": [
+        {
+          "title": "wikipedia.org",
+          "url": "https://en.wikipedia.org/wiki/GPT-6_Astra"
+        },
+        {
+          "title": "openai.com",
+          "url": "https://openai.com/index/gpt-6-astra-next-generation-work/"
+        },
+        {
+          "title": "163.com",
+          "url": "https://m.163.com/news/article/L6QTJ2I505118UGF.html?clickfrom=subscribe"
+        },
+        {
+          "title": "eigent.ai",
+          "url": "https://www.eigent.ai/zh-CN/blog/gpt-6-astra"
+        },
+        {
+          "title": "openai.com",
+          "url": "https://openai.com/index/gpt-6-astra/"
+        },
+        {
+          "title": "openai.com",
+          "url": "https://openai.com/index/path-to-astra/"
+        },
+        {
+          "title": "openai.com",
+          "url": "https://openai.com/index/gpt-5-6/"
+        },
+        {
+          "title": "stob.ai",
+          "url": "https://stob.ai/blog/best-chatgpt-model-2026-guide"
+        },
+        {
+          "title": "openai.com",
+          "url": "https://help.openai.com/zh-hans-cn/articles/9624314-model-release-notes"
+        },
+        {
+          "title": "openai.com",
+          "url": "https://openai.com/zh-Hans-CN/news/product-releases/"
+        },
+        {
+          "title": "openai.com",
+          "url": "https://openai.com/zh-Hans-CN/research/index/release/"
+        },
+        {
+          "title": "openai.com",
+          "url": "https://openai.com/zh-Hans-CN/index/introducing-chatgpt-images-2-5/"
+        }
+      ],
+      "answer": "OpenAI 最新发布的旗舰模型是 **GPT-6 Astra**（于 2026 年 9 月初正式发布）。这是 OpenAI 迄今为止规模最大、智能程度最高且最具对齐性的前沿大模型。\n\n以下是关于 **GPT-6 Astra** 及近期其他重要模型发布的详细梳理：\n\n### 1. 旗舰模型：GPT-6 Astra（2026年9月）\n* **核心定位**：OpenAI 宣称其为新一代智能与面向工作场景的突破性模型，总裁格雷格·布罗克曼（Greg Brockman）在发布时甚至将其称为进入“AGI 时代”的重要里程碑。\n* **技术与规模**：这是 OpenAI 首次在得克萨斯州“星际之门”（Stargate）超级计算集群上使用超过 10 万块 GPU 进行预训练的模型。\n* **核心能力**：\n  * **计算机自主操作（Computer Use & Browsing）**：它不仅能生成文本或代码，更能像人类一样直接跨浏览器、电子表格、网站和桌面应用程序执行复杂的、多步骤的工作流（甚至在没有原生 API 的软件中也能工作）。\n  * **专业与科学领域**：在软件工程、科学研究、网络安全等领域达到行业顶尖水平。例如，在 FrontierMath 4、ARC-AGI-3 等高难基准测试中取得了突破性高分。\n* **安全性与网络安全阈值**：Astra 是 OpenAI 应急准备框架下首个触发 **“关键（Critical）”级别网络安全阈值** 的模型。这意味着它具备在没有人工干预下发现未知安全漏洞并加以利用的潜力，因此 OpenAI 在发布时为其配备了极其严苛的安全栈与防护网。\n* **部署与可用性**：正陆续向 ChatGPT Plus、Pro、Business、Enterprise 用户以及开发者 API、AWS Bedrock 和微软 Azure 平台推送。\n\n---\n\n### 2. 近期其他重要模型与产品更新（2026年中期）\n在 GPT-6 Astra 发布之前，OpenAI 在 2026 年中还推出了以下系列：\n* **GPT-5.6 系列（2026年7月发布）**：包括旗舰推理模型 **GPT-5.6 Sol**、平衡型日常模型 **GPT-5.6 Terra** 以及高性价比的 **GPT-5.6 Luna**，主打高效率、每个 Token 蕴含更多智能以及更强的每美元性能。\n* **GPT-Live-1（2026年9月更新）**：新一代全双工语音模型，支持在 API 中构建更自然、带自定义语音和电话支持的实时语音交互体验。\n* **ChatGPT 图像 2.5（GPT-Image-2.5 Flare，2026年9月发布）**：针对图像生成和编辑工作流推出，延迟大幅降低，并在 ChatGPT 中引入了 `@Sketch`（草图转图像）等实用创意交互功能。",
+      "citations": [
+        "https://en.wikipedia.org/wiki/GPT-6_Astra",
+        "https://openai.com/index/gpt-6-astra-next-generation-work/",
+        "https://m.163.com/news/article/L6QTJ2I505118UGF.html?clickfrom=subscribe",
+        "https://www.eigent.ai/zh-CN/blog/gpt-6-astra",
+        "https://m.163.com/news/article/L6QTJ2I505118UGF.html?clickfrom=subscribe",
+        "https://m.163.com/news/article/L6QTJ2I505118UGF.html?clickfrom=subscribe",
+        "https://openai.com/index/gpt-6-astra-next-generation-work/",
+        "https://www.eigent.ai/zh-CN/blog/gpt-6-astra",
+        "https://openai.com/index/gpt-6-astra/",
+        "https://openai.com/index/path-to-astra/",
+        "https://openai.com/index/path-to-astra/",
+        "https://openai.com/index/gpt-6-astra/",
+        "https://m.163.com/news/article/L6QTJ2I505118UGF.html?clickfrom=subscribe",
+        "https://openai.com/index/gpt-5-6/",
+        "https://stob.ai/blog/best-chatgpt-model-2026-guide",
+        "https://help.openai.com/zh-hans-cn/articles/9624314-model-release-notes",
+        "https://openai.com/zh-Hans-CN/news/product-releases/",
+        "https://openai.com/zh-Hans-CN/research/index/release/",
+        "https://openai.com/zh-Hans-CN/index/introducing-chatgpt-images-2-5/"
+      ],
+      "searchQueries": [
+        "OpenAI 最新发布的模型",
+        "OpenAI new model release 2026",
+        "OpenAI latest model 2026"
+      ],
+      "metadata": {
+        "model": "gemini-2.5-flash",
+        "usage": {
+          "inputTokens": 255,
+          "outputTokens": 782,
+          "totalTokens": 1037
+        }
+      },
+      "latencyMs": 6127,
+      "query": "OpenAI 最新发布的模型",
+      "facetId": "base",
+      "wave": "breadth"
+    }
+  ],
+  "facets": [
+    {
+      "id": "base",
+      "query": "OpenAI 最新发布的模型",
+      "purpose": "broad-recall",
+      "requiredRoles": [],
+      "required": true,
+      "entities": []
+    },
+    {
+      "id": "freshness",
+      "query": "OpenAI 最新发布的模型 latest update",
+      "purpose": "freshness",
+      "requiredRoles": [
+        "fresh"
+      ],
+      "required": true,
+      "entities": []
+    },
+    {
+      "id": "official",
+      "query": "OpenAI 最新发布的模型 documentation source code",
+      "purpose": "primary-source",
+      "requiredRoles": [
+        "developer"
+      ],
+      "required": false,
+      "entities": []
+    }
+  ],
+  "queryVariants": [
+    "OpenAI 最新发布的模型",
+    "OpenAI 最新发布的模型 latest update",
+    "OpenAI 最新发布的模型 documentation source code"
+  ],
+  "fused": [
+    {
+      "title": "产品",
+      "url": "https://openai.com/zh-Hans-CN/news/product-releases",
+      "snippet": "OpenAI 最新发布的模型相关信息汇总（来自 OpenAI 新闻中心·产品页）：\n\n- 2026-06-04: “为 ChatGPT 记忆打造更强基础”——优化 ChatGPT 的记忆能力基础。\n- 2026-06-03: “GPT-Rosalind 推出新能力”——Rosalind 相关新能力发布。\n- 2026-06-02: “适用于各种角色、工具和工作流的 Codex”——Codex 的多场景应用与能力扩展。\n- 2026-06-01: “OpenAI 前沿模型和 Codex 现已在 AWS 上可用”——前沿模型与 Codex 已在 AWS 提供使用。\n- 2026-05-29: “借助 Rosalind 生物防御计划增强社会韧性”——Rosalind 项目相关社会韧性应用。\n- 2026-05-15: “ChatGPT 中的全新个人理财体验”——在 ChatGPT 中推出的个人理财功能体验。\n\n简要结论：页面聚焦 OpenAI 的最新模型与相关能力更新，涵盖 ChatGPT 的记忆增强、Rosalind 系列的新能力、Codex 的多场景应用、以及在 AWS 的可用性与其他 ",
+      "strictUrl": "https://openai.com/zh-Hans-CN/news/product-releases/",
+      "looseUrl": "https://openai.com/zh-Hans-CN/news/product-releases",
+      "citationUrl": "https://openai.com/zh-Hans-CN/news/product-releases/",
+      "hostname": "openai.com",
+      "providers": [
+        "exa",
+        "firecrawl",
+        "gemini"
+      ],
+      "families": [
+        "exa",
+        "firecrawl",
+        "google"
+      ],
+      "providerSupport": 3,
+      "familySupport": 3,
+      "rrf": 0.0477809868608388,
+      "provenance": "primary_official",
+      "rrfNormalized": 1,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.9,
+      "relevanceScore": 1,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.87
+    },
+    {
+      "title": "研究",
+      "url": "https://openai.com/zh-Hans-CN/research/index",
+      "snippet": "OpenAI 最新发布的模型聚焦在以下要点，按时间线大致顺序如下：\n\n- GPT‑5.6 系列：推出“三型”模型 Sol（旗舰）、Terra、Luna，强调更强的每 Token 智能、性价比和对最具挑战任务的扩展能力，配套有安全性与对齐改进的系统卡和大规模安全保障。还包括通过两项 API 设置提升 ARC-AGI-3 基准分数，并提升推理保留与压缩能力。\n- GPT‑Red：自动化红队测试系统，通过自我博弈提升安全性、对齐和提示注入稳健性。\n- GPT‑Live：新一代语音模型，提升人机自然互动现况，已应用于 ChatGPT 语音。\n- 其他研究与应用方向：如用于学术研究者的 ChatGPT 免费访问、在科学计算中使用 AI 智能体推进现代化、对数学与理论计算领域长久问题的进展，以及对 AI 编程与科学发现的工具化支持。\n\n如果你关注具体模型版本、用途或发布日，请告诉我你最关心的方面（如“想了解 GPT‑5.6 的具体型号与定价”、“GPT‑Live 的语音能力细节”等），我可以给出更聚焦的要点。",
+      "strictUrl": "https://openai.com/zh-Hans-CN/research/index/",
+      "looseUrl": "https://openai.com/zh-Hans-CN/research/index",
+      "citationUrl": "https://openai.com/zh-Hans-CN/research/index/",
+      "hostname": "openai.com",
+      "providers": [
+        "exa",
+        "firecrawl"
+      ],
+      "families": [
+        "exa",
+        "firecrawl"
+      ],
+      "providerSupport": 2,
+      "familySupport": 2,
+      "rrf": 0.03128054740957967,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.654665,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.9,
+      "relevanceScore": 1,
+      "providerSupportRatio": 0.6667,
+      "familySupportRatio": 0.6667,
+      "score": 0.655892
+    },
+    {
+      "title": "模型发布说明 - OpenAI Help Center",
+      "url": "https://help.openai.com/zh-hans-cn/articles/9624314-model-release-notes",
+      "snippet": "# 模型发布说明\n## OpenAI 模型规范更新（2026 年 8 月 18 日）\n如需详细了解我们与青少年相关的原则，请参阅我们的 [《面向青少年的 ChatGPT》](https://openai.com/index/chatgpt-for-teens) 博文；最新版本的《模型规范》可在 [model-spec.openai.com](http://model-spec.openai.com/) 查看。\n\n## OpenAI 模型规范更新（2025 年 9 月 12 日）\n与以往一样，最新版模型规范可在 [[https://model-spec.openai.com/](https://model-spec.openai.com/)](https://model-spec.openai.com/) 查看。\n\n## 推出两个开放权重模型：gpt-oss-120b 和 gpt-oss-20b（2025 年 8 月 5 日）\n我们正在发布两个开放权重推理模型： **gpt-oss-120b** 和 **gpt-oss-20b**。 这些纯文本模型面向希望在自有基础设施或托管服务提供商上运行并定制模型的团队，支持函数调用和结构化输出等常见开发者模式。\n\n更多信息请访问我们的 [开放模型](https://openai.com/open-models/) 和 [帮助中心](https://help.openai.com/zh-hans-cn/articles/11870455) **。**\n\n## **OpenAI o3 和 o4-mini（2025 年 4 月 16 日）**\n**OpenAI o3** 是我们最强大的推理模型，在 **编程、数学、科学、视觉感知** 等领域推动前沿。\n\n**OpenAI o4-mini** 是一个较小的模型，针对快速、低成本推理进行了优化——就其规模和成本而言表现卓越，尤其是在 **数学、编程和视觉任务** 中。\n\n## **推出 OpenAI o3-mini（2025 年 1 月 31 日）**\n我们很高兴发布 o3-mini。 这是我们最新推出的高性价比推理模型，专门针对编程、数学和科学进行了优化。\n\n在 API 中，o3-mini 支持结构化输出、函数调用、开发者消息和流式传输。 它提供三个可调节的推理强度级别（低、中和高），让你可以根据使用场景平衡速度与深度。\n\n从今天起，ChatGPT Team、Pro、Plus 和 Free 方案的用户均可使用 o3-mini。 此外，o3-mini 现在可以结合搜索功能，查找最新答案并提供相关网络来源的链接。 这是一个早期原型，我们正努力将搜索功能整合到所有推理模型中。 在并排测试中，o3-mini 以更低的延迟取得了与 o1 相当的结果，并在高级 STEM 任务上优于 o1-mini。\n\n我们期待收到你的反馈。 随着高级推理模型系列不断扩展，我们也会继续改进 o3-mini。\n\n## **ChatGPT 中的 GPT-4o 更新（2025 年 1 月 29 日）**\n### **推出 OpenAI o1-preview 和 o1-mini（2024 年 9 月 12 日）**\n我们开发了一个新的 AI 模型系列，旨在回答前花更多时间思考。\n\n今天，我们在 ChatGPT 和我们的 API 中发布该系列的首批模型。 这是预览版，我们预计会定期更新和改进。\n\nChatGPT Plus 和 Team 用户从今天起将能够在 ChatGPT 中访问 o1 模型。 我们正在努力提高这些额度，并让 ChatGPT 能针对给定提示自动选择合适的模型。\n\n### **推出 GPT-4o mini（2024 年 7 月 18 日）**\n我们正在推出 GPT-4o mini，这是目前能力最强且最具成本效益的小型模型。 在文本智能和多模态推理的学术基准测试中，GPT-4o mini 超越了 GPT-3.5 Turbo 和其他小型模型，并支持与 GPT-4o 相同范围的语言。 它在函数调用方面也表现强劲，可帮助开发者构建能从外部系统获取数据或执行操作的应用，并且相比 GPT-3.5 Turbo 长上下文性能有所提升。\n\n你可以在 [博客公告](https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/) 中了解更多有关 GPT-4o mini 的信息。",
+      "strictUrl": "https://help.openai.com/zh-hans-cn/articles/9624314-model-release-notes",
+      "looseUrl": "https://help.openai.com/zh-hans-cn/articles/9624314-model-release-notes",
+      "citationUrl": "https://help.openai.com/zh-hans-cn/articles/9624314-model-release-notes",
+      "hostname": "help.openai.com",
+      "providers": [
+        "firecrawl",
+        "gemini"
+      ],
+      "families": [
+        "firecrawl",
+        "google"
+      ],
+      "providerSupport": 2,
+      "familySupport": 2,
+      "rrf": 0.030761410403042123,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.6438,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.7143,
+      "providerSupportRatio": 0.6667,
+      "familySupportRatio": 0.6667,
+      "score": 0.632013
+    },
+    {
+      "title": "邁向 Astra：關鍵能力與前沿防護措施 | OpenAI",
+      "url": "https://openai.com/zh-Hant/index/path-to-astra",
+      "snippet": "OpenAI 最新發布的模型：Astra\n\n- 等級與能力：Astra 已達到「關鍵」網路安全能力門檻，具備在多個受嚴密防護的系統中自動識別未知安全缺陷並開發利用方法的能力；因此需要更強的防護與發布前審查。\n- 防護與發布：過去數週加強防護機制、降低濫用風險，並實施更嚴格的監控與阻止未授權行動的措施。與 Hugging Face 事件的學習經驗亦納入策略，正式環境防護能力被認為足以防止類似風險。\n- 部署與訪問：Astra 將分階段開放，初期給測試人員與特定情境使用，後續擴大到更廣泛的防護用途。\n- 與 GPT-5.6 Sol 的對比：Astra 的網路安全能力顯著提升，包括更高的令牌效率、漏洞辨識與利用鏈開發能力，同時在系統與模型層級的防護與對齊性（遵守安全限制、在授權範圍內運作）方面也顯著優於 GPT-5.6 Sol。\n- 對齊與穩健性：在嚴格的專家評估與紅隊測試中，Astra 展現出更高的合規性與穩健性，能更可靠地拒絕不被允許的網路請求，並維持跨對話情境的一致性與可控性。\n\n若你需要，我可以聚焦於 Astra 的具體防護機制細節、對比表或是開放進度時間表。",
+      "publishedDate": "2026-09-01T00:00:00.000Z",
+      "ageSeconds": 1181118,
+      "strictUrl": "https://openai.com/zh-Hant/index/path-to-astra/",
+      "looseUrl": "https://openai.com/zh-Hant/index/path-to-astra",
+      "citationUrl": "https://openai.com/zh-Hant/index/path-to-astra/",
+      "hostname": "openai.com",
+      "publishedAt": "2026-09-01T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015873015873015872,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.332204,
+      "freshnessScore": 0.7,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.7143,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.508823
+    },
+    {
+      "title": "OpenAI 发布 GPT-6 Astra，并承诺将 $1B  用于网络安全防御。 | Gate 新闻",
+      "url": "https://gate.com/zh/news/detail/openai-launches-gpt-6-astra-and-commits-1b-to-cybersecurity-defense-24003734",
+      "snippet": "OpenAI 最新发布的模型是 GPT-6 Astra。关键点：\n- 发布时间与定位：2026-09-04 推出，面向自主计算、软件工程、科学研究和复杂专业工作流程。\n- 性能与效率：在多项基准测试中表现领先，ARC-AGI-3 得分99.9%，FrontierMath Tier 4 98%，ExploitBench 100%；与前代相比，完成计算任务速度提升约47%。\n- 可用性与定价：API 定价为每百万输入令牌 10 美元，输出令牌每百万 50 美元；快速模式为标准费率的两倍。企业需为工作区启用 Astra。\n- 安全与对齐：内部对齐与对抗性测试显著改进，降低幻觉与规避审查的倾向，具备更强的防御能力。\n- 安全防护承诺：通过 Daybreak for Frontline Defenders 计划，OpenAI 将投入 10 亿美元，用于补贴关键基础设施的网络安全资源，优先在美国推行，面向水务、电网、地方政府等基本服务运营商，逐步扩展至国际市场。\n- 先行开放与扩展：发布当天向部分组织开放，随后向 ChatGPT Plus/Pro/Business/Enterprise、API 和",
+      "publishedDate": "2026-09-04T07:13:23.000Z",
+      "ageSeconds": 895915,
+      "strictUrl": "https://www.gate.com/zh/news/detail/openai-launches-gpt-6-astra-and-commits-1b-to-cybersecurity-defense-24003734",
+      "looseUrl": "https://gate.com/zh/news/detail/openai-launches-gpt-6-astra-and-commits-1b-to-cybersecurity-defense-24003734",
+      "citationUrl": "https://www.gate.com/zh/news/detail/openai-launches-gpt-6-astra-and-commits-1b-to-cybersecurity-defense-24003734",
+      "hostname": "gate.com",
+      "publishedAt": "2026-09-04T07:13:23.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015625,
+      "provenance": "unknown",
+      "rrfNormalized": 0.327013,
+      "freshnessScore": 0.7,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.432748
+    },
+    {
+      "title": "GPT-5 正式发布 - OpenAI",
+      "url": "https://openai.com/zh-Hans-CN/gpt-5",
+      "snippet": "# GPT‑5 正式发布\n## Update\n[Explore GPT‑6⁠](https://openai.com/zh-Hans-CN/index/gpt-6-astra/), OpenAI’s latest model.\n\n## 我们最先进的代码生成与智能体任务模型\nGPT‑5 能够生成高质量的代码，仅需少量提示即可创建前端用户界面，并在个性化、可控性以及执行复杂工具调用链方面展现出显著提升。 GPT‑5 还引入了“最小”推理难度和 API 中的“详细程度”参数。\n\n[开始构建（在新窗口中打开）](https://platform.openai.com/) [阅读 API 平台博客](https://openai.com/zh-Hans-CN/index/introducing-gpt-5-for-developers/)\n\n[![](https://cdn.openai.com/ctf-cdn/gpt-5-api-small.png?w=3840&q=50&fm=webp)\\ \\ **GPT-5** \\ \\\n\n- 文本与视觉\\\n- 40万 背景信息长度 | 13万 最大输出标记数\\\n- 输入 US$1.25 | 输出 US$10.00 每 1M 标记\\\n\\\n了解更多（在新窗口中打开）\\\n\\\n（在新窗口中打开）]([https://platform.openai.com/docs/models/gpt-5](https://platform.openai.com/docs/models/gpt-5)) [![](https://cdn.openai.com/ctf-cdn/gpt-5-api-small.png?w=3840&q=50&fm=webp)\\\n\\\n**GPT-5 mini** \\\n\\\n- 文本与视觉\\\n- 40万 背景信息长度 | 13万 最大输出标记数\\\n- 输入 US$0.25 | 输出 US$2.00 每 1M 标记\\\n\\\n了解更多（在新窗口中打开）\\\n\\\n（在新窗口中打开）]([https://platform.openai.com/docs/models/gpt-5-mini](https://platform.openai.com/docs/models/gpt-5-mini)) [![](https://cdn.openai.com/ctf-cdn/gpt-5-api-small.png?w=3840&q=50&fm=webp)\\\n\\\n**GPT-5 nano** \\\n\\\n- 文本与视觉\\\n- 40万 背景信息长度 | 13万 最大输出标记数\\\n- 输入 US$0.05 | 输出 US$0.40 每 1M 标记\\\n\\\n了解更多（在新窗口中打开）\\\n\\\n（在新窗口中打开）]([https://platform.openai.com/docs/models/gpt-5-nano](https://platform.openai.com/docs/models/gpt-5-nano))\n\n## 我们最适合工作的模型\nGPT‑5 更智能、更可靠，专为企业依赖的关键任务而设计。\n\n[立即试用（在新窗口中打开）](https://chatgpt.com/team-sign-up) [联系销售人员](https://openai.com/zh-Hans-CN/contact-sales/)\n\nGPT‑5 在写作、研究、分析、编程和解决问题方面表现出色。 它能够提供更准确、更专业的回复，就像在与一位聪明、有思想的同事合作一样。\n\n![GPT-5 通过询问请求后续输入](https://images.ctfassets.net/kftzwdyauwt9/56zhFebELMHySA0sKoOUTc/9196ce690a991bf174254711d07a74ff/Business_2__1_.png?w=3840&q=90&fm=webp)\n\n每位员工无需切换模型，即可获得专家级的结果。",
+      "strictUrl": "https://openai.com/zh-Hans-CN/gpt-5/",
+      "looseUrl": "https://openai.com/zh-Hans-CN/gpt-5",
+      "citationUrl": "https://openai.com/zh-Hans-CN/gpt-5/",
+      "hostname": "openai.com",
+      "providers": [
+        "firecrawl"
+      ],
+      "families": [
+        "firecrawl"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015873015873015872,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.332204,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.5714,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.430252
+    },
+    {
+      "title": "OpenAI 的开放模型",
+      "url": "https://openai.com/zh-Hans-CN/open-models",
+      "snippet": "# OpenAI 的开放模型\n[在 Hugging Face 上下载（在新窗口中打开）](https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4) [在 GitHub 上查看（在新窗口中打开）](https://github.com/openai/gpt-oss) [试用我们的模型（在新窗口中打开）](https://gpt-oss.com/)\n\n[![](https://cdn.openai.com/ctf-cdn/open-models-card-bg.png?w=3840&q=50&fm=webp)\\\n\\\n-0.50\\\n\\\n0.00\\\n\\\n0.00\\\n\\\n0.00\\\n\\\n-0.50\\\n\\\n**gpt-oss** \\\n\\\n专为在台式机、笔记本电脑和数据中心本地运行而设计的开放推理模型 — 提供 120B 和 20B 参数版本。\\\n\\\n开始构建（在新窗口中打开）\\\n\\\n（在新窗口中打开）](https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4) [![](https://cdn.openai.com/ctf-cdn/open-models-card-bg.png?w=3840&q=50&fm=webp)\\\n\\\n-0.50\\\n\\\n0.00\\\n\\\n0.00\\\n\\\n0.00\\\n\\\n-0.50\\\n\\\n**gpt-oss-safeguard** \\\n\\\n支持自定义安全策略的开放安全推理模型 — 提供 120B 和 20B 参数版本。\\\n\\\n开始构建（在新窗口中打开）\\\n\\\n（在新窗口中打开）](https://huggingface.co/collections/openai/gpt-oss-safeguard)\n\n## 模型性能\n|  |  |  |  |  |\n|-|-|-|-|-|\n|  | **gpt-oss-120b** | **gpt-oss-20b** | **OpenAI o3** | **OpenAI o4-mini** |\n| MMLU | **90.0** | **85.3** | 93.4 | 93.0 |\n| GPQA Diamond | **80.1** | **71.5** | 83.3 | 81.4 |\n| AIME 2024 | **96.6** | **96.0** | 95.2 | 98.7 |\n| AIME 2025 | **97.9** | **98.7** | 98.4 | 99.5 |\n\n## 开始构建\n[在 Hugging Face 上下载（在新窗口中打开）](https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4) [在 GitHub 上查看（在新窗口中打开）](https://github.com/openai/gpt-oss)",
+      "strictUrl": "https://openai.com/zh-Hans-CN/open-models/",
+      "looseUrl": "https://openai.com/zh-Hans-CN/open-models",
+      "citationUrl": "https://openai.com/zh-Hans-CN/open-models/",
+      "hostname": "openai.com",
+      "providers": [
+        "firecrawl"
+      ],
+      "families": [
+        "firecrawl"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.01639344262295082,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.343096,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.4286,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.428434
+    },
+    {
+      "title": "OpenAI发布地球最强大模型GPT-6 并宣告“欢迎来到AGI时代”_国际财经_财经_中金在线",
+      "url": "http://news.cnfol.com/guojicaijing/20260904/32359672.shtml",
+      "snippet": "OpenAI 最新发布的模型是 GPT-6Astra。官方称其为“目前全球最智能、且对齐程度最高的模型”，在计算机操作、网页浏览、软件工程、网络安全、科学研究以及专业工作等领域达到领先水平。关键亮点包括：\n- 高阶数学能力：FrontierMathTier4 得分 97.6%，接近或超越研究级数学测试的水平\n- 强化的陌生环境学习与抽象推理能力（ARC-AGI 方向）\n- 表现显著优于前代模型，评测显示在多个领域的提升已非“小幅升级”可比\n\n若需了解具体评测细节与应用场景，请告知你关注的领域（如编程、研究、网络安全等），我可给出相应要点。",
+      "publishedDate": "2026-09-04T01:01:16.000Z",
+      "ageSeconds": 918242,
+      "strictUrl": "http://news.cnfol.com/guojicaijing/20260904/32359672.shtml",
+      "looseUrl": "http://news.cnfol.com/guojicaijing/20260904/32359672.shtml",
+      "citationUrl": "http://news.cnfol.com/guojicaijing/20260904/32359672.shtml",
+      "hostname": "news.cnfol.com",
+      "publishedAt": "2026-09-04T01:01:16.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014925373134328358,
+      "provenance": "unknown",
+      "rrfNormalized": 0.312371,
+      "freshnessScore": 0.7,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.42367
+    },
+    {
+      "title": "OpenAI GPT-6 Astra 发布解读：首个关键级网络安全模型的能力跃升与可监控性回退",
+      "url": "https://xzhibot.com/3586.html",
+      "snippet": "OpenAI 最新发布的模型是 GPT-6 Astra。这一代模型被正式宣布为“代际跃迁”，并被OpenAI定位为首个达到关键级网络安全门槛的模型，同时在可监控性方面出现显著回退。核心要点如下：\n\n- 能力亮点\n  - Astra 的上下文窗口达到约105万 token，具备文本/图像输入、电脑操作、代码执行、联网搜索等多种工具能力。\n  - 在 ExploitBench 等安全评测中创纪录，凭借自我发现和利用未知漏洞的能力达到关键级水平，被认为可在较少人工指导下进行高难度的漏洞研究。\n  - 达到了 ARC-AGI-3 官方 harness 99.9%、FrontierMath Tier 4 等多项高等级评测分数，能自主发现零日漏洞并实现高难度任务。\n\n- 安全与监控\n  - 官方确认 Astra 的安全能力为“关键级”，为行业内首例。\n  - 但可监控性明显下降，理论上能在不触发人类可读推理链的情况下完成大量工作（测试显示无推理输出时也能完成相当数量的计算与任务）。\n  - OpenAI 提供企业级治理框架与对抗策略：强制思维链、30分钟自动停机告警、权限与测试分级等措施，以提高可",
+      "publishedDate": "2026-09-04T00:00:00.000Z",
+      "ageSeconds": 921918,
+      "strictUrl": "https://xzhibot.com/3586.html",
+      "looseUrl": "https://xzhibot.com/3586.html",
+      "citationUrl": "https://xzhibot.com/3586.html",
+      "hostname": "xzhibot.com",
+      "publishedAt": "2026-09-04T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014705882352941176,
+      "provenance": "unknown",
+      "rrfNormalized": 0.307777,
+      "freshnessScore": 0.7,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.420822
+    },
+    {
+      "title": "隆重推出GPT-5 - OpenAI",
+      "url": "https://openai.com/zh-Hant/index/introducing-gpt-5",
+      "snippet": "# 隆重推出 GPT‑5\n我們迄今最聰明、快速且實用的模型，內建思考能力，讓所有人都能運用專家級智慧。\n\n## This post introduced GPT-5.\n![Sizzle Thumbnail 16x9](https://images.ctfassets.net/kftzwdyauwt9/5b1wK8djzfqiq3ImLC9fSi/0d46477142ecc653454d4c68ff6a9e29/Sizzle_Thumbnail_16x9.png?w=3840&q=50&fm=webp)\n\n隆重推出迄今最強大的 AI 模型 GPT‑5。 相較於先前的所有模型，GPT‑5 的智慧大幅進化，在程式設計、數學、寫作、健康、視覺感知及更多領域的表現，皆達到頂尖水準。\n\n## 更聰明實用的模型\nGPT‑5 不僅在基準測試的表現優於前代模型，回應速度也所提升，但最重要的是，對於實際問題更有幫助。 我們在降低幻覺率、提升指令遵循能力和減少諂媚回應方面，取得了重大進展，同時提升了 GPT‑5 在寫作、程式設計和健康領域這三大應用情境的表現。\n\n### 健康\nGPT‑5 是我們迄今最適合處理健康保健相關問題的模型，能為使用者提供各項保健新知，協助他們為自身健康把關。 與前代模型相比，此模型的表現更像是會主動思考的夥伴，能積極指出潛在問題，並透過提問來提供更實用的答案。 這款模型現在還可根據使用者的上下文、知識程度和地理位置調整內容，給出更準確可靠的回答，在各種情境下提高安全性與實用性。\n\n## GPT-5\nIn the tea tin, a single sock,\n\n*我們針對既定提示，選擇 4o 和 OpenAI o3 兩個模型中表現較佳者的回應。",
+      "strictUrl": "https://openai.com/zh-Hant/index/introducing-gpt-5/",
+      "looseUrl": "https://openai.com/zh-Hant/index/introducing-gpt-5",
+      "citationUrl": "https://openai.com/zh-Hant/index/introducing-gpt-5/",
+      "hostname": "openai.com",
+      "providers": [
+        "firecrawl"
+      ],
+      "families": [
+        "firecrawl"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015625,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.327013,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.4286,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.418462
+    },
+    {
+      "title": "深入解析 OpenAI GPT-6 Astra：循环深度架构与 Agent 雄心 | 企业级大模型 LLM API 接口聚合平台 | n1n.ai",
+      "url": "https://explore.n1n.ai/zh/blog/shenru-jiexi-openai-gpt-6-astra-xunhuan-shedu-jiagou-yu-agent-xiongxin-2026-09-05",
+      "snippet": "OpenAI 最新发布的模型是 GPT-6 Astra。核心亮点与要点如下：\n\n- 技术创新：以循环深度架构（Recurrent Depth Architecture）替代传统单向前向传播，显著改进信息处理、多步逻辑推理与复杂计算任务执行能力。\n- 企业级设计：强化长上下文管理、隐空间推理安全、工具调用协议以及稳定的 API 基础架构，面向企业开发、系统架构师和 AI 研究工程师。\n- 训练规模与数据治理：在得克萨斯 Stargate 超级计算中心进行训练，动用了超过10万张高性能 GPU；大量数据清洗与强化学习环境搭建由前代模型（如 GPT-5.6）承担。\n- 性能与基准：在多项基准测试（如 FrontierMath、Terminal-Bench、DeepSWE、ExploitBench 等）展现显著提升，尤其在复杂推理、自动化漏洞识别与系统操作能力方面表现突出；在 ExploitBench 取得满分100%。\n- 安全与防护：公开版本引入严格的防御性拦截，提升对潜在高风险攻击的抵抗能力，标志着对网络安全风险的高度重视。\n- 功能特性亮点：\n  - 超大上下文窗口：约1,050,00",
+      "publishedDate": "2026-09-04T16:34:54.000Z",
+      "ageSeconds": 862224,
+      "strictUrl": "https://explore.n1n.ai/zh/blog/shenru-jiexi-openai-gpt-6-astra-xunhuan-shedu-jiagou-yu-agent-xiongxin-2026-09-05",
+      "looseUrl": "https://explore.n1n.ai/zh/blog/shenru-jiexi-openai-gpt-6-astra-xunhuan-shedu-jiagou-yu-agent-xiongxin-2026-09-05",
+      "citationUrl": "https://explore.n1n.ai/zh/blog/shenru-jiexi-openai-gpt-6-astra-xunhuan-shedu-jiagou-yu-agent-xiongxin-2026-09-05",
+      "hostname": "explore.n1n.ai",
+      "publishedAt": "2026-09-04T16:34:54.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014492753623188406,
+      "provenance": "unknown",
+      "rrfNormalized": 0.303316,
+      "freshnessScore": 0.7,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.418056
+    },
+    {
+      "title": "OpenAI GPT-6 Astra 透過循環式深度架構實現通用人工智慧 | Gate 新聞",
+      "url": "https://gate.com/zh-tw/news/detail/NVDA/openai-gpt-6-astra-reaches-agi-with-recurrent-depth-architecture-24080594",
+      "snippet": "OpenAI 最新发布的模型是 GPT-6 Astra。关键点如下：\n- 架构与能力：Astra 采用 Recurrent Depth 架构，强调通过反覆重新计算提升推理与逻辑能力，被称为达到通用人工智慧（AGI）的里程碑，强调“循環式深度”而非单纯参数扩展。\n- 实测表现：在没有外部攻略信息的情况下，Astra 能在 18 小时 12 分钟内完成角色扮演游戏 Pokémon FireRed，显著优于前代模型 GPT-5.6 Sol（96 小时）和 GPT-5.5（超过 200 小时未完成）。\n- 订阅与定价：Astra 提供月度订阅，开发者方案 $200，一般使用者方案 $20。\n- 训练与基础设施：Astra 的训练使用超过 100,000 个 Blackwell NVL72 单元，下一代模型将部署约 400,000 个 GPU，规模较 Astra 提升四倍。\n- 发展动态：OpenAI 领导层提到在训练下一代模型时曾因研究智慧控制问题而暂时中止训练。\n\n若你关心具体参数、成本结构或对比前代模型的改进点，请告知，我可以聚焦整理相关细节。",
+      "publishedDate": "2026-09-07T09:58:43.000Z",
+      "ageSeconds": 626795,
+      "strictUrl": "https://www.gate.com/zh-tw/news/detail/NVDA/openai-gpt-6-astra-reaches-agi-with-recurrent-depth-architecture-24080594",
+      "looseUrl": "https://gate.com/zh-tw/news/detail/NVDA/openai-gpt-6-astra-reaches-agi-with-recurrent-depth-architecture-24080594",
+      "citationUrl": "https://www.gate.com/zh-tw/news/detail/NVDA/openai-gpt-6-astra-reaches-agi-with-recurrent-depth-architecture-24080594",
+      "hostname": "gate.com",
+      "publishedAt": "2026-09-07T09:58:43.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014285714285714285,
+      "provenance": "unknown",
+      "rrfNormalized": 0.298983,
+      "freshnessScore": 0.7,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.41537
+    },
+    {
+      "title": "GPT-6 Astra發布！數學與駭客測試近乎滿分，OpenAI高層宣告「AGI時代開端」|數位時代 BusinessNext",
+      "url": "https://bnext.com.tw/article/92131/gpt-6-astra-critical-cybersecurity-launch",
+      "snippet": "OpenAI 最新發布的模型是 GPT-6 Astra。要點如下：\n- 能力與測試：Astra 在數學測試（FrontierMath Tier 4 v2）獲得約97.6-98%高分；在 ExploitBench 的駭客測試中拿下滿分100%；在 ARC-AGI-3 自主探索能力測試中，使用特定設置可達99.9%。\n- 安全與開放策略：首次跨過 Preparedness Framework 的「Critical」等級，意味著在合適工具與存取權限下能自主發現未知資安漏洞並開發攻擊手法；因此採取分階段開放，初期僅限 Trusted Access Program 企業客戶與 Daybreak 安全專案合作。\n- 監控性與風險：可監控性較前代下降，對抗條件下可能規避思維鏈監控與表現不佳（sandbagging），研究人員需留意風險與防護。\n- 版本與存取：在 ChatGPT 內以「GPT-6 Pro」名稱提供給 Pro、Business、Enterprise 客戶；ChatGPT Plus 暫不含 GPT-6 Pro，API 與 AWS 走獨立開放管道；最進階的網路安全能力僅提供給少數合作夥伴。",
+      "publishedDate": "2026-09-04T00:00:00.000Z",
+      "ageSeconds": 921918,
+      "strictUrl": "https://www.bnext.com.tw/article/92131/gpt-6-astra-critical-cybersecurity-launch",
+      "looseUrl": "https://bnext.com.tw/article/92131/gpt-6-astra-critical-cybersecurity-launch",
+      "citationUrl": "https://www.bnext.com.tw/article/92131/gpt-6-astra-critical-cybersecurity-launch",
+      "hostname": "bnext.com.tw",
+      "publishedAt": "2026-09-04T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015384615384615385,
+      "provenance": "unknown",
+      "rrfNormalized": 0.321982,
+      "freshnessScore": 0.7,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.7143,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.412486
+    },
+    {
+      "title": "openai.com",
+      "url": "https://openai.com/index/gpt-6-astra-next-generation-work",
+      "strictUrl": "https://openai.com/index/gpt-6-astra-next-generation-work/",
+      "looseUrl": "https://openai.com/index/gpt-6-astra-next-generation-work",
+      "citationUrl": "https://openai.com/index/gpt-6-astra-next-generation-work/",
+      "hostname": "openai.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016259070142434832,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.340283,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.1429,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.409547
+    },
+    {
+      "title": "openai.com",
+      "url": "https://openai.com/index/gpt-6-astra",
+      "strictUrl": "https://openai.com/index/gpt-6-astra/",
+      "looseUrl": "https://openai.com/index/gpt-6-astra",
+      "citationUrl": "https://openai.com/index/gpt-6-astra/",
+      "hostname": "openai.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015868852459016394,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.332116,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.1429,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.404484
+    },
+    {
+      "title": "openai.com",
+      "url": "https://openai.com/index/path-to-astra",
+      "strictUrl": "https://openai.com/index/path-to-astra/",
+      "looseUrl": "https://openai.com/index/path-to-astra",
+      "citationUrl": "https://openai.com/index/path-to-astra/",
+      "hostname": "openai.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015742909185532138,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.329481,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.1429,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.402849
+    },
+    {
+      "title": "openai.com",
+      "url": "https://openai.com/index/gpt-5-6",
+      "strictUrl": "https://openai.com/index/gpt-5-6/",
+      "looseUrl": "https://openai.com/index/gpt-5-6",
+      "citationUrl": "https://openai.com/index/gpt-5-6/",
+      "hostname": "openai.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015618949270685429,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.326886,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.1429,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.401241
+    },
+    {
+      "title": "OpenAI 的開放模型",
+      "url": "https://openai.com/zh-Hant/open-models",
+      "snippet": "# OpenAI 的開放模型\n進階開放權重推理模型，可針對任何使用情境自由調整，並在任何環境執行。\n\n[![](https://cdn.openai.com/ctf-cdn/open-models-card-bg.png?w=3840&q=50&fm=webp)\\\n\\\n-0.50\\\n\\\n0.00\\\n\\\n0.00\\\n\\\n0.00\\\n\\\n-0.50\\\n\\\n**gpt-oss** \\\n\\\n開放式推理模型，能在桌上型電腦、筆記型電腦和資料中心本機上執行；提供 120B 和 20B 參數兩種等級。\\\n\\\n馬上動手開發(在新視窗中開啟)\\\n\\\n(在新視窗中開啟)](https://huggingface.co/collections/openai/gpt-oss-68911959590a1634ba11c7a4) [![](https://cdn.openai.com/ctf-cdn/open-models-card-bg.png?w=3840&q=50&fm=webp)\\\n\\\n-0.50\\\n\\\n0.00\\\n\\\n0.00\\\n\\\n0.00\\\n\\\n-0.50\\\n\\\n**gpt-oss-safeguard** \\\n\\\n開放式安全推理模型，支援自訂安全政策；提供 120B 和 20B 參數兩種等級。\\\n\\\n馬上動手開發(在新視窗中開啟)\\\n\\\n(在新視窗中開啟)](https://huggingface.co/collections/openai/gpt-oss-safeguard)\n\n#### 寬鬆授權\n這些模型採用 Apache 2.0 授權。\n\n![智慧體式程式碼圖示](https://images.ctfassets.net/kftzwdyauwt9/5OEoJzrBuSmHTiDu71MN8G/b2b66bd76644a1d359339524b226c48c/marker-code.svg?w=3840&q=90)\n\n## 模型效能\n|  |  |  |  |  |\n|-|-|-|-|-|\n|  | **gpt-oss-120b** | **gpt-oss-20b** | **OpenAI o3** | **OpenAI o4-mini** |\n| 推理與知識 |\n| MMLU | **90.0** | **85.3** | 93.4 | 93.0 |\n| GPQA Diamond | **80.1** | **71.5** | 83.3 | 81.4 |\n| Humanity’s Last Exam（人類終極測驗） | **19.0** | **17.3** | 24.9 | 17.7 |\n| 數學競賽 |\n| AIME 2024 | **96.6** | **96.0** | 95.2 | 98.7 |\n| AIME 2025 | **97.9** | **98.7** | 98.4 | 99.5 |",
+      "strictUrl": "https://openai.com/zh-Hant/open-models/",
+      "looseUrl": "https://openai.com/zh-Hant/open-models",
+      "citationUrl": "https://openai.com/zh-Hant/open-models/",
+      "hostname": "openai.com",
+      "providers": [
+        "firecrawl"
+      ],
+      "families": [
+        "firecrawl"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014925373134328358,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.312371,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.2857,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.400813
+    },
+    {
+      "title": "openai.com",
+      "url": "https://openai.com/zh-Hans-CN/research/index/release",
+      "strictUrl": "https://openai.com/zh-Hans-CN/research/index/release/",
+      "looseUrl": "https://openai.com/zh-Hans-CN/research/index/release",
+      "citationUrl": "https://openai.com/zh-Hans-CN/research/index/release/",
+      "hostname": "openai.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015142034789137782,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.316905,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.1429,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.395053
+    },
+    {
+      "title": "openai.com",
+      "url": "https://openai.com/zh-Hans-CN/index/introducing-chatgpt-images-2-5",
+      "strictUrl": "https://openai.com/zh-Hans-CN/index/introducing-chatgpt-images-2-5/",
+      "looseUrl": "https://openai.com/zh-Hans-CN/index/introducing-chatgpt-images-2-5",
+      "citationUrl": "https://openai.com/zh-Hans-CN/index/introducing-chatgpt-images-2-5/",
+      "hostname": "openai.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015027322404371586,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.314504,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.1429,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.393564
+    },
+    {
+      "title": "Models | OpenAI API",
+      "url": "https://developers.openai.com/api/docs/models",
+      "snippet": "All latest OpenAI models support text and image input, text output, multilingual capabilities, and vision. Models are available via the Responses API and our ...",
+      "strictUrl": "https://developers.openai.com/api/docs/models",
+      "looseUrl": "https://developers.openai.com/api/docs/models",
+      "citationUrl": "https://developers.openai.com/api/docs/models",
+      "hostname": "developers.openai.com",
+      "providers": [
+        "firecrawl"
+      ],
+      "families": [
+        "firecrawl"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014492753623188406,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.303316,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.1429,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.386628
+    },
+    {
+      "title": "OpenAI发布GPT-6 Astra，自称“全球最智能、对齐最好的模型”",
+      "url": "https://guancha.cn/economy/2026_09_04_829948.shtml?s=zwyzxw",
+      "snippet": "OpenAI 最新发布的模型是 GPT-6 Astra。这是继 GPT-5.6 之后的又一旗舰型号，官方称其为“全球最智能、对齐最好的模型”。Astra 主打“会用电脑”的能力：可上网、操作软件、编写代码、网络安全和科学研究流程等，而不仅仅是对话。正式向有限机构开放，随后逐步进入 ChatGPT Plus、Pro、Business、Enterprise，以及 OpenAI API 和 AWS 云等平台。官方评测显示在多项基准上表现优异，但部分分数来自自评，独立评测尚有不同意见。定价方面，API 为每百万输入 token 10 美元、每百万输出 token 50 美元，定位高于 GPT-5.6 Sol 的水平。GPT-6 Astra 由 Sam Altman 推出，目标是引领新一代创业、科学发现与创造。",
+      "strictUrl": "https://www.guancha.cn/economy/2026_09_04_829948.shtml?s=zwyzxw",
+      "looseUrl": "https://guancha.cn/economy/2026_09_04_829948.shtml?s=zwyzxw",
+      "citationUrl": "https://www.guancha.cn/economy/2026_09_04_829948.shtml?s=zwyzxw",
+      "hostname": "guancha.cn",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015151515151515152,
+      "provenance": "unknown",
+      "rrfNormalized": 0.317103,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.356604
+    },
+    {
+      "title": "模型（Model） | OpenAI 官方帮助文档中文版",
+      "url": "https://openai.xiniushu.com/docs/models",
+      "snippet": "# 模型（Model）\n## 概述 [​](https://openai.xiniushu.com/docs/models#%E6%A6%82%E8%BF%B0)\n| 模型 | 描述 |\n|-|-|\n| [GPT-4](https://platform.openai.com/docs/models/gpt-4) Beta | 一组改进 GPT-3.5 的模型，可以理解和生成自然语言或代码 |\n| [GPT-3.5](https://platform.openai.com/docs/models/gpt-3-5) | 一组改进 GPT-3 的模型，可以理解并生成自然语言或代码 |\n| [Whisper](https://platform.openai.com/docs/models/whisper) Beta | 可以将音频转换为文本的模型 |\n| [Codex](https://platform.openai.com/docs/models/codex) Limited Beta | 一组可以理解和生成代码的模型，包括将自然语言转换为代码 |\n| [GPT-3](https://platform.openai.com/docs/models/gpt-3) | 一组可以理解和生成自然语言的模型 |\n\n我们还发布了开源模型，包括 [Point-E](https://github.com/openai/point-e)， [Whisper](https://github.com/openai/whisper)， [Jukebox](https://github.com/openai/jukebox) 和 [CLIP。](https://github.com/openai/CLIP)\n\n## 持续升级的模型 [​](https://openai.xiniushu.com/docs/models#%E6%8C%81%E7%BB%AD%E5%8D%87%E7%BA%A7%E7%9A%84%E6%A8%A1%E5%9E%8B)\n随着的发布 `gpt-3.5-turbo` ，我们的一些模型现在正在不断更新。\n\n如果要使用最新的模型版本，请使用标准模型名称，如 `gpt-4` 或 `gpt-3.5-turbo` 。\n\n## GPT-4 Limited beta [​](https://openai.xiniushu.com/docs/models#gpt-4-limited-beta)\n| MODEL | 描述 | 最大 tokens 数 | 训练数据 |\n|-|-|-|-|\n| gpt-4 | 比任何 GPT-3.5 模型都更强大，能够执行更复杂的任务，并针对聊天进行了优化。将使用我们最新的模型迭代进行更新。 | 8,192 个 tokens | 截至 2021 年 9 月 |\n| gpt-4-0613 | 2023 `gpt-4` 年 6 月 13 日的快照，包含函数调用数据。与此不同 `gpt-4` ，此模型将不会收到更新，并将在新版本发布后 3 个月弃用。 | 8,192 个 tokens | 截至 2021 年 9 月 |\n| gpt-4-32k | 与基本`gpt-4`模式相同的功能，但上下文长度是其 4 倍。将使用我们最新的模型迭代进行更新。 | 32,768 个 tokens | 截至 2021 年 9 月 |\n| gpt-4-32k-0613 | 2023 `gpt-4-32` 年 6 月 13 日的快照。与此不同 `gpt-4-32k` ，此模型将不会收到更新，并将在新版本发布后 3 个月弃用。 | 32,768 个 tokens | 截至 2021 年 9 月 |\n\n## GPT-3.5 [​](https://openai.xiniushu.com/docs/models#gpt-35)\n| LATEST MODEL（最新模型） | 描述 | 最大 tokens 数 | 训练数据 |\n|-|-|-|-|\n| gpt-3.5-turbo | 功能最强大的 GPT-3.5 型号，针对聊天进行了优化，成本仅为 `text-davinci-003` 的 1/10。将使用我们最新的模型迭代进行更新。 | 4096 tokens | 截至 2021 年 9 月 |\n| gpt-3.5-turbo-16k | 与标准模型`gpt-3.5-turbo`有相同的功能，但该模型是其 4 倍的上下文。 | 16,384 tokens | 截至 2021 年 9 月 |\n| gpt-3.5-turbo-0613 | 2023 `gpt-3.5-turbo` 年 6 月 13 日的快照，包含函数调用数据。与此不同 `gpt-3.5-turbo` ，此模型将不会收到更新，并将在新版本发布后 3 个月弃用。 | 4096 tokens | 截至 2021 年 9 月 |\n| gpt-3.5-turbo-16k-0613 | 2023 `gpt-3.5-turbo-16k` 年 6 月 13 日的快照。与此不同 `gpt-3.5-turbo-16k` ，此模型将不会收到更新，并将在新版本发布后 3 个月弃用。 | 16,384 tokens | 截至 2021 年 9 月 |\n| text-davinci-003 | 可以比 curie、babbage、ada 模型更好的质量、更长的输出和一致的指令遵循来完成任何语言任务。还支持在文本中 [插入](https://platform.openai.com/docs/guides/completion/inserting-text) 补全。 | 4097 tokens | 截至 2021 年 6 月 |\n| text-davinci-002 | 与 `text-davinci-003` 类似的功能，但使用监督微调而不是强化学习进行训练 | 4097 tokens | 截至 2021 年 6 月 |\n| code-davinci-002 | 针对代码完成任务进行了优化 | 8001 tokens | 截至 2021 年 6 月 |\n\n我们建议使用 `gpt-3.5-turbo` 而不是其他 GPT-3.5 模型，因为它的成本更低。",
+      "strictUrl": "https://openai.xiniushu.com/docs/models",
+      "looseUrl": "https://openai.xiniushu.com/docs/models",
+      "citationUrl": "https://openai.xiniushu.com/docs/models",
+      "hostname": "openai.xiniushu.com",
+      "providers": [
+        "firecrawl"
+      ],
+      "families": [
+        "firecrawl"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014285714285714285,
+      "provenance": "unknown",
+      "rrfNormalized": 0.298983,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.7143,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.328227
+    },
+    {
+      "title": "OpenAI发布最新模型GPT-5.4 - 新华网",
+      "url": "https://news.cn/world/20260306/b3541dfa39fd451b98b0d1e52a0dce22/c.html",
+      "snippet": "OpenAI发布最新模型GPT-5.4-新华网\n\n# OpenAI发布最新模型GPT-5.4\n2026-03-06 13:53:36\n\n来源：新华网\n\n新华社旧金山3月5日电（记者吴晓凌）美国开放人工智能研究中心（OpenAI）5日宣布推出人工智能模型GPT-5的最新升级版本GPT-5.4，称其为目前面向专业工作推出的能力最强、效率最高的前沿模型之一。\n\n据OpenAI介绍，GPT-5.4整合了其在推理、编程以及智能体工作流程方面的最新技术成果。 新模型继承了此前GPT-5.3-Codex的编程能力，并在处理表格、演示文稿和文档等任务方面进行了优化，使模型能够更高效地完成复杂工作。 该模型还显著提升了长文本处理能力。\n\n该公司表示，GPT-5.4提供Thinking和Pro两种模型。 Pro模型主要面向需要在复杂任务中实现最大性能的用户。 Thinking模型能够在生成答案前给出思考计划，用户可在生成过程中调整任务方向，从而减少多轮对话，提高结果与需求的匹配度。 Thinking模型还提升了深度网络研究能力，可提供质量更高、速度更快、更贴合任务的回答。\n\nOpenAI表示，GPT-5.4还是其首个能直接操作计算机的通用模型，不仅擅长编写代码，还能根据屏幕截图发出鼠标和键盘操作指令，使智能体能够操作计算机，并在不同应用程序之间执行复杂的工作流程。\n\nOpenAI表示，GPT-5.4在多项评测中表现优于此前版本，在事实准确性方面也有所改善。 公司宣布，未来数月将逐步淘汰旧版GPT-5.2 Thinking模型。\n\n【纠错】\n\n【责任编辑:赵阳】\n\n阅读下一篇：\n\n- [![微不足道的一切](https://q4.itc.cn/images01/20250616/57a047b1b30648db99e5952f0ec683e7.png)](https://www.news.cn/book/20250613/479a4a78e6994096ab6515fe8c9dbf6b/c.html)\n\n- [![海上升明月](https://img14.360buyimg.com/pop/jfs/t1/300617/14/14499/46703/684fec74Fea31d47f/3fcbf72ba1b59e7b.jpg)](https://www.news.cn/book/20250530/406f6cfe5713488683cc9a884230233a/c.html)\n\n- [![](https://www.news.cn/world/20260305/3434b17329f44b0f8b6a595eddd11cfe/fae09b28339945a7a1486067b64697d0.jpg)](http://www.news.cn/depthobserve/xhqmtt.html)\n\n- [两会新华鲜报丨大地惊蛰！奏响春天的奋进序曲](https://www.news.cn/politics/20260304/8e16165c5f914d9886de69e022a51ddc/c.html)\n- [国际观察丨](http://www.news.cn/depthobserve/gjgc.html) [机器人手机折射中国AI智能体加速应用](https://www.news.cn/tech/20260304/e5f7ca5e54594e4e951baeb92d6c2d2c/c.html)\n- [新华每日电讯丨](http://www.xinhuanet.com/mrdx/index.htm) [千年书院架起文明互鉴的东方之桥](https://www.news.cn/local/20260305/302b4ea0aedb42d8b0f7f8255736ec1b/c.html)\n- [全球瞭望丨塞内加尔媒体：美以军事行动加剧全世界动荡](https://www.news.cn/world/20260305/4c3d33ce18c74808a2f874533cab0021/c.html)\n- [全球瞭望丨日本媒体：美国高关税政策难以达成目标](https://www.news.cn/world/20260305/c46026f9451e498a97a0784aab8c6a6b/c.html)\n- [![](https://www.news.cn/world/20251128/102b1dc22d3742128ec47309f29f9659/25671e216ce94f7fbd213ac3641e4eb1.jpg)](https://www.news.cn/depthobserve/xhqmj.html)\n\n- [![](https://www.news.cn/world/20260305/e952f27240744eae864b68c633ee363c/f7c54929576f4eab9d234670a8336715.jpg)](https://www.news.cn/politics/20260305/c858e495b58b437694bfacad8907ecb6/c.html)",
+      "strictUrl": "https://www.news.cn/world/20260306/b3541dfa39fd451b98b0d1e52a0dce22/c.html",
+      "looseUrl": "https://news.cn/world/20260306/b3541dfa39fd451b98b0d1e52a0dce22/c.html",
+      "citationUrl": "https://www.news.cn/world/20260306/b3541dfa39fd451b98b0d1e52a0dce22/c.html",
+      "hostname": "news.cn",
+      "providers": [
+        "firecrawl"
+      ],
+      "families": [
+        "firecrawl"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014705882352941176,
+      "provenance": "unknown",
+      "rrfNormalized": 0.307777,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.5714,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.325107
+    },
+    {
+      "title": "wikipedia.org",
+      "url": "https://en.wikipedia.org/wiki/GPT-6_Astra",
+      "strictUrl": "https://en.wikipedia.org/wiki/GPT-6_Astra",
+      "looseUrl": "https://en.wikipedia.org/wiki/GPT-6_Astra",
+      "citationUrl": "https://en.wikipedia.org/wiki/GPT-6_Astra",
+      "hostname": "en.wikipedia.org",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.01639344262295082,
+      "provenance": "unknown",
+      "rrfNormalized": 0.343096,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.312719
+    },
+    {
+      "title": "163.com",
+      "url": "https://m.163.com/news/article/L6QTJ2I505118UGF.html?clickfrom=subscribe",
+      "strictUrl": "https://m.163.com/news/article/L6QTJ2I505118UGF.html?clickfrom=subscribe",
+      "looseUrl": "https://m.163.com/news/article/L6QTJ2I505118UGF.html?clickfrom=subscribe",
+      "citationUrl": "https://m.163.com/news/article/L6QTJ2I505118UGF.html?clickfrom=subscribe",
+      "hostname": "m.163.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016126882580301215,
+      "provenance": "unknown",
+      "rrfNormalized": 0.337517,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.30926
+    },
+    {
+      "title": "eigent.ai",
+      "url": "https://eigent.ai/zh-CN/blog/gpt-6-astra",
+      "strictUrl": "https://www.eigent.ai/zh-CN/blog/gpt-6-astra",
+      "looseUrl": "https://eigent.ai/zh-CN/blog/gpt-6-astra",
+      "citationUrl": "https://www.eigent.ai/zh-CN/blog/gpt-6-astra",
+      "hostname": "eigent.ai",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015996827075621365,
+      "provenance": "unknown",
+      "rrfNormalized": 0.334795,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.307573
+    },
+    {
+      "title": "stob.ai",
+      "url": "https://stob.ai/blog/best-chatgpt-model-2026-guide",
+      "strictUrl": "https://stob.ai/blog/best-chatgpt-model-2026-guide",
+      "looseUrl": "https://stob.ai/blog/best-chatgpt-model-2026-guide",
+      "citationUrl": "https://stob.ai/blog/best-chatgpt-model-2026-guide",
+      "hostname": "stob.ai",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015496926229508198,
+      "provenance": "unknown",
+      "rrfNormalized": 0.324332,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.301086
+    }
+  ],
+  "results": [
+    {
+      "title": "产品",
+      "url": "https://openai.com/zh-Hans-CN/news/product-releases",
+      "snippet": "OpenAI 最新发布的模型相关信息汇总（来自 OpenAI 新闻中心·产品页）：\n\n- 2026-06-04: “为 ChatGPT 记忆打造更强基础”——优化 ChatGPT 的记忆能力基础。\n- 2026-06-03: “GPT-Rosalind 推出新能力”——Rosalind 相关新能力发布。\n- 2026-06-02: “适用于各种角色、工具和工作流的 Codex”——Codex 的多场景应用与能力扩展。\n- 2026-06-01: “OpenAI 前沿模型和 Codex 现已在 AWS 上可用”——前沿模型与 Codex 已在 AWS 提供使用。\n- 2026-05-29: “借助 Rosalind 生物防御计划增强社会韧性”——Rosalind 项目相关社会韧性应用。\n- 2026-05-15: “ChatGPT 中的全新个人理财体验”——在 ChatGPT 中推出的个人理财功能体验。\n\n简要结论：页面聚焦 OpenAI 的最新模型与相关能力更新，涵盖 ChatGPT 的记忆增强、Rosalind 系列的新能力、Codex 的多场景应用、以及在 AWS 的可用性与其他 ",
+      "strictUrl": "https://openai.com/zh-Hans-CN/news/product-releases/",
+      "looseUrl": "https://openai.com/zh-Hans-CN/news/product-releases",
+      "citationUrl": "https://openai.com/zh-Hans-CN/news/product-releases/",
+      "hostname": "openai.com",
+      "providers": [
+        "exa",
+        "firecrawl",
+        "gemini"
+      ],
+      "families": [
+        "exa",
+        "firecrawl",
+        "google"
+      ],
+      "providerSupport": 3,
+      "familySupport": 3,
+      "rrf": 0.0477809868608388,
+      "provenance": "primary_official",
+      "rrfNormalized": 1,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.9,
+      "relevanceScore": 1,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.87
+    },
+    {
+      "title": "研究",
+      "url": "https://openai.com/zh-Hans-CN/research/index",
+      "snippet": "OpenAI 最新发布的模型聚焦在以下要点，按时间线大致顺序如下：\n\n- GPT‑5.6 系列：推出“三型”模型 Sol（旗舰）、Terra、Luna，强调更强的每 Token 智能、性价比和对最具挑战任务的扩展能力，配套有安全性与对齐改进的系统卡和大规模安全保障。还包括通过两项 API 设置提升 ARC-AGI-3 基准分数，并提升推理保留与压缩能力。\n- GPT‑Red：自动化红队测试系统，通过自我博弈提升安全性、对齐和提示注入稳健性。\n- GPT‑Live：新一代语音模型，提升人机自然互动现况，已应用于 ChatGPT 语音。\n- 其他研究与应用方向：如用于学术研究者的 ChatGPT 免费访问、在科学计算中使用 AI 智能体推进现代化、对数学与理论计算领域长久问题的进展，以及对 AI 编程与科学发现的工具化支持。\n\n如果你关注具体模型版本、用途或发布日，请告诉我你最关心的方面（如“想了解 GPT‑5.6 的具体型号与定价”、“GPT‑Live 的语音能力细节”等），我可以给出更聚焦的要点。",
+      "strictUrl": "https://openai.com/zh-Hans-CN/research/index/",
+      "looseUrl": "https://openai.com/zh-Hans-CN/research/index",
+      "citationUrl": "https://openai.com/zh-Hans-CN/research/index/",
+      "hostname": "openai.com",
+      "providers": [
+        "exa",
+        "firecrawl"
+      ],
+      "families": [
+        "exa",
+        "firecrawl"
+      ],
+      "providerSupport": 2,
+      "familySupport": 2,
+      "rrf": 0.03128054740957967,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.654665,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.9,
+      "relevanceScore": 1,
+      "providerSupportRatio": 0.6667,
+      "familySupportRatio": 0.6667,
+      "score": 0.655892
+    },
+    {
+      "title": "模型发布说明 - OpenAI Help Center",
+      "url": "https://help.openai.com/zh-hans-cn/articles/9624314-model-release-notes",
+      "snippet": "# 模型发布说明\n## OpenAI 模型规范更新（2026 年 8 月 18 日）\n如需详细了解我们与青少年相关的原则，请参阅我们的 [《面向青少年的 ChatGPT》](https://openai.com/index/chatgpt-for-teens) 博文；最新版本的《模型规范》可在 [model-spec.openai.com](http://model-spec.openai.com/) 查看。\n\n## OpenAI 模型规范更新（2025 年 9 月 12 日）\n与以往一样，最新版模型规范可在 [[https://model-spec.openai.com/](https://model-spec.openai.com/)](https://model-spec.openai.com/) 查看。\n\n## 推出两个开放权重模型：gpt-oss-120b 和 gpt-oss-20b（2025 年 8 月 5 日）\n我们正在发布两个开放权重推理模型： **gpt-oss-120b** 和 **gpt-oss-20b**。 这些纯文本模型面向希望在自有基础设施或托管服务提供商上运行并定制模型的团队，支持函数调用和结构化输出等常见开发者模式。\n\n更多信息请访问我们的 [开放模型](https://openai.com/open-models/) 和 [帮助中心](https://help.openai.com/zh-hans-cn/articles/11870455) **。**\n\n## **OpenAI o3 和 o4-mini（2025 年 4 月 16 日）**\n**OpenAI o3** 是我们最强大的推理模型，在 **编程、数学、科学、视觉感知** 等领域推动前沿。\n\n**OpenAI o4-mini** 是一个较小的模型，针对快速、低成本推理进行了优化——就其规模和成本而言表现卓越，尤其是在 **数学、编程和视觉任务** 中。\n\n## **推出 OpenAI o3-mini（2025 年 1 月 31 日）**\n我们很高兴发布 o3-mini。 这是我们最新推出的高性价比推理模型，专门针对编程、数学和科学进行了优化。\n\n在 API 中，o3-mini 支持结构化输出、函数调用、开发者消息和流式传输。 它提供三个可调节的推理强度级别（低、中和高），让你可以根据使用场景平衡速度与深度。\n\n从今天起，ChatGPT Team、Pro、Plus 和 Free 方案的用户均可使用 o3-mini。 此外，o3-mini 现在可以结合搜索功能，查找最新答案并提供相关网络来源的链接。 这是一个早期原型，我们正努力将搜索功能整合到所有推理模型中。 在并排测试中，o3-mini 以更低的延迟取得了与 o1 相当的结果，并在高级 STEM 任务上优于 o1-mini。\n\n我们期待收到你的反馈。 随着高级推理模型系列不断扩展，我们也会继续改进 o3-mini。\n\n## **ChatGPT 中的 GPT-4o 更新（2025 年 1 月 29 日）**\n### **推出 OpenAI o1-preview 和 o1-mini（2024 年 9 月 12 日）**\n我们开发了一个新的 AI 模型系列，旨在回答前花更多时间思考。\n\n今天，我们在 ChatGPT 和我们的 API 中发布该系列的首批模型。 这是预览版，我们预计会定期更新和改进。\n\nChatGPT Plus 和 Team 用户从今天起将能够在 ChatGPT 中访问 o1 模型。 我们正在努力提高这些额度，并让 ChatGPT 能针对给定提示自动选择合适的模型。\n\n### **推出 GPT-4o mini（2024 年 7 月 18 日）**\n我们正在推出 GPT-4o mini，这是目前能力最强且最具成本效益的小型模型。 在文本智能和多模态推理的学术基准测试中，GPT-4o mini 超越了 GPT-3.5 Turbo 和其他小型模型，并支持与 GPT-4o 相同范围的语言。 它在函数调用方面也表现强劲，可帮助开发者构建能从外部系统获取数据或执行操作的应用，并且相比 GPT-3.5 Turbo 长上下文性能有所提升。\n\n你可以在 [博客公告](https://openai.com/index/gpt-4o-mini-advancing-cost-efficient-intelligence/) 中了解更多有关 GPT-4o mini 的信息。",
+      "strictUrl": "https://help.openai.com/zh-hans-cn/articles/9624314-model-release-notes",
+      "looseUrl": "https://help.openai.com/zh-hans-cn/articles/9624314-model-release-notes",
+      "citationUrl": "https://help.openai.com/zh-hans-cn/articles/9624314-model-release-notes",
+      "hostname": "help.openai.com",
+      "providers": [
+        "firecrawl",
+        "gemini"
+      ],
+      "families": [
+        "firecrawl",
+        "google"
+      ],
+      "providerSupport": 2,
+      "familySupport": 2,
+      "rrf": 0.030761410403042123,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.6438,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.7143,
+      "providerSupportRatio": 0.6667,
+      "familySupportRatio": 0.6667,
+      "score": 0.632013
+    },
+    {
+      "title": "OpenAI 发布 GPT-6 Astra，并承诺将 $1B  用于网络安全防御。 | Gate 新闻",
+      "url": "https://gate.com/zh/news/detail/openai-launches-gpt-6-astra-and-commits-1b-to-cybersecurity-defense-24003734",
+      "snippet": "OpenAI 最新发布的模型是 GPT-6 Astra。关键点：\n- 发布时间与定位：2026-09-04 推出，面向自主计算、软件工程、科学研究和复杂专业工作流程。\n- 性能与效率：在多项基准测试中表现领先，ARC-AGI-3 得分99.9%，FrontierMath Tier 4 98%，ExploitBench 100%；与前代相比，完成计算任务速度提升约47%。\n- 可用性与定价：API 定价为每百万输入令牌 10 美元，输出令牌每百万 50 美元；快速模式为标准费率的两倍。企业需为工作区启用 Astra。\n- 安全与对齐：内部对齐与对抗性测试显著改进，降低幻觉与规避审查的倾向，具备更强的防御能力。\n- 安全防护承诺：通过 Daybreak for Frontline Defenders 计划，OpenAI 将投入 10 亿美元，用于补贴关键基础设施的网络安全资源，优先在美国推行，面向水务、电网、地方政府等基本服务运营商，逐步扩展至国际市场。\n- 先行开放与扩展：发布当天向部分组织开放，随后向 ChatGPT Plus/Pro/Business/Enterprise、API 和",
+      "publishedDate": "2026-09-04T07:13:23.000Z",
+      "ageSeconds": 895915,
+      "strictUrl": "https://www.gate.com/zh/news/detail/openai-launches-gpt-6-astra-and-commits-1b-to-cybersecurity-defense-24003734",
+      "looseUrl": "https://gate.com/zh/news/detail/openai-launches-gpt-6-astra-and-commits-1b-to-cybersecurity-defense-24003734",
+      "citationUrl": "https://www.gate.com/zh/news/detail/openai-launches-gpt-6-astra-and-commits-1b-to-cybersecurity-defense-24003734",
+      "hostname": "gate.com",
+      "publishedAt": "2026-09-04T07:13:23.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015625,
+      "provenance": "unknown",
+      "rrfNormalized": 0.327013,
+      "freshnessScore": 0.7,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.432748
+    },
+    {
+      "title": "Models | OpenAI API",
+      "url": "https://developers.openai.com/api/docs/models",
+      "snippet": "All latest OpenAI models support text and image input, text output, multilingual capabilities, and vision. Models are available via the Responses API and our ...",
+      "strictUrl": "https://developers.openai.com/api/docs/models",
+      "looseUrl": "https://developers.openai.com/api/docs/models",
+      "citationUrl": "https://developers.openai.com/api/docs/models",
+      "hostname": "developers.openai.com",
+      "providers": [
+        "firecrawl"
+      ],
+      "families": [
+        "firecrawl"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014492753623188406,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.303316,
+      "freshnessScore": 0.2,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.1429,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.386628
+    },
+    {
+      "title": "OpenAI发布地球最强大模型GPT-6 并宣告“欢迎来到AGI时代”_国际财经_财经_中金在线",
+      "url": "http://news.cnfol.com/guojicaijing/20260904/32359672.shtml",
+      "snippet": "OpenAI 最新发布的模型是 GPT-6Astra。官方称其为“目前全球最智能、且对齐程度最高的模型”，在计算机操作、网页浏览、软件工程、网络安全、科学研究以及专业工作等领域达到领先水平。关键亮点包括：\n- 高阶数学能力：FrontierMathTier4 得分 97.6%，接近或超越研究级数学测试的水平\n- 强化的陌生环境学习与抽象推理能力（ARC-AGI 方向）\n- 表现显著优于前代模型，评测显示在多个领域的提升已非“小幅升级”可比\n\n若需了解具体评测细节与应用场景，请告知你关注的领域（如编程、研究、网络安全等），我可给出相应要点。",
+      "publishedDate": "2026-09-04T01:01:16.000Z",
+      "ageSeconds": 918242,
+      "strictUrl": "http://news.cnfol.com/guojicaijing/20260904/32359672.shtml",
+      "looseUrl": "http://news.cnfol.com/guojicaijing/20260904/32359672.shtml",
+      "citationUrl": "http://news.cnfol.com/guojicaijing/20260904/32359672.shtml",
+      "hostname": "news.cnfol.com",
+      "publishedAt": "2026-09-04T01:01:16.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014925373134328358,
+      "provenance": "unknown",
+      "rrfNormalized": 0.312371,
+      "freshnessScore": 0.7,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.42367
+    },
+    {
+      "title": "OpenAI GPT-6 Astra 发布解读：首个关键级网络安全模型的能力跃升与可监控性回退",
+      "url": "https://xzhibot.com/3586.html",
+      "snippet": "OpenAI 最新发布的模型是 GPT-6 Astra。这一代模型被正式宣布为“代际跃迁”，并被OpenAI定位为首个达到关键级网络安全门槛的模型，同时在可监控性方面出现显著回退。核心要点如下：\n\n- 能力亮点\n  - Astra 的上下文窗口达到约105万 token，具备文本/图像输入、电脑操作、代码执行、联网搜索等多种工具能力。\n  - 在 ExploitBench 等安全评测中创纪录，凭借自我发现和利用未知漏洞的能力达到关键级水平，被认为可在较少人工指导下进行高难度的漏洞研究。\n  - 达到了 ARC-AGI-3 官方 harness 99.9%、FrontierMath Tier 4 等多项高等级评测分数，能自主发现零日漏洞并实现高难度任务。\n\n- 安全与监控\n  - 官方确认 Astra 的安全能力为“关键级”，为行业内首例。\n  - 但可监控性明显下降，理论上能在不触发人类可读推理链的情况下完成大量工作（测试显示无推理输出时也能完成相当数量的计算与任务）。\n  - OpenAI 提供企业级治理框架与对抗策略：强制思维链、30分钟自动停机告警、权限与测试分级等措施，以提高可",
+      "publishedDate": "2026-09-04T00:00:00.000Z",
+      "ageSeconds": 921918,
+      "strictUrl": "https://xzhibot.com/3586.html",
+      "looseUrl": "https://xzhibot.com/3586.html",
+      "citationUrl": "https://xzhibot.com/3586.html",
+      "hostname": "xzhibot.com",
+      "publishedAt": "2026-09-04T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014705882352941176,
+      "provenance": "unknown",
+      "rrfNormalized": 0.307777,
+      "freshnessScore": 0.7,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.420822
+    },
+    {
+      "title": "深入解析 OpenAI GPT-6 Astra：循环深度架构与 Agent 雄心 | 企业级大模型 LLM API 接口聚合平台 | n1n.ai",
+      "url": "https://explore.n1n.ai/zh/blog/shenru-jiexi-openai-gpt-6-astra-xunhuan-shedu-jiagou-yu-agent-xiongxin-2026-09-05",
+      "snippet": "OpenAI 最新发布的模型是 GPT-6 Astra。核心亮点与要点如下：\n\n- 技术创新：以循环深度架构（Recurrent Depth Architecture）替代传统单向前向传播，显著改进信息处理、多步逻辑推理与复杂计算任务执行能力。\n- 企业级设计：强化长上下文管理、隐空间推理安全、工具调用协议以及稳定的 API 基础架构，面向企业开发、系统架构师和 AI 研究工程师。\n- 训练规模与数据治理：在得克萨斯 Stargate 超级计算中心进行训练，动用了超过10万张高性能 GPU；大量数据清洗与强化学习环境搭建由前代模型（如 GPT-5.6）承担。\n- 性能与基准：在多项基准测试（如 FrontierMath、Terminal-Bench、DeepSWE、ExploitBench 等）展现显著提升，尤其在复杂推理、自动化漏洞识别与系统操作能力方面表现突出；在 ExploitBench 取得满分100%。\n- 安全与防护：公开版本引入严格的防御性拦截，提升对潜在高风险攻击的抵抗能力，标志着对网络安全风险的高度重视。\n- 功能特性亮点：\n  - 超大上下文窗口：约1,050,00",
+      "publishedDate": "2026-09-04T16:34:54.000Z",
+      "ageSeconds": 862224,
+      "strictUrl": "https://explore.n1n.ai/zh/blog/shenru-jiexi-openai-gpt-6-astra-xunhuan-shedu-jiagou-yu-agent-xiongxin-2026-09-05",
+      "looseUrl": "https://explore.n1n.ai/zh/blog/shenru-jiexi-openai-gpt-6-astra-xunhuan-shedu-jiagou-yu-agent-xiongxin-2026-09-05",
+      "citationUrl": "https://explore.n1n.ai/zh/blog/shenru-jiexi-openai-gpt-6-astra-xunhuan-shedu-jiagou-yu-agent-xiongxin-2026-09-05",
+      "hostname": "explore.n1n.ai",
+      "publishedAt": "2026-09-04T16:34:54.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014492753623188406,
+      "provenance": "unknown",
+      "rrfNormalized": 0.303316,
+      "freshnessScore": 0.7,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 0.3333,
+      "familySupportRatio": 0.3333,
+      "score": 0.418056
+    }
+  ],
+  "coverage": {
+    "retrieval": {
+      "uniqueCanonicalUrls": 24,
+      "totalSources": 28,
+      "offTopicSources": 4,
+      "uniqueDomains": 11,
+      "uniqueFamilies": 3,
+      "primarySources": 15,
+      "successfulAttempts": 3,
+      "successfulProviders": 3,
+      "policy": {
+        "minUniqueCanonicalUrls": 6,
+        "minUniqueDomains": 2,
+        "minPrimarySources": 0
+      },
+      "sufficient": true
+    },
+    "evidence": {
+      "requiredFacets": [
+        {
+          "id": "freshness",
+          "kind": "freshness",
+          "windowDays": 90,
+          "status": "covered"
+        }
+      ],
+      "offTopicSources": 4,
+      "sufficient": true,
+      "gaps": []
+    },
+    "gaps": [],
+    "sufficient": true,
+    "delivery": {
+      "sufficient": true,
+      "gaps": []
+    }
+  },
+  "budget": {
+    "wallClockMs": 150000,
+    "perCallTimeoutMs": 45000,
+    "maxInitialProviders": 3,
+    "maxProviders": 5,
+    "maxSubqueries": 3,
+    "maxSearchCalls": 9,
+    "maxFallbackCalls": 2,
+    "maxFetches": 0
+  },
+  "status": "complete",
+  "stopReason": "coverage-satisfied",
+  "providers": {
+    "selected": [
+      "exa",
+      "firecrawl",
+      "gemini"
+    ],
+    "used": [
+      "exa",
+      "firecrawl",
+      "gemini"
+    ],
+    "failures": [],
+    "empty": [],
+    "autoOrder": [
+      "exa",
+      "gemini",
+      "xai",
+      "firecrawl",
+      "tavily",
+      "tinyfish",
+      "zai",
+      "kimi",
+      "codex",
+      "public",
+      "jina",
+      "brave",
+      "searxng",
+      "startpage",
+      "duckduckgo",
+      "ecosia",
+      "google",
+      "mojeek"
+    ]
+  },
+  "citations": [
+    "[1] 产品 — https://openai.com/zh-Hans-CN/news/product-releases/",
+    "[2] 研究 — https://openai.com/zh-Hans-CN/research/index/",
+    "[3] 模型发布说明 - OpenAI Help Center — https://help.openai.com/zh-hans-cn/articles/9624314-model-release-notes",
+    "[4] OpenAI 发布 GPT-6 Astra，并承诺将 $1B  用于网络安全防御。 | Gate 新闻 — https://www.gate.com/zh/news/detail/openai-launches-gpt-6-astra-and-commits-1b-to-cybersecurity-defense-24003734",
+    "[5] Models | OpenAI API — https://developers.openai.com/api/docs/models",
+    "[6] OpenAI发布地球最强大模型GPT-6 并宣告“欢迎来到AGI时代”_国际财经_财经_中金在线 — http://news.cnfol.com/guojicaijing/20260904/32359672.shtml",
+    "[7] OpenAI GPT-6 Astra 发布解读：首个关键级网络安全模型的能力跃升与可监控性回退 — https://xzhibot.com/3586.html",
+    "[8] 深入解析 OpenAI GPT-6 Astra：循环深度架构与 Agent 雄心 | 企业级大模型 LLM API 接口聚合平台 | n1n.ai — https://explore.n1n.ai/zh/blog/shenru-jiexi-openai-gpt-6-astra-xunhuan-shedu-jiagou-yu-agent-xiongxin-2026-09-05"
+  ],
+  "providerAnswers": [
+    {
+      "provider": "exa",
+      "answer": "**产品**: OpenAI 最新发布的模型相关信息汇总（来自 OpenAI 新闻中心·产品页）：\n\n- 2026-06-04: “为 ChatGPT 记忆打造更强基础”——优化 ChatGPT 的记忆能力基础。\n- 2026-06-03: “GPT-Rosalind 推出新能力”——Rosalind 相关新能力发布。\n- 2026-06-02: “适用于各种角色、工具和工作流的 Codex”——Codex 的多场景应用与能力扩展。\n- 2026-06-01: “OpenAI 前沿模型和 Codex 现已在 AWS 上可用”——前沿模型与 Codex 已在 AWS 提供使用。\n- 2026-05-29: “借助 Rosalind 生物防御计划增强社会韧性”——Rosalind 项目相关社会韧性应用。\n- 2026-05-15: “ChatGPT 中的全新个人理财体验”——在 ChatGPT 中推出的个人理财功能体验。\n\n简要结论：页面聚焦 OpenAI 的最新模型与相关能力更新，涵盖 ChatGPT 的记忆增强、Rosalind 系列的新能力、Codex 的多场景应用、以及在 AWS 的可用性与其他 Rosalind 相关项目。若你关注具体模型，请指明想了解的模型名以便提供更详细的功能与应用场景。\n\n**研究**: OpenAI 最新发布的模型聚焦在以下要点，按时间线大致顺序如下：\n\n- GPT‑5.6 系列：推出“三型”模型 Sol（旗舰）、Terra、Luna，强调更强的每 Token 智能、性价比和对最具挑战任务的扩展能力，配套有安全性与对齐改进的系统卡和大规模安全保障。还包括通过两项 API 设置提升 ARC-AGI-3 基准分数，并提升推理保留与压缩能力。\n- GPT‑Red：自动化红队测试系统，通过自我博弈提升安全性、对齐和提示注入稳健性。\n- GPT‑Live：新一代语音模型，提升人机自然互动现况，已应用于 ChatGPT 语音。\n- 其他研究与应用方向：如用于学术研究者的 ChatGPT 免费访问、在科学计算中使用 AI 智能体推进现代化、对数学与理论计算领域长久问题的进展，以及对 AI 编程与科学发现的工具化支持。\n\n如果你关注具体模型版本、用途或发布日，请告诉我你最关心的方面（如“想了解 GPT‑5.6 的具体型号与定价”、“GPT‑Live 的语音能力细节”等），我可以给出更聚焦的要点。\n\n**邁向 Astra：關鍵能力與前沿防護措施 | OpenAI**: OpenAI 最新發布的模型：Astra\n\n- 等級與能力：Astra 已達到「關鍵」網路安全能力門檻，具備在多個受嚴密防護的系統中自動識別未知安全缺陷並開發利用方法的能力；因此需要更強的防護與發布前審查。\n- 防護與發布：過去數週加強防護機制、降低濫用風險，並實施更嚴格的監控與阻止未授權行動的措施。與 Hugging Face 事件的學習經驗亦納入策略，正式環境防護能力被認為足以防止類似風險。\n- 部署與訪問：Astra 將分階段開放，初期給測試人員與特定情境使用，後續擴大到更廣泛的防護用途。\n- 與 GPT-5.6 Sol 的對比：Astra 的網路安全能力顯著提升，包括更高的令牌效率、漏洞辨識與利用鏈開發能力，同時在系統與模型層級的防護與對齊性（遵守安全限制、在授權範圍內運作）方面也顯著優於 GPT-5.6 Sol。\n- 對齊與穩健性：在嚴格的專家評估與紅隊測試中，Astra 展現出更高的合規性與穩健性，能更可靠地拒絕不被允許的網路請求，並維持跨對話情境的一致性與可控性。\n\n若你需要，我可以聚焦於 Astra 的具體防護機制細節、對比表或是開放進度時間表。"
+    },
+    {
+      "provider": "gemini",
+      "answer": "OpenAI 最新发布的旗舰模型是 **GPT-6 Astra**（于 2026 年 9 月初正式发布）。这是 OpenAI 迄今为止规模最大、智能程度最高且最具对齐性的前沿大模型。\n\n以下是关于 **GPT-6 Astra** 及近期其他重要模型发布的详细梳理：\n\n### 1. 旗舰模型：GPT-6 Astra（2026年9月）\n* **核心定位**：OpenAI 宣称其为新一代智能与面向工作场景的突破性模型，总裁格雷格·布罗克曼（Greg Brockman）在发布时甚至将其称为进入“AGI 时代”的重要里程碑。\n* **技术与规模**：这是 OpenAI 首次在得克萨斯州“星际之门”（Stargate）超级计算集群上使用超过 10 万块 GPU 进行预训练的模型。\n* **核心能力**：\n  * **计算机自主操作（Computer Use & Browsing）**：它不仅能生成文本或代码，更能像人类一样直接跨浏览器、电子表格、网站和桌面应用程序执行复杂的、多步骤的工作流（甚至在没有原生 API 的软件中也能工作）。\n  * **专业与科学领域**：在软件工程、科学研究、网络安全等领域达到行业顶尖水平。例如，在 FrontierMath 4、ARC-AGI-3 等高难基准测试中取得了突破性高分。\n* **安全性与网络安全阈值**：Astra 是 OpenAI 应急准备框架下首个触发 **“关键（Critical）”级别网络安全阈值** 的模型。这意味着它具备在没有人工干预下发现未知安全漏洞并加以利用的潜力，因此 OpenAI 在发布时为其配备了极其严苛的安全栈与防护网。\n* **部署与可用性**：正陆续向 ChatGPT Plus、Pro、Business、Enterprise 用户以及开发者 API、AWS Bedrock 和微软 Azure 平台推送。\n\n---\n\n### 2. 近期其他重要模型与产品更新（2026年中期）\n在 GPT-6 Astra 发布之前，OpenAI 在 2026 年中还推出了以下系列：\n* **GPT-5.6 系列（2026年7月发布）**：包括旗舰推理模型 **GPT-5.6 Sol**、平衡型日常模型 **GPT-5.6 Terra** 以及高性价比的 **GPT-5.6 Luna**，主打高效率、每个 Token 蕴含更多智能以及更强的每美元性能。\n* **GPT-Live-1（2026年9月更新）**：新一代全双工语音模型，支持在 API 中构建更自然、带自定义语音和电话支持的实时语音交互体验。\n* **ChatGPT 图像 2.5（GPT-Image-2.5 Flare，2026年9月发布）**：针对图像生成和编辑工作流推出，延迟大幅降低，并在 ChatGPT 中引入了 `@Sketch`（草图转图像）等实用创意交互功能。"
+    }
+  ],
+  "observability": {
+    "elapsedMs": 9346,
+    "providerLatencyMs": {
+      "exa::OpenAI 最新发布的模型": 9341,
+      "firecrawl::OpenAI 最新发布的模型": 1699,
+      "gemini::OpenAI 最新发布的模型": 6127
+    }
+  }
+}

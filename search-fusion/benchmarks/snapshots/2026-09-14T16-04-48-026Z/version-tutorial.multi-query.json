@@ -1,0 +1,897 @@
+{
+  "schemaVersion": 1,
+  "mode": "adapter-orchestrated",
+  "query": "Node.js 24 的权限模型是什么",
+  "task": {
+    "task": "factual",
+    "freshness": "evergreen",
+    "domain": "academic",
+    "domainTags": [
+      "academic"
+    ],
+    "depth": "verify",
+    "language": "mixed-or-zh"
+  },
+  "capabilities": {
+    "harness": "omp",
+    "level": "L3",
+    "providerPin": true,
+    "parallelSearch": true,
+    "structuredSources": true,
+    "fetch": false,
+    "providers": [
+      "gemini",
+      "codex",
+      "xai",
+      "zai",
+      "exa",
+      "tinyfish",
+      "jina",
+      "tavily",
+      "firecrawl",
+      "brave",
+      "kimi",
+      "searxng",
+      "startpage",
+      "duckduckgo",
+      "ecosia",
+      "google",
+      "mojeek",
+      "public"
+    ],
+    "autoOrder": [
+      "exa",
+      "gemini",
+      "xai",
+      "firecrawl",
+      "tavily",
+      "tinyfish",
+      "zai",
+      "kimi",
+      "codex",
+      "public",
+      "jina",
+      "brave",
+      "searxng",
+      "startpage",
+      "duckduckgo",
+      "ecosia",
+      "google",
+      "mojeek"
+    ],
+    "roles": {
+      "gemini": [
+        "general",
+        "fresh"
+      ],
+      "codex": [
+        "general",
+        "developer",
+        "fresh"
+      ],
+      "xai": [
+        "fresh",
+        "social"
+      ],
+      "zai": [
+        "china",
+        "general"
+      ],
+      "exa": [
+        "semantic",
+        "developer",
+        "academic"
+      ],
+      "tinyfish": [
+        "general",
+        "fallback"
+      ],
+      "jina": [
+        "semantic",
+        "developer"
+      ],
+      "tavily": [
+        "general",
+        "fresh",
+        "semantic"
+      ],
+      "firecrawl": [
+        "developer",
+        "general"
+      ],
+      "brave": [
+        "general",
+        "fresh"
+      ],
+      "kimi": [
+        "china",
+        "general"
+      ],
+      "searxng": [
+        "public",
+        "general",
+        "fallback"
+      ],
+      "startpage": [
+        "public",
+        "general"
+      ],
+      "duckduckgo": [
+        "public",
+        "general",
+        "fallback"
+      ],
+      "ecosia": [
+        "public",
+        "general"
+      ],
+      "google": [
+        "public",
+        "general",
+        "fresh"
+      ],
+      "mojeek": [
+        "public",
+        "general"
+      ],
+      "public": [
+        "public",
+        "fallback",
+        "general"
+      ]
+    },
+    "rankSemantics": {
+      "gemini": "citation-order",
+      "codex": "citation-order",
+      "xai": "citation-order",
+      "zai": "citation-order",
+      "exa": "ranked",
+      "tinyfish": "ranked",
+      "jina": "unknown",
+      "tavily": "ranked",
+      "firecrawl": "ranked",
+      "brave": "ranked",
+      "kimi": "citation-order",
+      "searxng": "ranked",
+      "startpage": "ranked",
+      "duckduckgo": "ranked",
+      "ecosia": "ranked",
+      "google": "ranked",
+      "mojeek": "ranked",
+      "public": "ranked"
+    },
+    "retrievalFamilies": {
+      "gemini": "google",
+      "codex": "openai",
+      "xai": "xai",
+      "zai": "zai",
+      "exa": "exa",
+      "tinyfish": "tinyfish",
+      "jina": "jina",
+      "tavily": "tavily",
+      "firecrawl": "firecrawl",
+      "brave": "brave",
+      "kimi": "kimi",
+      "searxng": "metasearch",
+      "startpage": "google",
+      "duckduckgo": "duckduckgo",
+      "ecosia": "bing",
+      "google": "google",
+      "mojeek": "mojeek",
+      "public": "public"
+    },
+    "metadata": {
+      "adapter": "omp-internal",
+      "compatibility": true,
+      "availableProviders": [
+        "gemini",
+        "codex",
+        "xai",
+        "zai",
+        "exa",
+        "tinyfish",
+        "jina",
+        "tavily",
+        "firecrawl",
+        "brave",
+        "kimi",
+        "searxng",
+        "startpage",
+        "duckduckgo",
+        "ecosia",
+        "google",
+        "mojeek",
+        "public"
+      ],
+      "preferredOrder": [
+        "exa",
+        "gemini",
+        "xai",
+        "firecrawl",
+        "tavily",
+        "tinyfish",
+        "zai",
+        "kimi",
+        "codex",
+        "public"
+      ],
+      "excludedProviders": [
+        "perplexity",
+        "anthropic",
+        "kagi",
+        "parallel",
+        "synthetic"
+      ]
+    }
+  },
+  "attempts": [
+    {
+      "provider": "exa",
+      "requestedProvider": "exa",
+      "ok": true,
+      "sources": [
+        {
+          "title": "permissions | Node.js v24 文档",
+          "url": "https://nodejs.cn/api/v24/permissions.html",
+          "snippet": "Node.js 24 的权限模型是一种在运行时对特定资源访问进行限制的机制。要点如下：\n- 启用方式：通过启动参数 --permission 启用，相关 API 位于权限标志后。还可以在配置文件中通过 permission 顶层对象声明权限选项，或使用 npx 时通过 --node-options 启用。\n- 作用范围：对可用权限进行限制，包括对文件系统（fs）、进程创建、node:worker_threads、原生插件、WASI、运行时检测（inspector）等的访问与使用。默认先限制对文件系统的访问，且有默认限制。\n- 使用方式：提供 permission.has(...) API，允许在运行时查询/检测权限。\n- 限制与注意：\n  - 权限模型不会继承到工作线程中，且某些功能在开启时会被限制（原生模块、子进程、工作线程、检查器协议、文件系统、WASI 等）。\n  - 某些标志（如 --env-file、--openssl-config）在环境初始化前读取文件，因此不受权限模型约束。通过 v8.setFlagsFromString 运行时设置的 V8 标志也同理。\n  - 启用后"
+        },
+        {
+          "title": "Node.js — Node.js 24.0.0 (Current)",
+          "url": "https://nodejs.org/zh-cn/blog/release/v24.0.0",
+          "snippet": "Node.js 24 的权限模型是对实验性权限模型的持续改进与稳定化。关键点：\n\n- 权限模型原本在 Node.js 20 引入，属于实验性特性；在 24.0.0 版本中进一步改进并趋于稳定。\n- CLI 启用方式从 --experimental-permission 改为 --permission，标志性地体现其成熟度提升。\n- 该改进由 Rafael Gonzaga 贡献，属于 semver-major 级别的变更，表示对现有权限模型的重大更新和持续推广。\n\n简要结论：Node.js 24 将权限模型从实验性阶段推向更稳定的实现，CLI 参数由 --experimental-permission 变为 --permission，准备更广泛使用。"
+        },
+        {
+          "title": "Permissions | Node.js v24.14.1 Documentation",
+          "url": "https://nodejs.org/download/release/v24.14.1/docs/api/permissions.html",
+          "snippet": "Node.js 24 的权限模型是一种“安全带”式的资源访问控制机制，允许在运行时对 Node.js 进程能访问的系统资源设定限定。核心要点：\n\n- 启用方式：通过 --permission 标志开启，默认限制对可用权限的访问；启用后，process.permission.has(scope[, reference]) API 可用于在运行 时检查权限。\n- 作用范围：最初默认限制对文件系统（node:fs）、spawn/child processes、node:worker_threads、原生模块、WASI、运行时 inspector 等的访问。\n- 例外与放行：可使用 --allow-fs-read 和 --allow-fs-write 等标志来允许特定的文件系统读写权限。\n- 限制与约束：\n  - 权限模型不适用于所有情形，存在无效或无法覆盖的情况（例如通过其他模块途径的访问可能绕过限制）。\n  - 模型不对恶意代码提供安全保证，恶意代码仍可能绕过权限模型执行任意代码。\n  - 不对 worker 线程、Native 模块、Inspector、WASI、OpenSSL 引擎等的"
+        },
+        {
+          "title": "--permission | Node.js API 文档",
+          "url": "https://nodejs.cn/api/cli/permission.html",
+          "snippet": "Summary:\nNode.js 引入的权限模型自 v20.0.0 版本起已稳定，当前在 Node.js 24（及后续版本）中可启用。启用后，进程会对若干能力进行限制，通过特定标志进行逐项管理：\n- 文件系统：通过 --allow-fs-read 与 --allow-fs-write 控制\n- 网络：通过 --allow-net 控制\n- 子进程：通过 --allow-child-process 控制\n- 工作线程：通过 --allow-worker 控制\n- WASI：通过 --allow-wasi 控制\n- 插件 (addons)：通过 --allow-addons 控制\n- FFI：通过 --allow-ffi 控制\n\n需要启用权限模型后，相关能力将被限制，且可通过相应标志进行授权或禁用。若未启用权限模型，默认行为不受这些限制。"
+        },
+        {
+          "title": "Node.js 24.20 的權限模型怎麼試：用--permission-audit 找出需求",
+          "url": "https://laplusda.com/",
+          "snippet": "Summary: The provided page is a Chinese tech blog \"ZeroOne\" covering various developer topics and tutorials, with recent posts on GitHub Copilot for JetBrains, Google Apps Script, Ollama, OpenAI Atlas, Cloudflare Workflows, and GitHub Code Quality. It does not appear to specifically address \"Node.js 24 的权限模型\" (Node.js 24 permission model). If your goal is to learn about Node.js 24’s permission model, this page is not the right source. You may want to search for official Node.js 24 documentation ",
+          "author": "Zero"
+        },
+        {
+          "title": "Node.js 24 发行注记",
+          "url": "https://docs.redhat.com/",
+          "snippet": "Summary:\nThe provided Red Hat documentation pages discuss how to use large language models (LLMs) with Node.js, including a training course on getting started with LLMs and Node.js (via LangChain.js). However, there is no information in the extracted highlights about Node.js 24’s permission model. To answer “Node.js 24 的权限模型是什么” (What is the permission model of Node.js 24), you would need to consult official Node.js 24 release notes or documentation specifically about Node.js security and permis"
+        },
+        {
+          "title": "Permissions | Node.js v24.0.0-nightly2024122967b647edc7 Documentation",
+          "url": "https://nodejs.org/download/nightly/v24.0.0-nightly2024122967b647edc7/docs/api/permissions.html",
+          "snippet": "Node.js 24 的权限模型是一个运行时资源访问限制机制，旨在在启用 --permission 标志时对 Node 进程对资源的访问进行控制。要点如下：\n\n- 启用方式：通过 --permission 启用权限模型，进程将对可访问的资源权限进行受控，并提供 runtime API permission.has(...) 进行动态检查。\n- 作用范围：默认限制对文件系统、进程创建、worker_threads、原生模块、WASI、Inspector 等的访问。可通过附加标志开启单独的权限，例如：\n  - --allow-fs-read / --allow-fs-write：允许文件系统读写\n  - --allow-child-process：允许创建子进程\n  - --allow-worker：允许使用 worker 线程\n  - --allow-addons：允许原生插件\n  - --allow-wasi：允许 WASI\n- 运行时检查：启用后，process.permission.has(scope[, reference]) 提供对具体权限的查询能力。\n- 限制和注意事项：\n "
+        },
+        {
+          "title": "Node.js 24 发布：升级V8 引擎、提升性能",
+          "url": "https://www.oschina.net/",
+          "snippet": "Summary:\nThe provided page is a Chinese tech community page (OSCHINA) with a stream of miscellaneous comments and headlines. It does not contain a clear, authoritative explanation of Node.js 24’s permission/privilege model. To answer your query directly: Node.js 24 (as of current knowledge) uses a single-process, non-privileged user-space model for running JavaScript code. Permissions for filesystem, network, and other resources are governed by the operating system user account under which the N"
+        },
+        {
+          "title": "Node.js 中的权限模型、错误处理与 Web 平台 API | Read OSS",
+          "url": "https://readoss.com/zh/nodejs/node/permissions-errors-and-web-platform-apis-in-nodejs",
+          "snippet": "Node.js 24 的权限模型要点（实验性特性）：\n- 启用方式：通过命令行参数 --permission 激活，结合具体的权限开关（如 --allow-fs-read、--allow-net 等）来对应用进行能力限制。\n- 核心机制：不是沙箱，而是一套能力检查机制。C++ 层在每次敏感操作前进行权限校验，确保操作在被允许的范围内执行。\n- 结构与实现：\n  - 权限中心：Permission (permission.h) 作为协调者，管理各子权限模块。\n  - 具体权限类型（可按需开启）：FSPermission（文件系统读写）、NetPermission（网络访问）、ChildProcessPermission（子进程创建）、InspectorPermission、WASIPermission、WorkerPermission、AddonPermission 等。\n  - 实现细节：权限检查通过 THROW_IF_INSUFFICIENT_PERMISSIONS 等宏实现，分布在涉及敏感操作的 C++ 代码中，如 node_file.cc。\n  - 文件系统权限：使用 Radix",
+          "publishedDate": "2026-03-28T00:00:00.000Z",
+          "ageSeconds": 14745925
+        },
+        {
+          "title": "Node.js 24 深度实战：当 JavaScript 运行时成为全功能平台——从原生 TypeScript 到后量子密码学的完全指南（2026）-程序员茄子",
+          "url": "https://chenxutan.com/d/4050.html",
+          "snippet": "Node.js 24 的权限模型（Permission Model）是一个细粒度的运行时权限控制机制，旨在即使进程被攻破也能限制攻击者的行为，从而提升安全性。核心要点：\n\n- 目的：替代或补充操作系统级的权限控制，实现对文件系统、网络、环境等资源的最小权限访问。\n- 主要特性：\n  - 精细粒度权限：可以对特定资源和操作授予或拒绝权限（如读取特定目录、网络访问、生成子进程等）。\n  - 原生使用：在 Node.js 24 中内置并集成到启动参数中，方便在生产环境启用。\n  - 运行时检查：代码中可动态查询权限并据此决定是否执行相关操作。\n- 典型用法（命令行与代码示例）：\n  - 仅允许读取特定目录：\n    - node --permission --allow-fs-read=/app/data index.js\n  - 禁止所有网络访问：\n    - node --permission --deny-net index.js\n  - 仅允许连接特定主机/端口：\n    - node --permission --allow-net=api.example.com:443 inde",
+          "author": "qnxxgo"
+        }
+      ],
+      "answer": "**permissions | Node.js v24 文档**: Node.js 24 的权限模型是一种在运行时对特定资源访问进行限制的机制。要点如下：\n- 启用方式：通过启动参数 --permission 启用，相关 API 位于权限标志后。还可以在配置文件中通过 permission 顶层对象声明权限选项，或使用 npx 时通过 --node-options 启用。\n- 作用范围：对可用权限进行限制，包括对文件系统（fs）、进程创建、node:worker_threads、原生插件、WASI、运行时检测（inspector）等的访问与使用。默认先限制对文件系统的访问，且有默认限制。\n- 使用方式：提供 permission.has(...) API，允许在运行时查询/检测权限。\n- 限制与注意：\n  - 权限模型不会继承到工作线程中，且某些功能在开启时会被限制（原生模块、子进程、工作线程、检查器协议、文件系统、WASI 等）。\n  - 某些标志（如 --env-file、--openssl-config）在环境初始化前读取文件，因此不受权限模型约束。通过 v8.setFlagsFromString 运行时设置的 V8 标志也同理。\n  - 启用后，运行时的 OpenSSL 引擎请求、运行时扩展加载（如 sqlite 模块）等可能受影响。\n  - 通过 node:fs 使用现有的文件描述符可能绕过模型限制。\n- 额外说明：这是一个“安全带”机制，旨在防止受信任代码在未经授权的情况下修改文件或使用资源，但不能阻止恶意代码，且在存在恶意代码时无法提供全面安全保障。\n\n简要回答：Node.js 24 的权限模型是在执行时对资源访问进行限制的机制，需通过 --permission 启用，提供 permission.has(...) API 来检测权限，影响对文件系统、进程、工作线程、原生模块、WASI、运行时检测等的访问；但并非全方位安全防护，且某些初始化阶段的标志不受其约束。\n\n**Node.js — Node.js 24.0.0 (Current)**: Node.js 24 的权限模型是对实验性权限模型的持续改进与稳定化。关键点：\n\n- 权限模型原本在 Node.js 20 引入，属于实验性特性；在 24.0.0 版本中进一步改进并趋于稳定。\n- CLI 启用方式从 --experimental-permission 改为 --permission，标志性地体现其成熟度提升。\n- 该改进由 Rafael Gonzaga 贡献，属于 semver-major 级别的变更，表示对现有权限模型的重大更新和持续推广。\n\n简要结论：Node.js 24 将权限模型从实验性阶段推向更稳定的实现，CLI 参数由 --experimental-permission 变为 --permission，准备更广泛使用。\n\n**Permissions | Node.js v24.14.1 Documentation**: Node.js 24 的权限模型是一种“安全带”式的资源访问控制机制，允许在运行时对 Node.js 进程能访问的系统资源设定限定。核心要点：\n\n- 启用方式：通过 --permission 标志开启，默认限制对可用权限的访问；启用后，process.permission.has(scope[, reference]) API 可用于在运行 时检查权限。\n- 作用范围：最初默认限制对文件系统（node:fs）、spawn/child processes、node:worker_threads、原生模块、WASI、运行时 inspector 等的访问。\n- 例外与放行：可使用 --allow-fs-read 和 --allow-fs-write 等标志来允许特定的文件系统读写权限。\n- 限制与约束：\n  - 权限模型不适用于所有情形，存在无效或无法覆盖的情况（例如通过其他模块途径的访问可能绕过限制）。\n  - 模型不对恶意代码提供安全保证，恶意代码仍可能绕过权限模型执行任意代码。\n  - 不对 worker 线程、Native 模块、Inspector、WASI、OpenSSL 引擎等的访问提供完整继承。\n  - 某些标志（如 --env-file、--openssl-config、v8 flags）在环境初始化前即可读取文件，因而不受权限模型限制。\n  - 通过现有文件描述符、符号链接等可能绕过或扩大权限影响，需注意路径中的相对符号链接风险。\n- 适用场景与注意事项：适用于需要限制 Node.js 进程对资源的访问权限的场景，但需清楚其并非全局强制的安全机制，且在某些模块或用法下可能无法阻止访问。\n\n简言之，Node.js 24 的权限模型是一种可选的运行时资源访问控制机制，通过 --permission 启用并结合具体的权限开关实现对文件系统等资源的限制，配合 permission.has() API 进行运行时查询与控制，同时需注意它并不构成对恶意代码的全面安全保障。",
+      "citations": [],
+      "searchQueries": [],
+      "metadata": {
+        "requestId": "06dd3a115da29257eee05d6bfa51a092"
+      },
+      "latencyMs": 6668,
+      "query": "Node.js 24 的权限模型是什么",
+      "facetId": "base",
+      "wave": "breadth"
+    }
+  ],
+  "facets": [
+    {
+      "id": "base",
+      "query": "Node.js 24 的权限模型是什么",
+      "purpose": "broad-recall",
+      "requiredRoles": [],
+      "required": true,
+      "entities": []
+    },
+    {
+      "id": "paper",
+      "query": "Node.js 24 的权限模型是什么 paper benchmark arxiv",
+      "purpose": "primary-source",
+      "requiredRoles": [
+        "academic"
+      ],
+      "required": false,
+      "entities": []
+    }
+  ],
+  "queryVariants": [
+    "Node.js 24 的权限模型是什么",
+    "Node.js 24 的权限模型是什么 paper benchmark arxiv"
+  ],
+  "fused": [
+    {
+      "title": "Node.js — Node.js 24.0.0 (Current)",
+      "url": "https://nodejs.org/zh-cn/blog/release/v24.0.0",
+      "snippet": "Node.js 24 的权限模型是对实验性权限模型的持续改进与稳定化。关键点：\n\n- 权限模型原本在 Node.js 20 引入，属于实验性特性；在 24.0.0 版本中进一步改进并趋于稳定。\n- CLI 启用方式从 --experimental-permission 改为 --permission，标志性地体现其成熟度提升。\n- 该改进由 Rafael Gonzaga 贡献，属于 semver-major 级别的变更，表示对现有权限模型的重大更新和持续推广。\n\n简要结论：Node.js 24 将权限模型从实验性阶段推向更稳定的实现，CLI 参数由 --experimental-permission 变为 --permission，准备更广泛使用。",
+      "strictUrl": "https://nodejs.org/zh-cn/blog/release/v24.0.0",
+      "looseUrl": "https://nodejs.org/zh-cn/blog/release/v24.0.0",
+      "citationUrl": "https://nodejs.org/zh-cn/blog/release/v24.0.0",
+      "hostname": "nodejs.org",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016129032258064516,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.983871,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.75,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.887
+    },
+    {
+      "title": "Permissions | Node.js v24.14.1 Documentation",
+      "url": "https://nodejs.org/download/release/v24.14.1/docs/api/permissions.html",
+      "snippet": "Node.js 24 的权限模型是一种“安全带”式的资源访问控制机制，允许在运行时对 Node.js 进程能访问的系统资源设定限定。核心要点：\n\n- 启用方式：通过 --permission 标志开启，默认限制对可用权限的访问；启用后，process.permission.has(scope[, reference]) API 可用于在运行 时检查权限。\n- 作用范围：最初默认限制对文件系统（node:fs）、spawn/child processes、node:worker_threads、原生模块、WASI、运行时 inspector 等的访问。\n- 例外与放行：可使用 --allow-fs-read 和 --allow-fs-write 等标志来允许特定的文件系统读写权限。\n- 限制与约束：\n  - 权限模型不适用于所有情形，存在无效或无法覆盖的情况（例如通过其他模块途径的访问可能绕过限制）。\n  - 模型不对恶意代码提供安全保证，恶意代码仍可能绕过权限模型执行任意代码。\n  - 不对 worker 线程、Native 模块、Inspector、WASI、OpenSSL 引擎等的",
+      "strictUrl": "https://nodejs.org/download/release/v24.14.1/docs/api/permissions.html",
+      "looseUrl": "https://nodejs.org/download/release/v24.14.1/docs/api/permissions.html",
+      "citationUrl": "https://nodejs.org/download/release/v24.14.1/docs/api/permissions.html",
+      "hostname": "nodejs.org",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015873015873015872,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.968254,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.75,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.877317
+    },
+    {
+      "title": "Permissions | Node.js v24.0.0-nightly2024122967b647edc7 Documentation",
+      "url": "https://nodejs.org/download/nightly/v24.0.0-nightly2024122967b647edc7/docs/api/permissions.html",
+      "snippet": "Node.js 24 的权限模型是一个运行时资源访问限制机制，旨在在启用 --permission 标志时对 Node 进程对资源的访问进行控制。要点如下：\n\n- 启用方式：通过 --permission 启用权限模型，进程将对可访问的资源权限进行受控，并提供 runtime API permission.has(...) 进行动态检查。\n- 作用范围：默认限制对文件系统、进程创建、worker_threads、原生模块、WASI、Inspector 等的访问。可通过附加标志开启单独的权限，例如：\n  - --allow-fs-read / --allow-fs-write：允许文件系统读写\n  - --allow-child-process：允许创建子进程\n  - --allow-worker：允许使用 worker 线程\n  - --allow-addons：允许原生插件\n  - --allow-wasi：允许 WASI\n- 运行时检查：启用后，process.permission.has(scope[, reference]) 提供对具体权限的查询能力。\n- 限制和注意事项：\n ",
+      "strictUrl": "https://nodejs.org/download/nightly/v24.0.0-nightly2024122967b647edc7/docs/api/permissions.html",
+      "looseUrl": "https://nodejs.org/download/nightly/v24.0.0-nightly2024122967b647edc7/docs/api/permissions.html",
+      "citationUrl": "https://nodejs.org/download/nightly/v24.0.0-nightly2024122967b647edc7/docs/api/permissions.html",
+      "hostname": "nodejs.org",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014925373134328358,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.910448,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.75,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.841478
+    },
+    {
+      "title": "permissions | Node.js v24 文档",
+      "url": "https://nodejs.cn/api/v24/permissions.html",
+      "snippet": "Node.js 24 的权限模型是一种在运行时对特定资源访问进行限制的机制。要点如下：\n- 启用方式：通过启动参数 --permission 启用，相关 API 位于权限标志后。还可以在配置文件中通过 permission 顶层对象声明权限选项，或使用 npx 时通过 --node-options 启用。\n- 作用范围：对可用权限进行限制，包括对文件系统（fs）、进程创建、node:worker_threads、原生插件、WASI、运行时检测（inspector）等的访问与使用。默认先限制对文件系统的访问，且有默认限制。\n- 使用方式：提供 permission.has(...) API，允许在运行时查询/检测权限。\n- 限制与注意：\n  - 权限模型不会继承到工作线程中，且某些功能在开启时会被限制（原生模块、子进程、工作线程、检查器协议、文件系统、WASI 等）。\n  - 某些标志（如 --env-file、--openssl-config）在环境初始化前读取文件，因此不受权限模型约束。通过 v8.setFlagsFromString 运行时设置的 V8 标志也同理。\n  - 启用后",
+      "strictUrl": "https://nodejs.cn/api/v24/permissions.html",
+      "looseUrl": "https://nodejs.cn/api/v24/permissions.html",
+      "citationUrl": "https://nodejs.cn/api/v24/permissions.html",
+      "hostname": "nodejs.cn",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.01639344262295082,
+      "provenance": "unknown",
+      "rrfNormalized": 1,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.75,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.807
+    },
+    {
+      "title": "Node.js 24 发行注记",
+      "url": "https://docs.redhat.com/",
+      "snippet": "Summary:\nThe provided Red Hat documentation pages discuss how to use large language models (LLMs) with Node.js, including a training course on getting started with LLMs and Node.js (via LangChain.js). However, there is no information in the extracted highlights about Node.js 24’s permission model. To answer “Node.js 24 的权限模型是什么” (What is the permission model of Node.js 24), you would need to consult official Node.js 24 release notes or documentation specifically about Node.js security and permis",
+      "strictUrl": "https://docs.redhat.com/",
+      "looseUrl": "https://docs.redhat.com/",
+      "citationUrl": "https://docs.redhat.com/",
+      "hostname": "docs.redhat.com",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015151515151515152,
+      "provenance": "unknown",
+      "rrfNormalized": 0.924242,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.77503
+    },
+    {
+      "title": "--permission | Node.js API 文档",
+      "url": "https://nodejs.cn/api/cli/permission.html",
+      "snippet": "Summary:\nNode.js 引入的权限模型自 v20.0.0 版本起已稳定，当前在 Node.js 24（及后续版本）中可启用。启用后，进程会对若干能力进行限制，通过特定标志进行逐项管理：\n- 文件系统：通过 --allow-fs-read 与 --allow-fs-write 控制\n- 网络：通过 --allow-net 控制\n- 子进程：通过 --allow-child-process 控制\n- 工作线程：通过 --allow-worker 控制\n- WASI：通过 --allow-wasi 控制\n- 插件 (addons)：通过 --allow-addons 控制\n- FFI：通过 --allow-ffi 控制\n\n需要启用权限模型后，相关能力将被限制，且可通过相应标志进行授权或禁用。若未启用权限模型，默认行为不受这些限制。",
+      "strictUrl": "https://nodejs.cn/api/cli/permission.html",
+      "looseUrl": "https://nodejs.cn/api/cli/permission.html",
+      "citationUrl": "https://nodejs.cn/api/cli/permission.html",
+      "hostname": "nodejs.cn",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015625,
+      "provenance": "unknown",
+      "rrfNormalized": 0.953125,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.625,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.770437
+    },
+    {
+      "title": "Node.js 24.20 的權限模型怎麼試：用--permission-audit 找出需求",
+      "url": "https://laplusda.com/",
+      "snippet": "Summary: The provided page is a Chinese tech blog \"ZeroOne\" covering various developer topics and tutorials, with recent posts on GitHub Copilot for JetBrains, Google Apps Script, Ollama, OpenAI Atlas, Cloudflare Workflows, and GitHub Code Quality. It does not appear to specifically address \"Node.js 24 的权限模型\" (Node.js 24 permission model). If your goal is to learn about Node.js 24’s permission model, this page is not the right source. You may want to search for official Node.js 24 documentation ",
+      "author": "Zero",
+      "strictUrl": "https://laplusda.com/",
+      "looseUrl": "https://laplusda.com/",
+      "citationUrl": "https://laplusda.com/",
+      "hostname": "laplusda.com",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015384615384615385,
+      "provenance": "unknown",
+      "rrfNormalized": 0.938462,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.625,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.761346
+    },
+    {
+      "title": "Node.js 24 深度实战：当 JavaScript 运行时成为全功能平台——从原生 TypeScript 到后量子密码学的完全指南（2026）-程序员茄子",
+      "url": "https://chenxutan.com/d/4050.html",
+      "snippet": "Node.js 24 的权限模型（Permission Model）是一个细粒度的运行时权限控制机制，旨在即使进程被攻破也能限制攻击者的行为，从而提升安全性。核心要点：\n\n- 目的：替代或补充操作系统级的权限控制，实现对文件系统、网络、环境等资源的最小权限访问。\n- 主要特性：\n  - 精细粒度权限：可以对特定资源和操作授予或拒绝权限（如读取特定目录、网络访问、生成子进程等）。\n  - 原生使用：在 Node.js 24 中内置并集成到启动参数中，方便在生产环境启用。\n  - 运行时检查：代码中可动态查询权限并据此决定是否执行相关操作。\n- 典型用法（命令行与代码示例）：\n  - 仅允许读取特定目录：\n    - node --permission --allow-fs-read=/app/data index.js\n  - 禁止所有网络访问：\n    - node --permission --deny-net index.js\n  - 仅允许连接特定主机/端口：\n    - node --permission --allow-net=api.example.com:443 inde",
+      "author": "qnxxgo",
+      "strictUrl": "https://chenxutan.com/d/4050.html",
+      "looseUrl": "https://chenxutan.com/d/4050.html",
+      "citationUrl": "https://chenxutan.com/d/4050.html",
+      "hostname": "chenxutan.com",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014285714285714285,
+      "provenance": "unknown",
+      "rrfNormalized": 0.871429,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.625,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.719786
+    },
+    {
+      "title": "Node.js 24 发布：升级V8 引擎、提升性能",
+      "url": "https://oschina.net/",
+      "snippet": "Summary:\nThe provided page is a Chinese tech community page (OSCHINA) with a stream of miscellaneous comments and headlines. It does not contain a clear, authoritative explanation of Node.js 24’s permission/privilege model. To answer your query directly: Node.js 24 (as of current knowledge) uses a single-process, non-privileged user-space model for running JavaScript code. Permissions for filesystem, network, and other resources are governed by the operating system user account under which the N",
+      "strictUrl": "https://www.oschina.net/",
+      "looseUrl": "https://oschina.net/",
+      "citationUrl": "https://www.oschina.net/",
+      "hostname": "oschina.net",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014705882352941176,
+      "provenance": "unknown",
+      "rrfNormalized": 0.897059,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.705676
+    },
+    {
+      "title": "Node.js 中的权限模型、错误处理与 Web 平台 API | Read OSS",
+      "url": "https://readoss.com/zh/nodejs/node/permissions-errors-and-web-platform-apis-in-nodejs",
+      "snippet": "Node.js 24 的权限模型要点（实验性特性）：\n- 启用方式：通过命令行参数 --permission 激活，结合具体的权限开关（如 --allow-fs-read、--allow-net 等）来对应用进行能力限制。\n- 核心机制：不是沙箱，而是一套能力检查机制。C++ 层在每次敏感操作前进行权限校验，确保操作在被允许的范围内执行。\n- 结构与实现：\n  - 权限中心：Permission (permission.h) 作为协调者，管理各子权限模块。\n  - 具体权限类型（可按需开启）：FSPermission（文件系统读写）、NetPermission（网络访问）、ChildProcessPermission（子进程创建）、InspectorPermission、WASIPermission、WorkerPermission、AddonPermission 等。\n  - 实现细节：权限检查通过 THROW_IF_INSUFFICIENT_PERMISSIONS 等宏实现，分布在涉及敏感操作的 C++ 代码中，如 node_file.cc。\n  - 文件系统权限：使用 Radix",
+      "publishedDate": "2026-03-28T00:00:00.000Z",
+      "ageSeconds": 14745925,
+      "strictUrl": "https://readoss.com/zh/nodejs/node/permissions-errors-and-web-platform-apis-in-nodejs",
+      "looseUrl": "https://readoss.com/zh/nodejs/node/permissions-errors-and-web-platform-apis-in-nodejs",
+      "citationUrl": "https://readoss.com/zh/nodejs/node/permissions-errors-and-web-platform-apis-in-nodejs",
+      "hostname": "readoss.com",
+      "publishedAt": "2026-03-28T00:00:00.000Z",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014492753623188406,
+      "provenance": "unknown",
+      "rrfNormalized": 0.884058,
+      "freshnessScore": 0.3,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.625,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.699616
+    }
+  ],
+  "results": [
+    {
+      "title": "Node.js — Node.js 24.0.0 (Current)",
+      "url": "https://nodejs.org/zh-cn/blog/release/v24.0.0",
+      "snippet": "Node.js 24 的权限模型是对实验性权限模型的持续改进与稳定化。关键点：\n\n- 权限模型原本在 Node.js 20 引入，属于实验性特性；在 24.0.0 版本中进一步改进并趋于稳定。\n- CLI 启用方式从 --experimental-permission 改为 --permission，标志性地体现其成熟度提升。\n- 该改进由 Rafael Gonzaga 贡献，属于 semver-major 级别的变更，表示对现有权限模型的重大更新和持续推广。\n\n简要结论：Node.js 24 将权限模型从实验性阶段推向更稳定的实现，CLI 参数由 --experimental-permission 变为 --permission，准备更广泛使用。",
+      "strictUrl": "https://nodejs.org/zh-cn/blog/release/v24.0.0",
+      "looseUrl": "https://nodejs.org/zh-cn/blog/release/v24.0.0",
+      "citationUrl": "https://nodejs.org/zh-cn/blog/release/v24.0.0",
+      "hostname": "nodejs.org",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016129032258064516,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.983871,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.75,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.887
+    },
+    {
+      "title": "Permissions | Node.js v24.14.1 Documentation",
+      "url": "https://nodejs.org/download/release/v24.14.1/docs/api/permissions.html",
+      "snippet": "Node.js 24 的权限模型是一种“安全带”式的资源访问控制机制，允许在运行时对 Node.js 进程能访问的系统资源设定限定。核心要点：\n\n- 启用方式：通过 --permission 标志开启，默认限制对可用权限的访问；启用后，process.permission.has(scope[, reference]) API 可用于在运行 时检查权限。\n- 作用范围：最初默认限制对文件系统（node:fs）、spawn/child processes、node:worker_threads、原生模块、WASI、运行时 inspector 等的访问。\n- 例外与放行：可使用 --allow-fs-read 和 --allow-fs-write 等标志来允许特定的文件系统读写权限。\n- 限制与约束：\n  - 权限模型不适用于所有情形，存在无效或无法覆盖的情况（例如通过其他模块途径的访问可能绕过限制）。\n  - 模型不对恶意代码提供安全保证，恶意代码仍可能绕过权限模型执行任意代码。\n  - 不对 worker 线程、Native 模块、Inspector、WASI、OpenSSL 引擎等的",
+      "strictUrl": "https://nodejs.org/download/release/v24.14.1/docs/api/permissions.html",
+      "looseUrl": "https://nodejs.org/download/release/v24.14.1/docs/api/permissions.html",
+      "citationUrl": "https://nodejs.org/download/release/v24.14.1/docs/api/permissions.html",
+      "hostname": "nodejs.org",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015873015873015872,
+      "provenance": "primary_official",
+      "rrfNormalized": 0.968254,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.9,
+      "relevanceScore": 0.75,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.877317
+    },
+    {
+      "title": "permissions | Node.js v24 文档",
+      "url": "https://nodejs.cn/api/v24/permissions.html",
+      "snippet": "Node.js 24 的权限模型是一种在运行时对特定资源访问进行限制的机制。要点如下：\n- 启用方式：通过启动参数 --permission 启用，相关 API 位于权限标志后。还可以在配置文件中通过 permission 顶层对象声明权限选项，或使用 npx 时通过 --node-options 启用。\n- 作用范围：对可用权限进行限制，包括对文件系统（fs）、进程创建、node:worker_threads、原生插件、WASI、运行时检测（inspector）等的访问与使用。默认先限制对文件系统的访问，且有默认限制。\n- 使用方式：提供 permission.has(...) API，允许在运行时查询/检测权限。\n- 限制与注意：\n  - 权限模型不会继承到工作线程中，且某些功能在开启时会被限制（原生模块、子进程、工作线程、检查器协议、文件系统、WASI 等）。\n  - 某些标志（如 --env-file、--openssl-config）在环境初始化前读取文件，因此不受权限模型约束。通过 v8.setFlagsFromString 运行时设置的 V8 标志也同理。\n  - 启用后",
+      "strictUrl": "https://nodejs.cn/api/v24/permissions.html",
+      "looseUrl": "https://nodejs.cn/api/v24/permissions.html",
+      "citationUrl": "https://nodejs.cn/api/v24/permissions.html",
+      "hostname": "nodejs.cn",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.01639344262295082,
+      "provenance": "unknown",
+      "rrfNormalized": 1,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.75,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.807
+    },
+    {
+      "title": "Node.js 24 发行注记",
+      "url": "https://docs.redhat.com/",
+      "snippet": "Summary:\nThe provided Red Hat documentation pages discuss how to use large language models (LLMs) with Node.js, including a training course on getting started with LLMs and Node.js (via LangChain.js). However, there is no information in the extracted highlights about Node.js 24’s permission model. To answer “Node.js 24 的权限模型是什么” (What is the permission model of Node.js 24), you would need to consult official Node.js 24 release notes or documentation specifically about Node.js security and permis",
+      "strictUrl": "https://docs.redhat.com/",
+      "looseUrl": "https://docs.redhat.com/",
+      "citationUrl": "https://docs.redhat.com/",
+      "hostname": "docs.redhat.com",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015151515151515152,
+      "provenance": "unknown",
+      "rrfNormalized": 0.924242,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 1,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.77503
+    },
+    {
+      "title": "--permission | Node.js API 文档",
+      "url": "https://nodejs.cn/api/cli/permission.html",
+      "snippet": "Summary:\nNode.js 引入的权限模型自 v20.0.0 版本起已稳定，当前在 Node.js 24（及后续版本）中可启用。启用后，进程会对若干能力进行限制，通过特定标志进行逐项管理：\n- 文件系统：通过 --allow-fs-read 与 --allow-fs-write 控制\n- 网络：通过 --allow-net 控制\n- 子进程：通过 --allow-child-process 控制\n- 工作线程：通过 --allow-worker 控制\n- WASI：通过 --allow-wasi 控制\n- 插件 (addons)：通过 --allow-addons 控制\n- FFI：通过 --allow-ffi 控制\n\n需要启用权限模型后，相关能力将被限制，且可通过相应标志进行授权或禁用。若未启用权限模型，默认行为不受这些限制。",
+      "strictUrl": "https://nodejs.cn/api/cli/permission.html",
+      "looseUrl": "https://nodejs.cn/api/cli/permission.html",
+      "citationUrl": "https://nodejs.cn/api/cli/permission.html",
+      "hostname": "nodejs.cn",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015625,
+      "provenance": "unknown",
+      "rrfNormalized": 0.953125,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.625,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.770437
+    },
+    {
+      "title": "Node.js 24.20 的權限模型怎麼試：用--permission-audit 找出需求",
+      "url": "https://laplusda.com/",
+      "snippet": "Summary: The provided page is a Chinese tech blog \"ZeroOne\" covering various developer topics and tutorials, with recent posts on GitHub Copilot for JetBrains, Google Apps Script, Ollama, OpenAI Atlas, Cloudflare Workflows, and GitHub Code Quality. It does not appear to specifically address \"Node.js 24 的权限模型\" (Node.js 24 permission model). If your goal is to learn about Node.js 24’s permission model, this page is not the right source. You may want to search for official Node.js 24 documentation ",
+      "author": "Zero",
+      "strictUrl": "https://laplusda.com/",
+      "looseUrl": "https://laplusda.com/",
+      "citationUrl": "https://laplusda.com/",
+      "hostname": "laplusda.com",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015384615384615385,
+      "provenance": "unknown",
+      "rrfNormalized": 0.938462,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.625,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.761346
+    },
+    {
+      "title": "Node.js 24 深度实战：当 JavaScript 运行时成为全功能平台——从原生 TypeScript 到后量子密码学的完全指南（2026）-程序员茄子",
+      "url": "https://chenxutan.com/d/4050.html",
+      "snippet": "Node.js 24 的权限模型（Permission Model）是一个细粒度的运行时权限控制机制，旨在即使进程被攻破也能限制攻击者的行为，从而提升安全性。核心要点：\n\n- 目的：替代或补充操作系统级的权限控制，实现对文件系统、网络、环境等资源的最小权限访问。\n- 主要特性：\n  - 精细粒度权限：可以对特定资源和操作授予或拒绝权限（如读取特定目录、网络访问、生成子进程等）。\n  - 原生使用：在 Node.js 24 中内置并集成到启动参数中，方便在生产环境启用。\n  - 运行时检查：代码中可动态查询权限并据此决定是否执行相关操作。\n- 典型用法（命令行与代码示例）：\n  - 仅允许读取特定目录：\n    - node --permission --allow-fs-read=/app/data index.js\n  - 禁止所有网络访问：\n    - node --permission --deny-net index.js\n  - 仅允许连接特定主机/端口：\n    - node --permission --allow-net=api.example.com:443 inde",
+      "author": "qnxxgo",
+      "strictUrl": "https://chenxutan.com/d/4050.html",
+      "looseUrl": "https://chenxutan.com/d/4050.html",
+      "citationUrl": "https://chenxutan.com/d/4050.html",
+      "hostname": "chenxutan.com",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014285714285714285,
+      "provenance": "unknown",
+      "rrfNormalized": 0.871429,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.625,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.719786
+    },
+    {
+      "title": "Node.js 24 发布：升级V8 引擎、提升性能",
+      "url": "https://oschina.net/",
+      "snippet": "Summary:\nThe provided page is a Chinese tech community page (OSCHINA) with a stream of miscellaneous comments and headlines. It does not contain a clear, authoritative explanation of Node.js 24’s permission/privilege model. To answer your query directly: Node.js 24 (as of current knowledge) uses a single-process, non-privileged user-space model for running JavaScript code. Permissions for filesystem, network, and other resources are governed by the operating system user account under which the N",
+      "strictUrl": "https://www.oschina.net/",
+      "looseUrl": "https://oschina.net/",
+      "citationUrl": "https://www.oschina.net/",
+      "hostname": "oschina.net",
+      "providers": [
+        "exa"
+      ],
+      "families": [
+        "exa"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.014705882352941176,
+      "provenance": "unknown",
+      "rrfNormalized": 0.897059,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.705676
+    }
+  ],
+  "coverage": {
+    "retrieval": {
+      "uniqueCanonicalUrls": 10,
+      "totalSources": 10,
+      "offTopicSources": 0,
+      "uniqueDomains": 7,
+      "uniqueFamilies": 1,
+      "primarySources": 3,
+      "successfulAttempts": 1,
+      "successfulProviders": 1,
+      "policy": {
+        "minUniqueCanonicalUrls": 4,
+        "minUniqueDomains": 2,
+        "minPrimarySources": 1
+      },
+      "sufficient": true
+    },
+    "evidence": {
+      "requiredFacets": [],
+      "offTopicSources": 0,
+      "sufficient": true,
+      "gaps": []
+    },
+    "gaps": [],
+    "sufficient": true,
+    "delivery": {
+      "sufficient": true,
+      "gaps": []
+    }
+  },
+  "budget": {
+    "wallClockMs": 150000,
+    "perCallTimeoutMs": 45000,
+    "maxInitialProviders": 1,
+    "maxProviders": 1,
+    "maxSubqueries": 3,
+    "maxSearchCalls": 9,
+    "maxFallbackCalls": 0,
+    "maxFetches": 0
+  },
+  "status": "complete",
+  "stopReason": "coverage-satisfied",
+  "providers": {
+    "selected": [
+      "exa"
+    ],
+    "used": [
+      "exa"
+    ],
+    "failures": [],
+    "empty": [],
+    "autoOrder": [
+      "exa",
+      "gemini",
+      "xai",
+      "firecrawl",
+      "tavily",
+      "tinyfish",
+      "zai",
+      "kimi",
+      "codex",
+      "public",
+      "jina",
+      "brave",
+      "searxng",
+      "startpage",
+      "duckduckgo",
+      "ecosia",
+      "google",
+      "mojeek"
+    ]
+  },
+  "citations": [
+    "[1] Node.js — Node.js 24.0.0 (Current) — https://nodejs.org/zh-cn/blog/release/v24.0.0",
+    "[2] Permissions | Node.js v24.14.1 Documentation — https://nodejs.org/download/release/v24.14.1/docs/api/permissions.html",
+    "[3] permissions | Node.js v24 文档 — https://nodejs.cn/api/v24/permissions.html",
+    "[4] Node.js 24 发行注记 — https://docs.redhat.com/",
+    "[5] --permission | Node.js API 文档 — https://nodejs.cn/api/cli/permission.html",
+    "[6] Node.js 24.20 的權限模型怎麼試：用--permission-audit 找出需求 — https://laplusda.com/",
+    "[7] Node.js 24 深度实战：当 JavaScript 运行时成为全功能平台——从原生 TypeScript 到后量子密码学的完全指南（2026）-程序员茄子 — https://chenxutan.com/d/4050.html",
+    "[8] Node.js 24 发布：升级V8 引擎、提升性能 — https://www.oschina.net/"
+  ],
+  "providerAnswers": [
+    {
+      "provider": "exa",
+      "answer": "**permissions | Node.js v24 文档**: Node.js 24 的权限模型是一种在运行时对特定资源访问进行限制的机制。要点如下：\n- 启用方式：通过启动参数 --permission 启用，相关 API 位于权限标志后。还可以在配置文件中通过 permission 顶层对象声明权限选项，或使用 npx 时通过 --node-options 启用。\n- 作用范围：对可用权限进行限制，包括对文件系统（fs）、进程创建、node:worker_threads、原生插件、WASI、运行时检测（inspector）等的访问与使用。默认先限制对文件系统的访问，且有默认限制。\n- 使用方式：提供 permission.has(...) API，允许在运行时查询/检测权限。\n- 限制与注意：\n  - 权限模型不会继承到工作线程中，且某些功能在开启时会被限制（原生模块、子进程、工作线程、检查器协议、文件系统、WASI 等）。\n  - 某些标志（如 --env-file、--openssl-config）在环境初始化前读取文件，因此不受权限模型约束。通过 v8.setFlagsFromString 运行时设置的 V8 标志也同理。\n  - 启用后，运行时的 OpenSSL 引擎请求、运行时扩展加载（如 sqlite 模块）等可能受影响。\n  - 通过 node:fs 使用现有的文件描述符可能绕过模型限制。\n- 额外说明：这是一个“安全带”机制，旨在防止受信任代码在未经授权的情况下修改文件或使用资源，但不能阻止恶意代码，且在存在恶意代码时无法提供全面安全保障。\n\n简要回答：Node.js 24 的权限模型是在执行时对资源访问进行限制的机制，需通过 --permission 启用，提供 permission.has(...) API 来检测权限，影响对文件系统、进程、工作线程、原生模块、WASI、运行时检测等的访问；但并非全方位安全防护，且某些初始化阶段的标志不受其约束。\n\n**Node.js — Node.js 24.0.0 (Current)**: Node.js 24 的权限模型是对实验性权限模型的持续改进与稳定化。关键点：\n\n- 权限模型原本在 Node.js 20 引入，属于实验性特性；在 24.0.0 版本中进一步改进并趋于稳定。\n- CLI 启用方式从 --experimental-permission 改为 --permission，标志性地体现其成熟度提升。\n- 该改进由 Rafael Gonzaga 贡献，属于 semver-major 级别的变更，表示对现有权限模型的重大更新和持续推广。\n\n简要结论：Node.js 24 将权限模型从实验性阶段推向更稳定的实现，CLI 参数由 --experimental-permission 变为 --permission，准备更广泛使用。\n\n**Permissions | Node.js v24.14.1 Documentation**: Node.js 24 的权限模型是一种“安全带”式的资源访问控制机制，允许在运行时对 Node.js 进程能访问的系统资源设定限定。核心要点：\n\n- 启用方式：通过 --permission 标志开启，默认限制对可用权限的访问；启用后，process.permission.has(scope[, reference]) API 可用于在运行 时检查权限。\n- 作用范围：最初默认限制对文件系统（node:fs）、spawn/child processes、node:worker_threads、原生模块、WASI、运行时 inspector 等的访问。\n- 例外与放行：可使用 --allow-fs-read 和 --allow-fs-write 等标志来允许特定的文件系统读写权限。\n- 限制与约束：\n  - 权限模型不适用于所有情形，存在无效或无法覆盖的情况（例如通过其他模块途径的访问可能绕过限制）。\n  - 模型不对恶意代码提供安全保证，恶意代码仍可能绕过权限模型执行任意代码。\n  - 不对 worker 线程、Native 模块、Inspector、WASI、OpenSSL 引擎等的访问提供完整继承。\n  - 某些标志（如 --env-file、--openssl-config、v8 flags）在环境初始化前即可读取文件，因而不受权限模型限制。\n  - 通过现有文件描述符、符号链接等可能绕过或扩大权限影响，需注意路径中的相对符号链接风险。\n- 适用场景与注意事项：适用于需要限制 Node.js 进程对资源的访问权限的场景，但需清楚其并非全局强制的安全机制，且在某些模块或用法下可能无法阻止访问。\n\n简言之，Node.js 24 的权限模型是一种可选的运行时资源访问控制机制，通过 --permission 启用并结合具体的权限开关实现对文件系统等资源的限制，配合 permission.has() API 进行运行时查询与控制，同时需注意它并不构成对恶意代码的全面安全保障。"
+    }
+  ],
+  "observability": {
+    "elapsedMs": 6670,
+    "providerLatencyMs": {
+      "exa::Node.js 24 的权限模型是什么": 6668
+    }
+  }
+}

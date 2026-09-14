@@ -1,0 +1,682 @@
+{
+  "schemaVersion": 1,
+  "mode": "adapter-orchestrated",
+  "query": "Mojeek 搜索引擎的索引规模",
+  "task": {
+    "task": "exploratory",
+    "freshness": "evergreen",
+    "domain": "general",
+    "domainTags": [],
+    "depth": "quick",
+    "language": "mixed-or-zh"
+  },
+  "capabilities": {
+    "harness": "omp",
+    "level": "L3",
+    "providerPin": true,
+    "parallelSearch": true,
+    "structuredSources": true,
+    "fetch": false,
+    "providers": [
+      "gemini",
+      "codex",
+      "xai",
+      "zai",
+      "exa",
+      "tinyfish",
+      "jina",
+      "tavily",
+      "firecrawl",
+      "brave",
+      "kimi",
+      "searxng",
+      "startpage",
+      "duckduckgo",
+      "ecosia",
+      "google",
+      "mojeek",
+      "public"
+    ],
+    "autoOrder": [
+      "exa",
+      "gemini",
+      "xai",
+      "firecrawl",
+      "tavily",
+      "tinyfish",
+      "zai",
+      "kimi",
+      "codex",
+      "public",
+      "jina",
+      "brave",
+      "searxng",
+      "startpage",
+      "duckduckgo",
+      "ecosia",
+      "google",
+      "mojeek"
+    ],
+    "roles": {
+      "gemini": [
+        "general",
+        "fresh"
+      ],
+      "codex": [
+        "general",
+        "developer",
+        "fresh"
+      ],
+      "xai": [
+        "fresh",
+        "social"
+      ],
+      "zai": [
+        "china",
+        "general"
+      ],
+      "exa": [
+        "semantic",
+        "developer",
+        "academic"
+      ],
+      "tinyfish": [
+        "general",
+        "fallback"
+      ],
+      "jina": [
+        "semantic",
+        "developer"
+      ],
+      "tavily": [
+        "general",
+        "fresh",
+        "semantic"
+      ],
+      "firecrawl": [
+        "developer",
+        "general"
+      ],
+      "brave": [
+        "general",
+        "fresh"
+      ],
+      "kimi": [
+        "china",
+        "general"
+      ],
+      "searxng": [
+        "public",
+        "general",
+        "fallback"
+      ],
+      "startpage": [
+        "public",
+        "general"
+      ],
+      "duckduckgo": [
+        "public",
+        "general",
+        "fallback"
+      ],
+      "ecosia": [
+        "public",
+        "general"
+      ],
+      "google": [
+        "public",
+        "general",
+        "fresh"
+      ],
+      "mojeek": [
+        "public",
+        "general"
+      ],
+      "public": [
+        "public",
+        "fallback",
+        "general"
+      ]
+    },
+    "rankSemantics": {
+      "gemini": "citation-order",
+      "codex": "citation-order",
+      "xai": "citation-order",
+      "zai": "citation-order",
+      "exa": "ranked",
+      "tinyfish": "ranked",
+      "jina": "unknown",
+      "tavily": "ranked",
+      "firecrawl": "ranked",
+      "brave": "ranked",
+      "kimi": "citation-order",
+      "searxng": "ranked",
+      "startpage": "ranked",
+      "duckduckgo": "ranked",
+      "ecosia": "ranked",
+      "google": "ranked",
+      "mojeek": "ranked",
+      "public": "ranked"
+    },
+    "retrievalFamilies": {
+      "gemini": "google",
+      "codex": "openai",
+      "xai": "xai",
+      "zai": "zai",
+      "exa": "exa",
+      "tinyfish": "tinyfish",
+      "jina": "jina",
+      "tavily": "tavily",
+      "firecrawl": "firecrawl",
+      "brave": "brave",
+      "kimi": "kimi",
+      "searxng": "metasearch",
+      "startpage": "google",
+      "duckduckgo": "duckduckgo",
+      "ecosia": "bing",
+      "google": "google",
+      "mojeek": "mojeek",
+      "public": "public"
+    },
+    "metadata": {
+      "adapter": "omp-internal",
+      "compatibility": true,
+      "availableProviders": [
+        "gemini",
+        "codex",
+        "xai",
+        "zai",
+        "exa",
+        "tinyfish",
+        "jina",
+        "tavily",
+        "firecrawl",
+        "brave",
+        "kimi",
+        "searxng",
+        "startpage",
+        "duckduckgo",
+        "ecosia",
+        "google",
+        "mojeek",
+        "public"
+      ],
+      "preferredOrder": [
+        "exa",
+        "gemini",
+        "xai",
+        "firecrawl",
+        "tavily",
+        "tinyfish",
+        "zai",
+        "kimi",
+        "codex",
+        "public"
+      ],
+      "excludedProviders": [
+        "perplexity",
+        "anthropic",
+        "kagi",
+        "parallel",
+        "synthetic"
+      ]
+    }
+  },
+  "attempts": [
+    {
+      "provider": "gemini",
+      "requestedProvider": "gemini",
+      "ok": true,
+      "sources": [
+        {
+          "title": "mojeek.com",
+          "url": "https://www.mojeek.com/about/technology.html"
+        },
+        {
+          "title": "searchengines.net",
+          "url": "https://www.searchengines.net/mojeek/"
+        },
+        {
+          "title": "mojeek.com",
+          "url": "https://blog.mojeek.com/2021/06/four-billion-pages.html"
+        },
+        {
+          "title": "mojeek.com",
+          "url": "https://www.mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html"
+        },
+        {
+          "title": "mojeek.com",
+          "url": "https://www.mojeek.com/about/press/2018/privacy_search_engine_mojeek_passes_2_billion_page_milestone.html"
+        },
+        {
+          "title": "privacyguides.net",
+          "url": "https://discuss.privacyguides.net/t/mojeek/12101"
+        }
+      ],
+      "answer": "Mojeek 是少数几个**完全不依赖主流大厂（如 Google、Bing）索引或搜索结果馈送（API Feed）**、坚持从零开始独立构建网页爬虫和索引的独立搜索引擎之一（总部位于英国）。\n\n关于其**索引规模**：\n\n* **量级突破**：Mojeek 在 2021 年中旬宣布其网页索引规模正式**突破 40 亿页（4 billion pages）**。在此之前，它于 2015 年突破 10 亿页，2018 年突破 20 亿页。\n* **规模对比**：虽然 40 多亿的网页索引量在绝对数值上远无法与 Google、Bing 等巨头动辄数千亿、数万亿的体量相提并论，但在“**独立且不追踪用户的搜索引擎**”这一垂直阵营中，它属于规模较大的独立网页索引之一（与 Brave Search 等处于同一梯队）。\n* **语言与内容侧重**：Mojeek 的索引主要以英语网页为主，同时也覆盖部分德语、法语、西班牙语等其他西欧语言页面。它主要依靠基于关键词的**词法搜索（Lexical Search）**，不包含复杂的个人行为追踪或个性化算法。",
+      "citations": [
+        "https://www.mojeek.com/about/technology.html",
+        "https://www.searchengines.net/mojeek/",
+        "https://blog.mojeek.com/2021/06/four-billion-pages.html",
+        "https://www.mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+        "https://www.mojeek.com/about/press/2018/privacy_search_engine_mojeek_passes_2_billion_page_milestone.html",
+        "https://discuss.privacyguides.net/t/mojeek/12101",
+        "https://discuss.privacyguides.net/t/mojeek/12101",
+        "https://www.searchengines.net/mojeek/",
+        "https://discuss.privacyguides.net/t/mojeek/12101"
+      ],
+      "searchQueries": [
+        "Mojeek 索引规模",
+        "Mojeek search engine index size"
+      ],
+      "metadata": {
+        "model": "gemini-2.5-flash",
+        "usage": {
+          "inputTokens": 258,
+          "outputTokens": 338,
+          "totalTokens": 596
+        }
+      },
+      "latencyMs": 4078,
+      "query": "Mojeek 搜索引擎的索引规模",
+      "facetId": "base",
+      "wave": "breadth"
+    }
+  ],
+  "facets": [
+    {
+      "id": "base",
+      "query": "Mojeek 搜索引擎的索引规模",
+      "purpose": "broad-recall",
+      "requiredRoles": [],
+      "required": true,
+      "entities": []
+    }
+  ],
+  "queryVariants": [
+    "Mojeek 搜索引擎的索引规模"
+  ],
+  "fused": [
+    {
+      "title": "privacyguides.net",
+      "url": "https://discuss.privacyguides.net/t/mojeek/12101",
+      "strictUrl": "https://discuss.privacyguides.net/t/mojeek/12101",
+      "looseUrl": "https://discuss.privacyguides.net/t/mojeek/12101",
+      "citationUrl": "https://discuss.privacyguides.net/t/mojeek/12101",
+      "hostname": "discuss.privacyguides.net",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015742909185532138,
+      "provenance": "community",
+      "rrfNormalized": 0.960317,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.6,
+      "relevanceScore": 0,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.773397
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://mojeek.com/about/technology.html",
+      "strictUrl": "https://www.mojeek.com/about/technology.html",
+      "looseUrl": "https://mojeek.com/about/technology.html",
+      "citationUrl": "https://www.mojeek.com/about/technology.html",
+      "hostname": "mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.01639344262295082,
+      "provenance": "unknown",
+      "rrfNormalized": 1,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.7695
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://blog.mojeek.com/2021/06/four-billion-pages.html",
+      "strictUrl": "https://blog.mojeek.com/2021/06/four-billion-pages.html",
+      "looseUrl": "https://blog.mojeek.com/2021/06/four-billion-pages.html",
+      "citationUrl": "https://blog.mojeek.com/2021/06/four-billion-pages.html",
+      "hostname": "blog.mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016126882580301215,
+      "provenance": "unknown",
+      "rrfNormalized": 0.98374,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.759419
+    },
+    {
+      "title": "searchengines.net",
+      "url": "https://searchengines.net/mojeek",
+      "strictUrl": "https://www.searchengines.net/mojeek/",
+      "looseUrl": "https://searchengines.net/mojeek",
+      "citationUrl": "https://www.searchengines.net/mojeek/",
+      "hostname": "searchengines.net",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016259070142434832,
+      "provenance": "unknown",
+      "rrfNormalized": 0.991803,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.756918
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+      "strictUrl": "https://www.mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+      "looseUrl": "https://mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+      "citationUrl": "https://www.mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+      "hostname": "mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015996827075621365,
+      "provenance": "unknown",
+      "rrfNormalized": 0.975806,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.7545
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://mojeek.com/about/press/2018/privacy_search_engine_mojeek_passes_2_billion_page_milestone.html",
+      "strictUrl": "https://www.mojeek.com/about/press/2018/privacy_search_engine_mojeek_passes_2_billion_page_milestone.html",
+      "looseUrl": "https://mojeek.com/about/press/2018/privacy_search_engine_mojeek_passes_2_billion_page_milestone.html",
+      "citationUrl": "https://www.mojeek.com/about/press/2018/privacy_search_engine_mojeek_passes_2_billion_page_milestone.html",
+      "hostname": "mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015868852459016394,
+      "provenance": "unknown",
+      "rrfNormalized": 0.968,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.74966
+    }
+  ],
+  "results": [
+    {
+      "title": "privacyguides.net",
+      "url": "https://discuss.privacyguides.net/t/mojeek/12101",
+      "strictUrl": "https://discuss.privacyguides.net/t/mojeek/12101",
+      "looseUrl": "https://discuss.privacyguides.net/t/mojeek/12101",
+      "citationUrl": "https://discuss.privacyguides.net/t/mojeek/12101",
+      "hostname": "discuss.privacyguides.net",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015742909185532138,
+      "provenance": "community",
+      "rrfNormalized": 0.960317,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.6,
+      "relevanceScore": 0,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.773397
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://mojeek.com/about/technology.html",
+      "strictUrl": "https://www.mojeek.com/about/technology.html",
+      "looseUrl": "https://mojeek.com/about/technology.html",
+      "citationUrl": "https://www.mojeek.com/about/technology.html",
+      "hostname": "mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.01639344262295082,
+      "provenance": "unknown",
+      "rrfNormalized": 1,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.7695
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://blog.mojeek.com/2021/06/four-billion-pages.html",
+      "strictUrl": "https://blog.mojeek.com/2021/06/four-billion-pages.html",
+      "looseUrl": "https://blog.mojeek.com/2021/06/four-billion-pages.html",
+      "citationUrl": "https://blog.mojeek.com/2021/06/four-billion-pages.html",
+      "hostname": "blog.mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016126882580301215,
+      "provenance": "unknown",
+      "rrfNormalized": 0.98374,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.759419
+    },
+    {
+      "title": "searchengines.net",
+      "url": "https://searchengines.net/mojeek",
+      "strictUrl": "https://www.searchengines.net/mojeek/",
+      "looseUrl": "https://searchengines.net/mojeek",
+      "citationUrl": "https://www.searchengines.net/mojeek/",
+      "hostname": "searchengines.net",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.016259070142434832,
+      "provenance": "unknown",
+      "rrfNormalized": 0.991803,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.756918
+    },
+    {
+      "title": "mojeek.com",
+      "url": "https://mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+      "strictUrl": "https://www.mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+      "looseUrl": "https://mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+      "citationUrl": "https://www.mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html",
+      "hostname": "mojeek.com",
+      "snippet": "",
+      "providers": [
+        "gemini"
+      ],
+      "families": [
+        "google"
+      ],
+      "providerSupport": 1,
+      "familySupport": 1,
+      "rrf": 0.015996827075621365,
+      "provenance": "unknown",
+      "rrfNormalized": 0.975806,
+      "freshnessScore": 0.5,
+      "provenanceScore": 0.4,
+      "relevanceScore": 0.125,
+      "providerSupportRatio": 1,
+      "familySupportRatio": 1,
+      "score": 0.7545
+    }
+  ],
+  "coverage": {
+    "retrieval": {
+      "uniqueCanonicalUrls": 4,
+      "totalSources": 6,
+      "offTopicSources": 2,
+      "uniqueDomains": 2,
+      "uniqueFamilies": 1,
+      "primarySources": 0,
+      "successfulAttempts": 1,
+      "successfulProviders": 1,
+      "policy": {
+        "minUniqueCanonicalUrls": 6,
+        "minUniqueDomains": 2,
+        "minPrimarySources": 0
+      },
+      "sufficient": false
+    },
+    "evidence": {
+      "requiredFacets": [],
+      "offTopicSources": 2,
+      "sufficient": true,
+      "gaps": []
+    },
+    "gaps": [
+      "retrieval pool below policy minimums"
+    ],
+    "sufficient": false,
+    "delivery": {
+      "sufficient": true,
+      "gaps": []
+    }
+  },
+  "budget": {
+    "wallClockMs": 150000,
+    "perCallTimeoutMs": 45000,
+    "maxInitialProviders": 1,
+    "maxProviders": 1,
+    "maxSubqueries": 1,
+    "maxSearchCalls": 9,
+    "maxFallbackCalls": 0,
+    "maxFetches": 0
+  },
+  "status": "complete",
+  "stopReason": "budget-exhausted",
+  "providers": {
+    "selected": [
+      "gemini"
+    ],
+    "used": [
+      "gemini"
+    ],
+    "failures": [],
+    "empty": [],
+    "autoOrder": [
+      "exa",
+      "gemini",
+      "xai",
+      "firecrawl",
+      "tavily",
+      "tinyfish",
+      "zai",
+      "kimi",
+      "codex",
+      "public",
+      "jina",
+      "brave",
+      "searxng",
+      "startpage",
+      "duckduckgo",
+      "ecosia",
+      "google",
+      "mojeek"
+    ]
+  },
+  "citations": [
+    "[1] privacyguides.net — https://discuss.privacyguides.net/t/mojeek/12101",
+    "[2] mojeek.com — https://www.mojeek.com/about/technology.html",
+    "[3] mojeek.com — https://blog.mojeek.com/2021/06/four-billion-pages.html",
+    "[4] searchengines.net — https://www.searchengines.net/mojeek/",
+    "[5] mojeek.com — https://www.mojeek.com/about/press/2015/mojeek_passes_billion_page_milestone.html"
+  ],
+  "providerAnswers": [
+    {
+      "provider": "gemini",
+      "answer": "Mojeek 是少数几个**完全不依赖主流大厂（如 Google、Bing）索引或搜索结果馈送（API Feed）**、坚持从零开始独立构建网页爬虫和索引的独立搜索引擎之一（总部位于英国）。\n\n关于其**索引规模**：\n\n* **量级突破**：Mojeek 在 2021 年中旬宣布其网页索引规模正式**突破 40 亿页（4 billion pages）**。在此之前，它于 2015 年突破 10 亿页，2018 年突破 20 亿页。\n* **规模对比**：虽然 40 多亿的网页索引量在绝对数值上远无法与 Google、Bing 等巨头动辄数千亿、数万亿的体量相提并论，但在“**独立且不追踪用户的搜索引擎**”这一垂直阵营中，它属于规模较大的独立网页索引之一（与 Brave Search 等处于同一梯队）。\n* **语言与内容侧重**：Mojeek 的索引主要以英语网页为主，同时也覆盖部分德语、法语、西班牙语等其他西欧语言页面。它主要依靠基于关键词的**词法搜索（Lexical Search）**，不包含复杂的个人行为追踪或个性化算法。"
+    }
+  ],
+  "observability": {
+    "elapsedMs": 4080,
+    "providerLatencyMs": {
+      "gemini::Mojeek 搜索引擎的索引规模": 4078
+    }
+  }
+}

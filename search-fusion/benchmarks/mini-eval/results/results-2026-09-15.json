@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-15",
+  "dataset": "google/frames-benchmark test subset (queries-frames-mini.json)",
+  "queriesRun": 3,
+  "searchBackend": "zcode-websearch (host-orchestrated, no API key quota consumed)",
+  "results": [
+    {
+      "id": "frames-test-0",
+      "prompt": "If my future wife has the same first name as the 15th first lady of the United States' mother and her surname is the same as the second assassinated president's mother's maiden name, what is my future wife's name?",
+      "officialAnswer": "Jane Ballou",
+      "fusionAnswer": "Jane Ballou",
+      "verdict": "answer-exact",
+      "evidence": [
+        "https://en.wikipedia.org/wiki/Harriet_Lane (15th First Lady Harriet Lane 的母亲为 Jane Ann Buchanan → first name Jane)",
+        "https://www.nps.gov/people/eliza-ballou-garfield.htm (Garfield 母亲 Eliza Ballou，maiden name Ballou)"
+      ],
+      "underlyingSearchCalls": 3,
+      "note": "参数知识路线（Jane Pierce → Elizabeth Means）会答错为 Amelia Ballou；检索链路找到正确口径 Harriet Lane 后答对——multi-hop 检索价值的直接案例。首轮 base 查询遇 429 全损。"
+    },
+    {
+      "id": "frames-test-82",
+      "prompt": "Which section of IPSC Australia Inc. is larger than Honshu and smaller than Sumatra by area?",
+      "officialAnswer": "Victoria and Tasmania",
+      "fusionAnswer": "Victoria and Tasmania",
+      "verdict": "answer-exact",
+      "evidence": [
+        "https://www.wikiwand.com/en//IPSC_Australia (7 个 section 列表，唯一含 Victoria and Tasmania 合并 section)",
+        "https://en.wikipedia.org/wiki/Sumatra (Sumatra ~473,481 km2; Honshu ~225,800 km2，其余 section 面积均在此区间外)"
+      ],
+      "underlyingSearchCalls": 2,
+      "note": ""
+    },
+    {
+      "id": "frames-test-164",
+      "prompt": "Among the singers in the 1985 version of \"That's What Friends Are For,\" which one was born in the Peach State?",
+      "officialAnswer": "Gladys Knight",
+      "fusionAnswer": "Gladys Knight",
+      "verdict": "answer-exact",
+      "evidence": [
+        "https://www.youtube.com/watch?v=HyTpu6BmE88 + https://en.wikipedia.org/wiki/That%27s_What_Friends_Are_For (1985 版四歌手: Dionne Warwick, Elton John, Gladys Knight, Stevie Wonder)",
+        "https://zh.wikipedia.org/zh-cn/葛蕾蒂丝·奈特 (Gladys Knight 生于佐治亚州亚特兰大; Peach State = Georgia)"
+      ],
+      "underlyingSearchCalls": 2,
+      "note": ""
+    }
+  ],
+  "summary": { "accuracy": 1.0, "answerExact": 3, "answerWrong": 0, "notAnswered": 0, "totalUnderlyingSearchCalls": 7 }
+}

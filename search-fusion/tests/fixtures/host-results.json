@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "query": "current OpenAI API documentation",
+  "retrievedAt": "2026-09-14T00:00:00Z",
+  "capabilities": {
+    "harness": "fixture-host",
+    "level": "L3",
+    "providerPin": true,
+    "parallelSearch": true,
+    "structuredSources": true,
+    "fetch": false,
+    "providers": ["exa", "gemini", "xai", "tavily"],
+    "autoOrder": ["exa", "gemini", "xai", "tavily"],
+    "roles": {
+      "exa": ["semantic", "developer"],
+      "gemini": ["general", "fresh"],
+      "xai": ["fresh", "social"],
+      "tavily": ["general", "semantic"]
+    },
+    "rankSemantics": {
+      "exa": "ranked",
+      "gemini": "citation-order",
+      "xai": "citation-order",
+      "tavily": "ranked"
+    }
+  },
+  "attempts": [
+    {
+      "provider": "exa",
+      "ok": true,
+      "sources": [
+        {
+          "title": "Primary docs",
+          "url": "https://developers.openai.com/api/docs?utm_source=fixture",
+          "snippet": "Current API documentation",
+          "publishedAt": "2026-09-01"
+        },
+        {
+          "title": "Community discussion",
+          "url": "https://news.ycombinator.com/item?id=123",
+          "snippet": "Discussion about the API documentation"
+        }
+      ]
+    },
+    {
+      "provider": "gemini",
+      "ok": true,
+      "sources": [
+        {
+          "title": "Primary docs mirror",
+          "url": "https://developers.openai.com/api/docs",
+          "snippet": "Current API documentation with additional details",
+          "publishedAt": "2026-09-02"
+        },
+        {
+          "title": "Official site",
+          "url": "https://openai.com/news",
+          "snippet": "Official news",
+          "publishedAt": "2026-09-10"
+        }
+      ]
+    }
+  ]
+}

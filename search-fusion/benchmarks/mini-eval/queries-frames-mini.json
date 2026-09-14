@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "dataset": "google/frames-benchmark",
+  "split": "test",
+  "datasetSize": 824,
+  "samplingRule": "fixed stride, offsets = [0,82,164,246,328,410,492,574,656,738] (824/10)",
+  "retrievedAt": "2026-09-15",
+  "queries": [
+    {
+      "id": "frames-test-0",
+      "sourceOffset": 0,
+      "prompt": "If my future wife has the same first name as the 15th first lady of the United States' mother and her surname is the same as the second assassinated president's mother's maiden name, what is my future wife's name? ",
+      "answer": "Jane Ballou",
+      "reasoningTypes": "Multiple constraints",
+      "wikiLinks": [
+        "https://en.wikipedia.org/wiki/President_of_the_United_States",
+        "https://en.wikipedia.org/wiki/James_Buchanan",
+        "https://en.wikipedia.org/wiki/Harriet_Lane",
+        "https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States_who_died_in_office",
+        "https://en.wikipedia.org/wiki/James_A._Garfield"
+      ]
+    },
+    {
+      "id": "frames-test-82",
+      "sourceOffset": 82,
+      "prompt": "Which section of IPSC Australia Inc. is larger than Honshu and smaller than Sumatra by area?",
+      "answer": "Victoria and Tasmania",
+      "reasoningTypes": "Numerical reasoning | Tabular reasoning | Multiple constraints",
+      "wikiLinks": [
+        "https://en.wikipedia.org/wiki/IPSC_Australia_Inc",
+        "https://en.wikipedia.org/wiki/Western_Australia",
+        "https://en.wikipedia.org/wiki/Victoria_(state)",
+        "https://en.wikipedia.org/wiki/Tasmania",
+        "https://en.wikipedia.org/wiki/South_Australia",
+        "https://en.wikipedia.org/wiki/New_South_Wales",
+        "https://en.wikipedia.org/wiki/Australian_Capital_Territory",
+        "https://en.wikipedia.org/wiki/Queensland",
+        "https://en.wikipedia.org/wiki/Northern_Territory",
+        "https://en.wikipedia.org/wiki/Honshu"
+      ]
+    },
+    {
+      "id": "frames-test-164",
+      "sourceOffset": 164,
+      "prompt": "Among the singers in the 1985 version of \"That's What Friends Are For,\" which one was born in the Peach State?",
+      "answer": "Gladys Knight",
+      "reasoningTypes": "Multiple constraints",
+      "wikiLinks": [
+        "https://en.wikipedia.org/wiki/That%27s_What_Friends_Are_For",
+        "https://en.wikipedia.org/wiki/Dionne_Warwick",
+        "https://en.wikipedia.org/wiki/Elton_John",
+        "https://en.wikipedia.org/wiki/Stevie_Wonder",
+        "https://en.wikipedia.org/wiki/Gladys_Knight",
+        "https://en.wikipedia.org/wiki/Georgia_(U.S._state)"
+      ]
+    },
+    {
+      "id": "frames-test-246",
+      "sourceOffset": 246,
+      "prompt": "Consider the following three people:  1. Edmund, who turned 10 on the day of the Battle of Hastings 2. Edward, who turned 12 on the day that Guy Fawkes was executed 3. Eddie, who turned 14 on the day of the London 2012 Summer Olympics opening ceremony  Who would be oldest: Edmund on the day King Henry I of England died, Edward on the day of the Battle of Naseby, or Eddie on the day Liz Truss announced her resignation as Conservative Party leader?",
+      "answer": "Edmund",
+      "reasoningTypes": "Numerical reasoning | Temporal reasoning",
+      "wikiLinks": [
+        "https://en.wikipedia.org/wiki/Battle_of_Hastings",
+        "https://en.wikipedia.org/wiki/Guy_Fawkes",
+        "https://en.wikipedia.org/wiki/2012_Summer_Olympics_opening_ceremony",
+        "https://en.wikipedia.org/wiki/Henry_I_of_England",
+        "https://en.wikipedia.org/wiki/Battle_of_Naseby",
+        "https://en.wikipedia.org/wiki/Liz_Truss"
+      ]
+    },
+    {
+      "id": "frames-test-328",
+      "sourceOffset": 328,
+      "prompt": "Of the top two most watched television season finales (as of June 2024), which finale ran the longest in length and by how much? ",
+      "answer": "The MASH finale ran for 52 minutes longer than the Cheers finale.",
+      "reasoningTypes": "Numerical reasoning | Tabular reasoning",
+      "wikiLinks": [
+        "https://en.wikipedia.org/wiki/Series_finale",
+        "https://en.wikipedia.org/wiki/Goodbye,_Farewell_and_Amen",
+        "https://en.wikipedia.org/wiki/One_for_the_Road_(Cheers)"
+      ]
+    },
+    {
+      "id": "frames-test-410",
+      "sourceOffset": 410,
+      "prompt": "What German-born Author had books published in 1995, 1999, & 2005 detailing their studies and activism with what Tang's animal mascot of the time?",
+      "answer": "Birutė Galdikas",
+      "reasoningTypes": "Temporal reasoning",
+      "wikiLinks": [
+        "https://en.wikipedia.org/wiki/Tang_(drink_mix)",
+        "https://en.wikipedia.org/wiki/Orangutan",
+        "https://en.wikipedia.org/wiki/Birut%C4%97_Galdikas"
+      ]
+    },
+    {
+      "id": "frames-test-492",
+      "sourceOffset": 492,
+      "prompt": "What is the name of the rock climber/businessman who co-founded the environmental group that the co-founder of Netflix joined?",
+      "answer": "Yvon Chouinard",
+      "reasoningTypes": "Multiple constraints",
+      "wikiLinks": [
+        "https://en.wikipedia.org/wiki/Netflix",
+        "https://en.wikipedia.org/wiki/Marc_Randolph",
+        "https://en.wikipedia.org/wiki/One_Percent_for_the_Planet",
+        "https://en.wikipedia.org/wiki/Yvon_Chouinard"
+      ]
+    },
+    {
+      "id": "frames-test-574",
+      "sourceOffset": 574,
+      "prompt": "If the man that the SS Edmund Fitzgerald was named after was living at the time of the ship's sinking, how old was he? If he was already deceased, how long had he been dead? You may just use the year without regard for the date of birth.",
+      "answer": "Edmund Fitzgerald, the man for whom the ill-fated ship SS Edmund Fitzgerald was named was born in 1895, he was 80 years old in 1975 when she sank.",
+      "reasoningTypes": "Numerical reasoning | Post processing",
+      "wikiLinks": [
+        "https://en.wikipedia.org/wiki/SS_Edmund_Fitzgerald",
+        "https://en.wikipedia.org/wiki/Edmund_Fitzgerald_(disambiguation)"
+      ]
+    },
+    {
+      "id": "frames-test-656",
+      "sourceOffset": 656,
+      "prompt": "In 2000, Michel von Tell drove a Toyota and placed sixth in an event. Who placed first that same year, and what car were they driving?",
+      "answer": "Charles Muhanji in a Subaru Impreza WRX",
+      "reasoningTypes": "Tabular reasoning | Multiple constraints | Temporal reasoning",
+      "wikiLinks": [
+        "https://en.wikipedia.org/wiki/Michel_von_Tell",
+        "https://en.wikipedia.org/wiki/Rwanda_Mountain_Gorilla_Rally"
+      ]
+    },
+    {
+      "id": "frames-test-738",
+      "sourceOffset": 738,
+      "prompt": "Who wrote the first movie that Chris Columbus ever directed?",
+      "answer": "David Simkins.",
+      "reasoningTypes": "Tabular reasoning | Multiple constraints",
+      "wikiLinks": [
+        "https://en.wikipedia.org/wiki/Chris_Columbus_(filmmaker)#Filmography",
+        "https://en.wikipedia.org/wiki/Adventures_in_Babysitting"
+      ]
+    }
+  ]
+}

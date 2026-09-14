@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "capabilities": {
+    "harness": "fixture-host",
+    "providerPin": true,
+    "providers": ["exa", "gemini", "xai"],
+    "autoOrder": ["exa", "gemini", "xai"],
+    "rankSemantics": { "exa": "ranked", "gemini": "citation-order", "xai": "citation-order" },
+    "retrievalFamilies": { "exa": "exa", "gemini": "google", "xai": "xai" }
+  },
+  "query": "Alpha vs Beta latest comparison",
+  "retrievedAt": "2026-09-14T00:00:00Z",
+  "attempts": [
+    {
+      "provider": "exa",
+      "ok": true,
+      "sources": [
+        { "title": "Alpha overview", "url": "https://alpha-one.example.com/a", "snippet": "Alpha product overview", "publishedAt": "2010-01-01" },
+        { "title": "Alpha guide", "url": "https://alpha-two.example.com/b", "snippet": "Alpha usage guide", "publishedAt": "2010-01-01" },
+        { "title": "Alpha docs", "url": "https://alpha-three.example.com/c", "snippet": "Alpha documentation", "publishedAt": "2010-01-01" },
+        { "title": "Alpha blog", "url": "https://alpha-four.example.com/d", "snippet": "Alpha release history", "publishedAt": "2010-01-01" },
+        { "title": "Alpha forum", "url": "https://alpha-five.example.com/e", "snippet": "Alpha community thread", "publishedAt": "2010-01-01" },
+        { "title": "Alpha wiki", "url": "https://alpha-six.example.com/f", "snippet": "Alpha reference", "publishedAt": "2010-01-01" }
+      ]
+    }
+  ]
+}

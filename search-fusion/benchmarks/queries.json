@@ -1,0 +1,30 @@
+[
+  {
+    "id": "zh-comparison",
+    "query": "横评 Exa 和 Tavily 的最新搜索能力",
+    "category": "中文横评",
+    "entities": ["Exa", "Tavily"],
+    "freshness": "recent"
+  },
+  {
+    "id": "recent-release",
+    "query": "OpenAI 最新发布的模型",
+    "category": "近期发布",
+    "entities": ["OpenAI"],
+    "freshness": "recent"
+  },
+  {
+    "id": "version-tutorial",
+    "query": "Node.js 24 的权限模型是什么",
+    "category": "版本敏感教程",
+    "entities": ["Node.js"],
+    "freshness": "evergreen"
+  },
+  {
+    "id": "obscure-topic",
+    "query": "Mojeek 搜索引擎的索引规模",
+    "category": "冷门主题",
+    "entities": ["Mojeek"],
+    "freshness": "evergreen"
+  }
+]

@@ -1,0 +1,215 @@
+{
+  "runId": "2026-09-14T16-04-48-026Z",
+  "report": [
+    {
+      "id": "zh-comparison",
+      "category": "中文横评",
+      "query": "横评 Exa 和 Tavily 的最新搜索能力",
+      "arms": {
+        "single": {
+          "status": "complete",
+          "stopReason": "coverage-satisfied",
+          "calls": 1,
+          "providers": 1,
+          "failures": 0,
+          "urls": 10,
+          "domains": 10,
+          "families": 1,
+          "entitiesCovered": 3,
+          "entitiesTotal": 3,
+          "gaps": [],
+          "top1": "https://topaitracker.com/comparisons/2026-08-08-exa-vs-tavily-ai-search-api-head-to-head",
+          "elapsedMs": 21179
+        },
+        "multi-query": {
+          "status": "complete",
+          "stopReason": "coverage-satisfied",
+          "calls": 1,
+          "providers": 1,
+          "failures": 0,
+          "urls": 10,
+          "domains": 10,
+          "families": 1,
+          "entitiesCovered": 3,
+          "entitiesTotal": 3,
+          "gaps": [],
+          "top1": "https://blog.sandbase.ai/zh-CN/exa-search-vs-tavily-firecrawl-serpapi-2026",
+          "elapsedMs": 10691
+        },
+        "fusion": {
+          "status": "complete",
+          "stopReason": "coverage-satisfied",
+          "calls": 3,
+          "providers": 3,
+          "failures": 0,
+          "urls": 23,
+          "domains": 21,
+          "families": 3,
+          "entitiesCovered": 3,
+          "entitiesTotal": 3,
+          "gaps": [],
+          "top1": "https://exa.ai/versus/tavily",
+          "elapsedMs": 14753
+        }
+      }
+    },
+    {
+      "id": "recent-release",
+      "category": "近期发布",
+      "query": "OpenAI 最新发布的模型",
+      "arms": {
+        "single": {
+          "status": "complete",
+          "stopReason": "coverage-satisfied",
+          "calls": 1,
+          "providers": 1,
+          "failures": 0,
+          "urls": 10,
+          "domains": 7,
+          "families": 1,
+          "entitiesCovered": 1,
+          "entitiesTotal": 1,
+          "gaps": [],
+          "top1": "https://openai.com/zh-Hant/index/path-to-astra",
+          "elapsedMs": 6226
+        },
+        "multi-query": {
+          "status": "complete",
+          "stopReason": "coverage-satisfied",
+          "calls": 1,
+          "providers": 1,
+          "failures": 0,
+          "urls": 10,
+          "domains": 7,
+          "families": 1,
+          "entitiesCovered": 1,
+          "entitiesTotal": 1,
+          "gaps": [],
+          "top1": "https://openai.com/zh-Hant/index/path-to-astra",
+          "elapsedMs": 6698
+        },
+        "fusion": {
+          "status": "complete",
+          "stopReason": "coverage-satisfied",
+          "calls": 3,
+          "providers": 3,
+          "failures": 0,
+          "urls": 24,
+          "domains": 11,
+          "families": 3,
+          "entitiesCovered": 1,
+          "entitiesTotal": 1,
+          "gaps": [],
+          "top1": "https://openai.com/zh-Hans-CN/news/product-releases",
+          "elapsedMs": 9346
+        }
+      }
+    },
+    {
+      "id": "version-tutorial",
+      "category": "版本敏感教程",
+      "query": "Node.js 24 的权限模型是什么",
+      "arms": {
+        "single": {
+          "status": "complete",
+          "stopReason": "coverage-satisfied",
+          "calls": 1,
+          "providers": 1,
+          "failures": 0,
+          "urls": 10,
+          "domains": 7,
+          "families": 1,
+          "entitiesCovered": 0,
+          "entitiesTotal": 0,
+          "gaps": [],
+          "top1": "https://nodejs.org/download/release/v24.14.1/docs/api/permissions.html",
+          "elapsedMs": 7864
+        },
+        "multi-query": {
+          "status": "complete",
+          "stopReason": "coverage-satisfied",
+          "calls": 1,
+          "providers": 1,
+          "failures": 0,
+          "urls": 10,
+          "domains": 7,
+          "families": 1,
+          "entitiesCovered": 0,
+          "entitiesTotal": 0,
+          "gaps": [],
+          "top1": "https://nodejs.org/zh-cn/blog/release/v24.0.0",
+          "elapsedMs": 6670
+        },
+        "fusion": {
+          "status": "complete",
+          "stopReason": "coverage-satisfied",
+          "calls": 3,
+          "providers": 3,
+          "failures": 0,
+          "urls": 19,
+          "domains": 13,
+          "families": 3,
+          "entitiesCovered": 0,
+          "entitiesTotal": 0,
+          "gaps": [],
+          "top1": "https://nodejs.org/zh-cn/blog/release/v24.0.0",
+          "elapsedMs": 9078
+        }
+      }
+    },
+    {
+      "id": "obscure-topic",
+      "category": "冷门主题",
+      "query": "Mojeek 搜索引擎的索引规模",
+      "arms": {
+        "single": {
+          "status": "complete",
+          "stopReason": "budget-exhausted",
+          "calls": 1,
+          "providers": 1,
+          "failures": 0,
+          "urls": 4,
+          "domains": 2,
+          "families": 1,
+          "entitiesCovered": 0,
+          "entitiesTotal": 0,
+          "gaps": [
+            "retrieval pool below policy minimums"
+          ],
+          "top1": "https://discuss.privacyguides.net/t/mojeek/12101",
+          "elapsedMs": 4080
+        },
+        "multi-query": {
+          "status": "complete",
+          "stopReason": "coverage-satisfied",
+          "calls": 3,
+          "providers": 1,
+          "failures": 0,
+          "urls": 8,
+          "domains": 3,
+          "families": 1,
+          "entitiesCovered": 0,
+          "entitiesTotal": 0,
+          "gaps": [],
+          "top1": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+          "elapsedMs": 16272
+        },
+        "fusion": {
+          "status": "complete",
+          "stopReason": "coverage-satisfied",
+          "calls": 3,
+          "providers": 3,
+          "failures": 0,
+          "urls": 19,
+          "domains": 8,
+          "families": 3,
+          "entitiesCovered": 0,
+          "entitiesTotal": 0,
+          "gaps": [],
+          "top1": "https://community.mojeek.com/t/current-status-of-indexed-website-web-pages/2562",
+          "elapsedMs": 40886
+        }
+      }
+    }
+  ]
+}
