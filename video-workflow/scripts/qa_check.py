@@ -12,6 +12,7 @@
   4. H3 底缘条带：public/assets/video/h3_*.mp4 各抽一张底部条带 → qa_frames/strip_h3_*.png
      （查模型烙印文字；有字的片段在 index.tsx 里给该 H3Clip 加 zoomFrom>=1.2）
   5. 响度：第一个 beat 的旁白窗 / 纯 BGM 窗（旁白结束后到 beat 尾）/ 结尾淡出窗
+  6. SFX（--sfx-cues 时）：密度区间、conclusion.slam ≤3、相邻 cue ≥3s、素材文件在 public 下
 人工目检 qa_frames/ 后才算验收通过。
 """
 import argparse
@@ -52,6 +53,7 @@ def main() -> int:
     ap.add_argument("--public", default="./public", help="项目 public 目录（H3 素材在 assets/video/）")
     ap.add_argument("--fps", type=int, default=30)
     ap.add_argument("--min-h3", type=float, default=1 / 3, help="H3 屏占红线（默认 1/3）")
+    ap.add_argument("--sfx-cues", default=None, help="sfx-cues.yaml（提供则做音效层校验）")
     ap.add_argument("--out", default="qa_frames", help="抽帧输出目录")
     args = ap.parse_args()
 
@@ -123,6 +125,37 @@ def main() -> int:
     w = vol_window(video, dur - 2.0, 2.0)
     if w:
         print(f"[audio] 结尾淡出: mean {w[0]:.1f} dB / max {w[1]:.1f} dB")
+
+    # 6. SFX 层校验（提供 --sfx-cues 时）
+    if args.sfx_cues:
+        try:
+            import yaml
+            doc = yaml.safe_load(Path(args.sfx_cues).read_text(encoding="utf-8"))
+        except Exception as e:
+            print(f"[sfx] 跳过（读不了 {args.sfx_cues}: {e}）")
+            doc = None
+        if doc:
+            cues = doc.get("cues") or []
+            plan = doc.get("density_plan") or {}
+            per_min = plan.get("planned_cues_per_min", 0.0)
+            lo, hi = (plan.get("target_cues_per_min") or [3.5, 5.0])
+            slam = sum(1 for c in cues if c.get("event") == "conclusion.slam")
+            gaps_bad = sum(1 for x, y in zip(cues, cues[1:])
+                           if y.get("timing", {}).get("at_s", 0) - x.get("timing", {}).get("at_s", 0) < 3.0)
+            miss = [c["selected"]["file"] for c in cues
+                    if not Path(args.public, "assets/audio/sfx", c["selected"]["file"]).exists()]
+            ok = lo <= per_min <= hi and slam <= 3 and gaps_bad == 0 and not miss
+            print(f"[sfx] {len(cues)} cues = {per_min}/min（{lo}-{hi}）| slam {slam}/3 | "
+                  f"间隔<3s: {gaps_bad} | 缺素材: {len(miss)} {'PASS' if ok else 'FAIL'}")
+            if not ok:
+                if not (lo <= per_min <= hi):
+                    fails.append(f"SFX 密度 {per_min}/min 超出 {lo}-{hi}")
+                if slam > 3:
+                    fails.append(f"conclusion.slam {slam} > 3")
+                if gaps_bad:
+                    fails.append(f"SFX 相邻间隔 <3s 的对数 {gaps_bad}")
+                if miss:
+                    fails.append(f"SFX 素材缺文件: {miss}")
 
     if fails:
         print("\nFAIL:")

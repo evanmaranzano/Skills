@@ -3,11 +3,11 @@ name: daily-work-log
 user-invocable: true
 description: >
   扫描本机全部 agent harness（Claude Code · ZCode · Codex CLI · OpenCode · Kimi Code ·
-  Gemini CLI · Pi · DeepSeek Harness）的今日会话，汇总并提炼为当日工作条目，优化表达、
+  Gemini CLI · Pi · OMP · DeepSeek Harness）的今日会话，汇总并提炼为当日工作条目，优化表达、
   增强工作量体现，写入飞书《工作日志》文档对应「X 月 Y 日」章节；今日落成的飞书文档统一
   挂 <cite> 超链接。触发词：今日工作、整理工作日志、写工作日志、日志、汇总今天做了什么、
   standup、今日总结、生成日报、把今天的工作记一下。
-  跨平台：Claude Code · ZCode · Codex · OpenCode · Kimi Code · Gemini CLI · Pi · DeepSeek Harness 通用。
+  跨平台：Claude Code · ZCode · Codex · OpenCode · Kimi Code · Gemini CLI · Pi · OMP · DeepSeek Harness 通用。
 ---
 
 # daily-work-log — 跨 Harness 每日工作日志
@@ -34,7 +34,7 @@ description: >
 ```
 scan ──────────▶ dedupe ──▶ polish ──────────▶ write
 本地脚本枚举      跨工具归并    拆条扩写          飞书《工作日志》
-8 个 harness     同一工作线    动机/做法/        「M 月 D 日」章节
+9 个 harness     同一工作线    动机/做法/        「M 月 D 日」章节
 只读会话存储      只记一条      产出/效果         + <cite> 挂链
         │
         └── drive +search --created-by-me 枚举今日落成的飞书文档，供挂链
@@ -53,6 +53,7 @@ scan ──────────▶ dedupe ──▶ polish ─────�
 | Kimi Code | `~/.kimi-code/sessions/*/session_*/state.json` | ✅ | title/lastPrompt 现成 |
 | Gemini CLI | `~/.gemini/tmp/*/chats/session-*.json` | ✅ | `messages[].type=="user"` |
 | Pi | `~/.pi/agent/sessions/**/*.jsonl` | ✅ | 首行 session 带 cwd |
+| OMP（Pi 系升级版） | `~/.omp/agent/sessions/**/*.jsonl` | ✅ | 同 pi 结构；首行 type==title 取会话标题；custom_message（ai-memory-handoff）注入需跳过 |
 | DeepSeek Harness (dsh) | `~/.dsh/sessions/*/session-*/session.jsonl.zstd` | ✅ | 需 `pip install zstandard`；流式解压+行数上限 |
 | Grok CLI | `~/.grok/`（仅 config.toml，无会话落盘） | ⚠️ | CLI 未装，占位提示不静默 |
 
@@ -69,7 +70,7 @@ scan ──────────▶ dedupe ──▶ polish ─────�
 ## 输入
 
 - **日期**（默认今天；可指定 `--date YYYY-MM-DD`）。默认按本机当前日期。
-- **扫描范围**：默认全部 8 个受支持 harness（可 `--agents a,b,c` 裁剪）。
+- **扫描范围**：默认全部 9 个受支持 harness（可 `--agents a,b,c` 裁剪）。
 - **目标文档**：固定 `https://my.feishu.cn/docx/B7vjd31ukoYMBmx1Dk9c7A8Jnzd`。
 
 ## 工作流（四阶段）
@@ -124,7 +125,8 @@ lark-cli drive +search --query "" --created-by-me \
    - 当日 `## M 月 D 日` 已存在 ⇒ 在其**最后一条 li 之后**插入新条目（`block_insert_after`，
      或当日就是文档最后章节时直接 `append`）。
    - 不存在 ⇒ 在月份 h1 下最后一个已有 `## 日` 之后创建 `## M 月 D 日` + `<ul>` 列表。
-2. **写入**：内容用 **XML**：`<h2>M 月 D 日</h2><ul><li>…</li>…</ul>`，高光条目加 `<b>`。
+2. **写入**：内容用 **XML**：`<h2>M 月 D 日</h2><ul><li>…</li>…</ul>`，每条第一句加粗
+   （见写作规范）。
    - **不要在 PowerShell 里内联带引号的 XML**（`\"` 会被拆裂、`<` 触发 parser error）。一律
      写到 cwd 下的临时文件（`@file.xml`，相对路径），用 `--content @file.xml` 传入，**写完删除**。
 3. **block 生命周期**：`append` / `block_insert_after` 后新内容是新 block id；要继续改就得重新
@@ -138,8 +140,11 @@ lark-cli drive +search --query "" --created-by-me \
 ## 写作规范（表达优化 + 工作量体现，与日志既有风格一致）
 
 - **每一条 = 一个可独立交付的工作单元**。压缩进单条的多工作拆成多条 li，让工作量可见。
-- **高光/主线条目开头加粗**：`**<主题>。</b>`（如 `**dubhe 三容器公网 SSH 排查并在防火墙侧
-  打通。**`），与文档里既有条目一致。
+- **只写公司工作内容**：ai-memory / OMP 等 agent 配置调优、个人 agent 工具链与记忆系统维护、
+  个人项目基建不属于公司工作，一律不写入日志（2026-09-12 用户明确）。
+- **每一条统一格式：第一句加粗总叙述 + 其后不加粗详细日志**：`<li><b><总叙述>。</b><详细…></li>`。
+  不再区分高光/非高光，所有条目一律如此；只有一句话的条目整句加粗（2026-09-12 用户明确，
+  与文档「children-game-judges 颁奖页」条目同款）。
 - **扩写动机/做法/产出/效果**：基于会话原文 + 引用文档标题 + 已知项目背景，把"做了什么"
   写成"为什么要做、怎么做的、交付了什么、实测了什么效果"；**不编造数字**（会话没测的别写
   "实测 100%"）。
@@ -173,11 +178,11 @@ lark-cli drive +search --query "" --created-by-me \
 
 | 文件 | 内容 |
 | --- | --- |
-| `references/agent-storage-paths.md` | 8+2 家 harness 的会话存储路径、格式与读取方式（逐家实测） |
+| `references/agent-storage-paths.md` | 9+2 家 harness 的会话存储路径、格式与读取方式（逐家实测） |
 | `references/work-log-format.md` | 工作日志既有结构、风格示例、`<cite>` 用法 |
 | `references/lark-write-pitfalls.md` | lark-cli 写飞书文档的避坑（@file、block 生命周期、str_replace 叠加） |
 | `references/firewall-syn-false-positive.md` | 防火墙 SYN 假握手 + 连通性测试正确做法 |
-| `scripts/enumerate_sessions.py` | 本地会话枚举脚本（只读、脱敏、8 harness） |
+| `scripts/enumerate_sessions.py` | 本地会话枚举脚本（只读、脱敏、9 harness） |
 
 ## 致谢
 

@@ -1,6 +1,7 @@
 # 本机已装但未纳入版本管理的 skill 目录（版本管理跟踪清单以 .git/info/sparse-checkout 为准）
 # server-audit 含明文服务器密码 (scripts/servers.conf), 永不可提交
 server-audit/
+ark-crowdtest/
 alibabacloud-sms-send-short-message/
 academic-figure-prompt-pastel/
 agent-development/
@@ -74,3 +75,16 @@ __pycache__/
 *.log.jsonl
 **/.runtime/
 image2-gen/image2-gen.zip
+humanizer-zh/
+lark-meeting/
+rules-memory-refresh/
+smart-charts/
+zhicheng-shenbao-skill/
+ai-memory-durable-pages/
+ai-memory-handoff/
+ai-memory-learning-maintenance/
+ai-memory-retrieval/
+ai-memory-routing-install/
+seafile/
+understand-video-cloud/
+video-judges/

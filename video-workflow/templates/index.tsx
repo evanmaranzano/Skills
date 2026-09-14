@@ -77,7 +77,7 @@ const FontGate: React.FC = () => {
 const NARRATION: { from: number; dur: number; src: string }[] = [
   // { from: 12, dur: 80, src: 'assets/audio/narration/s1.wav' },
 ];
-// SFX 钉帧
+// SFX 钉帧（由 make_sfx.py 生成后整段替换；素材按事件名在 public/assets/audio/sfx/）
 const SFX: { from: number; dur: number; src: string; vol: number; note?: string }[] = [];
 // 字幕：每句带说话人，时间从 timing.json 换算（段起点帧 + start*30）
 interface Cue { from: number; to: number; spk: Speaker; lines: string[] }
@@ -129,6 +129,8 @@ const SceneFade: React.FC<{ fadeIn: number; fadeOut: number; durationInFrames: n
 // H3 素材 full-bleed cover + Ken Burns + 压暗（768p 对策）
 // zoomFrom 默认 1.15：H3 生成素材底缘常有模型烙印文字（no text 不保险），基础放大 ≥1.2 可裁掉；
 // qa_check.py 会输出每条素材的底缘条带图，确认干净可改回 1.0。
+// ⚠️ 素材时长 < 窗口时长时必须传 playbackRate=素材秒/窗口秒（如 5s 素材进 8s 窗口传 0.65），
+// 否则素材播完后画面定格；探针抽帧看不出，要用首尾帧像素差验证（09-13 戒糖片坑）。
 const H3Clip: React.FC<{ src: string; zoomFrom?: number; zoomTo?: number; dim?: number; volume?: number | ((f: number) => number); durationInFrames: number }> =
   ({ src, zoomFrom = 1.15, zoomTo = 1.22, dim = 0.55, volume = 0, durationInFrames }) => {
     const frame = useCurrentFrame();

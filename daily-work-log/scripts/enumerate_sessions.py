@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-enumerate_sessions.py — 扫描本机 8 个 agent harness 的今日(或指定日)会话清单。
+enumerate_sessions.py — 扫描本机 9 个 agent harness 的今日(或指定日)会话清单。
 
-覆盖：opencode / claudecode / kimicode / zcode / pi / dsh / codex / gemini
+覆盖：opencode / claudecode / kimicode / zcode / pi / omp / dsh / codex / gemini
 （grok 已配置但本机无 CLI、无本地会话落盘，扫描时给出提示后跳过。）
 
 用途：daily-work-log skill 阶段 0/2。ccusage 未装或覆盖不到时的本地兜底；也可独立运行
@@ -40,6 +40,7 @@ CLAUDE_PROJECTS = os.environ.get("E_CLAUDE_PROJECTS", os.path.join(HOME, ".claud
 KIMI_SESSIONS = os.environ.get("E_KIMI_SESSIONS", os.path.join(HOME, ".kimi-code", "sessions"))
 ZCODE_DB = os.environ.get("E_ZCODE_DB", os.path.join(HOME, ".zcode", "cli", "db", "db.sqlite"))
 PI_SESSIONS = os.environ.get("E_PI_SESSIONS", os.path.join(HOME, ".pi", "agent", "sessions"))
+OMP_SESSIONS = os.environ.get("E_OMP_SESSIONS", os.path.join(HOME, ".omp", "agent", "sessions"))
 DSH_SESSIONS = os.environ.get("E_DSH_SESSIONS", os.path.join(HOME, ".dsh", "sessions"))
 CODEX_SESSIONS = os.environ.get("E_CODEX_SESSIONS", os.path.join(HOME, ".codex", "sessions"))
 CODEX_ARCHIVED = os.environ.get("E_CODEX_ARCHIVED", os.path.join(HOME, ".codex", "archived_sessions"))
@@ -392,6 +393,69 @@ def scan_pi(day):
     return out
 
 
+def scan_omp(day):
+    """OMP（Pi 系 agent，升级版）：~/.omp/agent/sessions/<项目目录>/<UTC时间戳>_<uuid>.jsonl。
+    结构与 pi 相同（首行 type==title 含会话标题；type==session 含 RFC3339 UTC timestamp
+    与 cwd；type==message 且 message.role==user 的 text 是 prompt）。custom_message
+    （ai-memory-handoff 等系统注入）type 不同，天然跳过。"""
+    out = []
+    if not os.path.isdir(OMP_SESSIONS):
+        return out
+    day_start, _ = day_bounds(day)
+    for proj in sorted(os.listdir(OMP_SESSIONS)):
+        pdir = os.path.join(OMP_SESSIONS, proj)
+        if not os.path.isdir(pdir):
+            continue
+        for fn in sorted(os.listdir(pdir)):
+            path = os.path.join(pdir, fn)
+            if not (fn.endswith(".jsonl") and os.path.isfile(path)):
+                continue  # 会话目录下还有同名子目录（bash 脚本等），只扫 jsonl 文件
+            if not mtime_at_or_after(path, day_start):
+                continue
+            fp, created, sid, cwd, title = None, None, None, None, None
+            try:
+                with open(path, "r", encoding="utf-8", errors="replace") as fh:
+                    for i, line in enumerate(fh):
+                        if i >= MAX_JSONL_LINES:
+                            break
+                        line = line.strip()
+                        if not line:
+                            continue
+                        try:
+                            o = json.loads(line)
+                        except Exception:
+                            continue
+                        t = o.get("type")
+                        if t == "title":
+                            title = o.get("title") or None
+                            continue
+                        if t == "session":
+                            sid = o.get("id") or fn
+                            created = o.get("timestamp") or created
+                            cwd = o.get("cwd")
+                            continue
+                        if t == "message" and fp is None:
+                            m = o.get("message") or {}
+                            if m.get("role") == "user":
+                                content = m.get("content") or []
+                                if isinstance(content, list):
+                                    for c in content:
+                                        if isinstance(c, dict) and c.get("type") == "text" and c.get("text") and looks_real(c["text"]):
+                                            fp = snippet(c["text"])
+                                            break
+                                elif isinstance(content, str) and looks_real(content):
+                                    fp = snippet(content)
+                            if fp:
+                                break
+            except Exception as e:
+                print(f"[warn] omp read fail {path}: {e}", file=sys.stderr)
+                continue
+            created_local = iso_utc(created)
+            if created_local and datetime.datetime.fromisoformat(created_local).date() == day:
+                out.append(row("omp", sid or fn, title or fp, fp, created_local, cwd))
+    return out
+
+
 def scan_dsh(day):
     """DeepSeek Harness：~/.dsh/sessions/<项目目录>/session-<uuid>/session.jsonl.zstd。
     真实用户输入是 type==user/message 且 data.source.kind==user（系统注入的
@@ -630,6 +694,7 @@ SCANNERS = {
     "kimicode": scan_kimi,
     "zcode": scan_zcode,
     "pi": scan_pi,
+    "omp": scan_omp,
     "dsh": scan_dsh,
     "codex": scan_codex,
     "gemini": scan_gemini,

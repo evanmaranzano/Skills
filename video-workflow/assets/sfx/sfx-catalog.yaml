@@ -1,0 +1,128 @@
+# video-workflow 共享音效语义目录（sfx-catalog）
+# 许可：Mixkit Sound Effects Free License（免费商用、无需署名）
+# 来源：https://mixkit.co/free-sound-effects/  下载日期：2026-09-13
+# 维护规则：同一事件全片固定同一素材（身份声）；conclusion.slam 全片 ≤3 处；
+#           新素材先 candidate，镜头试听通过后才 preferred；不收录游戏化/喜剧失败音。
+schema_version: 1
+license: Mixkit Sound Effects Free License
+source: https://mixkit.co/free-sound-effects/
+events:
+  card.enter:
+    - asset_id: sfx-2580  # PRIMARY
+      file: sfx-2580.mp3
+      name: "Light button"
+      duration_ms: 440
+      material: synthetic
+      energy: low
+      status: preferred
+      use_for: [card.enter]
+    - asset_id: sfx-1109
+      file: sfx-1109.mp3
+      name: "Select click"
+      duration_ms: 1150
+      material: mechanical
+      energy: low
+      status: preferred
+      use_for: [card.enter]
+  flow.connect:
+    - asset_id: sfx-166  # PRIMARY
+      file: sfx-166.mp3
+      name: "Fast small sweep transition"
+      duration_ms: 810
+      material: air
+      energy: low
+      status: preferred
+      use_for: [flow.connect]
+    - asset_id: sfx-3120
+      file: sfx-3120.mp3
+      name: "Technology transition slide"
+      duration_ms: 1700
+      material: synthetic
+      energy: low
+      status: preferred
+      use_for: [flow.connect]
+  card.lock:
+    - asset_id: sfx-2573  # PRIMARY
+      file: sfx-2573.mp3
+      name: "Interface option select"
+      duration_ms: 1590
+      material: mechanical
+      energy: low
+      status: preferred
+      use_for: [card.lock]
+    - asset_id: sfx-2568
+      file: sfx-2568.mp3
+      name: "Cool interface click tone"
+      duration_ms: 240
+      material: mechanical
+      energy: low
+      status: preferred
+      use_for: [card.lock]
+  check.confirm:
+    - asset_id: sfx-951  # PRIMARY
+      file: sfx-951.mp3
+      name: "Positive notification"
+      duration_ms: 2850
+      material: glass
+      energy: low-medium
+      status: preferred
+      use_for: [check.confirm]
+    - asset_id: sfx-2867
+      file: sfx-2867.mp3
+      name: "Confirmation tone"
+      duration_ms: 1330
+      material: synthetic
+      energy: low-medium
+      status: preferred
+      use_for: [check.confirm]
+  risk.flag:
+    - asset_id: sfx-1110  # PRIMARY
+      file: sfx-1110.mp3
+      name: "Click error"
+      duration_ms: 1150
+      material: synthetic
+      energy: medium
+      status: preferred
+      use_for: [risk.flag]
+    - asset_id: sfx-2569
+      file: sfx-2569.mp3
+      name: "Negative tone interface tap"
+      duration_ms: 1310
+      material: synthetic
+      energy: low-medium
+      status: preferred
+      use_for: [risk.flag]
+  conclusion.slam:
+    - asset_id: sfx-1143  # PRIMARY
+      file: sfx-1143.mp3
+      name: "Cinematic whoosh deep impact"
+      duration_ms: 4100
+      material: mechanical
+      energy: high
+      status: preferred
+      use_for: [conclusion.slam]
+    - asset_id: sfx-790
+      file: sfx-790.mp3
+      name: "Cinematic trailer riser"
+      duration_ms: 2610
+      material: synthetic
+      energy: medium-high
+      status: preferred
+      use_for: [conclusion.slam]
+  scene.transition:
+    - asset_id: sfx-175  # PRIMARY
+      file: sfx-175.mp3
+      name: "Short transition sweep"
+      duration_ms: 650
+      material: air
+      energy: low-medium
+      status: preferred
+      use_for: [scene.transition]
+    - asset_id: sfx-3115
+      file: sfx-3115.mp3
+      name: "Fast transitions swoosh"
+      duration_ms: 600
+      material: air
+      energy: low
+      status: preferred
+      use_for: [scene.transition]

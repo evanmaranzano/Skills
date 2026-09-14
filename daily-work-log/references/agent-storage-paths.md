@@ -71,6 +71,28 @@
   - `type=="model_change"` / `thinking_level_change` 等是元事件，跳过。
 - **筛选今日**：文件 mtime 预过滤 + 首行 `session.timestamp`（UTC → 本地时区）精确判断。
 
+## omp（OMP / Open Model Playground，Pi 系升级版，2026-09-07 实测）
+
+- **会话文件**：`C:\Users\Administrator\.omp\agent\sessions\<项目目录>\<UTC时间戳>_<uuid>.jsonl`
+  （`项目目录` 形如 `--C--tmp--` / `-tmp`，对应 cwd 转义；文件名前缀是会话创建时间 UTC，
+  格式 `2026-09-07T06-46-45-197Z_…`）。
+- **格式**：每行一个 JSON 对象，与 pi 同构但事件类型更丰富：
+  - 首行 `type=="title"`：含 `title`（会话标题，可能是空串）与 `updatedAt`（RFC3339 UTC）。
+  - `type=="session"`：含 `id`、`timestamp`（RFC3339 UTC）、`cwd`（真实路径，脚本输出）。
+  - `type=="message"`：`message.role=="user"` 时 `message.content[].type=="text"` 的 `.text`
+    是用户输入（assistant 的 content 还有 `type=="thinking"` 思考块，忽略）。
+  - `type=="custom_message"`（如 `customType=="ai-memory-handoff"` 的会话交接注入）与
+    `type=="custom"`（`session_exit` 等）是系统/元事件，**必须跳过**（handoff 内容可能是
+    上一条任务的全文，误当 prompt 会把历史任务写进当天日志）。
+  - `type=="model_change"` / `thinking_level_change` 等元事件跳过。
+- **⚠️ 会话目录下还有同名子目录**（存 `.bash` / `.eval` / `draft.txt` 等过程产物），扫描
+  时只处理 `.jsonl` 文件（`os.path.isfile` 判断），避免把目录当文件读。
+- **筛选今日**：文件 mtime 预过滤 + 首行 `session.timestamp`（UTC → 本地时区）精确判断；
+  `title` 行可作会话标题骨架（无 title 时回退用首条 prompt）。
+- **自检会话**：omp 常产生 `Reply with exactly: kimi-ok` / `Ping: reply with pong` /
+  `say hi` 等连通性自检会话（`directory` 常为 `C:\tmp`），`has_content=true` 但无实质工作，
+  阶段 2 提炼时按内容剔除。
+
 ## deepseek-harness（dsh）
 
 - **会话根目录**：`C:\Users\Administrator\.dsh\sessions\<项目目录>\session-<uuid>\`
@@ -131,5 +153,5 @@
 
 ## 批量扫描
 
-优先跑 `scripts/enumerate_sessions.py --date YYYY-MM-DD`（默认全部 8 个受支持的 harness，
+优先跑 `scripts/enumerate_sessions.py --date YYYY-MM-DD`（默认全部 9 个受支持的 harness，
 `--agents a,b,c` 可裁剪），输出统一 JSON。阶段 0 用它；阶段 2 对重点会话再按本文件读细节。

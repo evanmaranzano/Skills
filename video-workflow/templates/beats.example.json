@@ -11,7 +11,12 @@
     "narration": "有个男人每年花两百万美元，只为了不死。",
     "speaker_lines": [
       {"spk": "X", "text": "有个男人每年花两百万美元，只为了不死。"}
-    ]
+    ],
+    "hook_overlay": "每年 200 万，续命",
+    "conclusion": "极端健康管理是有钱人的执念",
+    "shot_grammar": "结论",
+    "motion": "SLAM",
+    "hold_f": 30
   },
   {
     "beat": 2,
@@ -25,7 +30,11 @@
     "narration": "他每月追踪七十多项生物标志物，三十多人的医疗团队盯着他一个人。",
     "speaker_lines": [
       {"spk": "Y", "text": "他每月追踪七十多项生物标志物，三十多人的医疗团队盯着他一个人。"}
-    ]
+    ],
+    "conclusion": "他把身体变成了被全天候监测的系统",
+    "shot_grammar": "分类",
+    "motion": "CASCADE",
+    "hold_f": 30
   },
   {
     "beat": 3,
@@ -40,6 +49,10 @@
     "speaker_lines": [
       {"spk": "Y", "text": "植物为主，最后一餐中午吃完。"},
       {"spk": "X", "text": "这吃饭窗口也太极端了吧？"}
-    ]
+    ],
+    "conclusion": "饮食窗口极端收紧是协议的一部分",
+    "shot_grammar": "问题-方案",
+    "motion": "FLAG",
+    "hold_f": 30
   }
 ]
