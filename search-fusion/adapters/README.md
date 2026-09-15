@@ -64,7 +64,9 @@ node scripts/search-fusion.mjs --adapter direct --providers exa,tavily "要调�
 
 - key 类（env key 即用）：exa `EXA_API_KEY`、tavily `TAVILY_API_KEY`、brave `BRAVE_API_KEY`、firecrawl `FIRECRAWL_API_KEY`、jina `JINA_API_KEY`、xai `XAI_API_KEY`、gemini `GEMINI_API_KEY`、kimi `KIMI_SEARCH_API_KEY`；
 - keyless 兜底：duckduckgo 无需任何配置（best-effort，反爬敏感）；
-- OAuth 类 provider（ChatGPT/SuperGrok 等私有 CLI 流程）：`--doctor` 给出指引，本 skill 不代拉 token（各家 OAuth client 为其 CLI 私有资产，独立逆向实现有维护与合规风险）；有独立 env key 的（xai/gemini）优先走 key。
+- **Gemini 双路线 OAuth（可自动拉取）**：`--login antigravity`（Google Antigravity 的 daily Cloud Code Assist）或 `--login gemini-cli`（google-gemini-cli 公开 client）——借鉴 google-gemini-cli（Apache-2.0）与 Oh My Pi 的接入方式：installed-app 公开 client + loopback 回调 + offline refresh token，登录后自动走 `loadCodeAssist` 握手解析 companion projectId，搜索走 `v1internal:streamGenerateContent`（SSE）+ googleSearch grounding。token 存 `~/.search-fusion/auth.json`（0600，skill 目录之外）。
+- 认证模式自选：`--auth-mode auto|key|oauth`（默认 auto = env key 优先、oauth 兜底；`key` 只用环境变量；`oauth` 强制走已登录 token）。
+- 其余 OAuth 类 provider（ChatGPT/SuperGrok 等私有 CLI 流程）：`--doctor` 给出指引，本 skill 不代拉 token；有独立 env key 的（xai/kimi）优先走 key。
 
 **`--adapter omp`（OMP 兼容模式）**
 

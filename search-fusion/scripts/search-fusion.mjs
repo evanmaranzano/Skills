@@ -25,6 +25,7 @@ const NO_MODE_ERROR = [
 ].join("\n");
 
 const ENUM_OPTIONS = {
+  authMode: ["auto", "key", "oauth"],
   benchmarkProfile: ["search-api", "research-system"],
   task: ["lookup", "comparison", "tutorial", "exploratory", "factual"],
   freshness: ["evergreen", "recent", "live"],
@@ -87,6 +88,9 @@ export function parseArgs(argv) {
     const arg = argv[index];
     if (arg === "--help" || arg === "-h") return { help: true };
     if (arg === "--doctor") { options.doctor = true; continue; }
+    if (arg === "--login") { options.login = argv[++index]; continue; }
+    if (arg === "--logout") { options.logout = argv[++index]; continue; }
+    if (arg === "--auth-mode") { options.authMode = argv[++index]; continue; }
     if (arg === "--live") { options.live = true; continue; }
     if (arg === "--pretty") { options.pretty = true; continue; }
     if (arg === "--plan") { options.plan = true; continue; }
@@ -198,7 +202,7 @@ async function loadAdapter(adapterName, capabilitiesPath, options) {
   }
   if (adapterName === "direct") {
     const module = await import("../adapters/direct.mjs");
-    return { adapter: module.createDirectAdapter({ providers: options?.providers }) };
+    return { adapter: module.createDirectAdapter({ providers: options?.providers, authMode: options?.authMode ?? "auto" }) };
   }
   if (adapterName === "host") {
     throw new Error("The host adapter requires an embedding harness; use --input or --capabilities");
@@ -566,6 +570,10 @@ export function usage() {
     "  --adapter direct                  Standalone REST adapter (env-key providers + keyless duckduckgo)",
     "  --providers a,b                   Restrict direct adapter to these providers",
     "  --doctor                          First-run auth check: per-provider status + setup instructions",
+    "  --doctor --live                   Also fire one minimal request per ready provider",
+    "  --login antigravity|gemini-cli    Pull a Google OAuth token for gemini grounding; stored in ~/.search-fusion/auth.json",
+    "  --logout <provider>               Remove the stored OAuth token",
+    "  --auth-mode auto|key|oauth        Credential preference for --adapter direct (auto = key first)",
     "  --input <file>                    Host-orchestrated search result JSON",
     "  --replay <file>                   Alias for --input",
     "  --plan                            Emit planned requests without executing",
@@ -596,6 +604,31 @@ export async function runCli(argv = process.argv.slice(2)) {
     const parsed = parseArgs(argv);
     if (parsed.help) {
       process.stdout.write(`${usage()}\n`);
+      return;
+    }
+    if (parsed.options.login || parsed.options.logout) {
+      const { OAUTH_CLIENTS, loginProvider, clearStoredToken, loadStoredToken } = await import("../core/oauth.mjs");
+      const provider = parsed.options.login ?? parsed.options.logout;
+      if (!OAUTH_CLIENTS[provider]) {
+        process.stderr.write(`No auto-pullable OAuth client for "${provider}". Supported: ${Object.keys(OAUTH_CLIENTS).join(", ")}
+`);
+        process.exitCode = 1;
+        return;
+      }
+      if (parsed.options.logout) {
+        const had = clearStoredToken(provider);
+        process.stdout.write(had ? `${provider} token removed.
+` : `${provider} had no stored token.
+`);
+        return;
+      }
+      const result = await loginProvider(provider);
+      process.stdout.write(result.success
+        ? `${provider} login OK${result.email ? ` (${result.email})` : ""}; token stored in ~/.search-fusion/auth.json
+`
+        : `${provider} login failed: ${result.error}
+`);
+      if (!result.success) process.exitCode = 1;
       return;
     }
     if (parsed.options.doctor) {

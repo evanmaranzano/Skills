@@ -41,7 +41,8 @@
     "gemini": {
       "label": "Gemini grounding",
       "auth": [
-        { "type": "env", "var": "GEMINI_API_KEY", "signupUrl": "https://aistudio.google.com/apikey", "note": "Google AI Studio key; grounding search via generativeLanguage API." }
+        { "type": "env", "var": "GEMINI_API_KEY", "signupUrl": "https://aistudio.google.com/apikey", "note": "Google AI Studio key; grounding search via generativeLanguage API." },
+        { "type": "oauth", "auto": true, "guide": "run --login gemini (uses the public google-gemini-cli OAuth client; token stored locally in ~/.search-fusion/auth.json)" }
       ]
     },
     "openai": {

@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
+import { mkdtempSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import { createDirectAdapter } from "../adapters/direct.mjs";
-import { detectProviderAuth, renderDoctorReport, readyDirectProviders } from "../core/provider-auth.mjs";
+import { detectProviderAuth, renderDoctorReport, readyDirectProviders, resolveCredential } from "../core/provider-auth.mjs";
+import { loadStoredToken, clearStoredToken, tokenIsFresh, OAUTH_CLIENTS } from "../core/oauth.mjs";
 
 // --- auth detection (injected env, never touches real credentials) ---
 
@@ -49,7 +53,7 @@ function mockFetchCapture(capture) {
     return {
       ok: true,
       status: 200,
-      text: async () => JSON.stringify(capture.payload ?? {}),
+      text: async () => capture.raw ?? JSON.stringify(capture.payload ?? {}),
       headers: new Map(),
     };
   };
@@ -110,5 +114,81 @@ function mockFetchCapture(capture) {
     error => error.searchFusionType === "auth",
   );
 }
+
+
+// --- OAuth: token store, detection, mode selection, gemini dual-mode ---
+
+const fakeHome = mkdtempSync(join(tmpdir(), "sf-oauth-test-"));
+const futureExpiry = Date.now() + 3600000;
+
+// store + detect (gemini supports OAuth; no env key in this env object)
+{
+  const oauthEnv = {}; // deliberately no GEMINI_API_KEY
+  assert.equal(detectProviderAuth("gemini", oauthEnv, fakeHome).status, "missing");
+  const store = JSON.parse("null") ?? {};
+  // simulate what --login gemini persists (no network involved)
+  const authFile = join(fakeHome, ".search-fusion", "auth.json");
+  const { mkdirSync, writeFileSync } = await import("node:fs");
+  mkdirSync(join(fakeHome, ".search-fusion"), { recursive: true });
+  writeFileSync(authFile, JSON.stringify({ "gemini-cli": { access_token: "at", refresh_token: "rt", expiresAt: futureExpiry, email: "t@example.com", projectId: "proj-test" } }));
+  const detection = detectProviderAuth("gemini", oauthEnv, fakeHome);
+  assert.equal(detection.status, "ready");
+  assert.equal(detection.via, "oauth");
+  assert.equal(detection.mode.email, "t@example.com");
+  assert.equal(tokenIsFresh(loadStoredToken("gemini-cli", fakeHome)), true);
+  assert.deepEqual(resolveCredential("gemini", "auto", oauthEnv, fakeHome).kind, "oauth");
+  assert.deepEqual(resolveCredential("gemini", "oauth", oauthEnv, fakeHome).kind, "oauth");
+  assert.deepEqual(resolveCredential("gemini", "key", oauthEnv, fakeHome).kind, null, "key mode must not fall back to oauth");
+  const report = renderDoctorReport(oauthEnv, null, fakeHome);
+  assert.match(report, /ready via oauth token \(t@example\.com\)/);
+}
+
+// key mode prefers env even when oauth token exists
+{
+  const envBoth = { GEMINI_API_KEY: "test-gemini-key" };
+  assert.deepEqual(resolveCredential("gemini", "auto", envBoth, fakeHome).kind, "env-key");
+  assert.deepEqual(resolveCredential("gemini", "key", envBoth, fakeHome).kind, "env-key");
+  assert.deepEqual(resolveCredential("gemini", "oauth", envBoth, fakeHome).kind, "oauth", "explicit oauth must win over env key");
+}
+
+// gemini builder: oauth -> Authorization bearer; key -> x-goog-api-key
+async function captureGemini(envObject, authMode, home) {
+  const inner = { candidates: [{ content: { parts: [{ text: "answer" }] }, groundingMetadata: { groundingChunks: [{ web: { uri: "https://g.example", title: "G" } }] }, webSearchQueries: ["q"] }] };
+  const capture = authMode === "oauth"
+    ? { raw: `data: ${JSON.stringify(inner)}
+
+` }
+    : { payload: inner };
+  const testAdapter = createDirectAdapter({ env: envObject, providers: ["gemini"], authMode, home });
+  testAdapter.__setFetchForTests(mockFetchCapture(capture));
+  const out = await testAdapter.search({ provider: "gemini", query: "q" });
+  return { capture, out };
+}
+{
+  const envNoKey = {};
+  const { capture, out } = await captureGemini(envNoKey, "oauth", fakeHome);
+  assert.match(String(capture.init.headers.Authorization), /^Bearer /);
+  assert.equal(out.sources[0].url, "https://g.example");
+  assert.equal(out.answer, "answer");
+  assert.equal(out.metadata.authMode, "oauth");
+}
+{
+  const { capture, out } = await captureGemini({ GEMINI_API_KEY: "test-gemini-key" }, "key", fakeHome);
+  assert.equal(capture.init.headers["x-goog-api-key"], "test-gemini-key");
+  assert.equal(capture.init.headers.Authorization, undefined);
+  assert.equal(out.metadata.authMode, "env-key");
+}
+
+// logout removes the token
+assert.equal(clearStoredToken("gemini-cli", fakeHome), true);
+assert.equal(loadStoredToken("gemini-cli", fakeHome), null);
+assert.equal(detectProviderAuth("gemini", {}, fakeHome).status, "missing");
+rmSync(fakeHome, { recursive: true, force: true });
+
+// oauth client registry sanity: public installed-app clients per gemini-cli / OMP
+assert.ok(OAUTH_CLIENTS["gemini-cli"].clientId.endsWith(".apps.googleusercontent.com"));
+assert.ok(OAUTH_CLIENTS["gemini-cli"].scopes.some(scope => scope.endsWith("cloud-platform")));
+assert.ok(OAUTH_CLIENTS.antigravity.clientId.endsWith(".apps.googleusercontent.com"));
+assert.equal(OAUTH_CLIENTS.antigravity.callback.port, 51121);
 
 console.log("search-fusion direct adapter checks passed");
