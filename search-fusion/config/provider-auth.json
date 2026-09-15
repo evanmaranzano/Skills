@@ -1,5 +1,5 @@
 {
-  "$comment": "Provider auth registry. Declarative only — this file NEVER contains credentials, only HOW to configure them. auth entries are tried in order: env = environment variable; oauth = delegated CLI login (guide only, no token is pulled by this skill); keyless = works without any credential.",
+  "$comment": "Provider auth registry. Declarative only — this file NEVER contains credentials, only HOW to configure them. auth entries are tried in order: env = standalone user environment variable; oauth = this skill's own login/token store; keyless = works without any credential.",
   "providers": {
     "exa": {
       "label": "Exa",
@@ -25,6 +25,18 @@
         { "type": "env", "var": "FIRECRAWL_API_KEY", "signupUrl": "https://firecrawl.dev/", "note": "Self-hosted: also set FIRECRAWL_URL to your endpoint." }
       ]
     },
+    "tinyfish": {
+      "label": "TinyFish",
+      "auth": [
+        { "type": "env", "var": "TINYFISH_API_KEY", "signupUrl": "https://tinyfish.ai/", "note": "SERP-backed search API." }
+      ]
+    },
+    "zai": {
+      "label": "Z.AI",
+      "auth": [
+        { "type": "env", "var": "ZAI_API_KEY", "signupUrl": "https://z.ai/manage-apikey/apikey-list", "note": "Z.AI webSearchPrime MCP API key." }
+      ]
+    },
     "jina": {
       "label": "Jina Reader",
       "auth": [
@@ -35,14 +47,15 @@
       "label": "xAI (Grok)",
       "auth": [
         { "type": "env", "var": "XAI_API_KEY", "signupUrl": "https://console.x.ai/", "note": "xAI Responses API live search." },
-        { "type": "oauth", "guide": "SuperGrok/X Premium+ OAuth is a CLI-private flow (see harness tools like `omp /login xai-oauth`); this skill does not pull it. Use XAI_API_KEY for standalone use." }
+        { "type": "env", "var": "XAI_OAUTH_TOKEN", "credentialKind": "env-token", "note": "Optional SuperGrok/X Premium+ bearer token for standalone use." },
+        { "type": "oauth", "source": "xai", "auto": true, "guide": "run --login xai (device authorization; token stored in ~/.search-fusion/auth.json)" }
       ]
     },
     "gemini": {
       "label": "Gemini grounding",
       "auth": [
         { "type": "env", "var": "GEMINI_API_KEY", "signupUrl": "https://aistudio.google.com/apikey", "note": "Google AI Studio key; grounding search via generativeLanguage API." },
-        { "type": "oauth", "auto": true, "guide": "run --login gemini (uses the public google-gemini-cli OAuth client; token stored locally in ~/.search-fusion/auth.json)" }
+        { "type": "oauth", "auto": true, "guide": "run --login antigravity or --login gemini-cli (token stored locally in ~/.search-fusion/auth.json)" }
       ]
     },
     "openai": {
@@ -51,10 +64,17 @@
         { "type": "oauth", "guide": "ChatGPT OAuth is a CLI-private flow (e.g. `omp /login openai-codex`); this skill does not pull it. No standalone env key exists for the web_search tool." }
       ]
     },
+    "codex": {
+      "label": "OpenAI Codex web search",
+      "auth": [
+        { "type": "oauth", "source": "codex", "auto": true, "guide": "run --login codex (device authorization; token stored in ~/.search-fusion/auth.json)" }
+      ]
+    },
     "kimi": {
       "label": "Kimi Code search",
       "auth": [
-        { "type": "env", "var": "KIMI_SEARCH_API_KEY", "signupUrl": "https://platform.moonshot.ai/", "note": "Kimi Code Console search key — not the plain MOONSHOT_API_KEY." }
+        { "type": "env", "var": "KIMI_SEARCH_API_KEY", "signupUrl": "https://platform.moonshot.ai/", "note": "Kimi Code Console search key — not the plain MOONSHOT_API_KEY." },
+        { "type": "oauth", "source": "kimi", "auto": true, "guide": "run --login kimi (device authorization; token stored in ~/.search-fusion/auth.json)" }
       ]
     },
     "duckduckgo": {

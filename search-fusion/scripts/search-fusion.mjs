@@ -1,14 +1,17 @@
 #!/usr/bin/env node
 
-import { readFile } from "node:fs/promises";
+import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 import { classifyQuery } from "../core/classify.mjs";
-import { mapSearchCalls, normalizeCapabilities, planFusion, planSearchWaves, selectProvidersByRole } from "../core/plan.mjs";
+import { mapSearchCalls, normalizeCapabilities, planFusion, planSearchWaves, providersForFacet, selectProvidersByRole } from "../core/plan.mjs";
 import { decomposeQuery, facetQueries } from "../core/decompose.mjs";
-import { fuseProviderResults } from "../core/fuse.mjs";
+import { cacheTtlFor, readSearchCache, sweepSearchCache, writeSearchCache } from "../core/cache.mjs";
+import { fuseProviderResults, scoreProfileFor } from "../core/fuse.mjs";
+import { loadProviderStats, orderByReliability, recordAttempts, reliabilityScores, saveProviderStats } from "../core/reliability.mjs";
 import { diversifySources } from "../core/rerank.mjs";
 import { combinedCoverage, evidenceCoverage } from "../core/coverage.mjs";
 import { normalizeSearchBudget } from "../core/budget.mjs";
@@ -71,6 +74,7 @@ export function parseArgs(argv) {
     maxSearchCalls: undefined,
     maxSubqueries: 3,
     next: false,
+    noCache: false,
     output: undefined,
     perCallTimeoutMs: undefined,
     plan: false,
@@ -78,6 +82,7 @@ export function parseArgs(argv) {
     providerCount: 3,
     providers: undefined,
     recency: undefined,
+    session: undefined,
     strictProviderPin: false,
     task: undefined,
     timeoutMs: undefined,
@@ -95,6 +100,8 @@ export function parseArgs(argv) {
     if (arg === "--pretty") { options.pretty = true; continue; }
     if (arg === "--plan") { options.plan = true; continue; }
     if (arg === "--next") { options.next = true; continue; }
+    if (arg === "--no-cache") { options.noCache = true; continue; }
+    if (arg === "--session") { options.session = argv[++index]; continue; }
     if (arg === "--strict-provider-pin") { options.strictProviderPin = true; continue; }
     if (arg === "--adapter") { options.adapter = argv[++index]; continue; }
     if (arg === "--capabilities") { options.capabilities = argv[++index]; continue; }
@@ -121,7 +128,7 @@ export function parseArgs(argv) {
       const [key, value] = arg.slice(2).split("=", 2);
       const normalizedKey = key.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
       if (!Object.hasOwn(options, normalizedKey)) throw new Error(`Unknown option: ${arg}`);
-      if (["pretty", "plan", "next", "strictProviderPin"].includes(normalizedKey)) { options[normalizedKey] = true; continue; }
+      if (["pretty", "plan", "next", "noCache", "strictProviderPin"].includes(normalizedKey)) { options[normalizedKey] = true; continue; }
       options[normalizedKey] = NUMERIC_OPTIONS.has(normalizedKey) ? Number(value) : value;
       continue;
     }
@@ -131,6 +138,7 @@ export function parseArgs(argv) {
   if (!query && !options.doctor) throw new Error("A search query is required");
   if (!options.doctor && !options.plan && !options.input && !options.adapter && !options.capabilities) throw new Error(NO_MODE_ERROR);
   if (options.next && !options.input) throw new Error("--next requires --input <file>");
+  if (options.session && !options.input) throw new Error("--session requires --input <file>");
   if (options.recency && !["day", "week", "month", "year"].includes(options.recency)) throw new Error("--recency must be day, week, month, or year");
   for (const [name, allowed] of Object.entries(ENUM_OPTIONS)) {
     if (options[name] && !allowed.includes(options[name])) {
@@ -150,9 +158,10 @@ export function parseArgs(argv) {
 function applyBenchmarkProfile(options) {
   if (options.benchmarkProfile === "search-api") {
     return {
-      maxFallbackCalls: 0,
-      maxSearchCalls: 5,
       ...options,
+      maxFallbackCalls: options.maxFallbackCalls ?? 0,
+      maxSearchCalls: options.maxSearchCalls ?? 5,
+      noCache: true,
       strictProviderPin: true,
     };
   }
@@ -172,13 +181,15 @@ function runManifest({ startedAt, asOf, options, attempts }) {
     asOf: new Date(asOf).toISOString(),
   };
   if (attempts) {
+    const realCalls = attempts.filter(attempt => !attempt.fromCache);
     const providerCalls = {};
-    for (const attempt of attempts) {
+    for (const attempt of realCalls) {
       providerCalls[attempt.provider] = (providerCalls[attempt.provider] ?? 0) + 1;
     }
     manifest.cost = {
       budgetUnit: "underlying-search-call",
-      underlyingSearchCalls: attempts.length,
+      underlyingSearchCalls: realCalls.length,
+      cachedCalls: attempts.length - realCalls.length,
       providerCalls,
     };
   }
@@ -228,6 +239,44 @@ export async function withTimeout(promise, timeoutMs, abortSignal) {
 }
 
 async function callProvider(adapter, provider, query, options) {
+  const cache = options.cache;
+  if (cache?.ttlMs > 0) {
+    const cached = await readSearchCache(provider, query, cache).catch(() => null);
+    // Cached entries keep the *actual* provider; a strict-pin run must not be
+    // served a response that came from a different provider.
+    if (cached && !(options.strictProviderPin && (cached.provider ?? provider) !== provider)) {
+      cache.stats.hits += 1;
+      return {
+        provider: cached.provider ?? provider,
+        requestedProvider: provider,
+        ok: true,
+        sources: cached.sources ?? [],
+        answer: cached.answer,
+        citations: cached.citations ?? [],
+        searchQueries: cached.searchQueries ?? [],
+        metadata: { ...(cached.metadata ?? {}), fromCache: true },
+        fromCache: true,
+        latencyMs: 0,
+      };
+    }
+    cache.stats.misses += 1;
+  }
+  const result = await callProviderUncached(adapter, provider, query, options);
+  if (cache?.ttlMs > 0 && result.ok && result.sources.length > 0) {
+    cache.stats.writes += 1;
+    writeSearchCache(provider, query, {
+      provider: result.provider,
+      sources: result.sources,
+      answer: result.answer,
+      citations: result.citations,
+      searchQueries: result.searchQueries,
+      metadata: result.metadata,
+    }, cache).catch(() => {});
+  }
+  return result;
+}
+
+async function callProviderUncached(adapter, provider, query, options) {
   const startedAt = Date.now();
   const controller = new AbortController();
   const outerSignal = options.signal;
@@ -322,6 +371,7 @@ async function executeFusion(adapter, capabilities, task, query, options, budget
     remainingProviders,
     capabilities,
     budget,
+    scores: options.providerScores,
   });
   const attempts = [];
   let partial = false;
@@ -352,17 +402,40 @@ async function executeFusion(adapter, capabilities, task, query, options, budget
     return { fused, coverage };
   };
 
+  const failedProvidersNow = () => new Set(
+    attempts
+      .filter(attempt => !attempt.ok && ["rate_limit", "auth", "provider_mismatch"].includes(attempt.errorType))
+      .map(attempt => attempt.requestedProvider ?? attempt.provider),
+  );
+
   await runAttempts(waves.breadth);
   let { fused, coverage } = score();
 
+  // A provider that just failed with rate-limit/auth is not retried this run;
+  // facet and fallback waves are remapped onto healthy providers instead.
+  const failed = failedProvidersNow();
+  let facetItems = waves.facets;
+  if (!coverage.sufficient && failed.size > 0) {
+    const healthyPool = [
+      ...selectedProviders.filter(provider => !failed.has(provider)),
+      ...remainingProviders.filter(provider => !failed.has(provider)),
+    ];
+    facetItems = waves.facets.map(item => {
+      const facet = facets.find(entry => entry.id === item.facetId) ?? {};
+      const [provider] = providersForFacet(facet, capabilities, healthyPool, { count: 1 });
+      return provider ? { ...item, provider } : null;
+    }).filter(Boolean);
+  }
+
   if (!coverage.sufficient && !partial) {
-    await runAttempts(waves.facets, budget.maxSearchCalls - waves.fallbackReserve);
+    await runAttempts(facetItems, budget.maxSearchCalls - waves.fallbackReserve);
     ({ fused, coverage } = score());
   }
 
   if (!coverage.sufficient && !partial && remainingMs() >= 12_000) {
     for (const item of waves.fallback) {
       if (coverage.sufficient || partial) break;
+      if (failedProvidersNow().has(item.provider)) continue;
       await runAttempts([item]);
       ({ fused, coverage } = score());
     }
@@ -394,6 +467,14 @@ async function executeFusion(adapter, capabilities, task, query, options, budget
 async function readInput(pathname) {
   const raw = await readFile(pathname, "utf8");
   return JSON.parse(raw);
+}
+
+async function writeSession(pathname, data) {
+  const target = path.resolve(pathname);
+  await mkdir(path.dirname(target), { recursive: true });
+  const tmp = `${target}.tmp`;
+  await writeFile(tmp, `${JSON.stringify(data, null, 2)}\n`, "utf8");
+  await rename(tmp, target);
 }
 
 function normalizeInputEnvelope(input, query) {
@@ -472,6 +553,8 @@ export async function runSearchFusion(rawQuery, rawOptions = {}) {
         await withTimeout(Promise.resolve(adapter.capabilities()), Math.max(1_000, deadlineAt - Date.now())),
       );
     }
+    const planStats = await loadProviderStats(process.env.SEARCH_FUSION_HOME || os.homedir());
+    capabilities.autoOrder = orderByReliability(capabilities.autoOrder, planStats);
     const plan = planFusion(query, capabilities, { ...options, maxSearchCalls: budget.maxSearchCalls });
     const requests = capabilities.providers.length === 0
       ? plan.facets.map(facet => ({
@@ -502,7 +585,25 @@ export async function runSearchFusion(rawQuery, rawOptions = {}) {
   if (options.input) {
     const input = await readInput(options.input);
     const capabilities = normalizeCapabilities(input.capabilities ?? {});
-    const { attempts, asOf: inputAsOf, warnings } = normalizeInputEnvelope(input, query);
+    const { attempts: inputAttempts, asOf: inputAsOf, warnings } = normalizeInputEnvelope(input, query);
+    let attempts = inputAttempts;
+    if (options.session) {
+      // --session accumulates attempts across host-orchestrated rounds so the
+      // host only ships the latest results file instead of a growing merged one.
+      const prior = await readInput(options.session)
+        .then(data => normalizeInputEnvelope(data, query))
+        .catch(() => ({ attempts: [], asOf: undefined, warnings: [] }));
+      for (const warning of prior.warnings ?? []) warnings.push(`session: ${warning}`);
+      const seen = new Set(prior.attempts.map(providerAttemptKey));
+      attempts = [...prior.attempts, ...inputAttempts.filter(attempt => !seen.has(providerAttemptKey(attempt)))];
+      await writeSession(options.session, {
+        schemaVersion: 1,
+        query,
+        capabilities,
+        retrievedAt: new Date().toISOString(),
+        attempts,
+      });
+    }
     const effectiveAsOf = options.asOf ? asOf : inputAsOf ?? asOf;
     const fused = fuseProviderResults(attempts, query, { ...task, asOf: effectiveAsOf }, capabilities);
     const diverse = diversifySources(fused, { top: options.top ?? 8 });
@@ -534,7 +635,7 @@ export async function runSearchFusion(rawQuery, rawOptions = {}) {
     return hostResult(query, task, capabilities, attempts, diverse,
       { ...coverage, delivery: { sufficient: delivery.sufficient, gaps: delivery.gaps } },
       startedAt,
-      { ...statusFromCoverage(coverage, false), facets, queryVariants: facetQueries(facets), warnings, runManifest: manifest(attempts) });
+      { ...statusFromCoverage(coverage, false), facets, queryVariants: facetQueries(facets), warnings, scoring: scoreProfileFor(task), runManifest: manifest(attempts) });
   }
 
   const { adapter, capabilities: explicitCapabilities } = await loadAdapter(options.adapter, options.capabilities, options);
@@ -542,19 +643,33 @@ export async function runSearchFusion(rawQuery, rawOptions = {}) {
     await withTimeout(Promise.resolve(adapter.capabilities()), Math.max(1_000, deadlineAt - Date.now())),
   );
   requireRetrievalPath(capabilities);
-  const output = await executeFusion(adapter, capabilities, task, query, { ...options, timeoutMs: budget.wallClockMs }, budget, deadlineAt, asOf);
+  // SEARCH_FUSION_HOME isolates stats/cache for tests and benchmark replays;
+  // production default stays the user-level ~/.search-fusion directory.
+  const stateHome = process.env.SEARCH_FUSION_HOME || os.homedir();
+  const providerStats = await loadProviderStats(stateHome);
+  capabilities.autoOrder = orderByReliability(capabilities.autoOrder, providerStats);
+  const providerScores = reliabilityScores(capabilities.providers, providerStats);
+  const cacheStats = { enabled: !options.noCache, ttlMs: options.noCache ? 0 : cacheTtlFor(task.freshness), hits: 0, misses: 0, writes: 0 };
+  const cache = { home: stateHome, ttlMs: cacheStats.ttlMs, stats: cacheStats };
+  const output = await executeFusion(adapter, capabilities, task, query, { ...options, timeoutMs: budget.wallClockMs, providerScores, cache }, budget, deadlineAt, asOf);
+  recordAttempts(providerStats, output.attempts);
+  await saveProviderStats(providerStats, stateHome).catch(() => {});
+  sweepSearchCache({ home: stateHome }).catch(() => {});
   return {
     schemaVersion: 1,
     mode: "adapter-orchestrated",
     query,
     task,
     capabilities,
+    scoring: scoreProfileFor(task),
     ...output,
     citations: output.results.map((source, index) => `[${index + 1}] ${source.title ?? source.url} — ${source.citationUrl ?? source.url}`),
     providerAnswers: output.attempts.filter(result => result.answer).map(result => ({ provider: result.provider, answer: result.answer })),
     observability: {
       elapsedMs: Date.now() - startedAt,
       providerLatencyMs: Object.fromEntries(output.attempts.map(result => [providerAttemptKey(result), result.latencyMs])),
+      cache: cacheStats,
+      providerReliability: providerScores,
     },
     runManifest: manifest(output.attempts),
   };
@@ -567,15 +682,17 @@ export function usage() {
     "Options:",
     "  --adapter omp|host|<adapter>      Required unless --input, --capabilities or --plan is set",
     "  --capabilities <file>             Adapter capability JSON (for custom adapters)",
-    "  --adapter direct                  Standalone REST adapter (env-key providers + keyless duckduckgo)",
+    "  --adapter direct                  Standalone REST/OAuth adapter (no OMP runtime dependency)",
     "  --providers a,b                   Restrict direct adapter to these providers",
     "  --doctor                          First-run auth check: per-provider status + setup instructions",
     "  --doctor --live                   Also fire one minimal request per ready provider",
-    "  --login antigravity|gemini-cli    Pull a Google OAuth token for gemini grounding; stored in ~/.search-fusion/auth.json",
+    "  --login antigravity|gemini-cli|xai|kimi|codex  Standalone OAuth login; stored in ~/.search-fusion/auth.json",
     "  --logout <provider>               Remove the stored OAuth token",
     "  --auth-mode auto|key|oauth        Credential preference for --adapter direct (auto = key first)",
     "  --input <file>                    Host-orchestrated search result JSON",
     "  --replay <file>                   Alias for --input",
+    "  --session <file>                  With --input: accumulate attempts across rounds in a session file",
+    "  --no-cache                        Disable the local search response cache (~/.search-fusion/cache)",
     "  --plan                            Emit planned requests without executing",
     "  --next                            With --input: emit remaining requests for uncovered gaps",
     "  --benchmark-profile <name>        search-api | research-system",

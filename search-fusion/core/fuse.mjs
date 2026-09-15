@@ -6,6 +6,25 @@ const CITATION_K = 120;
 const BASE = 1 / (RANKED_K + 1);
 const FUTURE_DATE_SCORE = 0.3;
 
+export const SCORE_PROFILES = {
+  default: { rrf: 0.62, provenance: 0.18, freshness: 0.14, relevance: 0.06 },
+  live: { rrf: 0.46, provenance: 0.14, freshness: 0.34, relevance: 0.06 },
+  recent: { rrf: 0.52, provenance: 0.16, freshness: 0.26, relevance: 0.06 },
+  academic: { rrf: 0.52, provenance: 0.3, freshness: 0.1, relevance: 0.08 },
+  primary: { rrf: 0.56, provenance: 0.24, freshness: 0.12, relevance: 0.08 },
+};
+
+// Final-score weights follow the intent: time-sensitive queries reward dated
+// evidence, academic/lookup queries reward primary provenance instead.
+export function scoreProfileFor(intent = {}) {
+  if (intent.freshness === "live") return { name: "live", weights: SCORE_PROFILES.live };
+  if (intent.freshness === "recent") return { name: "recent", weights: SCORE_PROFILES.recent };
+  const domains = intent.domainTags?.length ? intent.domainTags : [intent.domain];
+  if (domains.includes("academic")) return { name: "academic", weights: SCORE_PROFILES.academic };
+  if (intent.task === "factual" || intent.task === "tutorial") return { name: "primary", weights: SCORE_PROFILES.primary };
+  return { name: "default", weights: SCORE_PROFILES.default };
+}
+
 function decay(rank, semantics) {
   if (semantics === "unknown") return BASE;
   const k = semantics === "citation-order" ? CITATION_K : RANKED_K;
@@ -134,13 +153,14 @@ export function fuseProviderResults(providerResults, query, intent = { freshness
     [...successfulProviders].map(provider => familyOf(provider, capabilities)),
   );
   const maxRrf = Math.max(...[...groups.values()].map(source => source.rrf), 0.000001);
+  const { weights } = scoreProfileFor(intent);
   const fused = [...groups.values()].map(source => {
     const provenance = classifyProvenance(source.url);
     const freshness = freshnessScore(source, intent.freshness, asOf);
     const provenanceValue = provenanceScore(source.url);
     const relevance = relevanceScore(source, query);
     const rrfNormalized = source.rrf / maxRrf;
-    const score = 0.62 * rrfNormalized + 0.18 * provenanceValue + 0.14 * freshness + 0.06 * relevance;
+    const score = weights.rrf * rrfNormalized + weights.provenance * provenanceValue + weights.freshness * freshness + weights.relevance * relevance;
     return {
       ...source,
       provenance,

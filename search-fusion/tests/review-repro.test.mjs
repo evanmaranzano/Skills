@@ -10,6 +10,9 @@ import { classifyProvenance } from "../core/provenance.mjs";
 import { looseCanonicalUrl } from "../core/normalize.mjs";
 import { parseArgs, runSearchFusion, withTimeout } from "../scripts/search-fusion.mjs";
 
+// Keep adapter-mode provider stats/cache out of the real ~/.search-fusion.
+process.env.SEARCH_FUSION_HOME = mkdtempSync(path.join(tmpdir(), "sf-review-repro-"));
+
 const here = fileURLToPath(new URL(".", import.meta.url));
 const alphaFixture = path.join(here, "fixtures", "alpha-stale.json");
 const hostFixture = path.join(here, "fixtures", "host-results.json");

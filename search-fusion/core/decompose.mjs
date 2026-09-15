@@ -27,12 +27,22 @@ function comparisonFacets(query) {
       { id: "recent", query: `${query} latest`, purpose: "freshness", requiredRoles: ["fresh"] },
     ];
   }
-  const [left, right] = entities;
-  return [
-    { id: "left", query: `${left} capabilities`, purpose: "comparison-left", requiredRoles: ["semantic"], required: true, entities: [left] },
-    { id: "right", query: `${right} capabilities`, purpose: "comparison-right", requiredRoles: ["semantic"], required: true, entities: [right] },
-    { id: "recent", query: `${left} vs ${right} latest comparison`, purpose: "freshness", requiredRoles: ["fresh"], entities: [left, right] },
-  ];
+  const facets = entities.map((entity, index) => ({
+    id: `entity-${index + 1}`,
+    query: `${entity} capabilities`,
+    purpose: "comparison-entity",
+    requiredRoles: ["semantic"],
+    required: true,
+    entities: [entity],
+  }));
+  facets.push({
+    id: "recent",
+    query: `${entities.join(" vs ")} latest comparison`,
+    purpose: "freshness",
+    requiredRoles: ["fresh"],
+    entities,
+  });
+  return facets;
 }
 
 export function decomposeQuery(query, task = { task: "exploratory", freshness: "evergreen", domain: "general", depth: "quick" }, maxQueries = 3) {

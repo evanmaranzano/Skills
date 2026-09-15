@@ -320,17 +320,25 @@ evergreen    → 0.5
 
 ## 13. 最终排序
 
-当前分数：
+分数权重按意图分层（`scoreProfileFor`，权重总和恒为 1）：
+
+| profile | 触发 | rrf | provenance | freshness | relevance |
+|---|---|---|---|---|---|
+| default | 其他 | 0.62 | 0.18 | 0.14 | 0.06 |
+| live | freshness=live | 0.46 | 0.14 | 0.34 | 0.06 |
+| recent | freshness=recent | 0.52 | 0.16 | 0.26 | 0.06 |
+| academic | academic 域 | 0.52 | 0.30 | 0.10 | 0.08 |
+| primary | factual / tutorial | 0.56 | 0.24 | 0.12 | 0.08 |
 
 ```js
 score =
-  0.62 * normalizedRrf
-+ 0.18 * provenance
-+ 0.14 * freshness
-+ 0.06 * relevance
+  w.rrf        * normalizedRrf
++ w.provenance * provenance
++ w.freshness  * freshness
++ w.relevance  * relevance
 ```
 
-`providerSupport` 和 `providerSupportRatio` 保留为 metadata，不进入最终分数，避免重复奖励“多个 provider 命中同一 URL”。
+`providerSupport` 和 `providerSupportRatio` 保留为 metadata，不进入最终分数，避免重复奖励“多个 provider 命中同一 URL”。输出随附 `scoring: { name, weights }`。
 
 ## 14. Coverage 拆分：retrieval 与 evidence
 
@@ -338,8 +346,12 @@ score =
 
 ```text
 retrieval   候选池规模：相关 URL 数、域名数、检索族数、primary source 数
-evidence    研究维度：comparison 双方实体、recent/live 的时间窗内带日期证据
+evidence    研究维度：comparison 各实体、recent/live 的时间窗内带日期证据
 ```
+
+retrieval 阈值随 depth 分层：quick 放宽（URL -2、域名 -1），deep 收紧（URL +2、域名 +1、factual/tutorial 的 primary source +1）。
+
+实体抽取支持 2–4 个比较对象（`A vs B vs C`、`A、B 和 C`），实体匹配对连字符、空格、点不敏感（`GPT-5` 命中 `GPT5`）。comparison 叠加 recent/live 时，实体 facet 附带 windowDays：每个实体都必须有窗口内带日期的来源才算 covered。
 
 - `factual` / `tutorial`：retrieval 仍要求至少 1 个 primary source
 - `comparison`：evidence 要求两个实体的标题/摘要命中；缺一侧就继续检索或报告缺口
@@ -398,6 +410,14 @@ bun scripts/search-fusion.mjs --adapter omp "深入调研问题"
 
 ## 17. 观测与全局 deadline
 
+provider 遥测闭环回排序：`core/reliability.mjs` 把每次 adapter 运行的 attempts 记入 `~/.search-fusion/provider-stats.json`（成功率、429/超时/鉴权分类、EWMA 延迟、连续失败）。后续运行的 `autoOrder` 与 fallback 波次按 reliability 重排（分数差异小于容差时保持静态顺序，避免抖动）；本次运行内 429/鉴权失败的 provider 不再重试，facet/fallback 改派健康 provider。缓存命中（`fromCache`）的 attempt 不进入统计。
+
+搜索响应缓存：`core/cache.mjs` 按 `sha256(provider + 规范化 query)` 存到 `~/.search-fusion/cache/`，TTL 为 evergreen 7 天 / recent 1 小时 / live 不缓存；`--no-cache` 关闭。命中不计入 `runManifest.cost.underlyingSearchCalls`（单列 `cachedCalls`），benchmark `search-api` profile 强制禁用缓存。
+
+Host-orchestrated 多轮闭环可用 `--session <file>` 累计历史 attempts（按 `provider::query` 去重），host 每轮只需写本轮新结果。
+
+## 17.1 观测字段
+
 输出保留：
 
 ```text
@@ -425,6 +445,8 @@ node tests/replay.test.mjs
 node tests/property.test.mjs
 node tests/review-repro.test.mjs
 node tests/leaderboard.test.mjs
+node tests/direct-adapter.test.mjs
+node tests/optimization.test.mjs
 ```
 
 在线三臂测评（single / multi-query / fusion，快照可用 `--input` 回放）：

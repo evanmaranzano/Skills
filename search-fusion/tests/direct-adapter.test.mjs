@@ -9,13 +9,14 @@ import { loadStoredToken, clearStoredToken, tokenIsFresh, OAUTH_CLIENTS } from "
 // --- auth detection (injected env, never touches real credentials) ---
 
 const env = { EXA_API_KEY: "test-exa-key", TAVILY_API_KEY: "test-tavily-key" };
+const capabilityHome = mkdtempSync(join(tmpdir(), "sf-capability-test-"));
 assert.equal(detectProviderAuth("exa", env).status, "ready");
 assert.equal(detectProviderAuth("exa", env).mode.var, "EXA_API_KEY");
 assert.equal(detectProviderAuth("tavily", env).status, "ready");
 assert.equal(detectProviderAuth("duckduckgo", env).status, "keyless");
 assert.equal(detectProviderAuth("brave", env).status, "missing");
 assert.equal(detectProviderAuth("openai", env).status, "missing"); // oauth-only, no keyless
-assert.deepEqual(readyDirectProviders(env).sort(), ["duckduckgo", "exa", "tavily"].sort());
+assert.deepEqual(readyDirectProviders(env, capabilityHome).sort(), ["duckduckgo", "exa", "tavily"].sort());
 
 const report = renderDoctorReport(env);
 assert.match(report, /✅ Exa \(exa\): ready via EXA_API_KEY/);
@@ -26,7 +27,7 @@ assert.ok(!report.includes("test-exa-key"), "doctor output must not leak key val
 
 // --- direct adapter capabilities ---
 
-const adapter = createDirectAdapter({ env });
+const adapter = createDirectAdapter({ env, home: capabilityHome });
 const capabilities = await adapter.capabilities();
 assert.equal(capabilities.harness, "direct");
 assert.equal(capabilities.providerPin, true);
@@ -184,6 +185,7 @@ assert.equal(clearStoredToken("gemini-cli", fakeHome), true);
 assert.equal(loadStoredToken("gemini-cli", fakeHome), null);
 assert.equal(detectProviderAuth("gemini", {}, fakeHome).status, "missing");
 rmSync(fakeHome, { recursive: true, force: true });
+rmSync(capabilityHome, { recursive: true, force: true });
 
 // oauth client registry sanity: public installed-app clients per gemini-cli / OMP
 assert.ok(OAUTH_CLIENTS["gemini-cli"].clientId.endsWith(".apps.googleusercontent.com"));

@@ -88,7 +88,7 @@ node ~/.agents/skills/search-fusion/scripts/search-fusion.mjs --input results.js
 node ~/.agents/skills/search-fusion/scripts/search-fusion.mjs --input results.json --next --pretty "要调研的问题"
 ```
 
-停止条件：输出 `stopReason: coverage-satisfied`；预算耗尽或超时则返回 `budget-exhausted` / `deadline` 与 `gaps`，不要用无关页面凑数。
+停止条件：输出 `stopReason: coverage-satisfied`；预算耗尽或超时则返回 `budget-exhausted` / `deadline` 与 `gaps`，不要用无关页面凑数。多轮闭环可传 `--session run.json`，脚本自动累计历史 attempts 并按 `provider::query` 去重，host 每轮只需提供本轮新结果；覆盖阈值随 depth 分层（quick 放宽、deep 收紧）。
 
 输入格式见 `schemas/fusion-input.schema.json`；融合结果见 `schemas/fusion-output.schema.json`；`--plan` / `--next` 输出分别见 `schemas/fusion-plan.schema.json` / `schemas/fusion-next.schema.json`。`--replay` 是 `--input` 的别名。
 
@@ -96,9 +96,21 @@ node ~/.agents/skills/search-fusion/scripts/search-fusion.mjs --input results.js
 
 新工作流统一使用 `scripts/search-fusion.mjs`；`scripts/search_fusion.mjs` 仅保留为旧命令兼容入口，不再作为新增功能的实现位置。
 
+### 独立直连（推荐用于脱离 OMP）
+
+`--adapter direct` 是 skill 自己的确定性 REST/OAuth 适配器，不导入 OMP、不读取 OMP 的 `AuthStorage`，也不依赖 OMP 的搜索函数。API key 来自 Windows 用户级环境变量；OAuth 登录和 token 存在用户目录 `~/.search-fusion/auth.json`，不写入 skill 目录。当前九个独立直连 provider 为：`exa`、`gemini`、`xai`、`firecrawl`、`tavily`、`tinyfish`、`zai`、`kimi`、`codex`，另有 `duckduckgo` 无凭据兜底。
+
+```bash
+node ~/.agents/skills/search-fusion/scripts/search-fusion.mjs --doctor
+node ~/.agents/skills/search-fusion/scripts/search-fusion.mjs --doctor --live
+node ~/.agents/skills/search-fusion/scripts/search-fusion.mjs --adapter direct --top 8 --pretty "要调研的问题"
+```
+
+登录入口是 skill 自己的 `--login`：`antigravity` / `gemini-cli`、`xai`、`kimi`、`codex`。若同时存在 env key，默认 `--auth-mode auto` 优先使用 env key；用 `--auth-mode oauth` 可强制使用独立 token。
+
 ### Adapter-orchestrated（确定性自动化）
 
-如果当前环境支持 adapter 自动调用搜索能力：
+如果当前环境支持 adapter 自动调用搜索能力，也可以显式选择 OMP 兼容 adapter：
 
 ```bash
 node ~/.agents/skills/search-fusion/scripts/search-fusion.mjs \
@@ -112,18 +124,7 @@ node ~/.agents/skills/search-fusion/scripts/search-fusion.mjs \
   "Exa 和 Tavily 的搜索能力横评"
 ```
 
-`omp` adapter 是当前兼容 OMP 的 adapter，不是核心依赖。其他 harness 应新增 adapter 或使用 host-orchestrated 模式。
-
-### 独立直连（无需任何 harness 集成）
-
-`--adapter direct` 直接 REST 调用搜索 provider API，凭据只来自环境变量（key 类）或 keyless 兜底（duckduckgo），skill 不存储任何凭据。新机器第一次使用先跑认证体检：
-
-```bash
-node ~/.agents/skills/search-fusion/scripts/search-fusion.mjs --doctor
-node ~/.agents/skills/search-fusion/scripts/search-fusion.mjs --adapter direct --top 8 --pretty "要调研的问题"
-```
-
-`--doctor` 输出每个 provider 的认证状态与精确配置教程（环境变量名、申请入口、PowerShell/shell 设置命令）。provider 选择由 role 匹配 + 跨 retrieval family 优先驱动（首发最多 4 个、默认总预算 9 次调用、覆盖达标提前停），不是按品牌硬编码。
+`omp` adapter 是可选的兼容层，不是核心依赖；只有显式传 `--adapter omp` 时才会访问 OMP。其他 harness 直接使用 `--adapter direct` 或新增 adapter。`--doctor` 输出每个 provider 的认证状态与精确配置教程（环境变量名、申请入口、PowerShell/shell 设置命令）。provider 选择由 role 匹配 + 跨 retrieval family 优先 + 观测可靠性驱动（首发默认 3 个、最多 4 个；默认总预算 9 次调用；覆盖达标提前停），不是按品牌硬编码。本次运行中 429/鉴权失败的 provider 不再重试，facet/fallback 波次自动改派健康 provider；各 provider 的历史成功率与延迟记录在 `~/.search-fusion/provider-stats.json`，影响后续运行的排序。adapter 模式默认按 provider+query 缓存搜索响应（evergreen 7 天 / recent 1 小时 / live 不缓存），`--no-cache` 关闭；缓存命中不计入 `runManifest.cost` 的底层调用数。
 
 ## Provider roles
 
@@ -153,12 +154,13 @@ academic         → academic + semantic + general
 ## 排序与证据策略
 
 - **Unweighted RRF**：所有 provider 的 top-1 贡献相同；同一 URL 按 retrieval family 取最大贡献，同族多命中不叠加。
+- **Intent 评分 profile**：最终分 = w_rrf·RRF + w_prov·provenance + w_fresh·freshness + w_rel·relevance，权重按意图分层（live/recent 提高 freshness，academic 与 factual/tutorial 提高 provenance），输出随附 `scoring` 字段。
 - **rankSemantics**：citation-order 衰减更平坦，但不会在 top-1 上被隐式降权。
 - **URL dedupe**：loose canonical URL 去重（保留 SPA hash 路由）；strict URL 另行输出。
 - **Provenance**：域名只定来源角色；`community.*` 等子域不因父域是厂商而升级；GitHub 标记为 `code`，不自动算一手来源。
-- **Freshness**：`recent/live` 要求时间窗（90d/7d）内带日期的证据；未来日期与未知日期不计入。
+- **Freshness**：`recent/live` 要求时间窗（90d/7d）内带日期的证据；未来日期与未知日期不计入。比较 + recent/live 时，每个实体都需窗口内的带日期证据，而不是池子里任意一条新来源。
 - **Relevance gate**：零相关来源展示但不计入覆盖；中文按 bigram 匹配，不因无分词整段归零。
-- **Coverage**：`retrieval`（候选池规模）与 `evidence`（实体/时效维度）都达标才提前结束；否则继续或返回 `gaps`。
+- **Coverage**：`retrieval`（候选池规模）与 `evidence`（实体/时效维度）都达标才提前结束；否则继续或返回 `gaps`。实体匹配对连字符/空格/点不敏感（`GPT-5` 命中 `GPT5`）；比较支持 2–4 个实体（`A vs B vs C`、`A、B 和 C`）。
 - **Diversity**：Top-K 限制单域名和单一来源角色集中；交付后由 `coverage.delivery` 复核。
 
 ## 最终综合

@@ -9,8 +9,12 @@ export const PROVIDER_ENDPOINTS = {
   tavily: { method: "POST", url: "https://api.tavily.com/search" },
   brave: { method: "GET", url: "https://api.search.brave.com/res/v1/web/search" },
   firecrawl: { method: "POST", url: "https://api.firecrawl.dev/v1/search" },
+  tinyfish: { method: "GET", url: "https://api.search.tinyfish.ai" },
+  zai: { method: "POST", url: "https://api.z.ai/api/mcp/web_search_prime/mcp" },
   jina: { method: "GET", url: "https://s.jina.ai" },
   gemini: { method: "POST", url: "https://generativelanguage.googleapis.com/v1beta/models" },
+  kimi: { method: "POST", url: "https://api.kimi.com/coding/v1/search" },
+  codex: { method: "POST", url: "https://chatgpt.com/backend-api/codex/responses" },
   duckduckgo: { method: "POST", url: "https://html.duckduckgo.com/html/" },
 };
 
@@ -42,7 +46,10 @@ export function oauthSupported(providerId) {
 }
 
 function oauthSourceFor(providerId, home) {
-  if (providerId !== "gemini") return providerId;
+  if (providerId !== "gemini") {
+    const source = authEntries(providerId).find(entry => entry.type === "oauth")?.source;
+    return source ?? providerId;
+  }
   for (const source of GEMINI_OAUTH_SOURCES) {
     const token = loadStoredToken(source, home);
     if (token?.access_token) return source;
@@ -56,6 +63,7 @@ export function detectOauthState(providerId, home) {
   const source = oauthSourceFor(providerId, home);
   if (!source) return { supported: true, state: "absent", email: undefined };
   const token = loadStoredToken(source, home);
+  if (!token) return { supported: true, state: "absent", email: undefined, source };
   return {
     supported: true,
     state: tokenIsFresh(token) ? "valid" : "expired",
@@ -111,18 +119,20 @@ export function readyDirectProviders(env = process.env, home = undefined) {
  */
 export function resolveCredential(providerId, mode = "auto", env = process.env, home = undefined) {
   const detection = detectProviderAuth(providerId, env, home);
-  const envMode = detection.modes?.find(entry => entry.type === "env");
+  const envMode = detection.modes?.find(entry => entry.type === "env" && entry.present);
   const envValue = envMode?.present ? env[envMode.var] : undefined;
   const oauthAvailable = oauthSupported(providerId) && detectOauthState(providerId, home).state !== "absent";
 
   if (mode === "key") {
-    return envValue ? { kind: "env-key", value: envValue, var: envMode.var } : { kind: null };
+    return envValue
+      ? { kind: envMode.credentialKind ?? "env-key", value: envValue, var: envMode.var }
+      : { kind: null };
   }
   if (mode === "oauth") {
     return oauthAvailable ? { kind: "oauth", value: null, source: detectOauthState(providerId, home).source } : { kind: null };
   }
   // auto
-  if (envValue) return { kind: "env-key", value: envValue, var: envMode.var };
+  if (envValue) return { kind: envMode.credentialKind ?? "env-key", value: envValue, var: envMode.var };
   if (oauthAvailable) return { kind: "oauth", value: null, source: detectOauthState(providerId, home).source };
   return { kind: detection.status === "keyless" ? "keyless" : null };
 }
@@ -151,12 +161,12 @@ function tutorialLines(id, detection) {
       lines.push(shell);
     } else if (mode.type === "oauth") {
       if (mode.oauthState === "expired") {
-        lines.push(`   oauth: token expired — run \`--login ${id}\` again to refresh`);
+        lines.push(`   oauth: token expired — run \`--login ${mode.source ?? id}\` again to refresh`);
       } else if (oauthSupported(id)) {
         if (id === "gemini") {
           lines.push(`   oauth: run \`--login antigravity\` or \`--login gemini-cli\` to pull a token (Cloud Code Assist; stored in ~/.search-fusion/auth.json)`);
         } else {
-          lines.push(`   oauth: run \`--login ${id}\` to pull a token (stored in ~/.search-fusion/auth.json)`);
+          lines.push(`   oauth: run \`--login ${mode.source ?? id}\` to pull a token (stored in ~/.search-fusion/auth.json)`);
         }
       } else {
         lines.push(`   oauth: ${mode.guide}`);

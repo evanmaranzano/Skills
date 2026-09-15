@@ -20,12 +20,15 @@ export function familyOf(provider, capabilities = {}) {
   return capabilities?.retrievalFamilies?.[provider] ?? provider;
 }
 
-export function selectProvidersByRole(task, capabilities, { count = 3 } = {}) {
+export function selectProvidersByRole(task, capabilities, { count = 3, scores } = {}) {
   const roles = capabilities?.roles ?? defaultProviderRoles(capabilities?.providers ?? []);
   const byRole = roleCandidates(roles);
   const order = capabilities?.autoOrder ?? Object.keys(roles);
   const selected = [];
   const usedFamilies = new Set();
+  const scoreOf = provider => scores?.[provider] ?? 0.5;
+  const pickBest = eligible => [...eligible]
+    .sort((left, right) => scoreOf(right) - scoreOf(left) || order.indexOf(left) - order.indexOf(right))[0];
 
   function take(provider) {
     if (!provider || selected.includes(provider)) return false;
@@ -36,10 +39,11 @@ export function selectProvidersByRole(task, capabilities, { count = 3 } = {}) {
 
   for (const role of wantedRoles(task)) {
     const candidates = byRole[role] ?? [];
-    const candidate = order.find(provider =>
+    const eligible = order.filter(provider =>
       candidates.includes(provider)
       && !selected.includes(provider)
       && !usedFamilies.has(familyOf(provider, capabilities)));
+    const candidate = pickBest(eligible);
     if (candidate && take(candidate)) return selected;
   }
 
@@ -54,11 +58,12 @@ export function selectProvidersByRole(task, capabilities, { count = 3 } = {}) {
   return selected;
 }
 
-export function providersForFacet(facet, capabilities, pool, { count = 1 } = {}) {
+export function providersForFacet(facet, capabilities, pool, { count = 1, exclude } = {}) {
   const roles = capabilities?.roles ?? {};
   const byRole = roleCandidates(roles);
   const order = (capabilities?.autoOrder ?? []).filter(provider => pool.includes(provider));
-  const orderedPool = [...order, ...pool.filter(provider => !order.includes(provider))];
+  const orderedPool = [...order, ...pool.filter(provider => !order.includes(provider))]
+    .filter(provider => !exclude?.has(provider));
   if (!facet?.requiredRoles?.length) return orderedPool.slice(0, count);
 
   const picks = [];
@@ -83,6 +88,7 @@ export function planSearchWaves({
   remainingProviders = [],
   capabilities = {},
   budget = {},
+  scores,
 } = {}) {
   const list = Array.isArray(facets) && facets.length
     ? facets
@@ -111,7 +117,10 @@ export function planSearchWaves({
       wave: "facet",
     })),
   );
-  const fallback = remainingProviders.slice(0, maxFallbackCalls).map(provider => ({
+  const fallbackOrder = scores
+    ? [...remainingProviders].sort((left, right) => (scores[right] ?? 0.5) - (scores[left] ?? 0.5))
+    : remainingProviders;
+  const fallback = fallbackOrder.slice(0, maxFallbackCalls).map(provider => ({
     query,
     provider,
     facetId: "base",

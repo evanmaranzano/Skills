@@ -3,9 +3,16 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { mkdtempSync } from "node:fs";
+import os from "node:os";
+
 import { decomposeQuery } from "../core/decompose.mjs";
 import { parseArgs, runSearchFusion } from "../scripts/search-fusion.mjs";
 import { SEARCH_FUSION_VERSION } from "../core/version.mjs";
+
+// Adapter-mode runs persist provider stats and cache under SEARCH_FUSION_HOME;
+// isolate them so test results never depend on (or pollute) the real user state.
+process.env.SEARCH_FUSION_HOME = mkdtempSync(path.join(os.tmpdir(), "sf-leaderboard-"));
 
 const here = fileURLToPath(new URL(".", import.meta.url));
 

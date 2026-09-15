@@ -52,7 +52,8 @@ function classifyHttpFailure(provider, status, text) {
 
 async function fetchJson(provider, url, init, signal, fetchImpl) {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  const timeoutMs = provider === "xai" ? 60000 : REQUEST_TIMEOUT_MS;
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
   const onAbort = () => controller.abort();
   signal?.addEventListener("abort", onAbort);
   try {
@@ -77,6 +78,8 @@ function isoDaysAgo(days) {
 }
 
 const RECENCY_DAYS = { day: 1, week: 7, month: 30, year: 365, live: 7, recent: 90 };
+
+import { randomUUID } from "node:crypto";
 
 // --- per-provider request builders + response mappers ---
 // Each builder receives (credential, request) where credential is
@@ -183,6 +186,277 @@ function searchFirecrawl(credential, request) {
     answer: undefined,
     metadata: { authMode: credential.kind },
   }));
+}
+
+function asText(value) {
+  return typeof value === "string" && value.trim() ? value.trim() : undefined;
+}
+
+function searchTinyfish(credential, request) {
+  const url = new URL(PROVIDER_ENDPOINTS.tinyfish.url);
+  url.searchParams.set("query", request.query);
+  url.searchParams.set("num_results", String(Math.min(request.limit ?? DEFAULT_LIMIT, 20)));
+  const recencyMinutes = { day: 1440, week: 10080, month: 43200, year: 525600 }[request.recency];
+  if (recencyMinutes) url.searchParams.set("recency_minutes", String(recencyMinutes));
+  return fetchJson("tinyfish", url, {
+    method: "GET",
+    headers: { Accept: "application/json", "X-API-Key": credential.value },
+  }, request.signal, request.fetch).then(payload => ({
+    provider: "tinyfish",
+    sources: (payload.results ?? []).filter(result => result?.url).map(result => ({
+      url: result.url,
+      title: asText(result.title) ?? asText(result.site_name) ?? result.url,
+      snippet: asText(result.snippet),
+      author: asText(result.site_name),
+    })),
+    answer: undefined,
+    metadata: { authMode: credential.kind },
+  }));
+}
+
+function parseZaiMcpPayload(text) {
+  const messages = [];
+  for (const line of String(text).split("\n")) {
+    const data = line.trim().startsWith("data:") ? line.trim().slice(5).trim() : "";
+    if (!data) continue;
+    try { messages.push(JSON.parse(data)); } catch { /* ignore non-JSON SSE frames */ }
+  }
+  if (messages.length) return messages[messages.length - 1];
+  try { return JSON.parse(text); } catch { return null; }
+}
+
+async function postZaiMcp(apiKey, method, params, sessionId, request, expectResponse) {
+  const headers = {
+    Authorization: `Bearer ${apiKey}`,
+    "Content-Type": "application/json",
+    Accept: "application/json, text/event-stream",
+  };
+  if (sessionId) headers["Mcp-Session-Id"] = sessionId;
+  const body = { jsonrpc: "2.0", method, params };
+  if (expectResponse) body.id = randomUUID();
+  const response = await (request.fetch ?? activeFetch)(PROVIDER_ENDPOINTS.zai.url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+    signal: request.signal,
+  });
+  const responseText = await response.text();
+  if (!response.ok) throw classifyHttpFailure("zai", response.status, responseText);
+  return {
+    sessionId: response.headers.get("Mcp-Session-Id") ?? sessionId,
+    payload: expectResponse ? parseZaiMcpPayload(responseText) : undefined,
+  };
+}
+
+function unwrapZaiResult(value) {
+  const candidates = [value, value?.structuredContent, value?.data, value?.result];
+  for (const candidate of candidates) {
+    if (Array.isArray(candidate)) return candidate;
+    if (candidate && Array.isArray(candidate.search_result)) return candidate.search_result;
+    if (candidate && Array.isArray(candidate.results)) return candidate.results;
+    if (candidate && Array.isArray(candidate.content)) {
+      for (const part of candidate.content) {
+        const text = asText(part?.text);
+        if (!text) continue;
+        try {
+          const parsed = JSON.parse(text);
+          const nested = unwrapZaiResult(parsed);
+          if (nested.length) return nested;
+        } catch { /* answer text, not a structured result */ }
+      }
+    }
+  }
+  return [];
+}
+
+async function searchZai(credential, request) {
+  const init = await postZaiMcp(credential.value, "initialize", {
+    protocolVersion: "2025-03-26",
+    capabilities: {},
+    clientInfo: { name: "search-fusion", version: "0.1.0" },
+  }, undefined, request, true);
+  const initialized = init.payload;
+  if (initialized?.error) throw classifyHttpFailure("zai", 400, initialized.error.message);
+  await postZaiMcp(credential.value, "notifications/initialized", {}, init.sessionId, request, false);
+  const call = await postZaiMcp(credential.value, "tools/call", {
+    name: "web_search_prime",
+    arguments: { search_query: request.query, count: request.limit ?? DEFAULT_LIMIT },
+  }, init.sessionId, request, true);
+  const rpc = call.payload;
+  if (rpc?.error) throw classifyHttpFailure("zai", 400, rpc.error.message);
+  const result = rpc?.result ?? rpc;
+  if (result?.isError) {
+    const message = (result.content ?? []).map(part => asText(part?.text)).filter(Boolean).join("\n");
+    throw classifyHttpFailure("zai", 400, message || "Z.AI MCP tool call failed");
+  }
+  const sources = unwrapZaiResult(result).filter(item => item?.link || item?.url).map(item => ({
+    url: item.link ?? item.url,
+    title: asText(item.title) ?? item.link ?? item.url,
+    snippet: asText(item.content),
+    publishedAt: asText(item.publish_date) ?? asText(item.publishedDate),
+    author: asText(item.media),
+  }));
+  return { provider: "zai", sources, answer: undefined, metadata: { authMode: credential.kind } };
+}
+
+function searchKimi(credential, request) {
+  return fetchJson("kimi", PROVIDER_ENDPOINTS.kimi.url, {
+    method: "POST",
+    headers: { Accept: "application/json", "Content-Type": "application/json", Authorization: `Bearer ${credential.value}` },
+    body: JSON.stringify({
+      text_query: request.query,
+      limit: Math.min(request.limit ?? DEFAULT_LIMIT, 20),
+      enable_page_crawling: false,
+      timeout_seconds: 30,
+    }),
+  }, request.signal, request.fetch).then(payload => ({
+    provider: "kimi",
+    sources: (payload.search_results ?? []).filter(result => result?.url).map(result => ({
+      url: result.url,
+      title: asText(result.title) ?? result.url,
+      snippet: asText(result.snippet) ?? asText(result.content),
+      publishedAt: asText(result.date),
+      author: asText(result.site_name),
+    })),
+    answer: undefined,
+    metadata: { authMode: credential.kind },
+  }));
+}
+
+function parseDataFrames(text) {
+  const frames = [];
+  for (const line of String(text).split("\n")) {
+    if (!line.startsWith("data:")) continue;
+    const data = line.slice(5).trim();
+    if (!data || data === "[DONE]") continue;
+    try { frames.push(JSON.parse(data)); } catch { /* tolerate split/non-JSON SSE frames */ }
+  }
+  return frames;
+}
+
+function searchXai(credential, request) {
+  const baseUrl = (process.env.XAI_BASE_URL ?? "https://api.x.ai/v1").replace(/\/+$/, "");
+  const body = {
+    model: process.env.XAI_SEARCH_MODEL ?? "grok-4.5",
+    input: [
+      { role: "system", content: "You are a helpful assistant with web search capabilities. Search the web and cite sources." },
+      { role: "user", content: request.query },
+    ],
+    tools: [{ type: "web_search" }],
+    tool_choice: "required",
+    reasoning: { effort: "low" },
+  };
+  return fetchJson("xai", `${baseUrl}/responses`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Authorization: `Bearer ${credential.value}` },
+    body: JSON.stringify(body),
+  }, request.signal, request.fetch).then(payload => {
+    const sources = [];
+    const seen = new Set();
+    const add = (url, title, snippet) => {
+      if (!url || seen.has(url)) return;
+      seen.add(url);
+      sources.push({ url, title: asText(title) ?? url, snippet: asText(snippet) });
+    };
+    for (const item of payload.output ?? []) {
+      if (item?.type === "web_search_call") {
+        for (const group of [item.action?.sources, item.sources, item.results]) {
+          for (const source of group ?? []) add(source.url ?? source.source_website_url, source.title ?? source.caption);
+        }
+      }
+      for (const part of item?.content ?? []) {
+        for (const annotation of part?.annotations ?? []) {
+          if (annotation?.type === "url_citation") add(annotation.url, annotation.title, annotation.cited_text ?? annotation.text);
+        }
+      }
+    }
+    for (const url of payload.citations ?? []) if (typeof url === "string") add(url);
+    const answer = asText(payload.output_text) ?? ((payload.output ?? [])
+      .flatMap(item => item?.content ?? [])
+      .map(part => asText(part?.text) ?? asText(part?.output_text))
+      .filter(Boolean).join("\n") || undefined);
+    return { provider: "xai", sources: sources.slice(0, request.limit ?? DEFAULT_LIMIT), answer, metadata: { authMode: credential.kind, model: payload.model, requestId: payload.id } };
+  });
+}
+
+function codexAccountId(credential) {
+  return credential.accountId ?? credential.chatgpt_account_id;
+}
+
+async function searchCodex(credential, request) {
+  const baseUrl = (process.env.CODEX_BASE_URL ?? "https://chatgpt.com/backend-api").replace(/\/+$/, "");
+  const headers = {
+    Authorization: `Bearer ${credential.value}`,
+    "OpenAI-Beta": "responses=experimental",
+    originator: "search-fusion",
+    version: "0.153.0",
+    Accept: "text/event-stream",
+    "Content-Type": "application/json",
+  };
+  const accountId = codexAccountId(credential);
+  if (accountId) headers["chatgpt-account-id"] = accountId;
+  const body = {
+    model: process.env.CODEX_SEARCH_MODEL ?? "gpt-5.5",
+    stream: true,
+    store: false,
+    include: ["web_search_call.action.sources"],
+    parallel_tool_calls: true,
+    input: [{ type: "message", role: "user", content: [{ type: "input_text", text: request.query }] }],
+    tools: [{ type: "web_search", search_context_size: "high" }],
+    tool_choice: { type: "web_search" },
+    instructions: "You are a helpful assistant with web search capabilities. Search the web to answer accurately and cite sources.",
+  };
+  const response = await (request.fetch ?? activeFetch)(`${baseUrl}/codex/responses`, {
+    method: "POST", headers, body: JSON.stringify(body), signal: request.signal,
+  });
+  const text = await response.text();
+  if (!response.ok) throw classifyHttpFailure("codex", response.status, text);
+  const sources = [];
+  const seen = new Set();
+  let answer = "";
+  let model;
+  let requestId;
+  let invoked = false;
+  for (const frame of parseDataFrames(text)) {
+    const type = frame.type;
+    if (typeof type === "string" && type.startsWith("response.web_search_call")) invoked = true;
+    if (type === "response.created") {
+      requestId = frame.response?.id ?? requestId;
+      model = frame.response?.model ?? model;
+    }
+    if (type === "response.output_text.delta" && typeof frame.delta === "string") answer += frame.delta;
+    if (type === "response.output_item.done") {
+      const item = frame.item;
+      if (item?.type === "web_search_call") {
+        invoked = true;
+        for (const group of [item.action?.sources, item.sources, item.results]) {
+          for (const source of group ?? []) {
+            const url = source.url ?? source.source_website_url;
+            if (url && !seen.has(url)) { seen.add(url); sources.push({ url, title: source.title ?? source.caption ?? url }); }
+          }
+        }
+      }
+      if (item?.type === "message") {
+        for (const part of item.content ?? []) {
+          if (part?.type === "output_text" && typeof part.text === "string") {
+            answer += answer ? `\n\n${part.text}` : part.text;
+            for (const annotation of part.annotations ?? []) {
+              if (annotation?.type === "url_citation" && annotation.url && !seen.has(annotation.url)) {
+                seen.add(annotation.url); sources.push({ url: annotation.url, title: annotation.title ?? annotation.url });
+              }
+            }
+          }
+        }
+      }
+    }
+    if (type === "response.completed" || type === "response.done") {
+      requestId = frame.response?.id ?? requestId;
+      model = frame.response?.model ?? model;
+    }
+    if (type === "error" || type === "response.failed") throw new Error(`Codex search failed: ${frame.error?.message ?? frame.response?.error?.message ?? "upstream error"}`);
+  }
+  if (!invoked) throw new Error("Codex returned a completion without running web search");
+  return { provider: "codex", sources: sources.slice(0, request.limit ?? DEFAULT_LIMIT), answer: asText(answer), metadata: { authMode: credential.kind, model, requestId } };
 }
 
 // Gemini grounding search, two transports:
@@ -362,6 +636,11 @@ const DIRECT_SEARCH = {
   brave: searchBrave,
   jina: searchJina,
   firecrawl: searchFirecrawl,
+  tinyfish: searchTinyfish,
+  zai: searchZai,
+  kimi: searchKimi,
+  xai: searchXai,
+  codex: searchCodex,
   gemini: searchGemini,
   duckduckgo: searchDuckDuckGo,
 };
@@ -379,21 +658,29 @@ export function createDirectAdapter({ providers, env = process.env, fetchImpl, a
   const obtainCredential = async id => {
     const credential = resolveCredential(id, authMode, env, home);
     if (credential.kind === "oauth") {
-      const source = credential.source;
+      const source = credential.source ?? id;
       const token = await ensureFreshAccessToken(source, home, activeFetch);
       if (!token?.access_token) {
         const err = new Error(`${id} OAuth token could not be refreshed; run --login ${source ?? id} again`);
         err.searchFusionType = "auth";
         throw err;
       }
-      if (!token.projectId) {
+      if (id === "gemini" && !token.projectId) {
         const err = new Error(`${id} OAuth credential has no Code Assist projectId; run --login ${source} again`);
         err.searchFusionType = "auth";
         throw err;
       }
-      return { kind: "oauth", value: token.access_token, oauthSource: source, projectId: token.projectId };
+      return {
+        kind: "oauth",
+        value: token.access_token,
+        oauthSource: source,
+        projectId: token.projectId,
+        accountId: token.accountId,
+      };
     }
-    if (credential.kind === "env-key") return { kind: "env-key", value: credential.value };
+    if (credential.kind === "env-key" || credential.kind === "env-token") {
+      return { kind: credential.kind, value: credential.value };
+    }
     if (credential.kind === "keyless") return { kind: "keyless" };
     const err = new Error(`${id} has no configured credential; run --doctor for setup instructions`);
     err.searchFusionType = "auth";

@@ -1,6 +1,6 @@
 # Adapters
 
-Search Fusion 的核心不直接绑定任何 harness。每个 adapter 只负责把当前环境的搜索能力转换成统一契约。**本 skill 不读取、不存储任何 API key 或 OAuth 凭据**——provider 认证完全由 harness 侧负责（如 OMP 的登录态与 key 管理），adapter 只透传搜索结果。
+Search Fusion 的核心不直接绑定任何 harness。每个 adapter 只负责把当前环境的搜索能力转换成统一契约。独立 `direct` adapter 的 API key 使用用户级环境变量，OAuth 使用 `~/.search-fusion/auth.json`；凭据不写入 skill。`omp` 仅是显式选择时才启用的兼容 adapter。
 
 ## Contract
 
@@ -54,7 +54,7 @@ capability 字段说明见 `schemas/capabilities.schema.json`；未提供的角�
 
 **`--adapter direct`（独立直连，推荐用于无 harness 集成的场景）**
 
-直接以 REST 调用搜索 provider API，凭据只来自环境变量（`config/provider-auth.json` 声明每个 provider 的变量名与申请入口），skill 不存储任何 key，完全不依赖 harness 登录态：
+直接以 REST 调用搜索 provider API，或使用 skill 自己的 OAuth token，完全不依赖 harness 登录态：
 
 ```bash
 node scripts/search-fusion.mjs --doctor        # 首次运行：逐 provider 认证体检 + 配置教程
@@ -62,15 +62,16 @@ node scripts/search-fusion.mjs --adapter direct "要调研的问题"
 node scripts/search-fusion.mjs --adapter direct --providers exa,tavily "要调研的问题"
 ```
 
-- key 类（env key 即用）：exa `EXA_API_KEY`、tavily `TAVILY_API_KEY`、brave `BRAVE_API_KEY`、firecrawl `FIRECRAWL_API_KEY`、jina `JINA_API_KEY`、xai `XAI_API_KEY`、gemini `GEMINI_API_KEY`、kimi `KIMI_SEARCH_API_KEY`；
+- 独立直连 provider：exa、gemini、xai、firecrawl、tavily、tinyfish、zai、kimi、codex；兼容保留 brave/jina，另有 duckduckgo keyless 兜底；
+- key 类（env key 即用）：exa `EXA_API_KEY`、tavily `TAVILY_API_KEY`、brave `BRAVE_API_KEY`、firecrawl `FIRECRAWL_API_KEY`、tinyfish `TINYFISH_API_KEY`、zai `ZAI_API_KEY`、jina `JINA_API_KEY`、xai `XAI_API_KEY`、gemini `GEMINI_API_KEY`、kimi `KIMI_SEARCH_API_KEY`；xAI OAuth bearer 也可放 `XAI_OAUTH_TOKEN`；
 - keyless 兜底：duckduckgo 无需任何配置（best-effort，反爬敏感）；
-- **Gemini 双路线 OAuth（可自动拉取）**：`--login antigravity`（Google Antigravity 的 daily Cloud Code Assist）或 `--login gemini-cli`（google-gemini-cli 公开 client）——借鉴 google-gemini-cli（Apache-2.0）与 Oh My Pi 的接入方式：installed-app 公开 client + loopback 回调 + offline refresh token，登录后自动走 `loadCodeAssist` 握手解析 companion projectId，搜索走 `v1internal:streamGenerateContent`（SSE）+ googleSearch grounding。token 存 `~/.search-fusion/auth.json`（0600，skill 目录之外）。
+- **独立 OAuth 登录**：Gemini 使用 `--login antigravity` 或 `--login gemini-cli`；xAI、Kimi、Codex 分别使用 `--login xai`、`--login kimi`、`--login codex`。登录流程和刷新逻辑在 skill 自己的 `core/oauth.mjs` 中，token 存 `~/.search-fusion/auth.json`（skill 目录之外）。
 - 认证模式自选：`--auth-mode auto|key|oauth`（默认 auto = env key 优先、oauth 兜底；`key` 只用环境变量；`oauth` 强制走已登录 token）。
-- 其余 OAuth 类 provider（ChatGPT/SuperGrok 等私有 CLI 流程）：`--doctor` 给出指引，本 skill 不代拉 token；有独立 env key 的（xai/kimi）优先走 key。
+- `--doctor` 会显示独立 OAuth 与 env key 的状态；`--auth-mode auto|key|oauth`（默认 auto = env key 优先、OAuth 兜底）可控制选择。
 
 **`--adapter omp`（OMP 兼容模式）**
 
-通过 OMP 的 `runSearchQuery()` 获取结构化结果。这是兼容性 adapter，不是核心依赖。capability 发现是**动态且 fail-open** 的：
+通过 OMP 的 `runSearchQuery()` 获取结构化结果。这是可选兼容性 adapter，不是核心依赖；direct 模式不会加载它。capability 发现是**动态且 fail-open** 的：
 
 - 池子 = OMP 已知 provider 全集 − `webSearchExclude`，外加 `webSearchOrder` 中配置但全集尚未收录的新 provider（新 provider 自动落 `general` 角色、`unknown` rank 语义，直到 `provider-defaults.json` 描述它）；
 - `webSearchOrder` 只决定优先级（autoOrder 前段），未列出的 provider 仍然可用；
@@ -85,7 +86,7 @@ provider 选择由角色匹配 + 跨 retrieval family 优先驱动，并受预�
 | Adapter | 用途 | 说明 |
 |---|---|---|
 | `host.mjs` | 通用 host-orchestrated 模式 | 由当前 harness/Agent 调用自己的搜索工具，再把结果交给 Fusion |
-| `direct.mjs` | 独立直连模式 | 环境变量 key 的 REST 直连 + keyless duckduckgo；`--doctor` 引导配置，新机器零 harness 依赖即可用 |
+| `direct.mjs` | 独立直连模式 | 独立 OAuth + 用户级环境变量的 REST 直连 + keyless duckduckgo；`--doctor` 引导配置，新机器零 harness 依赖即可用 |
 | `omp-internal.mjs` | OMP 兼容模式 | 通过 OMP 当前可验证的 `runSearchQuery()` 获取结构化结果；它是兼容性 adapter，不是核心依赖 |
 
 ## ZCode（无专用 adapter，走方式一）
