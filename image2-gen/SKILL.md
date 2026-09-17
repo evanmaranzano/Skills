@@ -35,7 +35,7 @@ Model:    gpt-image-2
 2. 后台启动本地中转：
 
 ```powershell
-powershell -File C:/Users/Administrator/.agents/skills/image2-gen/scripts/start_change2pro_relay.ps1
+powershell -File C:/Users/26566/.agents/skills/image2-gen/scripts/start_change2pro_relay.ps1
 ```
 
 3. 先做健康检查：
@@ -54,8 +54,8 @@ http://127.0.0.1:5099/v1/images/generations
 
 ### 中转脚本说明
 
-- 启动脚本：`C:/Users/Administrator/.agents/skills/image2-gen/scripts/start_change2pro_relay.ps1`
-- 服务脚本：`C:/Users/Administrator/.agents/skills/image2-gen/scripts/change2pro_relay.py`
+- 启动脚本：`C:/Users/26566/.agents/skills/image2-gen/scripts/start_change2pro_relay.ps1`
+- 服务脚本：`C:/Users/26566/.agents/skills/image2-gen/scripts/change2pro_relay.py`
 - 默认监听：`127.0.0.1:5099`
 - 健康检查：`GET /health`
 - 转发接口：`POST /v1/images/generations` 或 `POST /generate`
@@ -171,7 +171,7 @@ curl -s https://api.change2pro.com/v1/images/generations \
 先启动中转：
 
 ```powershell
-powershell -File C:/Users/Administrator/.agents/skills/image2-gen/scripts/start_change2pro_relay.ps1
+powershell -File C:/Users/26566/.agents/skills/image2-gen/scripts/start_change2pro_relay.ps1
 curl.exe -sS http://127.0.0.1:5099/health
 ```
 

@@ -77,12 +77,12 @@ subject, no watermarks, no logos, no QR code, no UI screenshots.
 
 ### 4. 生成
 
-脚本路径：`C:/Users/Administrator/.agents/skills/game-poster/scripts/miaoda_generate.py`
+脚本路径：`C:/Users/26566/.agents/skills/game-poster/scripts/miaoda_generate.py`
 
 一次出图即交付。当前固定使用 low 质量 + JPEG，综合画质约 8.4/10，单张通常 ~45 秒，中文标题文字实测全对，绝大多数场景够用。每次调用都是真实付费请求。
 
 ```bash
-python "C:/Users/Administrator/.agents/skills/game-poster/scripts/miaoda_generate.py" \
+python "C:/Users/26566/.agents/skills/game-poster/scripts/miaoda_generate.py" \
   --prompt "<构造好的提示词>" \
   --output "<输出目录>" --no-open-output
 ```
