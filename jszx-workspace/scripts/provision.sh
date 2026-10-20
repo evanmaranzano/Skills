@@ -43,14 +43,21 @@ docker run -d --name ${NAME} \
   -v ${ROOT}/docker:/var/lib/docker \
   ${NAME}-base:systemd
 
-# 4) root 密码(随机 20 位;存服务器 /root/.<NAME>-cred 600;回显一次供登记凭据文档)
-sleep 8
-docker exec ${NAME} systemctl is-active ssh docker
+# 4) 等待容器内 systemd 就绪(竞态修复:set -e 下单次 is-active 若在 systemd 未起时失败,
+#    脚本会在设密码前中止,留下 root 锁定的容器;重试至 ~45s,失败则 dump 日志退出)
+READY=0
+for i in $(seq 1 8); do
+  if docker exec ${NAME} systemctl is-active --quiet ssh docker 2>/dev/null; then READY=1; break; fi
+  sleep 5
+done
+[ ${READY} -eq 1 ] || { echo "FATAL: systemd in ${NAME} not ready after 45s"; docker logs --tail 30 ${NAME}; exit 1; }
+
+# 5) root 密码(随机 20 位;存服务器 /root/.<NAME>-cred 600;回显一次供登记凭据文档)
 PW=$(head -c200 /dev/urandom | tr -dc A-Za-z0-9 | head -c20)
 echo "root:${PW}" | docker exec -i ${NAME} chpasswd
 echo "${PW}" > /root/.${NAME}-cred && chmod 600 /root/.${NAME}-cred
 
-# 5) 自检
+# 6) 自检
 echo "--- cpu.max / memory.max ---"
 docker exec ${NAME} cat /sys/fs/cgroup/cpu.max /sys/fs/cgroup/memory.max
 echo "--- ssh banner(本机回环) ---"
