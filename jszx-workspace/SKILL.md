@@ -5,6 +5,8 @@ jszx 内网两类任务：A=新开会用工作区容器（10-20 固化），B=�
 前置：SSL VPN 已拨通（10.10.127.x 可达）；服务器/防火墙凭据查
 `DeskBox\文档\服务器与运维\服务器信息整理<最新日期>.md`（规则 `reference_jszx_server_inventory`）。
 
+**凭据解析约定（2026-10-21 起，jszx 系脚本统一）**：按序取 `环境变量 → ~/.config/jszx/creds.env(600) → DeskBox 权威文档 grep`。高频凭据（防火墙 admin、15 root SSH）集中在 creds.env，轮换后 DeskBox 文档仍是权威源、本文件需同步；**禁止**把凭据塞进 ~/.bashrc 全局（子进程继承会泄漏）或写进 skill/记忆/报告。creds.env 变量命名：`FW_*`（防火墙）、`JSZX<N>_ROOT_PASS`（N 号机 root SSH）。
+
 依赖（本机 WSL）：`pip install requests pycryptodome pillow` + 系统 `tesseract`。
 
 ## 选址决策（先想清楚再动手）

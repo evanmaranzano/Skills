@@ -29,6 +29,34 @@ BASE = os.environ.get("FW_HOST", "https://10.10.127.254").rstrip("/")
 USER = os.environ.get("FW_USER", "admin")
 PW = os.environ.get("FW_PASS")
 NP = {"http": None, "https": None}          # 禁走本机代理(VPN 内网地址)
+
+def _resolve_creds():
+    """凭据解析顺序: 环境变量 > ~/.config/jszx/creds.env > DeskBox 权威文档(轮换自动跟随)"""
+    global USER, PW
+    if PW:
+        return
+    envf = os.path.expanduser("~/.config/jszx/creds.env")
+    if os.path.exists(envf):
+        for line in open(envf, encoding="utf-8"):
+            m = re.match(r'\s*(?:export\s+)?(FW_USER|FW_PASS)=["\']?([^"\'\n]+)', line)
+            if m and m.group(1) == "FW_PASS":
+                PW = m.group(2).strip()
+            elif m and m.group(1) == "FW_USER":
+                USER = m.group(2).strip()
+    if PW:
+        return
+    import glob
+    for p in sorted(glob.glob("/mnt/c/Users/26566/DeskBox/文档/服务器与运维/服务器信息整理*.md"),
+                    reverse=True):
+        try:
+            txt = open(p, encoding="utf-8").read()
+        except OSError:
+            continue
+        m = re.search(r'管理账号[^\n]*`([^`]+)`\s*/\s*`([^`]+)`', txt)
+        if m:
+            USER, PW = m.group(1), m.group(2)
+            print(f"[creds] resolved from {os.path.basename(p)}")
+            return
 # RSA 公钥来自 /webui/js/rsajs/rsa-security.js(页面公开内容,非秘密)
 PUBKEY_B64 = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC3//sR2tXw0wrC2DySx8vNGlqt3Y7ldU9+LBLI6e1KS5lfc5jlTGF7KBTSkCHBM3ouEHWqp1ZJ85iJe59aF5gIB2klBd6h4wrbbHA2XE1sq21ykja/Gqx7/IRia3zQfxGv/qEkyGOx+XALVoOlZqDwh76o2n1vP1D+tD3amHsK7QIDAQAB"
 
@@ -52,8 +80,9 @@ def ocr(img_bytes):
 
 class FW:
     def __init__(self):
+        _resolve_creds()
         if not PW:
-            sys.exit("FATAL: export FW_PASS 后再用")
+            sys.exit("FATAL: 凭据未找到(设 FW_PASS, 或建 ~/.config/jszx/creds.env, 或确保 DeskBox 文档可读)")
         self.s = requests.Session()
         self.s.verify = False
         self.s.headers.update({"User-Agent": "Mozilla/5.0",
