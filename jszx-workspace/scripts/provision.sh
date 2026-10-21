@@ -63,4 +63,4 @@ docker exec ${NAME} cat /sys/fs/cgroup/cpu.max /sys/fs/cgroup/memory.max
 echo "--- ssh banner(本机回环) ---"
 timeout 5 bash -c "exec 3<>/dev/tcp/127.0.0.1/${PORT} && head -c 40 <&3"; echo
 echo "OK. password: ${PW}"
-echo "NEXT: 防火墙建 TCP${PORT} 服务对象+DNAT(排 API域名 兜底前),见 SKILL.md Part B"
+echo "NEXT: 防火墙开公网(脚本化): export FW_PASS='...'; scripts/fw_dnat.py open-port ${PORT} --to 10.10.127.15 --desc '${NAME}-ssh'"
