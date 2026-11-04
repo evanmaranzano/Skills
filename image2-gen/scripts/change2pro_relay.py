@@ -25,7 +25,7 @@ from urllib import error, request
 UPSTREAM_URL = "https://api.change2pro.com/v1/images/generations"
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 5099
-DEFAULT_API_KEY = "sk-5205fac8ce75120857f304d610e326d64eed7b5bb6674c4bce19da2604e554d8"
+DEFAULT_API_KEY = os.environ.get("CHANGE2PRO_RELAY_API_KEY") or os.environ.get("CHANGE2PRO_API_KEY", "")
 
 
 def build_opener() -> request.OpenerDirector:

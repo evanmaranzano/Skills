@@ -5,6 +5,7 @@ description: >
   例行更新本机规则与记忆基础设施，并含本机生产拓扑的 ai-memory 双端升级
   （Windows 客户端 + 15 服务器 overlay）。触发词：更新规则与记忆系统、同步规则仓、
   刷新记忆路由、规则体检、rules refresh、memory refresh、更新本机规则、
+  双端强制刷新、同步两端记忆规则skill、Win↔WSL 对齐、强制刷新本地记忆、
   升级/更新 ai-memory、升到 x.y.z、aimemory 发版、双端升级、重刷 hooks/MCP、
   修 127.0.0.1:49374、install-mcp 丢 Authorization、升级 lark-cli。
   不用于项目 docs 洁癖（neat-freak）、wiki 检索/handoff（ai-memory-retrieval 等）、
@@ -33,7 +34,7 @@ description: >
 7. 记版本事实    更新 reference_ai_memory_local.md + MEMORY.md 索引行
 ```
 
-只升客户端、不动 15：仍走 2 的 Windows 节 + 5。只刷新规则仓、不升级二进制：跳过 2–3。用户说「与服务器一致」时：现场 `docker exec`/`status` 对上客户端 `--version` 就不要追 GitHub latest（公司机 2.2.1 ≠ 服务器 2.2.0）。
+只升客户端、不动 15：仍走 2 的 Windows 节 + 5。只刷新规则仓、不升级二进制：跳过 2–3。只做 Win↔WSL 本地记忆/规则/skill 双端对齐：跳过 1–7，走第 8 节。用户说「与服务器一致」时：现场 `docker exec`/`status` 对上客户端 `--version` 就不要追 GitHub latest（公司机 2.2.1 ≠ 服务器 2.2.0）。
 
 ## 1. 盘点
 
@@ -171,6 +172,15 @@ ai-memory embed --dry-run    # 只看本机桶；服务器缺失须 docker exec 
 
 `cd ~/.agents && git status && git diff`。**用户明确要求才** `commit` + 带代理 `push`。已分叉则 `merge origin/main`，不要 ff-only。
 
+## 8. local-memory 快照重灌（本地记忆变动后必做）
+
+`local-memory/*` 服务器快照**没有自动同步机制**（hooks 只捕获会话，不监听本地文件记忆变动）；不重灌则服务器检索回旧内容（10-13 审计实锤：曾冻结三周）。本地 `~/.claude/memory/*.md`（junction 到 `~/.agents/memory/`）有实质更新后重灌：
+
+- 方法：SFTP 上传临时文件 → 容器内 `docker exec -i ai-memory ai-memory write-page --workspace default --project howie --path 'local-memory/<name>' --body - < file` 循环；body = strip YAML frontmatter + 顶部注记行（`> 权威源：本机 ~/.claude/memory/<name>；本页为 <date> 重灌快照，后续更新以本地为准。`）。~104 页约 4 分钟。
+- 校验：`SELECT COUNT(*), MAX(datetime(updated_at/1000000,'unixepoch','+8 hours')) FROM pages ... WHERE path LIKE 'local-memory/%'`——count ≥ 本地文件数、newest = 当天。
+- 本地已删的页，服务器对应快照要用 `delete-page` 清（否则留孤儿快照；10-13 曾清 fix_sshpass_windows.md）。
+- 确定性部分可用 `neat-freak` skill 的 `scripts/prepare_snapshot_sync.py` 生成待推送正文。
+
 ## 坑表
 
 | 现象 | 原因 | 处理 |
@@ -188,6 +198,11 @@ ai-memory embed --dry-run    # 只看本机桶；服务器缺失须 docker exec 
 | `install-hooks --client` 报 unknown | hooks 选择器是 `--agent` | 换成 `--agent` |
 | `install-mcp --client pi` rc 1 | Pi 无原生 mcp.json | 只 `install-hooks --agent pi` |
 | `forget-sweep` 真删了页 | 默认非 dry-run | 只报告时加 `--dry-run` |
+| 双端同步丢 WSL 侧更新 | OMP 独立写 WSL，盲覆盖 | 推送前先 diff 合并（第 8 节） |
+| 跨端读写慢 | `/mnt/c` / `\wsl$` 走 9P | 命令管道传内容，I/O 留在各自原生侧 |
+| 15 的 `sqlite3 -json` 报 unknown option | 服务器是 Ubuntu 20.04 自带 3.31 | 用 `-separator $'\x1f'` + `char(31)` 清洗，或 `.mode json` |
+| 记忆写进 `tmp`/`Temp` 桶 | cwd 在 `/tmp` 或无 git 裸目录启动，follow-cwd 路由 | 知识页用 `move-project <ws> <src> <ws> howie --confirm`（官方合并：durable 页迁移+源清除）；确认无用则 `purge-project --confirm [--compact]`；勿再在裸目录长开会话 |
+| 误判「kimi-code app 零捕获」 | app 续写旧会话不产生新 session 行，但 observations 持续进库（与 CLI 共享 `~/.kimi-code`） | 判捕获健康看 observations 流水（`SELECT MAX(created_at) FROM observations WHERE session_id=…`），别只看 sessions 起新行；`backfill`/`doctor` 对本机 `wd_*` 布局识别为 0 local 属正常，勿据此判定缺失 |
 
 ## 收尾汇报
 

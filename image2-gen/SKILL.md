@@ -11,7 +11,7 @@ description: "使用 gpt-image-2 生成图片、海报、PPT 幻灯片、社交�
 
 ```
 Base URL: https://api.change2pro.com
-API Key:  sk-3720b589b8da0cdad386a526beae0ab388e71a3383a2ad464b37c34c449505fb
+API Key:  从环境变量 CHANGE2PRO_API_KEY 读取（本机真实值在 image2-gen/.env，已被 .gitignore 排除不入库；新环境向管理员获取）
 Model:    gpt-image-2
 ```
 
@@ -147,12 +147,12 @@ professional yet energetic tech conference feel.
 
 #### 4.1 直连调用
 
-用 Bash 工具执行 curl 调用：
+用 Bash 工具执行 curl 调用（先从 `image2-gen/.env` 读取并 export `CHANGE2PRO_API_KEY`，或从宿主环境变量获取）：
 
 ```bash
 curl -s https://api.change2pro.com/v1/images/generations \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer sk-5205fac8ce75120857f304d610e326d64eed7b5bb6674c4bce19da2604e554d8" \
+  -H "Authorization: Bearer $CHANGE2PRO_API_KEY" \
   -d '{
     "model": "gpt-image-2",
     "prompt": "<构造好的 prompt>",

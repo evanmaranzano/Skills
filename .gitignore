@@ -87,3 +87,13 @@ ai-memory-routing-install/
 seafile/
 understand-video-cloud/
 video-judges/
+
+# 凭据与社区安装 skill
+.env*
+**/.env*
+*.bak
+*.bak-*
+.skills_store_lock.json
+@*
+wechat-ai-publisher
+wechat-article-publisher

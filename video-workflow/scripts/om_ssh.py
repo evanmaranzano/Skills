@@ -18,12 +18,25 @@ USER = "root"
 
 
 def _cred_file() -> str:
-    """桌面「服务器信息整理<日期>.md」取文件名日期最新的一版（任意用户名可用）。"""
-    import glob
-    desktop = Path.home() / "Desktop"
-    candidates = sorted(glob.glob(str(desktop / "服务器信息整理*.md")))
+    """「服务器信息整理<日期>.md」取文件名日期最新的一版（任意用户名可用）。
+
+    2026-10-13 起权威合并版在 DeskBox\\文档\\服务器与运维\\（桌面已全量归档清空）；
+    兼容旧 Desktop 位置与 WSL /mnt/c 直读，候选取文件名日期最大者。
+    """
+    import glob, re
+    home = Path.home()
+    patterns = [
+        home / "DeskBox" / "文档" / "服务器与运维" / "服务器信息整理*.md",        # 权威（1012 起，10-13 迁入）
+        home / "Desktop" / "服务器信息整理*.md",                                 # 旧位置（<=0817，桌面已清空）
+        home / "Desktop" / "01_文档" / "服务器与运维" / "服务器信息整理*.md",    # 09-13~10-12 位置（已迁走）
+        Path("/mnt/c/Users") / "*" / "DeskBox" / "文档" / "服务器与运维" / "服务器信息整理*.md",  # WSL 直读 Windows 侧
+    ]
+    def _date(p: str) -> str:
+        m = re.search(r"(\d{4})", Path(p).name)
+        return m.group(1) if m else "0000"
+    candidates = sorted((c for p in patterns for c in glob.glob(str(p))), key=_date)
     if not candidates:
-        raise RuntimeError(f"桌面未找到 服务器信息整理*.md（{desktop}）")
+        raise RuntimeError(f"未找到 服务器信息整理*.md（已查 {len(patterns)} 处，基准 {home}）")
     return candidates[-1]
 
 

@@ -1,6 +1,15 @@
 # Skills 仓库
 
-自建 Claude Code / Codex skills 集合。本仓库是全量 skill 源码的唯一源头；`~/.agents/skills/` 是同 remote（evanmaranzano/Skills）的 sparse-checkout 工作副本，跟踪清单以 `.git/info/sparse-checkout` 为准（当前 16 项：activitywatch-daily-log、children-game-judges、daily-work-log、game-poster、hv-analysis、image2-gen、khazix-writer、kimi-webbridge、last30days、neat-freak、officecli、scrapling-official、storage-analyzer、two-voice-explainer、web-hub、wechatide-skill；其中 activitywatch-daily-log、last30days、web-hub 三项当前目录缺失），`~/.claude/skills/` 与 `~/.codex/skills/` 是指向 `~/.agents/skills/` 的软链接。其余 skill（lark-* 多数、aihot、frontend-skill 等）在本机 `.agents` 副本中被 .gitignore 排除，不在本仓库跟踪。
+自建 Claude Code / Codex skills 集合。本仓库是全量 skill 源码的唯一源头；`~/.agents/skills/` 是同 remote（evanmaranzano/Skills）的 sparse-checkout 工作副本，跟踪清单以 `.git/info/sparse-checkout` 为准（当前 18 项，均为自建或深度修改的 skill；第三方纯搬运 skill 已于 2026-11-04 移除：scrapling-official、docx-paper-skill-zh、kimi-webbridge），`~/.claude/skills/` 与 `~/.codex/skills/` 是指向 `~/.agents/skills/` 的软链接。其余 skill（lark-* 多数、aihot、frontend-skill 等）在本机 `.agents` 副本中被 .gitignore 排除，不在本仓库跟踪。
+
+## 提交纪律（public 仓库红线）
+
+- **每次 commit / push 前必须做凭据扫描**，key/token/密码一律不得入库：
+  `rg -n --pcre2 '(ghp_[A-Za-z0-9]{20,}|sk-[A-Za-z0-9]{16,}|AKIA[0-9A-Z]{16}|hf_[A-Za-z0-9]{20,}|-----BEGIN [A-Z ]*PRIVATE KEY-----|[a-z]+://[^\s"]*:[^\s"]*@)'`
+  命中即阻断，处理后重扫再提交。扫描结论以 harness 原生 Grep/Read 工具为准——Bash 经 rtk 的输出层会伪造长随机串值（2026-11-04 实锤，细则 `~/.agents/rules/rtk-precision-fabrication.md`）。
+- 真实凭据放各 skill 目录 `.env`（根 `.gitignore` 的 `.env*`/`**/.env*` 已覆盖），SKILL.md 与脚本只留环境变量名；新增 key 先建 .env 再改代码。
+- 历史：change2pro 的 2 个 key 曾于 2026-08-11 至 2026-11-04 暴露在公网，2026-11-04 脱敏移除并迁入 `image2-gen/.env`；rotate 后旧值作废即无害。
+- CLAUDE.md 与 AGENTS.md 内容保持同步（仅 harness 发现机制一行差异），改一处必改另一处。
 
 ## 管理约定
 
