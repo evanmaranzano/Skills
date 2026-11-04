@@ -19,7 +19,7 @@ search-fusion
     ↓
 capability discovery
     ↓
-task / freshness / domain / depth 分类
+task / freshness / domain / depth 分类（规则 → Jev 全渠道目录路由 → agent LLM 兜底）
     ↓
 query decomposition
     ↓
@@ -46,19 +46,34 @@ search-fusion/
 │   ├── contract.mjs
 │   ├── capabilities.mjs
 │   ├── classify.mjs
+│   ├── jev-intent.mjs
 │   ├── decompose.mjs
 │   ├── normalize.mjs
 │   ├── fuse.mjs
 │   ├── rerank.mjs
+│   ├── provenance.mjs
 │   ├── coverage.mjs
-│   └── plan.mjs
+│   ├── plan.mjs
+│   ├── budget.mjs
+│   ├── cache.mjs
+│   ├── reliability.mjs
+│   ├── oauth.mjs
+│   ├── provider-auth.mjs
+│   ├── load-config.mjs
+│   └── version.mjs
 ├── adapters/
 │   ├── README.md
 │   ├── host.mjs
-│   └── omp-internal.mjs
+│   ├── omp-internal.mjs
+│   ├── direct.mjs
+│   └── agent-reach.mjs   # direct + Agent Reach 平台渠道组合
 ├── schemas/
 │   ├── capabilities.schema.json
-│   └── search-result.schema.json
+│   ├── search-result.schema.json
+│   ├── fusion-input.schema.json
+│   ├── fusion-plan.schema.json
+│   ├── fusion-next.schema.json
+│   └── fusion-output.schema.json
 ├── scripts/
 │   └── search-fusion.mjs
 └── tests/

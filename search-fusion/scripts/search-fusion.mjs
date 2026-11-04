@@ -7,7 +7,8 @@ import process from "node:process";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 import { classifyQuery } from "../core/classify.mjs";
-import { mapSearchCalls, normalizeCapabilities, planFusion, planSearchWaves, providersForFacet, selectProvidersByRole } from "../core/plan.mjs";
+import { AXIS_QUESTIONS, buildProviderCatalog, refineIntentWithJev } from "../core/jev-intent.mjs";
+import { mapSearchCalls, mergeJevProviders, normalizeCapabilities, planFusion, planSearchWaves, providersForFacet, selectProvidersByRole } from "../core/plan.mjs";
 import { decomposeQuery, facetQueries } from "../core/decompose.mjs";
 import { cacheTtlFor, readSearchCache, sweepSearchCache, writeSearchCache } from "../core/cache.mjs";
 import { fuseProviderResults, scoreProfileFor } from "../core/fuse.mjs";
@@ -75,6 +76,7 @@ export function parseArgs(argv) {
     maxSubqueries: 3,
     next: false,
     noCache: false,
+    noJev: false,
     output: undefined,
     perCallTimeoutMs: undefined,
     plan: false,
@@ -101,6 +103,7 @@ export function parseArgs(argv) {
     if (arg === "--plan") { options.plan = true; continue; }
     if (arg === "--next") { options.next = true; continue; }
     if (arg === "--no-cache") { options.noCache = true; continue; }
+    if (arg === "--no-jev") { options.noJev = true; continue; }
     if (arg === "--session") { options.session = argv[++index]; continue; }
     if (arg === "--strict-provider-pin") { options.strictProviderPin = true; continue; }
     if (arg === "--adapter") { options.adapter = argv[++index]; continue; }
@@ -128,7 +131,7 @@ export function parseArgs(argv) {
       const [key, value] = arg.slice(2).split("=", 2);
       const normalizedKey = key.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
       if (!Object.hasOwn(options, normalizedKey)) throw new Error(`Unknown option: ${arg}`);
-      if (["pretty", "plan", "next", "noCache", "strictProviderPin"].includes(normalizedKey)) { options[normalizedKey] = true; continue; }
+      if (["pretty", "plan", "next", "noCache", "noJev", "strictProviderPin"].includes(normalizedKey)) { options[normalizedKey] = true; continue; }
       options[normalizedKey] = NUMERIC_OPTIONS.has(normalizedKey) ? Number(value) : value;
       continue;
     }
@@ -168,7 +171,7 @@ function applyBenchmarkProfile(options) {
   return options;
 }
 
-function runManifest({ startedAt, asOf, options, attempts }) {
+function runManifest({ startedAt, asOf, options, attempts, jev }) {
   const manifest = {
     searchFusionVersion: SEARCH_FUSION_VERSION,
     schemaVersion: 1,
@@ -180,6 +183,7 @@ function runManifest({ startedAt, asOf, options, attempts }) {
     retrievedAt: new Date(startedAt).toISOString(),
     asOf: new Date(asOf).toISOString(),
   };
+  if (jev) manifest.intentJev = jev;
   if (attempts) {
     const realCalls = attempts.filter(attempt => !attempt.fromCache);
     const providerCalls = {};
@@ -215,10 +219,35 @@ async function loadAdapter(adapterName, capabilitiesPath, options) {
     const module = await import("../adapters/direct.mjs");
     return { adapter: module.createDirectAdapter({ providers: options?.providers, authMode: options?.authMode ?? "auto" }) };
   }
+  if (adapterName === "reach") {
+    const module = await import("../adapters/agent-reach.mjs");
+    return { adapter: module.createAgentReachAdapter({ providers: options?.providers, authMode: options?.authMode ?? "auto" }) };
+  }
   if (adapterName === "host") {
     throw new Error("The host adapter requires an embedding harness; use --input or --capabilities");
   }
   throw new Error(`Unknown adapter: ${adapterName}`);
+}
+
+/**
+ * Decision provenance for the run output. When Jev could not be consulted
+ * but axes were ambiguous, `agentChoice` hands the decision to the calling
+ * agent's LLM: axis options plus the provider catalog, and the re-run flags
+ * that pin its choice (search cache makes the re-run cheap).
+ */
+function buildDecisionBlock(jev, jevProviders, capabilities, scores) {
+  const decision = { source: jev?.used ? "jev" : "rules", jev: jev ?? { used: false } };
+  if (jevProviders?.length) decision.jevProviders = jevProviders;
+  const needsAgentChoice = !jev?.used && (jev?.axes?.length ?? 0) > 0;
+  if (needsAgentChoice) {
+    decision.agentChoice = {
+      axes: jev.axes,
+      options: Object.fromEntries(jev.axes.map(axis => [axis, AXIS_QUESTIONS[axis]])),
+      catalog: buildProviderCatalog(capabilities, { scores }),
+      howTo: "Jev is unavailable for this run. You (the calling agent) decide: pick each axis value and optional providers from the catalog, then re-run with --task/--freshness/--domain/--depth [--providers a,b].",
+    };
+  }
+  return decision;
 }
 
 export async function withTimeout(promise, timeoutMs, abortSignal) {
@@ -362,7 +391,7 @@ async function executeFusion(adapter, capabilities, task, query, options, budget
   const facets = decomposeQuery(query, task, budget.maxSubqueries);
   const queryVariants = facetQueries(facets);
   const pool = capabilities.autoOrder?.length ? capabilities.autoOrder : capabilities.providers;
-  const selectedProviders = selectProvidersByRole(task, capabilities, { count: budget.maxInitialProviders });
+  const selectedProviders = selectProvidersByRole(task, capabilities, { count: budget.maxInitialProviders, scores: options.providerScores });
   const remainingProviders = pool.filter(provider => !selectedProviders.includes(provider));
   const waves = planSearchWaves({
     query,
@@ -538,12 +567,38 @@ export async function runSearchFusion(rawQuery, rawOptions = {}) {
   const options = applyBenchmarkProfile(rawOptions);
   const query = rawQuery;
   if (!options.plan && !options.input && !options.adapter && !options.capabilities) throw new Error(NO_MODE_ERROR);
-  const task = classifyQuery(query, options);
-  const budget = normalizeSearchBudget(task, options);
+  const rulesIntent = classifyQuery(query, options);
   const startedAt = Date.now();
-  const deadlineAt = startedAt + budget.wallClockMs;
   const asOf = Number.isFinite(Date.parse(options.asOf)) ? Date.parse(options.asOf) : startedAt;
-  const manifest = attempts => runManifest({ startedAt, asOf, options, attempts });
+  // Rules first. Jev is consulted only where it can change routing — after
+  // capability discovery, so it sees the full provider/channel catalog.
+  // --input replay stays rules-only and deterministic (hermetic, no network).
+  let task = rulesIntent;
+  let jev = { used: false, reason: "no-routing-path" };
+  let jevProviders;
+  const pinTask = value => ({
+    ...options,
+    task: value.task,
+    freshness: value.freshness,
+    domain: value.domain,
+    depth: value.depth,
+  });
+  let pinned = pinTask(task);
+  let budget = normalizeSearchBudget(task, pinned);
+  let deadlineAt = startedAt + budget.wallClockMs;
+  const manifest = attempts => runManifest({ startedAt, asOf, options: pinned, attempts, jev });
+
+  async function refineWithCatalog(capabilities, providerScores) {
+    const refined = await refineIntentWithJev(query, rulesIntent, options, {
+      catalog: buildProviderCatalog(capabilities, { scores: providerScores }),
+    });
+    task = refined.intent;
+    jev = refined.jev;
+    jevProviders = refined.providers;
+    pinned = pinTask(task);
+    budget = normalizeSearchBudget(task, pinned);
+    deadlineAt = startedAt + budget.wallClockMs;
+  }
 
   if (options.plan) {
     let capabilities = normalizeCapabilities({});
@@ -555,7 +610,13 @@ export async function runSearchFusion(rawQuery, rawOptions = {}) {
     }
     const planStats = await loadProviderStats(process.env.SEARCH_FUSION_HOME || os.homedir());
     capabilities.autoOrder = orderByReliability(capabilities.autoOrder, planStats);
-    const plan = planFusion(query, capabilities, { ...options, maxSearchCalls: budget.maxSearchCalls });
+    const planScores = reliabilityScores(capabilities.providers, planStats);
+    if (capabilities.providers.length > 0) await refineWithCatalog(capabilities, planScores);
+    const plan = planFusion(query, capabilities, {
+      ...pinned,
+      maxSearchCalls: budget.maxSearchCalls,
+      scores: mergeJevProviders(planScores, jevProviders),
+    });
     const requests = capabilities.providers.length === 0
       ? plan.facets.map(facet => ({
         id: facet.id,
@@ -578,6 +639,7 @@ export async function runSearchFusion(rawQuery, rawOptions = {}) {
       providerAgnostic: capabilities.providers.length === 0,
       requests,
       budget,
+      decision: buildDecisionBlock(jev, jevProviders, capabilities, planScores),
       runManifest: manifest(undefined),
     };
   }
@@ -610,7 +672,7 @@ export async function runSearchFusion(rawQuery, rawOptions = {}) {
     const coverage = combinedCoverage(fused, attempts, query, task, { asOf: effectiveAsOf });
 
     if (options.next) {
-      const plan = planFusion(query, capabilities, { ...options, maxSearchCalls: budget.maxSearchCalls });
+      const plan = planFusion(query, capabilities, { ...pinned, maxSearchCalls: budget.maxSearchCalls });
       const executed = new Set(attempts.map(attempt => `${attempt.provider}::${attempt.query ?? query}`));
       const pending = [...plan.waves.breadth, ...plan.waves.facets, ...plan.waves.fallback]
         .filter(request => !executed.has(`${request.provider}::${request.query}`));
@@ -649,9 +711,11 @@ export async function runSearchFusion(rawQuery, rawOptions = {}) {
   const providerStats = await loadProviderStats(stateHome);
   capabilities.autoOrder = orderByReliability(capabilities.autoOrder, providerStats);
   const providerScores = reliabilityScores(capabilities.providers, providerStats);
+  await refineWithCatalog(capabilities, providerScores);
+  const routingScores = mergeJevProviders(providerScores, jevProviders);
   const cacheStats = { enabled: !options.noCache, ttlMs: options.noCache ? 0 : cacheTtlFor(task.freshness), hits: 0, misses: 0, writes: 0 };
   const cache = { home: stateHome, ttlMs: cacheStats.ttlMs, stats: cacheStats };
-  const output = await executeFusion(adapter, capabilities, task, query, { ...options, timeoutMs: budget.wallClockMs, providerScores, cache }, budget, deadlineAt, asOf);
+  const output = await executeFusion(adapter, capabilities, task, query, { ...options, timeoutMs: budget.wallClockMs, providerScores: routingScores, cache }, budget, deadlineAt, asOf);
   recordAttempts(providerStats, output.attempts);
   await saveProviderStats(providerStats, stateHome).catch(() => {});
   sweepSearchCache({ home: stateHome }).catch(() => {});
@@ -665,6 +729,7 @@ export async function runSearchFusion(rawQuery, rawOptions = {}) {
     ...output,
     citations: output.results.map((source, index) => `[${index + 1}] ${source.title ?? source.url} — ${source.citationUrl ?? source.url}`),
     providerAnswers: output.attempts.filter(result => result.answer).map(result => ({ provider: result.provider, answer: result.answer })),
+    decision: buildDecisionBlock(jev, jevProviders, capabilities, providerScores),
     observability: {
       elapsedMs: Date.now() - startedAt,
       providerLatencyMs: Object.fromEntries(output.attempts.map(result => [providerAttemptKey(result), result.latencyMs])),
@@ -683,16 +748,18 @@ export function usage() {
     "  --adapter omp|host|<adapter>      Required unless --input, --capabilities or --plan is set",
     "  --capabilities <file>             Adapter capability JSON (for custom adapters)",
     "  --adapter direct                  Standalone REST/OAuth adapter (no OMP runtime dependency)",
-    "  --providers a,b                   Restrict direct adapter to these providers",
+    "  --adapter reach                   direct + Agent Reach platform channels (bilibili/xiaohongshu/youtube)",
+    "  --providers a,b                   Restrict direct/reach adapter to these providers",
     "  --doctor                          First-run auth check: per-provider status + setup instructions",
     "  --doctor --live                   Also fire one minimal request per ready provider",
     "  --login antigravity|gemini-cli|xai|kimi|codex  Standalone OAuth login; stored in ~/.search-fusion/auth.json",
     "  --logout <provider>               Remove the stored OAuth token",
-    "  --auth-mode auto|key|oauth        Credential preference for --adapter direct (auto = key first)",
+    "  --auth-mode auto|key|oauth        Credential preference for direct/reach adapters (auto = key first)",
     "  --input <file>                    Host-orchestrated search result JSON",
     "  --replay <file>                   Alias for --input",
     "  --session <file>                  With --input: accumulate attempts across rounds in a session file",
     "  --no-cache                        Disable the local search response cache (~/.search-fusion/cache)",
+    "  --no-jev                          Skip Jev intent/routing refine; rules only",
     "  --plan                            Emit planned requests without executing",
     "  --next                            With --input: emit remaining requests for uncovered gaps",
     "  --benchmark-profile <name>        search-api | research-system",

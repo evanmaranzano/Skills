@@ -44,9 +44,20 @@
       "reddit.com",
       "lobste.rs",
       "zhihu.com",
-      "juejin.cn"
+      "juejin.cn",
+      "bilibili.com",
+      "xiaohongshu.com",
+      "youtube.com",
+      "x.com",
+      "twitter.com"
     ],
-    "news_reporting": ["techcrunch.com", "arstechnica.com", "theverge.com", "36kr.com", "sspai.com"],
+    "news_reporting": [
+      "techcrunch.com",
+      "arstechnica.com",
+      "theverge.com",
+      "36kr.com",
+      "sspai.com"
+    ],
     "aggregator": ["medium.com", "dev.to", "freecodecamp.org", "baeldung.com"]
   },
   "urlHints": {

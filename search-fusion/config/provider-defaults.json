@@ -22,7 +22,11 @@
     "perplexity": ["general", "fresh", "premium"],
     "anthropic": ["general", "fresh", "premium"],
     "parallel": ["general", "premium"],
-    "synthetic": ["general", "premium"]
+    "synthetic": ["general", "premium"],
+    "reach-bilibili": ["platform:bilibili", "china", "general", "fresh"],
+    "reach-xiaohongshu": ["platform:xiaohongshu", "china", "general", "fresh"],
+    "reach-youtube": ["platform:youtube", "general", "fresh"],
+    "reach-twitter": ["platform:twitter", "general", "fresh"]
   },
   "rankSemantics": {
     "exa": "ranked",
@@ -47,7 +51,11 @@
     "jina": "unknown",
     "kagi": "unknown",
     "parallel": "unknown",
-    "synthetic": "unknown"
+    "synthetic": "unknown",
+    "reach-bilibili": "ranked",
+    "reach-xiaohongshu": "ranked",
+    "reach-youtube": "ranked",
+    "reach-twitter": "ranked"
   },
   "retrievalFamilies": {
     "exa": "exa",
@@ -72,7 +80,11 @@
     "perplexity": "perplexity",
     "anthropic": "anthropic",
     "parallel": "parallel",
-    "synthetic": "synthetic"
+    "synthetic": "synthetic",
+    "reach-bilibili": "reach-bilibili",
+    "reach-xiaohongshu": "reach-xiaohongshu",
+    "reach-youtube": "reach-youtube",
+    "reach-twitter": "reach-twitter"
   },
   "autoOrder": [
     "exa",
@@ -93,5 +105,35 @@
     "startpage",
     "mojeek",
     "ecosia"
-  ]
+  ],
+  "descriptionAsOf": "2026-11-04",
+  "descriptions": {
+    "exa": "Neural/semantic web search over its own index; developer docs, research, similar-page discovery",
+    "gemini": "Gemini answer grounded in Google Search; answers with citations",
+    "xai": "Grok live search via xAI Responses API; real-time web and X/Twitter posts",
+    "firecrawl": "Firecrawl search returning pages with clean extracted content; when full bodies matter",
+    "tavily": "Agent-focused web search with recency control and snippets",
+    "tinyfish": "SERP-backed search API; lightweight general fallback",
+    "zai": "Z.ai webSearchPrime; strong Chinese-language sources, answers with citations",
+    "kimi": "Kimi coding search; strong Chinese-language sources, answers with citations",
+    "codex": "ChatGPT Codex backend web search; answers with citations, developer lean",
+    "public": "Keyless public web search surfaced by the host harness",
+    "brave": "Brave Search API; independent index for general web queries",
+    "jina": "Jina Reader search (s.jina.ai); readable text for doc-heavy pages",
+    "searxng": "SearXNG metasearch; open, self-hostable aggregation",
+    "duckduckgo": "Keyless DuckDuckGo HTML endpoint; always available, rate-limited",
+    "google": "Google results surfaced by the host harness; general breadth",
+    "startpage": "Startpage results (Google-proxied); privacy-focused general search",
+    "mojeek": "Mojeek; own independent index, general fallback",
+    "ecosia": "Ecosia results (Bing-backed); general fallback",
+    "kagi": "Kagi search API; premium, high-relevance results",
+    "perplexity": "Perplexity Sonar; synthesized answers with citations, freshness-aware",
+    "anthropic": "Claude API web search tool; synthesized answers with citations",
+    "parallel": "Parallel agent-first search over a proprietary index; structured LLM-optimized results",
+    "synthetic": "Synthetic zero-data-retention web search for coding agents",
+    "reach-bilibili": "Bilibili in-site video search; first-hand Chinese video titles, play counts, durations",
+    "reach-xiaohongshu": "Xiaohongshu in-site post search; first-hand Chinese lifestyle and consumer notes",
+    "reach-youtube": "YouTube in-site video search; first-hand video titles and metadata",
+    "reach-twitter": "X/Twitter in-site search; real-time posts (experimental channel)"
+  }
 }

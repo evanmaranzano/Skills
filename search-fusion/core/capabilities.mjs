@@ -36,6 +36,15 @@ export function defaultAutoOrder(providers = []) {
   return [...ordered, ...rest];
 }
 
+export function providerDescriptions() {
+  return { ...(DEFAULTS.descriptions ?? {}) };
+}
+
+/** All provider ids this config knows roles for (descriptions must cover them). */
+export function defaultProviderIds() {
+  return Object.keys(DEFAULT_ROLES);
+}
+
 export function roleCandidates(roles = {}) {
   const result = {};
   for (const [provider, providerRoles] of Object.entries(roles)) {

@@ -5,6 +5,10 @@ import { defaultProviderRoles, defaultRankSemantics, defaultRetrievalFamilies, r
 function wantedRoles(task) {
   const roles = [];
   const domains = task.domainTags?.length ? task.domainTags : [task.domain];
+  // A platform named in the query routes to that platform's own channel first.
+  for (const tag of domains) {
+    if (typeof tag === "string" && tag.startsWith("platform:")) roles.push(tag);
+  }
   if (domains.includes("coding")) roles.push("semantic", "developer");
   if (domains.includes("academic")) roles.push("academic", "semantic");
   if (domains.includes("china")) roles.push("china", "general");
@@ -18,6 +22,25 @@ function wantedRoles(task) {
 
 export function familyOf(provider, capabilities = {}) {
   return capabilities?.retrievalFamilies?.[provider] ?? provider;
+}
+
+/**
+ * Blend Jev's ranked provider picks into the reliability scores. Picks are
+ * suggestions, not pins: role/family diversity from the rule planner still
+ * gates eligibility — an off-role pick cannot displace a role-matched
+ * provider beyond a probability-weighted boost.
+ */
+export function mergeJevProviders(baseScores = {}, jevProviders = []) {
+  if (!jevProviders?.length) return baseScores;
+  const merged = { ...baseScores };
+  for (const entry of jevProviders) {
+    const id = typeof entry === "string" ? entry : entry?.id;
+    const weight = typeof entry === "string" ? 1 : Number(entry?.weight);
+    if (typeof id !== "string" || !(id in merged)) continue;
+    const boost = 0.4 * Math.max(0, Math.min(1, Number.isFinite(weight) ? weight : 1));
+    merged[id] = Math.min(1, (merged[id] ?? 0.5) + boost);
+  }
+  return merged;
 }
 
 export function selectProvidersByRole(task, capabilities, { count = 3, scores } = {}) {
@@ -177,7 +200,7 @@ export function planFusion(query, capabilities, options = {}) {
   const queryVariants = facetQueries(facets);
   const providerCount = Math.max(1, Math.min(options.providerCount ?? 3, 4));
   const fusionMode = normalized.providerPin ? "provider-fusion" : normalized.providers.length > 1 ? "multi-tool-fusion" : "query-diversification";
-  const providers = selectProvidersByRole(task, normalized, { count: providerCount });
+  const providers = selectProvidersByRole(task, normalized, { count: providerCount, scores: options.scores });
   const remainingProviders = (normalized.autoOrder ?? normalized.providers).filter(provider => !providers.includes(provider));
   const waves = planSearchWaves({
     query,

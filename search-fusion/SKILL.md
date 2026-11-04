@@ -29,7 +29,7 @@ search-fusion
     ↓
 capability discovery
     ↓
-task / freshness / domain / depth 分类
+task / freshness / domain / depth 分类（规则 → Jev 全渠道目录路由 → agent LLM 兜底）
     ↓
 query decomposition
     ↓
@@ -108,6 +108,25 @@ node ~/.agents/skills/search-fusion/scripts/search-fusion.mjs --adapter direct -
 
 登录入口是 skill 自己的 `--login`：`antigravity` / `gemini-cli`、`xai`、`kimi`、`codex`。若同时存在 env key，默认 `--auth-mode auto` 优先使用 env key；用 `--auth-mode oauth` 可强制使用独立 token。
 
+### 平台一手来源（Agent Reach 组合）
+
+`--adapter reach` 在 direct 适配器之上叠加 Agent Reach 的平台站内搜索，让网页证据和平台一手内容进入同一次 RRF 融合。网页 provider 照常工作；只有查询点名平台时才优先走站内。
+
+```bash
+node ~/.agents/skills/search-fusion/scripts/search-fusion.mjs --adapter reach --top 8 --pretty "小红书 咖啡 推荐"
+node ~/.agents/skills/search-fusion/scripts/search-fusion.mjs --adapter reach --providers exa,tavily,reach-bilibili "B站 热门 AI 视频"
+```
+
+- 平台 provider：`reach-bilibili`、`reach-xiaohongshu`、`reach-youtube`；`reach-twitter` 需显式传入。
+- 查询里出现平台名（小红书/B站/YouTube/X）时，分类器给出 `platform:<id>` 标签，planner 把该平台排到首选；其余查询不受影响。
+- 可用渠道在启动时用 `agent-reach doctor --text` 探测，未安装（`not_added`）的渠道不会占用调用；`agent-reach` 不存在时自动退化为纯网页检索。
+- 登录态由 Agent Reach 管理；小红书站内搜索需要先登录。失败码映射：`NEED_LOGIN`/`NEED_SETUP` → auth，`RATE_LIMITED` → rate_limit，`TIMEOUT`/`BUSY` → timeout；error.hint 会保留在错误消息里。
+- 热榜不接收查询词（如 `agent-reach bilibili hot`），不要塞进融合查询；需要榜单时直接调用该命令。
+- 适配器实现了 `fetch()`（走 `agent-reach read`，任意 URL 由 web 通道兜底），但当前融合流程没有调用点；需要正文时显式运行 `agent-reach read <url>`。
+- Agent Reach 对平台限并发（每平台 ≤2、全局 ≤4、同平台两次搜索至少隔 10s）。适配器对同一渠道的子进程按 FIFO 串行化，同平台调用排队执行，不同平台仍并行；不会触发 Reach 内部排队（最长 2 分钟，会超出本 skill 的 60s 调用超时）。
+- 平台搜索项常缺 `text`/`published_at`；适配器从 `raw` 元数据推导 snippet（播放/时长）和日期（`pubdate`/`created_at` 等），避免平台来源只带标题进入融合。
+- 平台域名（bilibili/xiaohongshu/youtube/x.com）在 provenance 表中归 community 档，不会被当 unknown 压分；平台一手内容与 zhihu/reddit 同级。
+
 ### Adapter-orchestrated（确定性自动化）
 
 如果当前环境支持 adapter 自动调用搜索能力，也可以显式选择 OMP 兼容 adapter：
@@ -139,14 +158,17 @@ academic
 china
 social
 fallback
+platform:<id>
 ```
+
+`platform:<id>`（如 `platform:xiaohongshu`）由查询中的平台名触发，优先级高于通用 role，用于把站内一手来源排到首位。
 
 例如：
 
 ```text
 coding + recent  → semantic + developer + fresh
 china + recent   → china + general + fresh
-academic         → academic + semantic + general
+提到小红书        → platform:xiaohongshu + china + general
 ```
 
 具体 provider 由当前 adapter 的 capability 声明决定。
@@ -155,6 +177,12 @@ academic         → academic + semantic + general
 
 - **Unweighted RRF**：所有 provider 的 top-1 贡献相同；同一 URL 按 retrieval family 取最大贡献，同族多命中不叠加。
 - **Intent 评分 profile**：最终分 = w_rrf·RRF + w_prov·provenance + w_fresh·freshness + w_rel·relevance，权重按意图分层（live/recent 提高 freshness，academic 与 factual/tutorial 提高 provenance），输出随附 `scoring` 字段。
+- **三层决策链（0.6.0）**：provider 路由按「规则 → Jev → agent LLM」三层决策。
+  1. **规则先行**：正则分类器零成本判定 task/freshness/domain/depth 与平台标签；全部命中明确信号时不打扰 Jev。
+  2. **Jev 快速路由（看全渠道目录）**：仅在存在模糊轴、且 adapter/plan 模式完成能力发现之后，把全渠道能力目录（provider id、web/platform 类型、roles、一句话能力说明、reliability）编码成一个 `routing` question 随轴选择题 POST 自建 Jev `/v1/systemone`（服务端只认 `{model,state,questions}` 信封，顶层附加字段会被 422 拒绝——实测）——单次往返、默认 8s 超时。响应中 routing 答案的 `probabilities` 分布即全渠道排序：≥5% 的条目按概率取前 4 作为推荐 `{id, weight}`；无 probabilities 时退化为 `choice` 单选。轴选择经白名单校验；provider 推荐折算为概率加权的选择分数加成（0.4×weight），role/家族多样性仍由 planner 把关，推荐不等于 pin。
+  3. **agent LLM 兜底（Jev 失效时）**：Jev 不可用（超时/无凭证/禁用/回答无效）且仍有模糊轴时，输出带 `decision.agentChoice`：模糊轴选项、全渠道目录和 re-run 指引。由执行本 skill 的 agent 自己读目录决策，用 `--task/--freshness/--domain/--depth [--providers a,b]` 重跑；搜索缓存使重跑接近免费。
+  `decision.source` 记录实际来源（`jev`/`rules`），`decision.jev.reason` 记录未用原因（`no-routing-path` = input 回放或无 provider 路径，天然零外呼；`no-credential`/`no-endpoint` = 未配置）。CLI 已钉的轴、`--no-jev`、`--benchmark-profile` 不问 Jev；API key 与端点都只从 env（`SEARCH_FUSION_JEV_API_KEY`/`SEARCH_FUSION_JEV_BASE_URL`/`TYPESAFE_*`）或 `~/.omp/agent/.env` 读取，仓库不内置任何私有端点；`HTTPS_PROXY` 时走 undici `ProxyAgent`。GPU1 单路，不要对每条明确查询都打。
+  能力描述的时效约定（`provider-defaults.json`）：描述只写**稳定特性**（索引类型、语言强项、返回形态），已逐条对齐代码实际调用的端点；易变事实（限流、价格、可用性、健康度）不进静态文本，由运行时 reliability 分数与渠道探测提供。`descriptionAsOf` 标记最近一次人工核验；新增/删除 provider 必须同步描述——有测试守卫强制 descriptions 与 roles 键集完全一致。
 - **rankSemantics**：citation-order 衰减更平坦，但不会在 top-1 上被隐式降权。
 - **URL dedupe**：loose canonical URL 去重（保留 SPA hash 路由）；strict URL 另行输出。
 - **Provenance**：域名只定来源角色；`community.*` 等子域不因父域是厂商而升级；GitHub 标记为 `code`，不自动算一手来源。
