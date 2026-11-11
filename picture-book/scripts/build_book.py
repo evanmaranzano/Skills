@@ -5,7 +5,7 @@
              build_book(标题, 作者, 日期, 封面图路径或None, [{img: 路径或None, text: str}], 输出.html)
 模板与引擎库 page-flip.browser.js（StPageFlip, MIT）须与本文件同目录。
 """
-import base64, json, os, sys
+import base64, io, json, os, sys
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 LIB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "page-flip.browser.js")
@@ -39,7 +39,8 @@ TEMPLATE = r"""<!DOCTYPE html>
   @keyframes tw{0%,100%{opacity:.75}50%{opacity:.25}}
 
   .stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
-  .bookwrap{position:relative;animation:settle .8s cubic-bezier(.2,.7,.3,1) both;
+  .bookscale{position:relative;flex:0 0 auto;width:750px;height:1000px;transform-origin:50% 50%}
+  .bookwrap{position:relative;width:100%;height:100%;animation:settle .8s cubic-bezier(.2,.7,.3,1) both;
     filter:drop-shadow(0 30px 40px rgba(0,0,0,.55))}
   @keyframes settle{from{transform:translateY(14px);opacity:0}to{transform:none;opacity:1}}
   /* 书体厚度装饰（垫在翻页画布后面） */
@@ -47,6 +48,8 @@ TEMPLATE = r"""<!DOCTYPE html>
   .bookwrap::before{transform:translateX(6px);box-shadow:2px 0 0 #e7dcc4,4px 0 0 #efe6d1,6px 0 0 #e2d5ba}
   .bookwrap::after{transform:translateY(5px)}
   #flipbook{position:relative;z-index:1}
+  #flipbook.fallback{width:100%;height:100%}
+  #flipbook.fallback .pf-page{position:absolute;inset:0}
 
   .pf-page{width:100%;height:100%;background:
       repeating-linear-gradient(93deg, rgba(190,170,120,.05) 0 2px, transparent 2px 5px),
@@ -84,73 +87,107 @@ TEMPLATE = r"""<!DOCTYPE html>
 </head>
 <body>
 <div class="sky" id="sky"></div>
-<div class="stage"><div class="bookwrap"><div id="flipbook"></div></div></div>
+<div class="stage"><div class="bookscale" id="bookscale"><div class="bookwrap"><div id="flipbook"></div></div></div></div>
 <div class="hint" id="hint">点 击 · 滑 动 · 扯 页 角 翻 页</div>
 <div class="hud"><button id="prev">‹ 上一页</button><span class="cnt" id="cnt"></span><button id="next">下一页 ›</button></div>
 <script>__FLIPLIB__</script>
 <script>
-const TITLE=__TITLE_JSON__, AUTHOR=__AUTHOR_JSON__, DATE=__DATE_JSON__;
-const COVER=__COVER_JSON__, PAGES=__PAGES_JSON__;
-const wrap=document.querySelector('.bookwrap'), holder=document.getElementById('flipbook');
-const cnt=document.getElementById('cnt'), hint=document.getElementById('hint');
-const TOTAL=PAGES.length+2;
-(function(){const s=document.getElementById('sky');for(let i=0;i<26;i++){const d=document.createElement('i');
+var TITLE=__TITLE_JSON__, AUTHOR=__AUTHOR_JSON__, DATE=__DATE_JSON__;
+var COVER=__COVER_JSON__, PAGES=__PAGES_JSON__;
+var scaleBox=document.getElementById('bookscale'), holder=document.getElementById('flipbook');
+var cnt=document.getElementById('cnt'), hint=document.getElementById('hint');
+var BASE_W=750, BASE_H=1000, TOTAL=PAGES.length+2;
+var flip=null, currentPage=0;
+(function(){var s=document.getElementById('sky');for(var i=0;i<26;i++){var d=document.createElement('i');
   d.style.left=(Math.random()*100).toFixed(1)+'%';d.style.top=(Math.random()*62).toFixed(1)+'%';
   d.style.animationDuration=(2.4+Math.random()*3).toFixed(1)+'s';s.appendChild(d);}})();
 
 /* 组页 */
-function el(cls, html){const d=document.createElement('div');d.className=cls;d.innerHTML=html;return d;}
-const pagesEls=[];
-{const p=document.createElement('div');p.className='pf-page cover';
+var pagesEls=[];
+{var p=document.createElement('div');p.className='pf-page cover';
  p.innerHTML=(COVER?'<img class="cimg" src="'+COVER+'">':'<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9vh;color:#f4c95d;letter-spacing:.3em;text-align:center;padding:0 10%">'+TITLE+'</div>')
    +'<div class="author">'+AUTHOR+' 著</div>';
  pagesEls.push(p);}
 PAGES.forEach(function(pg,i){
-  const p=document.createElement('div');p.className='pf-page';p.setAttribute('data-density','soft');
+  var p=document.createElement('div');p.className='pf-page';p.setAttribute('data-density','soft');
   p.innerHTML=(pg.img?'<img class="pageimg" src="'+pg.img+'">':'')+'<div class="cap">'+pg.text+'</div><div class="pageno">'+(i+2)+' / '+TOTAL+'</div>';
   pagesEls.push(p);});
-{const p=document.createElement('div');p.className='pf-page end';
- p.innerHTML='<div class="fin">完</div><div class="star">★</div><div class="who">'+AUTHOR+' 著</div><div class="org">'+TITLE+' · '+DATE+'</div>';
+{var p=document.createElement('div');p.className='pf-page end';
+ p.innerHTML='<div class="end-inner"><div class="fin">完</div><div class="star">★</div><div class="who">'+AUTHOR+' 著</div><div class="org">'+TITLE+' · '+DATE+'</div></div>';
  pagesEls.push(p);}
 
-const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-function pageSize(){
-  const h=Math.min(window.innerHeight*0.84, window.innerWidth*1.22);
-  return {w:Math.round(h*0.75), h:Math.round(h)};
+var reduced=window.matchMedia?window.matchMedia('(prefers-reduced-motion: reduce)').matches:false;
+function fitBook(){
+  var vw=window.innerWidth||document.documentElement.clientWidth;
+  var vh=window.innerHeight||document.documentElement.clientHeight;
+  var scale=Math.min(vh*0.84/BASE_H,vw*1.22/BASE_H);
+  if(!isFinite(scale)||scale<=0)scale=1;
+  var value='scale('+scale+')';
+  scaleBox.style.webkitTransform=value;scaleBox.style.msTransform=value;scaleBox.style.transform=value;
 }
-let flip=null;
+function setCounter(index){
+  currentPage=Math.max(0,Math.min(TOTAL-1,index));
+  cnt.textContent=(currentPage+1)+' / '+TOTAL;
+}
+function showFallbackPage(index){
+  setCounter(index);
+  for(var i=0;i<pagesEls.length;i++)pagesEls[i].style.display=i===currentPage?'block':'none';
+}
+function startFallback(){
+  flip=null;holder.className='fallback';holder.innerHTML='';
+  pagesEls.forEach(function(p){p.style.cssText='';holder.appendChild(p);});
+  hint.textContent='使 用 下 方 按 钮 翻 页';
+  showFallbackPage(currentPage);
+}
+function patchScaledPointer(){
+  /* StPageFlip 以未缩放坐标计算页角；外层 CSS 缩放后需换算回书本坐标。 */
+  var ui=flip.getUI(), original=ui.getMousePos;
+  ui.getMousePos=function(x,y){
+    var el=this.getDistElement(), rect=el.getBoundingClientRect();
+    var w=el.offsetWidth, h=el.offsetHeight;
+    if(rect.width>0&&rect.height>0&&w>0&&h>0)return{
+      x:(x-rect.left)*w/rect.width,y:(y-rect.top)*h/rect.height
+    };
+    return original.call(this,x,y);
+  };
+}
 function init(){
-  const s=pageSize();
-  wrap.style.width=s.w+'px'; wrap.style.height=s.h+'px';
-  holder.innerHTML='';
+  fitBook();holder.innerHTML='';
   pagesEls.forEach(function(p){holder.appendChild(p);});
-  flip=new St.PageFlip(holder,{
-    width:s.w, height:s.h, size:'fixed', usePortrait:true, showCover:true,
-    maxShadowOpacity:0.6, showPageCorners:true, swipeDistance:25,
-    flippingTime: reduced?1:1050, drawShadow:true, useMouseEvents:true, mobileScrollSupport:true
-  });
-  flip.loadFromHTML(holder.querySelectorAll('.pf-page'));
-  flip.on('flip',function(e){cnt.textContent=(e.data+1)+' / '+flip.getPageCount();hint.classList.add('off');
-    var pg=pagesEls[e.data];if(pg){pg.classList.add('settle');setTimeout(function(){pg.classList.remove('settle');},260);}});
-  flip.on('changeState',function(e){cnt.textContent=(flip.getCurrentPageIndex()+1)+' / '+flip.getPageCount();});
-  cnt.textContent='1 / '+flip.getPageCount();
+  if(!window.St||!window.St.PageFlip){startFallback();return;}
+  try{
+    flip=new St.PageFlip(holder,{
+      width:BASE_W,height:BASE_H,size:'fixed',usePortrait:true,showCover:true,
+      maxShadowOpacity:0.6,showPageCorners:true,swipeDistance:25,
+      flippingTime:reduced?1:1050,drawShadow:true,useMouseEvents:true,mobileScrollSupport:true
+    });
+    flip.loadFromHTML(holder.querySelectorAll('.pf-page'));
+    patchScaledPointer();
+    flip.on('flip',function(e){setCounter(e.data);hint.classList.add('off');
+      var pg=pagesEls[e.data];if(pg){pg.classList.add('settle');setTimeout(function(){pg.classList.remove('settle');},260);}});
+    flip.on('changeState',function(){if(flip)setCounter(flip.getCurrentPageIndex());});
+    setCounter(0);
+  }catch(e){startFallback();}
 }
 init();
-let rz=null;
-window.addEventListener('resize',function(){clearTimeout(rz);rz=setTimeout(function(){
-  if(!flip)return;
-  var cur=flip.getCurrentPageIndex();
-  flip.destroy(); init();
-  if(cur>0){try{flip.turnToPage(cur);}catch(e){}}
-},250);});
+/* 仅缩放外层，不销毁引擎：destroy() 会移除 #flipbook，且旧 RAF 循环不会停止。 */
+window.addEventListener('resize',fitBook,false);
+window.addEventListener('orientationchange',fitBook,false);
+document.addEventListener('fullscreenchange',fitBook,false);
+document.addEventListener('webkitfullscreenchange',fitBook,false);
+function nextPage(){if(flip)flip.flipNext();else showFallbackPage(currentPage+1);}
+function prevPage(){if(flip)flip.flipPrev();else showFallbackPage(currentPage-1);}
 /* 深链 #3 直达第 3 页（连续翻页动画） */
-(function(){const m=location.hash.match(/^#(\d+)$/);if(m){var t=parseInt(m[1],10)-1;
-  if(t>0&&t<TOTAL){var step=function(){if(!flip)return;var c=flip.getCurrentPageIndex();
+(function(){var m=location.hash.match(/^#(\d+)$/);if(m){var t=parseInt(m[1],10)-1;
+  if(t>0&&t<TOTAL){if(!flip){showFallbackPage(t);return;}var step=function(){if(!flip)return;var c=flip.getCurrentPageIndex();
     if(c<t){flip.flipNext();setTimeout(step,reduced?60:1150);} };setTimeout(step,400);} }})();
-document.getElementById('next').onclick=function(){flip&&flip.flipNext();};
-document.getElementById('prev').onclick=function(){flip&&flip.flipPrev();};
-document.addEventListener('keydown',function(e){if(!flip)return;
-  if(e.key==='ArrowRight'||e.key===' ')flip.flipNext();if(e.key==='ArrowLeft')flip.flipPrev();});
+document.getElementById('next').onclick=nextPage;
+document.getElementById('prev').onclick=prevPage;
+document.addEventListener('keydown',function(e){
+  if(e.key===' '&&e.target&&e.target.tagName==='BUTTON')return;
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();nextPage();}
+  if(e.key==='ArrowLeft'){e.preventDefault();prevPage();}
+});
 </script>
 </body>
 </html>
@@ -158,8 +195,18 @@ document.addEventListener('keydown',function(e){if(!flip)return;
 
 
 def img_to_dataurl(path):
-    with open(path, "rb") as f:
-        return "data:image/png;base64," + base64.b64encode(f.read()).decode()
+    """优先用高质量 JPEG 减小单文件体积；无 Pillow 时保留原图字节。"""
+    try:
+        from PIL import Image
+    except ImportError:
+        mime = "image/jpeg" if str(path).lower().endswith((".jpg", ".jpeg")) else "image/png"
+        with open(path, "rb") as f:
+            return f"data:{mime};base64," + base64.b64encode(f.read()).decode()
+    with Image.open(path) as source:
+        image = source.convert("RGB")
+        buffer = io.BytesIO()
+        image.save(buffer, "JPEG", quality=90, optimize=True, subsampling=0)
+    return "data:image/jpeg;base64," + base64.b64encode(buffer.getvalue()).decode("ascii")
 
 
 def build_book(title, author, date, cover_img, pages, out_path):
