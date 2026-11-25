@@ -10,7 +10,9 @@ user-invocable: true
 
 ## 执行步骤
 
-直接执行，不要反问用户。用 PowerShell 跑这一段：
+直接执行，不要反问用户。
+
+首选：终端里跑 `sunflower`（`C:\Users\26566\bin\sunflower.cmd`，已在 PATH，cmd / PowerShell / Orca 终端都能用）。它等价于下面这段 PowerShell；命令不存在时才用下面这段兜底：
 
 ```powershell
 $exe = 'C:\Program Files\Oray\AweSun\AweSun.exe'
