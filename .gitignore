@@ -95,5 +95,7 @@ video-judges/
 *.bak-*
 .skills_store_lock.json
 @*
-wechat-ai-publisher
+!wechat-ai-publisher/.env.example
+wechat-ai-publisher/articles/published/
+wechat-ai-publisher/templates/fuzhou-ai-salon/opening-template-29.pptx
 wechat-article-publisher
